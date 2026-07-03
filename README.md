@@ -1,4 +1,4 @@
-# Steven Hill Family & Faith Home
+# Steve Hill Family Home
 
 This is a starter static website for GitHub Pages.
 
@@ -30,3 +30,4 @@ This is a starter static website for GitHub Pages.
 ## Privacy reminder
 
 Avoid posting private information such as full birth dates, addresses, phone numbers, or anything sensitive about children or grandchildren.
+This is my first GitHub Pages website.
