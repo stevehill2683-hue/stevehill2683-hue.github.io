@@ -186,6 +186,12 @@ h2 {
     border-radius: 16px;
     overflow: hidden;
 }
+.photo-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
 
 .photo-placeholder {
     aspect-ratio: 4 / 3;
@@ -201,6 +207,12 @@ h2 {
     padding: .75rem;
     color: var(--muted);
     font-size: .95rem;
+}
+.photo-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
 }
 
 blockquote {
