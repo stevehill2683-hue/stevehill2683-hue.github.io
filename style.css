@@ -273,3 +273,8 @@ nav,
 footer {
     font-family: Arial, Helvetica, sans-serif !important;
 }
+html,
+body,
+body * {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
