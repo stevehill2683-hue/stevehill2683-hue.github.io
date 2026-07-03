@@ -257,3 +257,6 @@ footer {
     body.nav-open .site-nav { display: flex; }
     .site-nav a { border: 1px solid var(--line); }
 }
+.hero {
+    padding-top: 1.5rem;
+}
