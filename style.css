@@ -187,8 +187,9 @@ h2 {
     overflow: hidden;
 }
 .photo-card img {
-    width: 100%;
-    height: auto;
+   width: 100%;
+    height: 260px;
+    object-fit: contain;
     display: block;
     border-radius: 12px;
 }
@@ -209,8 +210,9 @@ h2 {
     font-size: .95rem;
 }
 .photo-card img {
-    width: 100%;
-    height: auto;
+   width: 100%;
+    height: 260px;
+    object-fit: contain;
     display: block;
     border-radius: 12px;
 }
