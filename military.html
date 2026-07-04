@@ -1,111 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Military | Steve Hill Family & Home</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <header class="site-header">
-        <a class="site-title" href="index.html">Steve Hill</a>
-        <button class="menu-button" onclick="document.body.classList.toggle('nav-open')">Menu</button>
-        <nav class="site-nav">
-            <a href="index.html">Home</a>
-<a href="faith.html">Faith</a>
-<a href="military.html">Military</a>
-<a href="family.html">Family</a>
-<a href="anita.html">Anita</a>
-<a href="tony.html">Tony</a>
-<a href="scott.html">Scott</a>
-<a href="becky.html">Becky</a>
-<a href="craig.html">Craig</a>
-<a href="brian.html">Brian</a>
-<a href="mom-dad.html">Mom/Dad</a>
-<a href="projects.html">Projects</a>
-<a href="general.html">General</a>
-        </nav>
-    </header>
+<style>
+:root {
+    --bg: #f5f1e9;
+    --paper: #fffaf1;
+    --ink: #2c251e;
+    --muted: #6e6257;
+    --accent: #6e3f1f;
+    --accent-dark: #432611;
+    --line: #ddcfba;
+    --shadow: 0 18px 40px rgba(44, 37, 30, 0.16);
+}
 
-    <main>
-        
-    <section class="hero compact">
-        <p class="kicker">Service</p>
-        <h1>My Military Service</h1>
-        <p>A photo record of service, duty, memories, places, and people connected to my time in uniform.</p>
-    </section>
+* {
+    box-sizing: border-box;
+}
 
-    <section class="content-card">
-        <h2>Photo Gallery</h2>
-        <p>This page is intentionally light on text and heavy on pictures. Add short captions under each image.</p>
-        <section class="gallery">
-        <div class="photo-card">
-           <img src="military-1.jpg" alt="Military photo 1" />
-            <p>My Retirement Picture.</p>
-        </div>
+html {
+    scroll-behavior: smooth;
+}
 
-        <div class="photo-card">
-            <img src="military-2.jpg" alt="Military photo 2" />
-            <p>Retirement Rank.</p>
-        </div>
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+}
 
-       <div class="photo-card">
-   <img src="military-3.jpg" alt="Military photo 3" style="width:100%; max-height:260px; object-fit:contain;" />
-    <p>Bootcamp Picture.</p>
-</div>
+header {
+    background: var(--accent-dark);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
 
-      <div class="photo-card">
-   <img src="military-4.jpg" alt="Military photo 4" style="width:100%; max-height:260px; object-fit:contain;" />
-    <p>FOUR Aircraft Carriers Gulf War - of the four, Lower Left = my Ship USS Ranger.</p>
-</div>
+header h1 {
+    margin: 0;
+    font-size: 2.4rem;
+}
 
-        <div class="photo-card">
-    <img src="Military-5.jpg" alt="Military photo 5" style="width:100%; height:260px; object-fit:contain;" />
-    <p>My Ribbons.</p>
-</div>
+header p {
+    margin-top: 10px;
+    color: #f0e5d4;
+}
 
-<div class="photo-card">
-    <img src="Military-6.jpg" alt="Military photo 6" style="width:100%; height:260px; object-fit:contain;" />
-    <p>Carrier at Sea.</p>
-</div>
+nav {
+    background: var(--accent);
+    padding: 12px;
+    text-align: center;
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 7</div>
-            <p>Caption for Military photo 7.</p>
-        </div>
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 8</div>
-            <p>Caption for Military photo 8.</p>
-        </div>
+nav a:hover {
+    text-decoration: underline;
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 9</div>
-            <p>Caption for Military photo 9.</p>
-        </div>
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 10</div>
-            <p>Caption for Military photo 10.</p>
-        </div>
+section {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 11</div>
-            <p>Caption for Military photo 11.</p>
-        </div>
+h2 {
+    color: var(--accent-dark);
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 8px;
+}
 
-        <div class="photo-card">
-            <div class="photo-placeholder">Photo 12</div>
-            <p>Caption for Military photo 12.</p>
-        </div>
-</section>
-    </section>
+p {
+    font-size: 1rem;
+}
 
-    </main>
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+}
 
-    <footer>
-        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve Hill. Personal family website.</p>
-    </footer>
-</body>
-</html>
+.photo-card {
+    background: #fffdf7;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(44, 37, 30, 0.10);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #f8efe2;
+}
+
+.photo-card p {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 6px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    .photo-card img {
+        height: 220px;
+    }
+}
+</style>
