@@ -1,4 +1,3 @@
-<style>
 :root {
     --bg: #f5f1e9;
     --paper: #fffaf1;
@@ -26,47 +25,107 @@ body {
     line-height: 1.6;
 }
 
-header {
+/* HEADER */
+.site-header {
     background: var(--accent-dark);
     color: white;
-    padding: 40px 20px;
-    text-align: center;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.4rem;
-}
-
-header p {
-    margin-top: 10px;
-    color: #f0e5d4;
-}
-
-nav {
-    background: var(--accent);
-    padding: 12px;
-    text-align: center;
-}
-
-nav a {
+.site-title {
     color: white;
     text-decoration: none;
-    margin: 0 12px;
+    font-size: 1.6rem;
     font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
-nav a:hover {
+.site-title:hover {
     text-decoration: underline;
 }
 
+/* NAVIGATION */
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px 14px;
+}
+
+.site-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+    text-decoration: underline;
+}
+
+.menu-button {
+    display: none;
+    background: var(--paper);
+    color: var(--accent-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* MAIN PAGE */
 main {
     max-width: 1100px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-section {
+.hero {
+    background: linear-gradient(135deg, #fffaf1, #efe0c8);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 42px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.hero.compact {
+    padding: 34px 28px;
+}
+
+.kicker {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+.hero h1 {
+    margin: 0 0 12px;
+    color: var(--accent-dark);
+    font-size: 2.4rem;
+    line-height: 1.15;
+}
+
+.hero p {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+/* CONTENT CARD */
+.content-card {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -75,20 +134,19 @@ section {
     box-shadow: var(--shadow);
 }
 
-h2 {
+.content-card h2 {
     color: var(--accent-dark);
     border-bottom: 2px solid var(--line);
     padding-bottom: 8px;
+    margin-top: 0;
 }
 
-p {
-    font-size: 1rem;
-}
-
-.photo-grid {
+/* GALLERY */
+.gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 22px;
+    margin-top: 24px;
 }
 
 .photo-card {
@@ -116,55 +174,73 @@ p {
     font-size: 0.95rem;
 }
 
-/* LIGHTBOX */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.lightbox.active {
+.photo-placeholder {
+    height: 260px;
+    border-radius: 8px;
+    background: #eadcc6;
+    border: 2px dashed #c7ad8b;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-weight: bold;
 }
 
-.lightbox img {
-    max-width: 95vw;
-    max-height: 95vh;
-    object-fit: contain;
-    border-radius: 6px;
-}
-
+/* FOOTER */
 footer {
     text-align: center;
-    padding: 25px;
+    padding: 28px 20px;
     color: var(--muted);
 }
 
+footer .small {
+    font-size: 0.85rem;
+}
+
 /* MOBILE */
+@media (max-width: 800px) {
+    .site-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .site-nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 12px;
+    }
+
+    body.nav-open .site-nav {
+        display: flex;
+    }
+
+    .hero h1 {
+        font-size: 1.9rem;
+    }
+}
+
 @media (max-width: 600px) {
-    header h1 {
-        font-size: 1.8rem;
+    main {
+        margin: 24px auto;
+        padding: 0 14px;
     }
 
-    nav a {
-        display: inline-block;
-        margin: 6px;
+    .hero {
+        padding: 26px 20px;
     }
 
-    section {
+    .content-card {
         padding: 20px;
     }
 
-    .photo-card img {
+    .photo-card img,
+    .photo-placeholder {
         height: 220px;
     }
 }
-</style>
