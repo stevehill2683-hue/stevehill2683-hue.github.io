@@ -422,3 +422,19 @@ footer .small {
         font-size: 2rem;
     }
 }
+.fixed-bottom-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fffaf1;
+    color: #2c251e;
+    text-align: center;
+    padding: 12px 20px;
+    border-top: 1px solid #ddcfba;
+    z-index: 9999;
+}
+
+body {
+    padding-bottom: 70px;
+}
