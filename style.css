@@ -330,3 +330,48 @@ footer {
     font-style: italic;
     margin-bottom: 8px;
 }
+/* HOME PAGE BOX FIX */
+
+.page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+    margin-top: 24px;
+}
+
+.page-box {
+    display: block;
+    background: #fffaf1;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.page-box:hover,
+.page-box:focus {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.22);
+    border-color: var(--accent);
+}
+
+.page-box h3 {
+    margin-top: 0;
+    color: var(--accent-dark);
+    font-size: 1.35rem;
+    text-decoration: none;
+}
+
+.page-box p {
+    color: var(--muted);
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.site-header h1 a {
+    color: #fffaf1;
+    text-decoration: none;
+}
