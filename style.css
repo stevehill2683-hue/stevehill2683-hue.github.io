@@ -495,3 +495,9 @@ main .content-card h2 {
     font-size: 1.15rem !important;
     line-height: 1.25 !important;
 }
+/* TEST - make home title obviously huge */
+.hero h1 {
+    font-size: 4rem !important;
+    line-height: 1.1 !important;
+    border: 3px solid red !important;
+}
