@@ -284,3 +284,59 @@ footer {
         height: 220px;
     }
 }
+/* FINAL CLEANUP */
+
+/* Keep page from looking too wide */
+main {
+    max-width: 1250px;
+}
+
+/* Make content cards slightly narrower and cleaner */
+section,
+.hero,
+.card {
+    max-width: 1220px;
+}
+
+/* Make paragraph links normal, not huge/bold */
+section p a,
+main p a {
+    font-weight: normal;
+    text-decoration: underline;
+    color: var(--ink);
+}
+
+/* Keep page title links bold only when used as headings */
+section h3 a,
+main h3 a {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--accent-dark);
+}
+
+/* Improve spacing in the Main Pages section */
+section h3 {
+    margin-top: 30px;
+    margin-bottom: 6px;
+}
+
+section p {
+    font-weight: normal;
+}
+
+/* Make the top Steve Hill bar cleaner */
+header > a,
+header .brand,
+header .logo {
+    padding-left: 18px;
+    font-size: 1.05rem;
+}
+
+/* Make nav less tall */
+nav {
+    padding: 12px 10px;
+}
+
+nav a {
+    margin: 0 13px;
+}
