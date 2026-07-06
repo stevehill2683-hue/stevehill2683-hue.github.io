@@ -19,31 +19,10 @@ html {
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Georgia, "Times New Roman", serif;
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
-}
-
-/* GLOBAL FONT */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-nav,
-header,
-main,
-section,
-footer,
-button,
-input,
-textarea {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
@@ -71,6 +50,12 @@ header p {
     margin: 8px 0 0;
     font-size: 1.1rem;
     color: #fff3df;
+}
+
+header a {
+    color: #fffaf1;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 /* NAVIGATION */
@@ -118,8 +103,23 @@ section h2 {
     padding-bottom: 8px;
 }
 
+section h3 {
+    color: var(--accent-dark);
+    margin-bottom: 6px;
+}
+
 section p {
     color: var(--ink);
+}
+
+section a {
+    color: var(--accent-dark);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section a:hover {
+    text-decoration: underline;
 }
 
 /* MAIN PAGE BLOCKS */
