@@ -24,6 +24,17 @@ body {
     color: var(--ink);
     line-height: 1.6;
 }
+h1,
+h2,
+h3,
+p,
+a,
+nav,
+section,
+footer,
+.photo-card {
+    font-family: Arial, Helvetica, sans-serif;
+}
 /* HEADER */
 
 .site-header {
