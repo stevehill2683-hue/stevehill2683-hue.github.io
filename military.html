@@ -46,15 +46,15 @@
                     <p>FOUR Aircraft Carriers Gulf War - of the four, Lower Left = my Ship USS Ranger.</p>
                 </div>
 
-               <div class="photo-card">
-    <img src="Military-5.jpg" alt="Military photo 5" />
-    <p>My Ribbons.</p>
-</div>
+                <div class="photo-card">
+                    <img src="Military-5.jpg" alt="Military photo 5" />
+                    <p>My Ribbons.</p>
+                </div>
 
-<div class="photo-card">
-    <img src="Military-6.jpg" alt="Military photo 6" />
-    <p>Military photo 6.</p>
-</div>
+                <div class="photo-card">
+                    <img src="Military-6.jpg" alt="Military photo 6" />
+                    <p>Military photo 6.</p>
+                </div>
 
                 <div class="photo-card">
                     <img src="Military-7.jpg" alt="Military photo 7" />
@@ -139,6 +139,31 @@
     <footer>
         <p>&copy; 2026 Steven D. Hill</p>
     </footer>
+
+    <!-- Click-to-enlarge lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="Enlarged military photo" id="lightbox-img" />
+    </div>
+
+    <script>
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const galleryImages = document.querySelectorAll(".photo-card img");
+
+        galleryImages.forEach(function (img) {
+            img.style.cursor = "pointer";
+
+            img.addEventListener("click", function () {
+                lightboxImg.src = img.src;
+                lightbox.classList.add("active");
+            });
+        });
+
+        lightbox.addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
+        });
+    </script>
 
 </body>
 </html>
