@@ -362,3 +362,19 @@ header a:visited {
     color: #fffaf1;
     text-decoration: none;
 }
+/* FIX BLUE HEADER LINKS */
+.site-header a,
+.site-header a:visited,
+header a,
+header a:visited {
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+}
+/* FIX BLUE HEADER LINKS */
+.site-header a,
+.site-header a:visited,
+header a,
+header a:visited {
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+}
