@@ -354,3 +354,11 @@ footer p,
         font-size: 0.95rem;
     }
 }
+/* FIX BLUE INDEX LINK IN HEADER */
+.site-header a,
+.site-header a:visited,
+header a,
+header a:visited {
+    color: #fffaf1;
+    text-decoration: none;
+}
