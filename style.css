@@ -47,31 +47,96 @@ textarea,
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* PAGE LAYOUT */
+/* TOP HEADER / NAVIGATION */
 
-main,
-.page-wrap,
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 30px 20px;
+header {
+    background: var(--accent-dark);
+    color: #fffaf1;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: none;
 }
 
-/* HEADER / TOP CARD */
+/* Top Steve Hill link */
 
-header,
-.site-header {
-    max-width: 1100px;
+header > a,
+header .brand,
+header .logo {
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    display: inline-block;
+    padding: 14px 20px;
+}
+
+/* Hide Menu button on desktop */
+
+header button,
+button.menu,
+.menu-button,
+.menu-toggle,
+.nav-toggle,
+.hamburger,
+#menu,
+#menuButton,
+#menu-toggle {
+    display: none !important;
+}
+
+/* Main navigation bar */
+
+nav {
+    background: var(--paper);
+    border: none;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+    padding: 14px 10px;
+    margin: 0;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+nav a {
+    display: inline-block;
+    color: var(--accent-dark) !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    margin: 0 14px;
+}
+
+nav a:hover {
+    color: var(--accent);
+    text-decoration: underline !important;
+}
+
+/* PAGE LAYOUT */
+
+main {
+    max-width: 1270px;
+    margin: 0 auto;
+    padding: 36px 20px;
+}
+
+/* CONTENT CARDS */
+
+section,
+.hero,
+.card {
+    background: var(--paper);
     margin: 0 auto 36px auto;
     padding: 36px 32px;
-    background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 16px;
     box-shadow: var(--shadow);
 }
 
-header h1,
-.site-header h1 {
+/* HEADINGS */
+
+h1 {
     margin: 28px 0 20px 0;
     font-size: 2.4rem;
     line-height: 1.2;
@@ -79,35 +144,7 @@ header h1,
     border: none;
 }
 
-header p,
-.site-header p {
-    font-size: 1.15rem;
-    color: var(--ink);
-    margin: 0 0 18px 0;
-}
-
-/* SMALL TOP WORDS */
-
-header > p:first-child,
-.site-header > p:first-child {
-    margin-top: 0;
-    font-size: 1rem;
-    color: var(--ink);
-}
-
-/* SECTIONS */
-
-section {
-    max-width: 1100px;
-    margin: 0 auto 36px auto;
-    padding: 36px 32px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-}
-
-section h2 {
+h2 {
     margin: 0 0 24px 0;
     padding-bottom: 14px;
     font-size: 2rem;
@@ -116,49 +153,29 @@ section h2 {
     border-bottom: 2px solid var(--line);
 }
 
-section h3 {
+h3 {
     margin: 26px 0 8px 0;
     font-size: 1.35rem;
     color: var(--accent-dark);
 }
 
-section p {
+p {
     margin: 0 0 18px 0;
     font-size: 1.05rem;
     color: var(--ink);
 }
 
-/* LINKS */
+/* LINKS INSIDE MAIN CONTENT */
 
-a {
+main a {
     color: var(--accent-dark);
     font-weight: bold;
     text-decoration: none;
 }
 
-a:hover {
+main a:hover {
     color: var(--accent);
     text-decoration: underline;
-}
-
-/* NAVIGATION */
-
-nav {
-    max-width: 1100px;
-    margin: 0 auto 30px auto;
-    padding: 14px 20px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(44, 37, 30, 0.10);
-}
-
-nav a {
-    display: inline-block;
-    margin: 6px 12px;
-    color: var(--accent-dark);
-    font-weight: bold;
 }
 
 /* PHOTO GALLERY */
@@ -218,8 +235,6 @@ nav a {
 /* FOOTER */
 
 footer {
-    max-width: 1100px;
-    margin: 0 auto;
     text-align: center;
     padding: 24px 20px;
     color: var(--muted);
@@ -228,27 +243,17 @@ footer {
 
 /* MOBILE */
 
-@media (max-width: 600px) {
-    main,
-    .page-wrap,
-    .container {
-        padding: 20px 14px;
-    }
-
-    header,
-    .site-header,
-    section {
-        padding: 24px 20px;
-        border-radius: 12px;
-    }
-
-    header h1,
-    .site-header h1 {
-        font-size: 2rem;
-    }
-
-    section h2 {
-        font-size: 1.65rem;
+@media (max-width: 700px) {
+    header button,
+    button.menu,
+    .menu-button,
+    .menu-toggle,
+    .nav-toggle,
+    .hamburger,
+    #menu,
+    #menuButton,
+    #menu-toggle {
+        display: inline-block !important;
     }
 
     nav a {
@@ -256,85 +261,26 @@ footer {
         margin: 8px 0;
     }
 
+    main {
+        padding: 24px 14px;
+    }
+
+    section,
+    .hero,
+    .card {
+        padding: 24px 20px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.65rem;
+    }
+
     .photo-card img {
         height: 220px;
     }
-}
-/* FIX TOP MENU BAR */
-
-.top-bar,
-.topbar,
-.site-top,
-.site-bar,
-.mobile-header,
-.nav-header,
-.menu-header {
-    background: var(--accent-dark);
-    min-height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-}
-
-/* Make top Steve Hill link look correct */
-.top-bar a,
-.topbar a,
-.site-top a,
-.site-bar a,
-.mobile-header a,
-.nav-header a,
-.menu-header a {
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-    font-weight: bold;
-}
-
-/* Hide the Menu button on normal desktop view */
-button,
-.menu-button,
-.menu-toggle,
-.nav-toggle,
-.hamburger,
-#menu,
-#menuButton,
-#menu-toggle {
-    display: none;
-}
-
-/* Keep the regular navigation clean */
-nav {
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    text-align: center;
-    padding: 14px 10px;
-    margin: 0;
-    max-width: none;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-nav a {
-    color: var(--accent-dark) !important;
-    text-decoration: none !important;
-    font-weight: bold;
-    margin: 0 14px;
-}
-
-nav a:hover {
-    text-decoration: underline !important;
-}
-
-/* Reduce space between nav and first card */
-main {
-    padding-top: 36px;
-}
-
-/* Make the main cards a little cleaner */
-header,
-.site-header,
-section {
-    max-width: 1270px;
 }
