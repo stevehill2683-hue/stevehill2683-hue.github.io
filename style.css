@@ -480,3 +480,18 @@ footer .small {
     margin: 4px 0;
     text-align: center;
 }
+/* FORCE smaller title sizes */
+header .site-title {
+    font-size: 1.15rem !important;
+}
+
+main .hero h1,
+main .hero.compact h1 {
+    font-size: 1.35rem !important;
+    line-height: 1.2 !important;
+}
+
+main .content-card h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.25 !important;
+}
