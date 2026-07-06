@@ -435,6 +435,10 @@ footer .small {
     z-index: 9999;
 }
 
-body {
-    padding-bottom: 70px;
+ box-sizing: border-box;
+}
+
+.fixed-bottom-text p {
+    margin: 4px 0;
+    text-align: center;
 }
