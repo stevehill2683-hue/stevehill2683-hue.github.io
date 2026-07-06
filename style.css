@@ -260,3 +260,81 @@ footer {
         height: 220px;
     }
 }
+/* FIX TOP MENU BAR */
+
+.top-bar,
+.topbar,
+.site-top,
+.site-bar,
+.mobile-header,
+.nav-header,
+.menu-header {
+    background: var(--accent-dark);
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Make top Steve Hill link look correct */
+.top-bar a,
+.topbar a,
+.site-top a,
+.site-bar a,
+.mobile-header a,
+.nav-header a,
+.menu-header a {
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
+/* Hide the Menu button on normal desktop view */
+button,
+.menu-button,
+.menu-toggle,
+.nav-toggle,
+.hamburger,
+#menu,
+#menuButton,
+#menu-toggle {
+    display: none;
+}
+
+/* Keep the regular navigation clean */
+nav {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+    padding: 14px 10px;
+    margin: 0;
+    max-width: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+nav a {
+    color: var(--accent-dark) !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    margin: 0 14px;
+}
+
+nav a:hover {
+    text-decoration: underline !important;
+}
+
+/* Reduce space between nav and first card */
+main {
+    padding-top: 36px;
+}
+
+/* Make the main cards a little cleaner */
+header,
+.site-header,
+section {
+    max-width: 1270px;
+}
