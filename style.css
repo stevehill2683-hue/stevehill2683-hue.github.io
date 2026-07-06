@@ -459,3 +459,13 @@ footer .small {
     margin: 4px 0;
     text-align: center;
 }
+/* Smaller top website title */
+.site-title {
+    font-size: 1rem;
+}
+
+/* Smaller big page title */
+.hero h1 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+}
