@@ -400,11 +400,24 @@ footer .small {
     background: linear-gradient(135deg, #fffaf1, #efe0c8);
 }
 
+/* Smaller main page titles */
 .hero h1 {
-    font-size: 2.6rem;
-    line-height: 1.15;
+    font-size: 1.35rem;
+    line-height: 1.2;
 }
 
+/* Smaller section titles */
+.content-card h2 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+}
+
+/* Smaller kicker text above title */
+.kicker {
+    font-size: 0.85rem;
+}
+
+/* Mobile layout */
 @media (max-width: 600px) {
     .hero-actions,
     .quick-links {
@@ -419,9 +432,15 @@ footer .small {
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.25rem;
+    }
+
+    .content-card h2 {
+        font-size: 1.1rem;
     }
 }
+
+/* Fixed bottom footer text */
 .fixed-bottom-text {
     position: fixed;
     bottom: 0;
@@ -433,9 +452,7 @@ footer .small {
     padding: 12px 20px;
     border-top: 1px solid #ddcfba;
     z-index: 9999;
-}
-
- box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .fixed-bottom-text p {
