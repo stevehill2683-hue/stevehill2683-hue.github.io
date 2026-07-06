@@ -23,18 +23,15 @@ body {
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
+    padding-bottom: 95px;
 }
 
 /* HEADER */
-.site-header,
-header {
+.site-header {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     color: #fffaf1;
     padding: 24px 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-}
-
-.site-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,7 +44,7 @@ header {
 .site-title {
     color: #fffaf1;
     text-decoration: none;
-    font-size: 1.7rem;
+    font-size: 1.15rem;
     font-weight: bold;
 }
 
@@ -56,24 +53,21 @@ header {
 }
 
 /* NAVIGATION */
-.site-nav,
-nav {
+.site-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 10px 14px;
 }
 
-.site-nav a,
-nav a {
+.site-nav a {
     color: #fffaf1;
     text-decoration: none;
     font-weight: bold;
     font-size: 0.95rem;
 }
 
-.site-nav a:hover,
-nav a:hover {
+.site-nav a:hover {
     text-decoration: underline;
 }
 
@@ -97,7 +91,7 @@ main {
 
 /* HERO */
 .hero {
-    background: var(--paper);
+    background: linear-gradient(135deg, #fffaf1, #efe0c8);
     border: 1px solid var(--line);
     border-radius: 18px;
     padding: 36px 28px;
@@ -121,7 +115,8 @@ main {
 .hero h1 {
     margin: 0;
     color: var(--accent-dark);
-    font-size: 2.4rem;
+    font-size: 2rem;
+    line-height: 1.2;
 }
 
 .hero p {
@@ -132,7 +127,7 @@ main {
 
 /* CONTENT SECTIONS */
 .content-card,
-section {
+main > section:not(.hero):not(.gallery) {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -142,42 +137,96 @@ section {
 }
 
 .content-card h2,
-section h2 {
+main > section:not(.hero):not(.gallery) h2 {
     color: var(--accent-dark);
     margin-top: 0;
+    font-size: 1.15rem;
+    line-height: 1.25;
 }
 
-/* HOME PAGE CARDS */
+/* BUTTON LINKS */
+.hero-actions,
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.hero-actions a,
+.quick-links a,
+.button-link {
+    display: inline-block;
+    background: var(--accent);
+    color: #fffaf1;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: bold;
+    box-shadow: 0 6px 14px rgba(44, 37, 30, 0.18);
+}
+
+.hero-actions a:hover,
+.quick-links a:hover,
+.button-link:hover {
+    background: var(--accent-dark);
+    text-decoration: none;
+}
+
+/* CARD GRIDS */
+.feature-grid,
+.link-grid,
 .card-grid,
-.cards,
-.home-grid {
+.home-grid,
+.cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 22px;
     margin-top: 24px;
 }
 
+/* CARDS */
+.feature-card,
+.link-card,
 .card,
 .home-card {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 20px;
+    padding: 22px;
     box-shadow: 0 10px 24px rgba(44, 37, 30, 0.12);
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
 }
 
+.feature-card:hover,
+.link-card:hover,
+.card:hover,
+.home-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.18);
+}
+
+.feature-card h2,
+.feature-card h3,
+.link-card h2,
+.link-card h3,
 .card h2,
 .card h3,
 .home-card h2,
 .home-card h3 {
-    color: var(--accent-dark);
     margin-top: 0;
+    color: var(--accent-dark);
+    font-size: 1.15rem;
+    line-height: 1.25;
 }
 
-.card a,
-.home-card a {
-    color: var(--accent-dark);
-    font-weight: bold;
+.feature-card p,
+.link-card p,
+.card p,
+.home-card p {
+    color: var(--muted);
 }
 
 /* GALLERY */
@@ -230,7 +279,7 @@ section h2 {
 .lightbox {
     display: none;
     position: fixed;
-    z-index: 9999;
+    z-index: 20000;
     left: 0;
     top: 0;
     width: 100%;
@@ -253,7 +302,7 @@ section h2 {
     background: white;
 }
 
-/* FOOTER */
+/* NORMAL FOOTER */
 footer {
     text-align: center;
     padding: 28px 20px;
@@ -264,7 +313,27 @@ footer .small {
     font-size: 0.85rem;
 }
 
-/* MOBILE */
+/* FIXED BOTTOM FOOTER TEXT */
+.fixed-bottom-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fffaf1;
+    color: #2c251e;
+    text-align: center;
+    padding: 12px 20px;
+    border-top: 1px solid #ddcfba;
+    z-index: 10000;
+    box-sizing: border-box;
+}
+
+.fixed-bottom-text p {
+    margin: 4px 0;
+    text-align: center;
+}
+
+/* TABLETS AND SMALL SCREENS */
 @media (max-width: 800px) {
     .site-header {
         align-items: flex-start;
@@ -288,11 +357,16 @@ footer .small {
     }
 
     .hero h1 {
-        font-size: 1.9rem;
+        font-size: 1.75rem;
     }
 }
 
+/* PHONES */
 @media (max-width: 600px) {
+    body {
+        padding-bottom: 120px;
+    }
+
     main {
         margin: 24px auto;
         padding: 0 14px;
@@ -302,140 +376,20 @@ footer .small {
         padding: 26px 20px;
     }
 
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
     .content-card,
-    section {
+    main > section:not(.hero):not(.gallery) {
         padding: 20px;
     }
 
-    .photo-card img,
-    .photo-placeholder {
-        height: 220px;
+    .content-card h2,
+    main > section:not(.hero):not(.gallery) h2 {
+        font-size: 1.1rem;
     }
-}
-/* HOME PAGE FIXES */
-.hero-actions,
-.quick-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 22px;
-}
 
-.hero-actions a,
-.quick-links a,
-.button-link {
-    display: inline-block;
-    background: var(--accent);
-    color: #fffaf1;
-    text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 999px;
-    font-weight: bold;
-    box-shadow: 0 6px 14px rgba(44, 37, 30, 0.18);
-}
-
-.hero-actions a:hover,
-.quick-links a:hover,
-.button-link:hover {
-    background: var(--accent-dark);
-    text-decoration: none;
-}
-
-/* HOME CARD GRID */
-.feature-grid,
-.link-grid,
-.card-grid,
-.home-grid,
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px;
-    margin-top: 24px;
-}
-
-/* HOME CARDS */
-.feature-card,
-.link-card,
-.card,
-.home-card {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 10px 24px rgba(44, 37, 30, 0.12);
-    text-decoration: none;
-    color: var(--ink);
-    display: block;
-}
-
-.feature-card:hover,
-.link-card:hover,
-.card:hover,
-.home-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.18);
-}
-
-.feature-card h2,
-.feature-card h3,
-.link-card h2,
-.link-card h3,
-.card h2,
-.card h3,
-.home-card h2,
-.home-card h3 {
-    margin-top: 0;
-    color: var(--accent-dark);
-}
-
-.feature-card p,
-.link-card p,
-.card p,
-.home-card p {
-    color: var(--muted);
-}
-
-/* MAKE HOME PAGE HERO LOOK BETTER */
-.hero {
-    background: linear-gradient(135deg, #fffaf1, #efe0c8);
-}
-
-/* Smaller main page titles */
-.hero h1 {
-    font-size: 1.35rem;
-    line-height: 1.2;
-}
-
-/* Smaller section titles */
-.content-card h2 {
-    font-size: 1.15rem;
-    line-height: 1.25;
-}
-
-/* Smaller kicker text above title */
-.kicker {
-    font-size: 0.85rem;
-}
-
-/* Adjust top website title */
-.site-title {
-    font-size: 1.15rem;
-}
-
-/* Adjust big page title such as Steve Hill Family & Home */
-.hero h1 {
-    font-size: 1.35rem;
-    line-height: 1.2;
-}
-
-/* Smaller section titles */
-.content-card h2 {
-    font-size: 1.15rem;
-    line-height: 1.25;
-}
-
-/* Mobile layout */
-@media (max-width: 600px) {
     .hero-actions,
     .quick-links {
         flex-direction: column;
@@ -452,52 +406,8 @@ footer .small {
         font-size: 1.05rem;
     }
 
-    .hero h1 {
-        font-size: 1.25rem;
+    .photo-card img,
+    .photo-placeholder {
+        height: 220px;
     }
-
-    .content-card h2 {
-        font-size: 1.1rem;
-    }
-}
-
-/* Fixed bottom footer text */
-.fixed-bottom-text {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fffaf1;
-    color: #2c251e;
-    text-align: center;
-    padding: 12px 20px;
-    border-top: 1px solid #ddcfba;
-    z-index: 9999;
-    box-sizing: border-box;
-}
-
-.fixed-bottom-text p {
-    margin: 4px 0;
-    text-align: center;
-}
-/* FORCE smaller title sizes */
-header .site-title {
-    font-size: 1.15rem !important;
-}
-
-main .hero h1,
-.hero h1 {
-    font-size: 2rem !important;
-    line-height: 1.2 !important;
-}
-
-main .content-card h2 {
-    font-size: 1.15rem !important;
-    line-height: 1.25 !important;
-}
-/* TEST - make home title obviously huge */
-.hero h1 {
-    font-size: 4rem !important;
-    line-height: 1.1 !important;
-    border: 3px solid red !important;
 }
