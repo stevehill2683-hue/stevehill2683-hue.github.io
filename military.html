@@ -6,6 +6,60 @@
     <title>Military - Steve Hill</title>
 
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Emergency military page photo-grid fix -->
+    <style>
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            width: 100%;
+        }
+
+        .photo-card {
+            background: #fffdf8;
+            border: 1px solid #ddcfba;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(44, 37, 30, 0.12);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: contain;
+            background: #efe5d6;
+            display: block;
+            cursor: pointer;
+        }
+
+        .photo-card p {
+            margin: 0;
+            padding: 14px;
+            font-size: 0.95rem;
+            color: #6e6257;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,21 +104,21 @@
 
                 <div class="photo-card">
                     <img src="Military-3.jpg" alt="Military photo 3" />
-                    <p>Military photo 3.</p>
+                    <p>Bootcamp Picture.</p>
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-4.jpg" alt="Military photo 4" />
+                    <img src="military-4.jpg" alt="Military photo 4" />
                     <p>Four aircraft carriers during the Gulf War. Lower left is my ship, USS Ranger.</p>
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-5.jpg" alt="Military photo 5" />
+                    <img src="images/Military-5.jpg" alt="Military photo 5" />
                     <p>My Ribbons.</p>
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-6.jpg" alt="Military photo 6" />
+                    <img src="images/Military-6.jpg" alt="Military photo 6" />
                     <p>Military photo 6.</p>
                 </div>
 
