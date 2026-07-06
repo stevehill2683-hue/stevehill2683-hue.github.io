@@ -1,12 +1,12 @@
 :root {
     --bg: #f5f1e9;
     --paper: #fffaf1;
-    --ink: #1f1b17;
-    --muted: #5f554c;
+    --ink: #2c251e;
+    --muted: #6e6257;
     --accent: #6e3f1f;
     --accent-dark: #432611;
     --line: #ddcfba;
-    --shadow: 0 18px 40px rgba(44, 37, 30, 0.16);
+    --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
 }
 
 * {
@@ -25,7 +25,7 @@ body {
     line-height: 1.6;
 }
 
-/* FORCE ARIAL EVERYWHERE */
+/* GLOBAL FONT */
 
 h1,
 h2,
@@ -42,140 +42,121 @@ section,
 footer,
 button,
 input,
-textarea,
-.photo-card {
+textarea {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* TOP HEADER / NAVIGATION */
+/* HEADER */
 
+.site-header,
 header {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     color: #fffaf1;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.site-header h1,
+header h1 {
     margin: 0;
-    padding: 0;
+    font-size: 2.5rem;
+    font-weight: normal;
+    color: #fffaf1;
     border: none;
-    border-radius: 0;
-    box-shadow: none;
-    max-width: none;
 }
 
-/* Top Steve Hill link */
-
-header > a,
-header .brand,
-header .logo {
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-    font-weight: bold;
-    display: inline-block;
-    padding: 14px 20px;
+.site-header p,
+header p {
+    margin: 8px 0 0;
+    font-size: 1.1rem;
+    color: #fff3df;
 }
 
-/* Hide Menu button on desktop */
-
-header button,
-button.menu,
-.menu-button,
-.menu-toggle,
-.nav-toggle,
-.hamburger,
-#menu,
-#menuButton,
-#menu-toggle {
-    display: none !important;
-}
-
-/* Main navigation bar */
+/* NAVIGATION */
 
 nav {
     background: var(--paper);
-    border: none;
     border-bottom: 1px solid var(--line);
     text-align: center;
-    padding: 14px 10px;
-    margin: 0;
-    max-width: none;
-    border-radius: 0;
-    box-shadow: none;
+    padding: 12px 10px;
 }
 
 nav a {
-    display: inline-block;
-    color: var(--accent-dark) !important;
-    text-decoration: none !important;
+    color: var(--accent-dark);
+    text-decoration: none;
+    margin: 0 12px;
     font-weight: bold;
-    margin: 0 14px;
 }
 
 nav a:hover {
-    color: var(--accent);
-    text-decoration: underline !important;
+    text-decoration: underline;
 }
 
-/* PAGE LAYOUT */
+/* MAIN PAGE */
 
 main {
-    max-width: 1270px;
-    margin: 0 auto;
-    padding: 36px 20px;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
-/* CONTENT CARDS */
-
-section,
-.hero,
-.card {
+section {
     background: var(--paper);
-    margin: 0 auto 36px auto;
-    padding: 36px 32px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
+    margin-bottom: 30px;
+    padding: 26px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
+    border: 1px solid var(--line);
 }
 
-/* HEADINGS */
-
-h1 {
-    margin: 28px 0 20px 0;
-    font-size: 2.4rem;
-    line-height: 1.2;
-    color: var(--ink);
-    border: none;
-}
-
-h2 {
-    margin: 0 0 24px 0;
-    padding-bottom: 14px;
-    font-size: 2rem;
-    line-height: 1.2;
+section h2 {
+    margin-top: 0;
     color: var(--accent-dark);
+    font-size: 1.8rem;
     border-bottom: 2px solid var(--line);
+    padding-bottom: 8px;
 }
 
-h3 {
-    margin: 26px 0 8px 0;
-    font-size: 1.35rem;
-    color: var(--accent-dark);
-}
-
-p {
-    margin: 0 0 18px 0;
-    font-size: 1.05rem;
+section p {
     color: var(--ink);
 }
 
-/* LINKS INSIDE MAIN CONTENT */
+/* MAIN PAGE BLOCKS */
 
-main a {
-    color: var(--accent-dark);
-    font-weight: bold;
-    text-decoration: none;
+.page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 22px;
 }
 
-main a:hover {
-    color: var(--accent);
-    text-decoration: underline;
+.page-card {
+    display: block;
+    background: #fffdf8;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 8px 20px rgba(44, 37, 30, 0.12);
+}
+
+.page-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(44, 37, 30, 0.16);
+}
+
+.page-card h3 {
+    margin: 0 0 8px;
+    color: var(--accent-dark);
+    font-size: 1.3rem;
+}
+
+.page-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
 }
 
 /* PHOTO GALLERY */
@@ -243,100 +224,22 @@ footer {
 
 /* MOBILE */
 
-@media (max-width: 700px) {
-    header button,
-    button.menu,
-    .menu-button,
-    .menu-toggle,
-    .nav-toggle,
-    .hamburger,
-    #menu,
-    #menuButton,
-    #menu-toggle {
-        display: inline-block !important;
-    }
-
-    nav a {
-        display: block;
-        margin: 8px 0;
-    }
-
-    main {
-        padding: 24px 14px;
-    }
-
-    section,
-    .hero,
-    .card {
-        padding: 24px 20px;
-        border-radius: 12px;
-    }
-
-    h1 {
+@media (max-width: 600px) {
+    .site-header h1,
+    header h1 {
         font-size: 2rem;
     }
 
-    h2 {
-        font-size: 1.65rem;
+    nav a {
+        display: inline-block;
+        margin: 6px 8px;
+    }
+
+    section {
+        padding: 20px;
     }
 
     .photo-card img {
         height: 220px;
     }
-}
-/* FINAL CLEANUP */
-
-/* Keep page from looking too wide */
-main {
-    max-width: 1250px;
-}
-
-/* Make content cards slightly narrower and cleaner */
-section,
-.hero,
-.card {
-    max-width: 1220px;
-}
-
-/* Make paragraph links normal, not huge/bold */
-section p a,
-main p a {
-    font-weight: normal;
-    text-decoration: underline;
-    color: var(--ink);
-}
-
-/* Keep page title links bold only when used as headings */
-section h3 a,
-main h3 a {
-    font-weight: bold;
-    text-decoration: none;
-    color: var(--accent-dark);
-}
-
-/* Improve spacing in the Main Pages section */
-section h3 {
-    margin-top: 30px;
-    margin-bottom: 6px;
-}
-
-section p {
-    font-weight: normal;
-}
-
-/* Make the top Steve Hill bar cleaner */
-header > a,
-header .brand,
-header .logo {
-    padding-left: 18px;
-    font-size: 1.05rem;
-}
-
-/* Make nav less tall */
-nav {
-    padding: 12px 10px;
-}
-
-nav a {
-    margin: 0 13px;
 }
