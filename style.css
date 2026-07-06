@@ -417,6 +417,23 @@ footer .small {
     font-size: 0.85rem;
 }
 
+/* Adjust top website title */
+.site-title {
+    font-size: 1.15rem;
+}
+
+/* Adjust big page title such as Steve Hill Family & Home */
+.hero h1 {
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+/* Smaller section titles */
+.content-card h2 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+}
+
 /* Mobile layout */
 @media (max-width: 600px) {
     .hero-actions,
@@ -429,6 +446,10 @@ footer .small {
     .button-link {
         width: 100%;
         text-align: center;
+    }
+
+    .site-title {
+        font-size: 1.05rem;
     }
 
     .hero h1 {
@@ -458,14 +479,4 @@ footer .small {
 .fixed-bottom-text p {
     margin: 4px 0;
     text-align: center;
-}
-/* Smaller top website title */
-.site-title {
-    font-size: 1rem;
-}
-
-/* Smaller big page title */
-.hero h1 {
-    font-size: 1.15rem;
-    line-height: 1.2;
 }
