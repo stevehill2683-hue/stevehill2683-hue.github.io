@@ -486,8 +486,8 @@ header .site-title {
 }
 
 main .hero h1,
-main .hero.compact h1 {
-    font-size: 1.35rem !important;
+.hero h1 {
+    font-size: 2rem !important;
     line-height: 1.2 !important;
 }
 
