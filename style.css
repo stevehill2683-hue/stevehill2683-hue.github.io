@@ -243,3 +243,42 @@ footer {
         height: 220px;
     }
 }
+/* MILITARY PHOTO GALLERY FIX */
+.photo-gallery,
+.gallery,
+.photos-grid,
+.military-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 25px;
+}
+
+/* Each photo box */
+.photo-card {
+    background: #fffaf1;
+    border: 1px solid #ddcfba;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.12);
+}
+
+/* Make every image area the same size */
+.photo-card img {
+    width: 100% !important;
+    height: 260px !important;
+    object-fit: contain !important;
+    display: block;
+    background: #eee4d4;
+    padding: 10px;
+}
+
+/* Captions */
+.photo-card p {
+    margin: 0;
+    padding: 14px 16px;
+    background: #fffaf1;
+    color: #4a3a2d;
+    font-size: 1rem;
+    line-height: 1.4;
+}
