@@ -3,87 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Military - Steve Hill</title>
-
+    <title>Military Photos</title>
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Emergency military page photo-grid fix -->
-    <style>
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
-            width: 100%;
-        }
-
-        .photo-card {
-            background: #fffdf8;
-            border: 1px solid #ddcfba;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(44, 37, 30, 0.12);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 260px;
-            object-fit: contain;
-            background: #efe5d6;
-            display: block;
-            cursor: pointer;
-        }
-
-        .photo-card p {
-            margin: 0;
-            padding: 14px;
-            font-size: 0.95rem;
-            color: #6e6257;
-        }
-
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-        }
-    </style>
 </head>
 
 <body>
 
     <header class="site-header">
-        <h1>Military Service</h1>
-        <p>Photos, memories, ships, aircraft, ribbons, and service history.</p>
-    </header>
+        <h1>Military Photos</h1>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="faith.html">Faith</a>
-        <a href="military.html">Military</a>
-        <a href="family.html">Family</a>
-        <a href="anita.html">Anita</a>
-        <a href="tony.html">Tony</a>
-        <a href="scott.html">Scott</a>
-        <a href="becky.html">Becky</a>
-        <a href="craig.html">Craig</a>
-        <a href="brian.html">Brian</a>
-        <a href="mom-dad.html">Mom/Dad</a>
-        <a href="projects.html">Projects</a>
-        <a href="general.html">General</a>
-    </nav>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="faith.html">Faith</a>
+            <a href="military.html">Military</a>
+        </nav>
+    </header>
 
     <main>
 
@@ -93,23 +27,23 @@
             <div class="photo-grid">
 
                 <div class="photo-card">
-    <img src="images/Military-1.jpg" alt="Military photo 1" />
-    <p>My Retirement Picture.</p>
-</div>
+                    <img src="military-1.jpg" alt="Military photo 1" />
+                    <p>My Retirement Picture.</p>
+                </div>
 
-<div class="photo-card">
-    <img src="images/Military-2.jpg" alt="Military photo 2" />
-    <p>Retirement Rank.</p>
-</div>
+                <div class="photo-card">
+                    <img src="military-2.jpg" alt="Military photo 2" />
+                    <p>Retirement Rank.</p>
+                </div>
 
-<div class="photo-card">
-    <img src="images/Military-3.jpg" alt="Military photo 3" />
-    <p>Bootcamp Picture.</p>
-</div>
+                <div class="photo-card">
+                    <img src="military-3.jpg" alt="Military photo 3" />
+                    <p>Bootcamp Picture.</p>
+                </div>
 
                 <div class="photo-card">
                     <img src="military-4.jpg" alt="Military photo 4" />
-                    <p>Four aircraft carriers during the Gulf War. Lower left is my ship, USS Ranger.</p>
+                    <p>FOUR Aircraft Carriers Gulf War - of the four, Lower Left = my Ship USS Ranger.</p>
                 </div>
 
                 <div class="photo-card">
@@ -149,7 +83,7 @@
 
                 <div class="photo-card">
                     <img src="Military-12.JPG" alt="Military photo 12" />
-                    <p>VAQ-130 EA-6B Prowler aircraft.</p>
+                    <p>VAQ-130 EA-6B VANS, Secret.</p>
                 </div>
 
                 <div class="photo-card">
@@ -168,17 +102,17 @@
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-16.jpg" alt="Military photo 16" />
+                    <img src="Military-16.JPG" alt="Military photo 16" />
                     <p>Military photo 16.</p>
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-17.jpg" alt="Military photo 17" />
+                    <img src="Military-17.JPG" alt="Military photo 17" />
                     <p>Military photo 17.</p>
                 </div>
 
                 <div class="photo-card">
-                    <img src="Military-18.jpg" alt="Military photo 18" />
+                    <img src="Military-18.JPG" alt="Military photo 18" />
                     <p>Military photo 18.</p>
                 </div>
 
@@ -202,31 +136,9 @@
 
     </main>
 
-    <div class="lightbox" id="lightbox">
-        <img src="" alt="Expanded military photo" id="lightbox-img" />
-    </div>
-
     <footer>
-        <p>&copy; 2026 Steve Hill. All rights reserved.</p>
+        <p>&copy; 2026 Steven D. Hill</p>
     </footer>
-
-    <script>
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
-        const galleryImages = document.querySelectorAll(".photo-card img");
-
-        galleryImages.forEach(function (img) {
-            img.addEventListener("click", function () {
-                lightboxImg.src = img.src;
-                lightbox.classList.add("active");
-            });
-        });
-
-        lightbox.addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-    </script>
 
 </body>
 </html>
