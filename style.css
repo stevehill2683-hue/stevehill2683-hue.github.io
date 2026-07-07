@@ -389,7 +389,7 @@ footer::after {
 }
 /* REFRESH TEST BADGE */
 body::after {
-    content: "REFRESH TEST - Version 3.1";
+    content: "V3.1";
     position: fixed;
     right: 12px;
     bottom: 95px;
