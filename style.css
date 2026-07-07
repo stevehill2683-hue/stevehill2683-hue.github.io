@@ -59,21 +59,19 @@ header {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
 }
 
-/* HEADER SIDE LOGOS
-   NOTE: This uses your current wide image named family-logo.png.
-   It crops the left and right sides of that wide image. */
+/* HEADER SIDE LOGOS */
 .site-header::before,
 header::before {
     content: "";
     position: absolute;
-    left: 30px;
-    top: 36px;
-    width: 250px;
-    height: 105px;
-    background-image: url("family-logo.png");
+    left: 35px;
+    top: 34px;
+    width: 185px;
+    height: 125px;
+    background-image: url("family-logo2.png");
     background-repeat: no-repeat;
-    background-size: 980px auto;
-    background-position: left top;
+    background-size: contain;
+    background-position: center;
     z-index: 1;
 }
 
@@ -81,14 +79,14 @@ header::before {
 header::after {
     content: "";
     position: absolute;
-    right: 30px;
-    top: 36px;
-    width: 250px;
-    height: 105px;
-    background-image: url("family-logo.png");
+    right: 35px;
+    top: 34px;
+    width: 185px;
+    height: 125px;
+    background-image: url("family-logo2.png");
     background-repeat: no-repeat;
-    background-size: 980px auto;
-    background-position: right top;
+    background-size: contain;
+    background-position: center;
     z-index: 1;
 }
 
@@ -414,7 +412,7 @@ footer p + p::before,
 
 /* VERSION BADGE */
 body::after {
-    content: "V3.6";
+    content: "V3.9";
     position: fixed;
     right: 12px;
     bottom: 95px;
@@ -434,17 +432,15 @@ body::after {
     .site-header::before,
     header::before {
         left: 18px;
-        width: 210px;
-        height: 95px;
-        background-size: 860px auto;
+        width: 150px;
+        height: 105px;
     }
 
     .site-header::after,
     header::after {
         right: 18px;
-        width: 210px;
-        height: 95px;
-        background-size: 860px auto;
+        width: 150px;
+        height: 105px;
     }
 }
 
