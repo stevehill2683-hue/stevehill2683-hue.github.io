@@ -66,8 +66,8 @@ header::before {
     position: absolute;
     left: 35px;
     top: 34px;
-    width: 185px;
-    height: 125px;
+    width: 165px;
+    height: 110px;
     background-image: url("family-logo3.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -81,8 +81,8 @@ header::after {
     position: absolute;
     right: 35px;
     top: 34px;
-    width: 185px;
-    height: 125px;
+    width: 165px;
+    height: 110px;
     background-image: url("family-logo3.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -412,7 +412,7 @@ footer p + p::before,
 
 /* VERSION BADGE */
 body::after {
-    content: "V3.9";
+    content: "V4.0";
     position: fixed;
     right: 12px;
     bottom: 95px;
@@ -427,20 +427,26 @@ body::after {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
+/* HIDE DEFAULT HEADER MENU BUTTON */
+.site-header button,
+header button {
+    display: none;
+}
+
 /* MEDIUM SCREENS */
 @media (max-width: 1200px) {
     .site-header::before,
     header::before {
         left: 18px;
-        width: 150px;
-        height: 105px;
+        width: 135px;
+        height: 95px;
     }
 
     .site-header::after,
     header::after {
         right: 18px;
-        width: 150px;
-        height: 105px;
+        width: 135px;
+        height: 95px;
     }
 }
 
@@ -513,9 +519,4 @@ body::after {
         right: 8px;
         font-size: 0.75rem;
     }
-}
-/* HIDE DEFAULT HEADER MENU BUTTON */
-.site-header button,
-header button {
-    display: none;
 }
