@@ -389,7 +389,7 @@ footer::after {
 }
 /* REFRESH TEST BADGE */
 body::after {
-    content: "V3.3";
+    content: "V3.4";
     position: fixed;
     right: 12px;
     bottom: 95px;
@@ -411,4 +411,15 @@ section.hero.compact h1 {
     line-height: 1.2 !important;
     margin-top: 0;
     margin-bottom: 18px;
+}
+/* FOOTER ONE-LINE TEXT */
+footer p,
+.site-footer p {
+    display: inline;
+    margin: 0;
+}
+
+footer p + p::before,
+.site-footer p + p::before {
+    content: " — ";
 }
