@@ -441,3 +441,51 @@ body::after {
         font-size: 0.75rem;
     }
 }
+/* HEADER SIDE LOGOS */
+.site-header,
+header {
+    position: relative;
+    overflow: hidden;
+}
+
+.site-header::before,
+header::before {
+    content: "";
+    position: absolute;
+    left: 35px;
+    top: 28px;
+    width: 150px;
+    height: 150px;
+    background-image: url("family-logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 1;
+}
+
+.site-header::after,
+header::after {
+    content: "";
+    position: absolute;
+    right: 35px;
+    top: 28px;
+    width: 150px;
+    height: 150px;
+    background-image: url("family-logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 1;
+}
+
+.site-header h1,
+.site-header h2,
+.site-header p,
+.site-header nav,
+header h1,
+header h2,
+header p,
+header nav {
+    position: relative;
+    z-index: 2;
+}
