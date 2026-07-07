@@ -423,3 +423,13 @@ footer p + p::before,
 .site-footer p + p::before {
     content: " — ";
 }
+/* SMALLER FOOTER TEXT */
+footer,
+.site-footer {
+    font-size: 0.75rem;
+}
+
+footer p,
+.site-footer p {
+    font-size: 0.75rem;
+}
