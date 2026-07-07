@@ -514,3 +514,8 @@ body::after {
         font-size: 0.75rem;
     }
 }
+/* HIDE DEFAULT HEADER MENU BUTTON */
+.site-header button,
+header button {
+    display: none;
+}
