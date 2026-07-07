@@ -50,11 +50,58 @@ select {
 /* HEADER */
 .site-header,
 header {
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     color: #fffaf1;
-    padding: 28px 20px;
+    padding: 34px 20px 32px;
     text-align: center;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+/* LEFT HEADER LOGO - CROPS LEFT SIDE OF WIDE BANNER */
+.site-header::before,
+header::before {
+    content: "";
+    position: absolute;
+    left: 35px;
+    top: 42px;
+    width: 285px;
+    height: 155px;
+    background-image: url("family-logo.png");
+    background-repeat: no-repeat;
+    background-size: 1050px auto;
+    background-position: left center;
+    z-index: 1;
+}
+
+/* RIGHT HEADER LOGO - CROPS RIGHT SIDE OF WIDE BANNER */
+.site-header::after,
+header::after {
+    content: "";
+    position: absolute;
+    right: 35px;
+    top: 42px;
+    width: 285px;
+    height: 155px;
+    background-image: url("family-logo.png");
+    background-repeat: no-repeat;
+    background-size: 1050px auto;
+    background-position: right center;
+    z-index: 1;
+}
+
+/* KEEP HEADER TEXT ABOVE LOGOS */
+.site-header h1,
+.site-header h2,
+.site-header p,
+.site-header nav,
+header h1,
+header h2,
+header p,
+header nav {
+    position: relative;
+    z-index: 2;
 }
 
 .site-header h1,
@@ -366,7 +413,7 @@ footer p + p::before,
 
 /* VERSION BADGE */
 body::after {
-    content: "V3.4";
+    content: "V3.5";
     position: fixed;
     right: 12px;
     bottom: 95px;
@@ -382,6 +429,15 @@ body::after {
 }
 
 /* SMALL SCREENS */
+@media (max-width: 900px) {
+    .site-header::before,
+    header::before,
+    .site-header::after,
+    header::after {
+        display: none;
+    }
+}
+
 @media (max-width: 700px) {
     body {
         padding-bottom: 120px;
@@ -440,52 +496,4 @@ body::after {
         right: 8px;
         font-size: 0.75rem;
     }
-}
-/* HEADER SIDE LOGOS */
-.site-header,
-header {
-    position: relative;
-    overflow: hidden;
-}
-
-.site-header::before,
-header::before {
-    content: "";
-    position: absolute;
-    left: 35px;
-    top: 28px;
-    width: 150px;
-    height: 150px;
-    background-image: url("family-logo.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    z-index: 1;
-}
-
-.site-header::after,
-header::after {
-    content: "";
-    position: absolute;
-    right: 35px;
-    top: 28px;
-    width: 150px;
-    height: 150px;
-    background-image: url("family-logo.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    z-index: 1;
-}
-
-.site-header h1,
-.site-header h2,
-.site-header p,
-.site-header nav,
-header h1,
-header h2,
-header p,
-header nav {
-    position: relative;
-    z-index: 2;
 }
