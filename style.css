@@ -44,7 +44,7 @@ button,
 input,
 textarea,
 select {
-    font-family: Arial, Helvetica, sans-serif !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
@@ -58,16 +58,38 @@ header {
 }
 
 .site-header h1,
-header h1 {
+header h1,
+.site-title {
+    display: block;
     margin: 0 0 10px;
+    color: #fffaf1;
     font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: bold;
     letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.site-header h2,
+header h2 {
+    margin: 0 0 10px;
+    color: #fffaf1;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: bold;
 }
 
 .site-header p,
 header p {
     margin: 0 0 16px;
     color: #fffaf1;
+}
+
+/* HEADER LINKS */
+.site-header a,
+.site-header a:visited,
+header a,
+header a:visited {
+    color: #fffaf1;
+    text-decoration: none;
 }
 
 /* NAVIGATION */
@@ -108,7 +130,8 @@ main,
 
 section,
 .intro-card,
-.main-card {
+.main-card,
+.hero {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -117,9 +140,18 @@ section,
     box-shadow: var(--shadow);
 }
 
+section h1,
+.intro-card h1,
+.main-card h1,
+.hero h1 {
+    margin-top: 0;
+    color: var(--accent-dark);
+}
+
 section h2,
 .intro-card h2,
-.main-card h2 {
+.main-card h2,
+.hero h2 {
     margin-top: 0;
     color: var(--accent-dark);
     font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -127,7 +159,24 @@ section h2,
     padding-bottom: 10px;
 }
 
-/* HOME PAGE BOXES */
+/* PERSON PAGE TITLE SIZE */
+.hero.compact h1,
+main .hero.compact h1,
+section.hero.compact h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+.kicker {
+    color: var(--accent);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 0;
+}
+
+/* PAGE BOXES */
 .page-grid,
 .card-grid,
 .home-grid,
@@ -229,11 +278,10 @@ section h2,
     border-color: var(--accent);
 }
 
-/* PHOTO IMAGE SIZING */
 .photo-card img {
-    width: 100% !important;
-    height: 260px !important;
-    object-fit: contain !important;
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
     display: block;
     background: #eee4d4;
     padding: 10px;
@@ -247,7 +295,6 @@ section h2,
     filter: brightness(1.05);
 }
 
-/* PHOTO CAPTIONS */
 .photo-card p {
     margin: 0;
     padding: 14px 16px;
@@ -282,7 +329,7 @@ section h2,
     padding: 0;
 }
 
-/* FIXED FOOTER / BOTTOM VERSE */
+/* FIXED FOOTER */
 footer,
 .site-footer,
 .fixed-bottom-text {
@@ -298,13 +345,40 @@ footer,
     border-top: 1px solid var(--line);
     z-index: 999;
     margin-top: 0;
+    font-size: 0.75rem;
 }
 
+/* FOOTER ONE-LINE TEXT WITH EM DASH */
 footer p,
 .site-footer p,
 .fixed-bottom-text p {
-    margin: 4px 0;
+    display: inline;
+    margin: 0;
     text-align: center;
+    font-size: 0.75rem;
+}
+
+footer p + p::before,
+.site-footer p + p::before,
+.fixed-bottom-text p + p::before {
+    content: " — ";
+}
+
+/* VERSION BADGE */
+body::after {
+    content: "V3.4";
+    position: fixed;
+    right: 12px;
+    bottom: 95px;
+    background: #fffaf1;
+    color: #432611;
+    border: 2px solid #6e3f1f;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* SMALL SCREENS */
@@ -321,7 +395,8 @@ footer p,
 
     section,
     .intro-card,
-    .main-card {
+    .main-card,
+    .hero {
         padding: 20px;
     }
 
@@ -339,7 +414,7 @@ footer p,
     }
 
     .photo-card img {
-        height: 240px !important;
+        height: 240px;
     }
 
     nav a,
@@ -351,85 +426,18 @@ footer p,
     .site-footer,
     .fixed-bottom-text {
         padding: 10px 14px;
-        font-size: 0.95rem;
+        font-size: 0.72rem;
     }
-}
-/* FIX BLUE INDEX LINK IN HEADER */
-.site-header a,
-.site-header a:visited,
-header a,
-header a:visited {
-    color: #fffaf1;
-    text-decoration: none;
-}
-/* FIX BLUE HEADER LINKS */
-.site-header a,
-.site-header a:visited,
-header a,
-header a:visited {
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-}
-/* FIX BLUE HEADER LINKS */
-.site-header a,
-.site-header a:visited,
-header a,
-header a:visited {
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-}
-/* SITE VERSION / REFRESH CHECK */
-.site-footer::after,
-footer::after {
-    content: "Site check: Version 3 - refreshed July 7, 2026";
-    display: block;
-    font-size: 0.8rem;
-    opacity: 0.85;
-    margin-top: 4px;
-}
-/* REFRESH TEST BADGE */
-body::after {
-    content: "V3.4";
-    position: fixed;
-    right: 12px;
-    bottom: 95px;
-    background: #fffaf1;
-    color: #432611;
-    border: 2px solid #6e3f1f;
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-/* PERSON PAGE TITLE SIZE FIX */
-.hero.compact h1,
-main .hero.compact h1,
-section.hero.compact h1 {
-    font-size: 2.2rem !important;
-    line-height: 1.2 !important;
-    margin-top: 0;
-    margin-bottom: 18px;
-}
-/* FOOTER ONE-LINE TEXT */
-footer p,
-.site-footer p {
-    display: inline;
-    margin: 0;
-}
 
-footer p + p::before,
-.site-footer p + p::before {
-    content: " — ";
-}
-/* SMALLER FOOTER TEXT */
-footer,
-.site-footer {
-    font-size: 0.75rem;
-}
+    footer p,
+    .site-footer p,
+    .fixed-bottom-text p {
+        font-size: 0.72rem;
+    }
 
-footer p,
-.site-footer p {
-    font-size: 0.75rem;
+    body::after {
+        bottom: 125px;
+        right: 8px;
+        font-size: 0.75rem;
+    }
 }
