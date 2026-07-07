@@ -378,3 +378,12 @@ header a:visited {
     color: #fffaf1 !important;
     text-decoration: none !important;
 }
+/* SITE VERSION / REFRESH CHECK */
+.site-footer::after,
+footer::after {
+    content: "Site check: Version 3 - refreshed July 7, 2026";
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
