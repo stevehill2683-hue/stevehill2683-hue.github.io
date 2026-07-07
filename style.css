@@ -387,3 +387,19 @@ footer::after {
     opacity: 0.85;
     margin-top: 4px;
 }
+/* REFRESH TEST BADGE */
+body::after {
+    content: "REFRESH TEST - Version 3.1";
+    position: fixed;
+    right: 12px;
+    bottom: 95px;
+    background: #fffaf1;
+    color: #432611;
+    border: 2px solid #6e3f1f;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
