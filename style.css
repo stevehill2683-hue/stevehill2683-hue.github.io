@@ -59,39 +59,40 @@ header {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
 }
 
-/* LEFT HEADER LOGO - CROPS LEFT SIDE OF WIDE BANNER */
+/* HEADER SIDE LOGOS
+   NOTE: This uses your current wide image named family-logo.png.
+   It crops the left and right sides of that wide image. */
 .site-header::before,
 header::before {
     content: "";
     position: absolute;
-    left: 35px;
-    top: 42px;
-    width: 285px;
-    height: 155px;
+    left: 30px;
+    top: 36px;
+    width: 250px;
+    height: 105px;
     background-image: url("family-logo.png");
     background-repeat: no-repeat;
-    background-size: 1050px auto;
-    background-position: left center;
+    background-size: 980px auto;
+    background-position: left top;
     z-index: 1;
 }
 
-/* RIGHT HEADER LOGO - CROPS RIGHT SIDE OF WIDE BANNER */
 .site-header::after,
 header::after {
     content: "";
     position: absolute;
-    right: 35px;
-    top: 42px;
-    width: 285px;
-    height: 155px;
+    right: 30px;
+    top: 36px;
+    width: 250px;
+    height: 105px;
     background-image: url("family-logo.png");
     background-repeat: no-repeat;
-    background-size: 1050px auto;
-    background-position: right center;
+    background-size: 980px auto;
+    background-position: right top;
     z-index: 1;
 }
 
-/* KEEP HEADER TEXT ABOVE LOGOS */
+/* KEEP HEADER TEXT AND MENU ABOVE LOGOS */
 .site-header h1,
 .site-header h2,
 .site-header p,
@@ -413,7 +414,7 @@ footer p + p::before,
 
 /* VERSION BADGE */
 body::after {
-    content: "V3.5";
+    content: "V3.6";
     position: fixed;
     right: 12px;
     bottom: 95px;
@@ -428,7 +429,26 @@ body::after {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* SMALL SCREENS */
+/* MEDIUM SCREENS */
+@media (max-width: 1200px) {
+    .site-header::before,
+    header::before {
+        left: 18px;
+        width: 210px;
+        height: 95px;
+        background-size: 860px auto;
+    }
+
+    .site-header::after,
+    header::after {
+        right: 18px;
+        width: 210px;
+        height: 95px;
+        background-size: 860px auto;
+    }
+}
+
+/* HIDE SIDE LOGOS ON SMALL SCREENS */
 @media (max-width: 900px) {
     .site-header::before,
     header::before,
@@ -438,6 +458,7 @@ body::after {
     }
 }
 
+/* SMALL SCREENS */
 @media (max-width: 700px) {
     body {
         padding-bottom: 120px;
