@@ -1,43 +1,98 @@
-/* HEADER SIDE LOGOS */
+:root {
+    --bg: #f5f1e9;
+    --paper: #fffaf1;
+    --ink: #2c251e;
+    --muted: #6e6257;
+    --accent: #6e3f1f;
+    --accent-dark: #432611;
+    --line: #ddcfba;
+    --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding-bottom: 95px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* GLOBAL FONT */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+nav,
+section,
+footer,
+button,
+input,
+textarea,
+select {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
 .site-header,
 header {
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    color: #fffaf1;
+    padding: 34px 20px 32px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
 }
 
-/* Left logo */
+/* HEADER SIDE LOGOS
+   NOTE: This uses your current wide image named family-logo.png.
+   It crops the left and right sides of that wide image. */
 .site-header::before,
 header::before {
     content: "";
     position: absolute;
-    left: 28px;
-    top: 34px;
-    width: 260px;
-    height: 115px;
+    left: 30px;
+    top: 36px;
+    width: 250px;
+    height: 105px;
     background-image: url("family-logo.png");
     background-repeat: no-repeat;
-    background-size: 1050px auto;
-    background-position: left center;
+    background-size: 980px auto;
+    background-position: left top;
     z-index: 1;
 }
 
-/* Right logo */
 .site-header::after,
 header::after {
     content: "";
     position: absolute;
-    right: 28px;
-    top: 34px;
-    width: 260px;
-    height: 115px;
+    right: 30px;
+    top: 36px;
+    width: 250px;
+    height: 105px;
     background-image: url("family-logo.png");
     background-repeat: no-repeat;
-    background-size: 1050px auto;
-    background-position: right center;
+    background-size: 980px auto;
+    background-position: right top;
     z-index: 1;
 }
 
-/* Keep header words and menu above logos */
+/* KEEP HEADER TEXT AND MENU ABOVE LOGOS */
 .site-header h1,
 .site-header h2,
 .site-header p,
@@ -48,4 +103,418 @@ header p,
 header nav {
     position: relative;
     z-index: 2;
+}
+
+.site-header h1,
+header h1,
+.site-title {
+    display: block;
+    margin: 0 0 10px;
+    color: #fffaf1;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.site-header h2,
+header h2 {
+    margin: 0 0 10px;
+    color: #fffaf1;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: bold;
+}
+
+.site-header p,
+header p {
+    margin: 0 0 16px;
+    color: #fffaf1;
+}
+
+/* HEADER LINKS */
+.site-header a,
+.site-header a:visited,
+header a,
+header a:visited {
+    color: #fffaf1;
+    text-decoration: none;
+}
+
+/* NAVIGATION */
+nav,
+.top-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+nav a,
+.top-nav a {
+    color: #fffaf1;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 18px;
+    border: 1px solid rgba(255, 250, 241, 0.65);
+    border-radius: 999px;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+nav a:hover,
+nav a:focus,
+.top-nav a:hover,
+.top-nav a:focus {
+    background: rgba(255, 250, 241, 0.18);
+    transform: translateY(-2px);
+}
+
+/* MAIN PAGE LAYOUT */
+main,
+.page-wrap {
+    max-width: 1180px;
+    margin: 34px auto;
+    padding: 0 20px;
+}
+
+section,
+.intro-card,
+.main-card,
+.hero {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+}
+
+section h1,
+.intro-card h1,
+.main-card h1,
+.hero h1 {
+    margin-top: 0;
+    color: var(--accent-dark);
+}
+
+section h2,
+.intro-card h2,
+.main-card h2,
+.hero h2 {
+    margin-top: 0;
+    color: var(--accent-dark);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 10px;
+}
+
+/* PERSON PAGE TITLE SIZE */
+.hero.compact h1,
+main .hero.compact h1,
+section.hero.compact h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+.kicker {
+    color: var(--accent);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 0;
+}
+
+/* PAGE BOXES */
+.page-grid,
+.card-grid,
+.home-grid,
+.link-grid,
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+    margin-top: 24px;
+}
+
+.page-box,
+.card,
+.home-card,
+.nav-card,
+.feature-card,
+.link-card {
+    display: block;
+    background: #fffaf1;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.page-box:hover,
+.page-box:focus,
+.card:hover,
+.home-card:hover,
+.nav-card:hover,
+.feature-card:hover,
+.link-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.22);
+    border-color: var(--accent);
+}
+
+.page-box h3,
+.card h3,
+.home-card h3,
+.nav-card h3,
+.feature-card h3,
+.link-card h3 {
+    margin-top: 0;
+    color: var(--accent-dark);
+    font-size: 1.35rem;
+}
+
+.page-box p,
+.card p,
+.home-card p,
+.nav-card p,
+.feature-card p,
+.link-card p {
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+.page-box a,
+.card a,
+.home-card a,
+.nav-card a,
+.feature-card a,
+.link-card a {
+    color: var(--accent-dark);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* MILITARY PHOTO GRID */
+.photo-grid,
+.photo-gallery,
+.gallery,
+.photos-grid,
+.military-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 25px;
+}
+
+/* PHOTO CARDS */
+.photo-card {
+    background: #fffaf1;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.photo-card:hover,
+.photo-card:focus-within {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.25);
+    border-color: var(--accent);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    display: block;
+    background: #eee4d4;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.photo-card:hover img,
+.photo-card:focus-within img {
+    transform: scale(1.04);
+    filter: brightness(1.05);
+}
+
+.photo-card p {
+    margin: 0;
+    padding: 14px 16px;
+    background: #fffaf1;
+    color: #4a3a2d;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* CLICK-TO-ENLARGE LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+}
+
+/* FIXED FOOTER */
+footer,
+.site-footer,
+.fixed-bottom-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 12px 20px;
+    color: #fffaf1;
+    background: var(--accent-dark);
+    border-top: 1px solid var(--line);
+    z-index: 999;
+    margin-top: 0;
+    font-size: 0.75rem;
+}
+
+/* FOOTER ONE-LINE TEXT WITH EM DASH */
+footer p,
+.site-footer p,
+.fixed-bottom-text p {
+    display: inline;
+    margin: 0;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+footer p + p::before,
+.site-footer p + p::before,
+.fixed-bottom-text p + p::before {
+    content: " — ";
+}
+
+/* VERSION BADGE */
+body::after {
+    content: "V3.6";
+    position: fixed;
+    right: 12px;
+    bottom: 95px;
+    background: #fffaf1;
+    color: #432611;
+    border: 2px solid #6e3f1f;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* MEDIUM SCREENS */
+@media (max-width: 1200px) {
+    .site-header::before,
+    header::before {
+        left: 18px;
+        width: 210px;
+        height: 95px;
+        background-size: 860px auto;
+    }
+
+    .site-header::after,
+    header::after {
+        right: 18px;
+        width: 210px;
+        height: 95px;
+        background-size: 860px auto;
+    }
+}
+
+/* HIDE SIDE LOGOS ON SMALL SCREENS */
+@media (max-width: 900px) {
+    .site-header::before,
+    header::before,
+    .site-header::after,
+    header::after {
+        display: none;
+    }
+}
+
+/* SMALL SCREENS */
+@media (max-width: 700px) {
+    body {
+        padding-bottom: 120px;
+    }
+
+    main,
+    .page-wrap {
+        margin: 22px auto;
+        padding: 0 14px;
+    }
+
+    section,
+    .intro-card,
+    .main-card,
+    .hero {
+        padding: 20px;
+    }
+
+    .photo-grid,
+    .photo-gallery,
+    .gallery,
+    .photos-grid,
+    .military-gallery,
+    .page-grid,
+    .card-grid,
+    .home-grid,
+    .link-grid,
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img {
+        height: 240px;
+    }
+
+    nav a,
+    .top-nav a {
+        padding: 9px 14px;
+    }
+
+    footer,
+    .site-footer,
+    .fixed-bottom-text {
+        padding: 10px 14px;
+        font-size: 0.72rem;
+    }
+
+    footer p,
+    .site-footer p,
+    .fixed-bottom-text p {
+        font-size: 0.72rem;
+    }
+
+    body::after {
+        bottom: 125px;
+        right: 8px;
+        font-size: 0.75rem;
+    }
 }
