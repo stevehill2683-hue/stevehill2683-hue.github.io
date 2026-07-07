@@ -403,3 +403,12 @@ body::after {
     z-index: 10000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
+/* PERSON PAGE TITLE SIZE FIX */
+.hero.compact h1,
+main .hero.compact h1,
+section.hero.compact h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
