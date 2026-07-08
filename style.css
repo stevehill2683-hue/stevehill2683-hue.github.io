@@ -895,3 +895,37 @@ body {
         transition: none;
     }
 }
+/* BACK TO TOP BUTTON - GLOBAL */
+.back-to-top {
+    position: fixed;
+    right: 12px;
+    bottom: 52px;
+    background: #fffaf1;
+    color: #432611;
+    border: 2px solid #6e3f1f;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.back-to-top:hover,
+.back-to-top:focus {
+    background: #6e3f1f;
+    color: #fffaf1;
+    transform: translateY(-2px);
+}
+
+/* SMALL SCREEN POSITION */
+@media (max-width: 700px) {
+    .back-to-top {
+        bottom: 82px;
+        right: 8px;
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+}
