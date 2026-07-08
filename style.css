@@ -929,3 +929,26 @@ body {
         padding: 6px 10px;
     }
 }
+/* MATCH VERSION BADGE AND TOP BUTTON SIZE */
+body::after,
+.back-to-top {
+    right: 12px;
+    width: 66px;
+    min-height: 38px;
+    padding: 7px 0;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Keep V box above Top box */
+body::after {
+    bottom: 96px;
+}
+
+/* Keep Top box below V box */
+.back-to-top {
+    bottom: 50px;
+}
