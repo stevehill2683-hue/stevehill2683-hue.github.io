@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="photo-card">
-                    <img src="Tony-3.JPG" alt="Tony photo 3" class="zoom-photo" tabindex="0">
+                    <img src="Tony-3.jpg" alt="Tony photo 3" class="zoom-photo" tabindex="0">
                     <p>Tony photo 3.</p>
                 </div>
 
@@ -63,23 +63,7 @@
                     <img src="Tony-4.jpg" alt="Tony photo 4" class="zoom-photo" tabindex="0">
                     <p>Tony photo 4.</p>
                 </div>
-                   <div class="photo-card">
-                    <img src="Tony-5.JPG" alt="Tony photo 5" class="zoom-photo" tabindex="0">
-                    <p>Tony photo 5.</p>
-                </div>
-                   <div class="photo-card">
-                    <img src="Tony-6.JPG" alt="Tony photo 6" class="zoom-photo" tabindex="0">
-                    <p>Tony photo 6.</p>
-                </div>
 
-               <div class="photo-card">
-                    <img src="Tony-7.jpg" alt="Tony photo 7" class="zoom-photo" tabindex="0">
-                    <p>Tony photo 7.</p>
-                </div>
-                   <div class="photo-card">
-                    <img src="Tony-8.jpg" alt="Tony photo 8" class="zoom-photo" tabindex="0">
-                    <p>Tony photo 8.</p>
-                </div>
             </div>
         </section>
 
@@ -90,8 +74,7 @@
         <p>Faith • Family • Military Service • Memories • Projects • General</p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox">
-        <span class="photo-lightbox-close">&times;</span>
+    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
         <img id="photoLightboxImg" src="" alt="Expanded photo">
     </div>
 
@@ -99,38 +82,37 @@
         const zoomPhotos = document.querySelectorAll(".zoom-photo");
         const lightbox = document.getElementById("photoLightbox");
         const lightboxImg = document.getElementById("photoLightboxImg");
-        const closeLightbox = document.querySelector(".photo-lightbox-close");
+
+        function openLightbox(photo) {
+            lightboxImg.src = photo.src;
+            lightbox.classList.add("active");
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
+        }
 
         zoomPhotos.forEach(photo => {
             photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
+                openLightbox(photo);
             });
 
             photo.addEventListener("keydown", event => {
-                if (event.key === "Enter") {
-                    lightboxImg.src = photo.src;
-                    lightbox.classList.add("active");
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openLightbox(photo);
                 }
             });
         });
 
-        closeLightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-
-        lightbox.addEventListener("click", event => {
-            if (event.target === lightbox) {
-                lightbox.classList.remove("active");
-                lightboxImg.src = "";
-            }
+        lightbox.addEventListener("click", () => {
+            closeLightbox();
         });
 
         document.addEventListener("keydown", event => {
             if (event.key === "Escape") {
-                lightbox.classList.remove("active");
-                lightboxImg.src = "";
+                closeLightbox();
             }
         });
     </script>
