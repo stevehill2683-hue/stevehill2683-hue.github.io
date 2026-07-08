@@ -5,6 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Steve & Anita Hill Family & Home</title>
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .home-info-section {
+            padding: 22px 28px;
+        }
+
+        .home-info-section h2 {
+            margin-bottom: 12px;
+        }
+
+        .home-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .home-info-card {
+            background: #432611;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            padding: 18px 20px;
+            color: #fffaf1;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+        }
+
+        .home-info-card h3 {
+            margin: 0 0 8px;
+            color: #fffaf1;
+            font-size: 1.25rem;
+        }
+
+        .home-info-card p {
+            margin: 0;
+            color: #fffaf1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 700px) {
+            .home-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -43,24 +88,29 @@
 
         <div style="width: 62%; max-width: 760px; height: 4px; background: #111; margin: 26px auto 30px; border-radius: 999px;"></div>
 
-        <section class="content-card">
-            <h2>About This Site</h2>
-            <p>
-                This site is organized around the main parts of our life and family:
-                faith, military service, family memories, personal projects, and general notes.
-            </p>
-            <p>
-                The top menu is the main way to move around the site. The Home page is kept simple
-                so it feels more like a front door instead of repeating the same buttons again.
-            </p>
-        </section>
+        <section class="home-info-section">
+            <h2>Site Notes</h2>
 
-        <section class="content-card">
-            <h2>Recent Work</h2>
-            <p>
-                Family photo pages are being built and updated, including Steve, Anita, Tony,
-                and Mom/Dad. The Military page also continues to preserve service photos and memories.
-            </p>
+            <div class="home-info-grid">
+
+                <div class="home-info-card">
+                    <h3>About This Site</h3>
+                    <p>
+                        This site is organized around the main parts of our life and family:
+                        faith, military service, family memories, personal projects, and general notes.
+                    </p>
+                </div>
+
+                <div class="home-info-card">
+                    <h3>Recent Work</h3>
+                    <p>
+                        Family photo pages are being built and updated, including Steve, Anita,
+                        Tony, and Mom/Dad. The Military page continues to preserve service photos
+                        and memories.
+                    </p>
+                </div>
+
+            </div>
         </section>
 
     </main>
