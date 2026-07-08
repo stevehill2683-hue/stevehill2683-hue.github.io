@@ -1,147 +1,224 @@
-<style>
-    /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
-    body.home-page {
-        padding-bottom: 70px;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steve & Anita Hill Family & Home</title>
+    <link rel="stylesheet" href="style.css" />
 
-    body.home-page .site-header,
-    body.home-page header {
-        padding: 18px 20px 18px;
-    }
+    <style>
+        /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
+        body.home-page {
+            padding-bottom: 70px;
+        }
 
-    body.home-page .site-title {
-        font-size: clamp(1.9rem, 3.2vw, 2.55rem);
-        margin-bottom: 6px;
-    }
+        body.home-page .site-header,
+        body.home-page header {
+            padding: 18px 20px 18px;
+        }
 
-    body.home-page .site-header p,
-    body.home-page header p {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-    }
+        body.home-page .site-title {
+            font-size: clamp(1.9rem, 3.2vw, 2.55rem);
+            margin-bottom: 6px;
+        }
 
-    body.home-page .top-nav a {
-        padding: 7px 13px;
-        font-size: 0.9rem;
-    }
+        body.home-page .site-header p,
+        body.home-page header p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
 
-    body.home-page .site-header::before,
-    body.home-page header::before,
-    body.home-page .site-header::after,
-    body.home-page header::after {
-        width: 120px;
-        height: 80px;
-        top: 18px;
-    }
+        body.home-page .top-nav a {
+            padding: 7px 13px;
+            font-size: 0.9rem;
+        }
 
-    body.home-page .page-wrap {
-        max-width: 1020px;
-        margin: 18px auto 0;
-        padding: 0 16px;
-    }
-
-    .home-welcome-panel {
-        text-align: center;
-        background: #303030;
-        color: #fffaf1;
-        padding: 18px 22px;
-        margin-bottom: 14px;
-    }
-
-    .home-welcome-panel h1 {
-        color: #fffaf1;
-        font-weight: bold;
-        font-style: italic;
-        font-size: 1.75rem;
-        margin-bottom: 12px;
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
-    }
-
-    .home-welcome-logo {
-        max-width: 260px;
-        width: 60%;
-        height: auto;
-        margin: 0 auto 14px;
-        display: block;
-    }
-
-    .home-welcome-panel p {
-        max-width: 760px;
-        margin: 0 auto;
-        color: #fffaf1;
-        font-weight: bold;
-        font-size: 0.95rem;
-        line-height: 1.45;
-    }
-
-    .home-divider {
-        width: 58%;
-        max-width: 640px;
-        height: 4px;
-        background: #111;
-        margin: 14px auto 18px;
-        border-radius: 999px;
-    }
-
-    .home-info-section {
-        padding: 18px 22px;
-        margin-bottom: 0;
-    }
-
-    .home-info-section h2 {
-        margin-bottom: 10px;
-        font-size: 1.55rem;
-    }
-
-    .home-info-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 14px;
-    }
-
-    .home-info-card {
-        background: #432611;
-        border: 1px solid #ddcfba;
-        border-radius: 14px;
-        padding: 15px 18px;
-        color: #fffaf1;
-        box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
-    }
-
-    .home-info-card h3 {
-        margin: 0 0 6px;
-        color: #fffaf1;
-        font-size: 1.15rem;
-    }
-
-    .home-info-card p {
-        margin: 0;
-        color: #fffaf1;
-        font-size: 0.9rem;
-        line-height: 1.4;
-    }
-
-    @media (max-width: 900px) {
         body.home-page .site-header::before,
         body.home-page header::before,
         body.home-page .site-header::after,
         body.home-page header::after {
-            display: none;
-        }
-    }
-
-    @media (max-width: 700px) {
-        body.home-page {
-            padding-bottom: 120px;
+            width: 120px;
+            height: 80px;
+            top: 18px;
         }
 
-        .home-info-grid {
-            grid-template-columns: 1fr;
+        body.home-page .page-wrap {
+            max-width: 1020px;
+            margin: 18px auto 0;
+            padding: 0 16px;
+        }
+
+        .home-welcome-panel {
+            text-align: center;
+            background: #303030;
+            color: #fffaf1;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+        }
+
+        .home-welcome-panel h1 {
+            color: #fffaf1;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.75rem;
+            margin-bottom: 12px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
         }
 
         .home-welcome-logo {
-            width: 75%;
+            max-width: 260px;
+            width: 60%;
+            height: auto;
+            margin: 0 auto 14px;
+            display: block;
         }
-    }
-</style>
+
+        .home-welcome-panel p {
+            max-width: 760px;
+            margin: 0 auto;
+            color: #fffaf1;
+            font-weight: bold;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .home-divider {
+            width: 58%;
+            max-width: 640px;
+            height: 4px;
+            background: #111;
+            margin: 14px auto 18px;
+            border-radius: 999px;
+        }
+
+        .home-info-section {
+            padding: 18px 22px;
+            margin-bottom: 0;
+        }
+
+        .home-info-section h2 {
+            margin-bottom: 10px;
+            font-size: 1.55rem;
+        }
+
+        .home-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .home-info-card {
+            background: #432611;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            padding: 15px 18px;
+            color: #fffaf1;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+        }
+
+        .home-info-card h3 {
+            margin: 0 0 6px;
+            color: #fffaf1;
+            font-size: 1.15rem;
+        }
+
+        .home-info-card p {
+            margin: 0;
+            color: #fffaf1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            body.home-page .site-header::before,
+            body.home-page header::before,
+            body.home-page .site-header::after,
+            body.home-page header::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body.home-page {
+                padding-bottom: 120px;
+            }
+
+            .home-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-welcome-logo {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body class="home-page">
+
+    <header class="site-header">
+        <span class="site-title">Steve & Anita Hill</span>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
+
+        <nav class="top-nav">
+            <a href="faith.html">Faith</a>
+            <a href="military.html">Military</a>
+            <a href="family.html">Family</a>
+            <a href="projects.html">Projects</a>
+            <a href="general.html">General</a>
+        </nav>
+    </header>
+
+    <main class="page-wrap">
+
+        <section class="hero compact home-welcome-panel">
+            <h1>Welcome</h1>
+
+            <img 
+                src="family-logo3.png" 
+                alt="Steve and Anita Hill family logo" 
+                class="home-welcome-logo"
+            >
+
+            <p>
+                This personal family website is a place to preserve faith, family history,
+                military service, photos, memories, projects, and the stories that matter most.
+            </p>
+        </section>
+
+        <div class="home-divider"></div>
+
+        <section class="home-info-section">
+            <h2>At a Glance</h2>
+
+            <div class="home-info-grid">
+
+                <div class="home-info-card">
+                    <h3>About This Site</h3>
+                    <p>
+                        Organized around faith, military service, family memories,
+                        personal projects, and general notes.
+                    </p>
+                </div>
+
+                <div class="home-info-card">
+                    <h3>Recent Work</h3>
+                    <p>
+                        Family photo pages are being built and updated, including Steve,
+                        Anita, Tony, Mom/Dad, and Military memories.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="fixed-bottom-text">
+        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
+        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+    </footer>
+
+</body>
+</html>
