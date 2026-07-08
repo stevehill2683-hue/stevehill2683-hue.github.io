@@ -565,3 +565,129 @@ header button {
     font-weight: bold;
     cursor: pointer;
 }
+/* GLOBAL FUN EFFECTS - V4.1 */
+
+/* Version badge update */
+body::after {
+    content: "V4.1";
+}
+
+/* Soft page fade-in */
+body {
+    animation: pageFadeIn 0.45s ease-out;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Smooth cards and sections */
+section,
+.intro-card,
+.main-card,
+.hero,
+.content-card,
+.photo-card,
+.page-box,
+.card,
+.home-card,
+.nav-card,
+.feature-card,
+.link-card {
+    animation: softRiseIn 0.45s ease-out both;
+}
+
+@keyframes softRiseIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Make photos feel a little smoother globally */
+.photo-card img,
+.zoom-photo {
+    transition:
+        transform 0.28s ease,
+        filter 0.28s ease,
+        box-shadow 0.28s ease,
+        opacity 0.28s ease;
+}
+
+.photo-card:hover img,
+.zoom-photo:hover,
+.zoom-photo:focus {
+    filter: brightness(1.06) contrast(1.03);
+}
+
+/* Smooth lightbox fade for Military and family pages */
+.lightbox,
+.photo-lightbox {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease;
+}
+
+.lightbox.active,
+.photo-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Lightbox image zoom/fade */
+.lightbox img,
+.photo-lightbox img {
+    transform: scale(0.96);
+    opacity: 0;
+    transition:
+        transform 0.28s ease,
+        opacity 0.28s ease;
+}
+
+.lightbox.active img,
+.photo-lightbox.active img {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Keep motion respectful for users/devices that prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+    body,
+    section,
+    .intro-card,
+    .main-card,
+    .hero,
+    .content-card,
+    .photo-card,
+    .page-box,
+    .card,
+    .home-card,
+    .nav-card,
+    .feature-card,
+    .link-card {
+        animation: none;
+    }
+
+    .photo-card img,
+    .zoom-photo,
+    .lightbox,
+    .photo-lightbox,
+    .lightbox img,
+    .photo-lightbox img {
+        transition: none;
+    }
+}
