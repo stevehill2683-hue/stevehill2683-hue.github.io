@@ -74,8 +74,7 @@
         <p>As for me and my house, we will serve the Lord.</p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox">
-        <span class="photo-lightbox-close">&times;</span>
+    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
         <img id="photoLightboxImg" src="" alt="Expanded photo">
     </div>
 
@@ -83,38 +82,37 @@
         const zoomPhotos = document.querySelectorAll(".zoom-photo");
         const lightbox = document.getElementById("photoLightbox");
         const lightboxImg = document.getElementById("photoLightboxImg");
-        const closeLightbox = document.querySelector(".photo-lightbox-close");
+
+        function openLightbox(photo) {
+            lightboxImg.src = photo.src;
+            lightbox.classList.add("active");
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
+        }
 
         zoomPhotos.forEach(photo => {
             photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
+                openLightbox(photo);
             });
 
             photo.addEventListener("keydown", event => {
-                if (event.key === "Enter") {
-                    lightboxImg.src = photo.src;
-                    lightbox.classList.add("active");
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openLightbox(photo);
                 }
             });
         });
 
-        closeLightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-
-        lightbox.addEventListener("click", event => {
-            if (event.target === lightbox) {
-                lightbox.classList.remove("active");
-                lightboxImg.src = "";
-            }
+        lightbox.addEventListener("click", () => {
+            closeLightbox();
         });
 
         document.addEventListener("keydown", event => {
             if (event.key === "Escape") {
-                lightbox.classList.remove("active");
-                lightboxImg.src = "";
+                closeLightbox();
             }
         });
     </script>
