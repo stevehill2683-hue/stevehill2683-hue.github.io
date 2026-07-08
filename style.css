@@ -691,3 +691,207 @@ section,
         transition: none;
     }
 }
+/* GLOBAL SITE POLISH - V4.2 */
+
+/* Version badge update */
+body::after {
+    content: "V4.2";
+}
+
+/* Smooth page fade-in */
+body {
+    animation: pageFadeIn 0.45s ease-out;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Softer page cards */
+section,
+.intro-card,
+.main-card,
+.hero,
+.content-card {
+    animation: softPageRise 0.45s ease-out both;
+}
+
+@keyframes softPageRise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Better navigation hover */
+nav a,
+.top-nav a,
+.site-nav a {
+    position: relative;
+    overflow: hidden;
+}
+
+nav a:hover,
+nav a:focus,
+.top-nav a:hover,
+.top-nav a:focus,
+.site-nav a:hover,
+.site-nav a:focus {
+    box-shadow: 0 0 16px rgba(255, 250, 241, 0.35);
+    letter-spacing: 0.3px;
+}
+
+/* Photo cards: cleaner album feel */
+.photo-card {
+    animation: photoFadeUp 0.5s ease-out both;
+}
+
+@keyframes photoFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slight stagger for photo cards */
+.photo-card:nth-child(1) { animation-delay: 0.03s; }
+.photo-card:nth-child(2) { animation-delay: 0.06s; }
+.photo-card:nth-child(3) { animation-delay: 0.09s; }
+.photo-card:nth-child(4) { animation-delay: 0.12s; }
+.photo-card:nth-child(5) { animation-delay: 0.15s; }
+.photo-card:nth-child(6) { animation-delay: 0.18s; }
+.photo-card:nth-child(7) { animation-delay: 0.21s; }
+.photo-card:nth-child(8) { animation-delay: 0.24s; }
+.photo-card:nth-child(9) { animation-delay: 0.27s; }
+.photo-card:nth-child(10) { animation-delay: 0.30s; }
+.photo-card:nth-child(11) { animation-delay: 0.33s; }
+.photo-card:nth-child(12) { animation-delay: 0.36s; }
+
+/* Smooth photo hover */
+.photo-card img,
+.zoom-photo {
+    transition:
+        transform 0.28s ease,
+        filter 0.28s ease,
+        box-shadow 0.28s ease,
+        opacity 0.28s ease;
+}
+
+.photo-card:hover img,
+.photo-card:focus-within img {
+    filter: brightness(1.07) contrast(1.04) saturate(1.04);
+}
+
+/* Caption polish */
+.photo-card p {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #4a3a2d;
+    border-top: 1px solid rgba(110, 63, 31, 0.18);
+}
+
+/* Better lightbox fade globally */
+.lightbox,
+.photo-lightbox {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease;
+}
+
+.lightbox.active,
+.photo-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Lightbox image smooth entrance */
+.lightbox img,
+.photo-lightbox img {
+    transform: scale(0.96);
+    opacity: 0;
+    transition:
+        transform 0.28s ease,
+        opacity 0.28s ease;
+}
+
+.lightbox.active img,
+.photo-lightbox.active img {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Slightly nicer page boxes */
+.page-box,
+.card,
+.home-card,
+.nav-card,
+.feature-card,
+.link-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.page-box:hover,
+.card:hover,
+.home-card:hover,
+.nav-card:hover,
+.feature-card:hover,
+.link-card:hover {
+    background: #fffdf7;
+}
+
+/* Gentle background depth */
+body {
+    background:
+        radial-gradient(circle at top left, rgba(255, 250, 241, 0.65), transparent 35%),
+        var(--bg);
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+    body,
+    section,
+    .intro-card,
+    .main-card,
+    .hero,
+    .content-card,
+    .photo-card {
+        animation: none;
+    }
+
+    .photo-card img,
+    .zoom-photo,
+    .lightbox,
+    .photo-lightbox,
+    .lightbox img,
+    .photo-lightbox img,
+    .page-box,
+    .card,
+    .home-card,
+    .nav-card,
+    .feature-card,
+    .link-card {
+        transition: none;
+    }
+}
