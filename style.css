@@ -952,3 +952,20 @@ body::after {
 .back-to-top {
     bottom: 50px;
 }
+@media (max-width: 700px) {
+    body::after,
+    .back-to-top {
+        right: 8px;
+        width: 62px;
+        min-height: 36px;
+        padding: 6px 0;
+    }
+
+    body::after {
+        bottom: 126px;
+    }
+
+    .back-to-top {
+        bottom: 82px;
+    }
+}
