@@ -1119,7 +1119,7 @@ section.hero.compact h1 {
 }
 /* SITE VERSION - CHANGE ONLY THIS LINE */
 :root {
-    --site-version: "V4.4";
+    --site-version: "V4.5";
 }
 
 body::after {
