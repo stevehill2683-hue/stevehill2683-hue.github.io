@@ -3,90 +3,158 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Family - Steve & Anita Hill</title>
+    <title>Family | Steve & Anita Hill Family & Home</title>
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .family-directory {
+            padding: 22px 28px;
+        }
+
+        .family-directory h1 {
+            margin-bottom: 8px;
+        }
+
+        .family-directory .family-intro {
+            margin: 0 0 18px;
+            color: #4a3a2d;
+            font-size: 1rem;
+        }
+
+        .family-member-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .family-member-card {
+            display: block;
+            background: #fffaf1;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 20px;
+            color: var(--ink);
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.12);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .family-member-card:hover,
+        .family-member-card:focus {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(44, 37, 30, 0.22);
+            border-color: var(--accent);
+            background: #fffdf7;
+        }
+
+        .family-member-card h2 {
+            margin: 0 0 8px;
+            padding: 0;
+            border: none;
+            color: var(--accent-dark);
+            font-size: 1.25rem;
+        }
+
+        .family-member-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 900px) {
+            .family-member-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .family-member-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="site-header">
-    <h1>Steve & Anita Hill</h1>
-    <p>Faith • Family • Military Service • Memories • Projects • General</p>
+    <header class="site-header">
+        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-    <nav class="top-nav">
-        <a href="index.html">Home</a>
-        <a href="faith.html">Faith</a>
-        <a href="military.html">Military</a>
-        <a href="projects.html">Projects</a>
-        <a href="general.html">General</a>
-    </nav>
-</header>
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a href="faith.html">Faith</a>
+            <a href="military.html">Military</a>
+            <a href="projects.html">Projects</a>
+            <a href="general.html">General</a>
+        </nav>
+    </header>
 
-<main class="page-wrap">
+    <main class="page-wrap">
 
-    <section class="intro-card">
-        <h2>Family Pages</h2>
+        <section class="family-directory">
+            <h1>Family</h1>
+            <p class="family-intro">
+                Choose a family member below to view photos, memories, stories, and family records.
+            </p>
 
-        <p>
-            This section is dedicated to family memories, photos, stories,
-            and the people God has blessed me with.
-        </p>
-    </section>
+            <div class="family-member-grid">
 
-    <section class="main-card">
-        <h2>Family Members</h2>
+                <a href="steve.html" class="family-member-card">
+                    <h2>Steve</h2>
+                    <p>Photos, memories, faith, service, projects, and family records.</p>
+                </a>
 
-        <div class="page-grid">
+                <a href="anita.html" class="family-member-card">
+                    <h2>Anita</h2>
+                    <p>Photos, memories, and life together.</p>
+                </a>
 
-            <a class="page-box" href="steve.html">
-                <h3>Steve</h3>
-                <p>Personal memories, life story, faith, service, projects, and family records.</p>
-            </a>
+                <a href="tony.html" class="family-member-card">
+                    <h2>Tony</h2>
+                    <p>Photos, memories, stories, and family records.</p>
+                </a>
 
-            <a class="page-box" href="anita.html">
-                <h3>Anita</h3>
-                <p>My wife — photos, memories, and life together.</p>
-            </a>
+                <a href="scott.html" class="family-member-card">
+                    <h2>Scott</h2>
+                    <p>Photos, memories, stories, and family records.</p>
+                </a>
 
-            <a class="page-box" href="tony.html">
-                <h3>Tony</h3>
-                <p>Photos, memories, stories, and family records.</p>
-            </a>
+                <a href="becky.html" class="family-member-card">
+                    <h2>Becky</h2>
+                    <p>Photos, memories, stories, and family records.</p>
+                </a>
 
-            <a class="page-box" href="scott.html">
-                <h3>Scott</h3>
-                <p>Photos, memories, stories, and family records.</p>
-            </a>
+                <a href="craig.html" class="family-member-card">
+                    <h2>Craig</h2>
+                    <p>Photos, memories, stories, and family records.</p>
+                </a>
 
-            <a class="page-box" href="becky.html">
-                <h3>Becky</h3>
-                <p>Photos, memories, stories, and family records.</p>
-            </a>
+                <a href="brian.html" class="family-member-card">
+                    <h2>Brian</h2>
+                    <p>Photos, memories, stories, and family records.</p>
+                </a>
 
-            <a class="page-box" href="craig.html">
-                <h3>Craig</h3>
-                <p>Photos, memories, stories, and family records.</p>
-            </a>
+                <a href="mom-dad.html" class="family-member-card">
+                    <h2>Mom/Dad</h2>
+                    <p>Family roots, parents, memories, and legacy.</p>
+                </a>
 
-            <a class="page-box" href="brian.html">
-                <h3>Brian</h3>
-                <p>Photos, memories, stories, and family records.</p>
-            </a>
+            </div>
+        </section>
 
-            <a class="page-box" href="mom-dad.html">
-                <h3>Mom / Dad</h3>
-                <p>Family history, memories, photos, and important records.</p>
-            </a>
+    </main>
 
-        </div>
-    </section>
-
-</main>
-
-<footer class="site-footer">
-    <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-    <p>&copy; Steve & Anita Hill. Personal family website.</p>
-</footer>
+    <footer class="fixed-bottom-text">
+        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
+        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+    </footer>
 
 </body>
 </html>
