@@ -3,94 +3,171 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Faith - Steve & Anita Hill</title>
+    <title>Faith | Steve & Anita Hill Family & Home</title>
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .faith-page {
+            padding: 22px 28px;
+        }
+
+        .faith-page h1 {
+            margin-bottom: 8px;
+        }
+
+        .faith-intro {
+            margin: 0 0 16px;
+            color: #4a3a2d;
+            font-size: 1rem;
+        }
+
+        .faith-verse {
+            background: #303030;
+            color: #fffaf1;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin: 16px 0 18px;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+        }
+
+        .faith-verse p {
+            margin: 0;
+            color: #fffaf1;
+            font-size: 1rem;
+            line-height: 1.55;
+            font-weight: bold;
+        }
+
+        .faith-verse .verse-ref {
+            margin-top: 10px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .faith-topic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .faith-topic-card {
+            background: #432611;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            padding: 18px 20px;
+            color: #fffaf1;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .faith-topic-card:hover,
+        .faith-topic-card:focus-within {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(44, 37, 30, 0.30);
+            border-color: #fffaf1;
+            background: #5a3218;
+        }
+
+        .faith-topic-card h2 {
+            margin: 0 0 8px;
+            padding: 0;
+            border: none;
+            color: #fffaf1;
+            font-size: 1.25rem;
+        }
+
+        .faith-topic-card p {
+            margin: 0;
+            color: #fffaf1;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 900px) {
+            .faith-topic-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .faith-topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="site-header">
-    <h1>Steve & Anita Hill</h1>
-    <p>Faith • Family • Military Service • Memories • Projects • General</p>
+    <header class="site-header">
+        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-    <nav class="top-nav">
-        <a href="index.html">Home</a>
-        <a href="military.html">Military</a>
-        <a href="family.html">Family</a>
-        <a href="projects.html">Projects</a>
-        <a href="general.html">General</a>
-    </nav>
-</header>
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a href="military.html">Military</a>
+            <a href="family.html">Family</a>
+            <a href="projects.html">Projects</a>
+            <a href="general.html">General</a>
+        </nav>
+    </header>
 
-<main class="page-wrap">
+    <main class="page-wrap">
 
-    <section class="intro-card">
-        <h2>Faith</h2>
+        <section class="faith-page">
+            <h1>Faith</h1>
 
-        <p>
-            This page is dedicated to my faith in Jesus Christ, Scripture,
-            testimony, reflection, and the truths that have shaped my life.
-        </p>
-    </section>
+            <p class="faith-intro">
+                A place for Scripture, prayer, testimony, Bible study, and personal reflections about God’s faithfulness.
+            </p>
 
-    <section class="main-card">
-        <h2>Scripture</h2>
-
-        <p>
-            “For I am persuaded, that neither death, nor life, nor angels,
-            nor principalities, nor powers, nor things present, nor things to come,
-            nor height, nor depth, nor any other creature, shall be able to separate
-            us from the love of God, which is in Christ Jesus our Lord.”
-        </p>
-
-        <p>
-            — Romans 8:38–39
-        </p>
-    </section>
-
-    <section class="main-card">
-        <h2>Personal Reflections</h2>
-
-        <p>
-            This section can be used for thoughts about God, prayer, Bible study,
-            testimony, lessons learned, and important spiritual reflections.
-        </p>
-    </section>
-
-    <section class="main-card">
-        <h2>Topics to Add Later</h2>
-
-        <div class="page-grid">
-
-            <div class="page-box">
-                <h3>Testimony</h3>
-                <p>Personal faith story and important moments with God.</p>
+            <div class="faith-verse">
+                <p>
+                    “For I am persuaded, that neither death, nor life, nor angels, nor principalities,
+                    nor powers, nor things present, nor things to come, nor height, nor depth,
+                    nor any other creature, shall be able to separate us from the love of God,
+                    which is in Christ Jesus our Lord.”
+                </p>
+                <p class="verse-ref">— Romans 8:38–39</p>
             </div>
 
-            <div class="page-box">
-                <h3>Favorite Verses</h3>
-                <p>Scriptures that have been meaningful through life.</p>
+            <div class="faith-topic-grid">
+
+                <div class="faith-topic-card">
+                    <h2>Testimony</h2>
+                    <p>Personal faith story, important moments, and reminders of God’s grace.</p>
+                </div>
+
+                <div class="faith-topic-card">
+                    <h2>Favorite Verses</h2>
+                    <p>Scriptures that have been meaningful through life, family, and service.</p>
+                </div>
+
+                <div class="faith-topic-card">
+                    <h2>Prayer</h2>
+                    <p>Prayers, requests, answered prayers, and spiritual reminders.</p>
+                </div>
+
+                <div class="faith-topic-card">
+                    <h2>Bible Study</h2>
+                    <p>Study notes, questions, reflections, and lessons from Scripture.</p>
+                </div>
+
             </div>
+        </section>
 
-            <div class="page-box">
-                <h3>Prayer</h3>
-                <p>Prayers, requests, answered prayers, and spiritual reminders.</p>
-            </div>
+    </main>
 
-            <div class="page-box">
-                <h3>Bible Study</h3>
-                <p>Study notes, questions, and reflections from Scripture.</p>
-            </div>
-
-        </div>
-    </section>
-
-</main>
-
-<footer class="site-footer">
-    <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-    <p>&copy; Steve & Anita Hill. Personal family website.</p>
-</footer>
+    <footer class="fixed-bottom-text">
+        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
+        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+    </footer>
 
 </body>
 </html>
