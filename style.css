@@ -969,3 +969,151 @@ body::after {
         bottom: 82px;
     }
 }
+/* GLOBAL COMPACT CLEANUP - V4.3 */
+
+/* Version badge update */
+body::after {
+    content: "V4.3";
+}
+
+/* Slightly smaller header */
+.site-header,
+header {
+    padding: 26px 20px 24px;
+}
+
+.site-header h1,
+header h1,
+.site-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 8px;
+}
+
+.site-header p,
+header p {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+
+/* Slightly smaller side logos */
+.site-header::before,
+header::before,
+.site-header::after,
+header::after {
+    width: 145px;
+    height: 96px;
+    top: 24px;
+}
+
+/* Cleaner/tighter nav buttons */
+nav,
+.top-nav,
+.site-nav {
+    gap: 10px;
+}
+
+nav a,
+.top-nav a,
+.site-nav a {
+    padding: 8px 15px;
+    font-size: 0.95rem;
+}
+
+/* Reduce main page spacing */
+main,
+.page-wrap {
+    max-width: 1120px;
+    margin: 26px auto;
+    padding: 0 18px;
+}
+
+/* Slightly tighter content cards */
+section,
+.intro-card,
+.main-card,
+.hero,
+.content-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 16px;
+}
+
+/* Slightly smaller headings */
+section h2,
+.intro-card h2,
+.main-card h2,
+.hero h2,
+.content-card h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.95rem);
+}
+
+.hero.compact h1,
+main .hero.compact h1,
+section.hero.compact h1 {
+    font-size: 2rem;
+}
+
+/* Slightly smaller photo cards */
+.photo-grid,
+.photo-gallery,
+.gallery,
+.photos-grid,
+.military-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+    gap: 20px;
+}
+
+.photo-card img {
+    height: 235px;
+}
+
+.photo-card p {
+    font-size: 0.9rem;
+    padding: 12px 14px;
+}
+
+/* Slightly smaller page boxes/cards */
+.page-box,
+.card,
+.home-card,
+.nav-card,
+.feature-card,
+.link-card {
+    padding: 19px;
+}
+
+.page-box h3,
+.card h3,
+.home-card h3,
+.nav-card h3,
+.feature-card h3,
+.link-card h3 {
+    font-size: 1.22rem;
+}
+
+/* Small screen cleanup */
+@media (max-width: 700px) {
+    .site-header,
+    header {
+        padding: 22px 14px 20px;
+    }
+
+    nav a,
+    .top-nav a,
+    .site-nav a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    section,
+    .intro-card,
+    .main-card,
+    .hero,
+    .content-card {
+        padding: 18px;
+    }
+
+    .photo-card img {
+        height: 220px;
+    }
+}
