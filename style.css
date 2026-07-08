@@ -1117,3 +1117,11 @@ section.hero.compact h1 {
         height: 220px;
     }
 }
+/* SITE VERSION - CHANGE ONLY THIS LINE */
+:root {
+    --site-version: "V4.4";
+}
+
+body::after {
+    content: var(--site-version) !important;
+}
