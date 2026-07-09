@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V4.9
+   CSS Version V5.0
    =============================== */
 
 :root {
@@ -30,7 +30,7 @@ body {
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
-    padding-bottom: 90px;
+    padding-bottom: 95px;
 }
 
 /* ===============================
@@ -48,14 +48,17 @@ header {
     text-align: center;
 }
 
-.site-title {
+.site-title,
+.site-header .site-title,
+header .site-title {
     display: block;
-    color: #fffaf1;
-    text-decoration: none;
-    font-size: clamp(1.4rem, 3vw, 2.3rem);
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    font-size: clamp(1.7rem, 3.4vw, 2.65rem);
     font-weight: bold;
     letter-spacing: 0.4px;
     text-align: center;
+    margin: 0 auto 6px;
 }
 
 .site-header p,
@@ -64,36 +67,49 @@ header p {
     color: #fffaf1;
     text-align: center;
     font-size: 0.95rem;
-}
-
-/* TOP NAV USED BY HOME AND FAITH */
-.top-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.top-nav a {
-    color: #fffaf1;
-    text-decoration: none;
-    padding: 7px 13px;
-    border: 1px solid rgba(255, 250, 241, 0.45);
-    border-radius: 8px;
-    font-size: 0.9rem;
     font-weight: bold;
-    background: rgba(255, 250, 241, 0.08);
+}
+
+/* ===============================
+   TOP NAV MENU
+   Used by Home and Faith
+   =============================== */
+
+.top-nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 14px !important;
+}
+
+.top-nav a,
+.top-nav a:visited {
+    display: inline-block !important;
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    padding: 8px 14px !important;
+    border: 1px solid rgba(255, 250, 241, 0.55) !important;
+    border-radius: 8px !important;
+    font-size: 0.92rem !important;
+    font-weight: bold !important;
+    background: rgba(255, 250, 241, 0.10) !important;
 }
 
 .top-nav a:hover {
-    background: rgba(255, 250, 241, 0.20);
+    color: #fffaf1 !important;
+    background: rgba(255, 250, 241, 0.24) !important;
+    text-decoration: none !important;
     transform: translateY(-1px);
 }
 
-/* MENU BUTTON NAV USED BY OTHER PAGES */
+/* ===============================
+   MENU BUTTON NAV
+   Used by photo/person pages
+   =============================== */
+
 .menu-button {
-    float: right;
     background: #fffaf1;
     color: var(--accent-dark);
     border: 2px solid #fffaf1;
@@ -101,6 +117,7 @@ header p {
     padding: 7px 13px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .site-nav {
@@ -115,9 +132,11 @@ header p {
     display: flex;
 }
 
-.site-nav a {
-    color: #fffaf1;
-    text-decoration: none;
+.site-nav a,
+.site-nav a:visited {
+    display: inline-block;
+    color: #fffaf1 !important;
+    text-decoration: none !important;
     padding: 7px 11px;
     border: 1px solid rgba(255, 250, 241, 0.45);
     border-radius: 8px;
@@ -127,7 +146,9 @@ header p {
 }
 
 .site-nav a:hover {
+    color: #fffaf1 !important;
     background: rgba(255, 250, 241, 0.20);
+    text-decoration: none !important;
 }
 
 /* ===============================
@@ -187,6 +208,7 @@ main,
     box-shadow: var(--shadow);
 }
 
+.content-card h1,
 .content-card h2,
 .home-info-section h2,
 .faith-page h1,
@@ -198,6 +220,10 @@ main,
 /* ===============================
    HOME PAGE
    =============================== */
+
+body.home-page {
+    padding-bottom: 75px;
+}
 
 .home-welcome-panel {
     text-align: center;
@@ -236,9 +262,8 @@ main,
     border-radius: 999px;
 }
 
-/* AT A GLANCE SMALLER */
 .at-a-glance-title {
-    font-size: 1.35rem;
+    font-size: 1.32rem !important;
 }
 
 .home-info-grid {
@@ -384,39 +409,63 @@ main,
 }
 
 /* ===============================
-   GALLERY
+   PHOTO GALLERIES
+   Strong fix for vertical photo issue
    =============================== */
 
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    margin-top: 18px;
+.gallery,
+.photo-gallery,
+.photo-grid,
+.photos-grid,
+.military-gallery,
+.family-gallery,
+.image-gallery,
+.mom-dad-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 18px !important;
+    align-items: start !important;
+    width: 100% !important;
+    margin-top: 18px !important;
+}
+
+.gallery > .photo-card,
+.photo-gallery > .photo-card,
+.photo-grid > .photo-card,
+.photos-grid > .photo-card,
+.military-gallery > .photo-card,
+.family-gallery > .photo-card,
+.image-gallery > .photo-card,
+.mom-dad-gallery > .photo-card {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
 }
 
 .photo-card {
-    background: #fffaf1;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 12px;
-    text-align: center;
-    box-shadow: 0 10px 22px rgba(44, 37, 30, 0.14);
+    background: #fffaf1 !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 14px !important;
+    padding: 12px !important;
+    text-align: center !important;
+    box-shadow: 0 10px 22px rgba(44, 37, 30, 0.14) !important;
 }
 
-.photo-card img {
-    width: 100%;
-    height: 260px;
-    object-fit: contain;
-    background: #f1eadc;
-    border-radius: 10px;
-    display: block;
-    cursor: pointer;
+.photo-card img,
+.photo-card .zoom-photo {
+    width: 100% !important;
+    height: 260px !important;
+    object-fit: contain !important;
+    display: block !important;
+    background: #f1eadc !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
 }
 
 .photo-card p {
-    margin: 10px 0 0;
-    font-size: 0.95rem;
-    color: var(--ink);
+    margin: 10px 0 0 !important;
+    font-size: 0.95rem !important;
+    color: var(--ink) !important;
 }
 
 /* ===============================
@@ -470,8 +519,8 @@ main,
     margin: 22px auto 8px;
     padding: 10px 18px;
     background: var(--accent-dark);
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
     border-radius: 10px;
     font-weight: bold;
     border: 2px solid var(--accent);
@@ -488,10 +537,10 @@ main,
     padding: 18px 22px;
     text-align: center;
     background: #111;
-    color: white;
+    color: white !important;
     border: 3px solid black;
     border-radius: 14px;
-    text-decoration: none;
+    text-decoration: none !important;
     font-style: italic;
     font-weight: bold;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
@@ -510,8 +559,8 @@ main,
     right: 18px;
     bottom: 86px;
     background: var(--accent-dark);
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
     padding: 9px 13px;
     border-radius: 10px;
     font-weight: bold;
@@ -538,6 +587,7 @@ main,
 .fixed-bottom-text p {
     margin: 0;
     font-size: 0.86rem;
+    color: #fffaf1;
 }
 
 .fixed-bottom-text .small {
@@ -571,23 +621,29 @@ main,
         padding: 16px 12px;
     }
 
-    .site-title {
-        font-size: 1.35rem;
+    .site-title,
+    .site-header .site-title,
+    header .site-title {
+        font-size: 1.45rem;
+    }
+
+    .site-header p,
+    header p {
+        font-size: 0.84rem;
     }
 
     .top-nav,
     .site-nav {
-        gap: 6px;
+        gap: 6px !important;
     }
 
     .top-nav a,
     .site-nav a {
-        padding: 6px 9px;
-        font-size: 0.82rem;
+        padding: 6px 9px !important;
+        font-size: 0.82rem !important;
     }
 
     .menu-button {
-        float: none;
         display: block;
         margin: 10px auto 0;
         padding: 6px 10px;
@@ -611,12 +667,20 @@ main,
         grid-template-columns: 1fr;
     }
 
-    .gallery {
-        grid-template-columns: 1fr;
+    .gallery,
+    .photo-gallery,
+    .photo-grid,
+    .photos-grid,
+    .military-gallery,
+    .family-gallery,
+    .image-gallery,
+    .mom-dad-gallery {
+        grid-template-columns: 1fr !important;
     }
 
-    .photo-card img {
-        height: 240px;
+    .photo-card img,
+    .photo-card .zoom-photo {
+        height: 240px !important;
     }
 
     .home-welcome-logo {
@@ -629,51 +693,9 @@ main,
         font-size: 0.85rem;
     }
 }
-/* EMERGENCY TOP MENU FIX - HOME AND FAITH */
-.site-header {
-    text-align: center !important;
-}
 
-.site-title {
-    display: block !important;
-    text-align: center !important;
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-}
-
-.top-nav {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 10px !important;
-    margin-top: 14px !important;
-}
-
-.top-nav a {
-    display: inline-block !important;
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-    padding: 8px 14px !important;
-    border: 1px solid rgba(255, 250, 241, 0.55) !important;
-    border-radius: 8px !important;
-    font-size: 0.92rem !important;
-    font-weight: bold !important;
-    background: rgba(255, 250, 241, 0.10) !important;
-}
-
-.top-nav a:visited {
-    color: #fffaf1 !important;
-}
-
-.top-nav a:hover {
-    color: #fffaf1 !important;
-    background: rgba(255, 250, 241, 0.24) !important;
-    text-decoration: none !important;
-    transform: translateY(-1px);
-}
 /* ===============================
    SITE VERSION
-   CSS Version V4.9
-   Last updated for Israel page, Home/Faith menus, and At a Glance size
+   CSS Version V5.0
+   Last updated for menu repair, Israel page, photo grid repair, and At a Glance size
    =============================== */
