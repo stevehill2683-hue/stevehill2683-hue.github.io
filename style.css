@@ -1,6 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
+   CSS Version V4.9
    =============================== */
 
 :root {
@@ -14,6 +15,7 @@
     --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
 }
 
+/* RESET / GLOBAL FONT */
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif !important;
@@ -31,24 +33,65 @@ body {
     padding-bottom: 90px;
 }
 
-/* HEADER */
-.site-header {
+/* ===============================
+   HEADER
+   =============================== */
+
+.site-header,
+header {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     color: #fffaf1;
     padding: 18px 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
     position: relative;
     z-index: 10;
+    text-align: center;
 }
 
 .site-title {
+    display: block;
     color: #fffaf1;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: clamp(1.4rem, 3vw, 2.3rem);
     font-weight: bold;
     letter-spacing: 0.4px;
+    text-align: center;
 }
 
+.site-header p,
+header p {
+    margin: 8px 0 12px;
+    color: #fffaf1;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+/* TOP NAV USED BY HOME AND FAITH */
+.top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.top-nav a {
+    color: #fffaf1;
+    text-decoration: none;
+    padding: 7px 13px;
+    border: 1px solid rgba(255, 250, 241, 0.45);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: rgba(255, 250, 241, 0.08);
+}
+
+.top-nav a:hover {
+    background: rgba(255, 250, 241, 0.20);
+    transform: translateY(-1px);
+}
+
+/* MENU BUTTON NAV USED BY OTHER PAGES */
 .menu-button {
     float: right;
     background: #fffaf1;
@@ -63,6 +106,7 @@ body {
 .site-nav {
     display: none;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
     margin-top: 16px;
 }
@@ -78,22 +122,31 @@ body {
     border: 1px solid rgba(255, 250, 241, 0.45);
     border-radius: 8px;
     font-size: 0.92rem;
+    font-weight: bold;
+    background: rgba(255, 250, 241, 0.08);
 }
 
 .site-nav a:hover {
-    background: rgba(255, 250, 241, 0.16);
+    background: rgba(255, 250, 241, 0.20);
 }
 
-/* MAIN LAYOUT */
-main {
+/* ===============================
+   MAIN LAYOUT
+   =============================== */
+
+main,
+.page-wrap {
     width: min(1100px, calc(100% - 32px));
     margin: 24px auto;
 }
 
-/* HERO */
+/* ===============================
+   HERO
+   =============================== */
+
 .hero {
-    background: #111;
-    color: white;
+    background: #303030;
+    color: #fffaf1;
     text-align: center;
     padding: 36px 24px;
     border-radius: 18px;
@@ -107,18 +160,25 @@ main {
 
 .hero h1 {
     margin: 0 0 10px;
+    color: #fffaf1;
     font-size: clamp(2rem, 4vw, 3rem);
     font-style: italic;
-    text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.55);
+    text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.65);
 }
 
 .hero p {
     margin: 0;
+    color: #fffaf1;
     font-size: 1.08rem;
 }
 
-/* CONTENT CARDS */
-.content-card {
+/* ===============================
+   CONTENT CARDS
+   =============================== */
+
+.content-card,
+.home-info-section,
+.faith-page {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -127,12 +187,93 @@ main {
     box-shadow: var(--shadow);
 }
 
-.content-card h2 {
+.content-card h2,
+.home-info-section h2,
+.faith-page h1,
+.faith-page h2 {
     margin-top: 0;
     color: var(--accent-dark);
 }
 
-/* HOME / GENERAL CARDS */
+/* ===============================
+   HOME PAGE
+   =============================== */
+
+.home-welcome-panel {
+    text-align: center;
+    background: #303030;
+    color: #fffaf1;
+}
+
+.home-welcome-panel h1 {
+    color: #fffaf1;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
+}
+
+.home-welcome-logo {
+    max-width: 260px;
+    width: 60%;
+    height: auto;
+    margin: 0 auto 14px;
+    display: block;
+}
+
+.home-welcome-panel p {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #fffaf1;
+    font-weight: bold;
+}
+
+.home-divider {
+    width: 58%;
+    max-width: 640px;
+    height: 4px;
+    background: #111;
+    margin: 14px auto 18px;
+    border-radius: 999px;
+}
+
+/* AT A GLANCE SMALLER */
+.at-a-glance-title {
+    font-size: 1.35rem;
+}
+
+.home-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.home-info-card {
+    background: #432611;
+    border: 1px solid #ddcfba;
+    border-radius: 14px;
+    padding: 15px 18px;
+    color: #fffaf1;
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+}
+
+.home-info-card h3 {
+    margin: 0 0 6px;
+    color: #fffaf1;
+    font-size: 1.15rem;
+}
+
+.home-info-card p {
+    margin: 0;
+    color: #fffaf1;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ===============================
+   GENERAL CARD GRIDS
+   =============================== */
+
 .card-grid,
 .home-grid,
 .page-grid,
@@ -164,12 +305,88 @@ main {
     transform: translateY(-2px);
 }
 
-/* AT A GLANCE SMALLER */
-.at-a-glance-title {
-    font-size: 1.45rem;
+/* ===============================
+   FAITH PAGE
+   =============================== */
+
+.faith-intro {
+    margin: 0 0 16px;
+    color: #4a3a2d;
+    font-size: 1rem;
 }
 
-/* GALLERY */
+.faith-verse {
+    background: #303030;
+    color: #fffaf1;
+    border: 1px solid #ddcfba;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 16px 0 18px;
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+}
+
+.faith-verse p {
+    margin: 0;
+    color: #fffaf1;
+    font-size: 1rem;
+    line-height: 1.55;
+    font-weight: bold;
+}
+
+.faith-verse .verse-ref {
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.faith-topic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.faith-topic-card {
+    background: #432611;
+    border: 1px solid #ddcfba;
+    border-radius: 14px;
+    padding: 18px 20px;
+    color: #fffaf1;
+    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.faith-topic-card:hover,
+.faith-topic-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.30);
+    border-color: #fffaf1;
+    background: #5a3218;
+}
+
+.faith-topic-card h2 {
+    margin: 0 0 8px;
+    padding: 0;
+    border: none;
+    color: #fffaf1;
+    font-size: 1.25rem;
+}
+
+.faith-topic-card p {
+    margin: 0;
+    color: #fffaf1;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+/* ===============================
+   GALLERY
+   =============================== */
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -202,7 +419,10 @@ main {
     color: var(--ink);
 }
 
-/* PHOTO LIGHTBOX */
+/* ===============================
+   PHOTO LIGHTBOX
+   =============================== */
+
 .photo-lightbox {
     display: none;
     position: fixed;
@@ -225,7 +445,10 @@ main {
     border-radius: 10px;
 }
 
-/* ISRAEL PAGE */
+/* ===============================
+   ISRAEL PAGE
+   =============================== */
+
 .israel-feature-line {
     max-width: 900px;
     margin: 20px auto;
@@ -278,7 +501,10 @@ main {
     transform: translateY(-2px);
 }
 
-/* BACK TO TOP */
+/* ===============================
+   BACK TO TOP
+   =============================== */
+
 .back-to-top {
     position: fixed;
     right: 18px;
@@ -292,7 +518,10 @@ main {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
-/* FIXED FOOTER */
+/* ===============================
+   FIXED FOOTER
+   =============================== */
+
 .fixed-bottom-text {
     position: fixed;
     left: 0;
@@ -316,18 +545,51 @@ main {
     opacity: 0.9;
 }
 
-/* MOBILE */
+/* ===============================
+   MOBILE / TABLET
+   =============================== */
+
+@media (max-width: 900px) {
+    .faith-topic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 700px) {
-    main {
+    body {
+        padding-bottom: 120px;
+    }
+
+    main,
+    .page-wrap {
         width: min(100% - 20px, 1100px);
         margin: 16px auto;
     }
 
+    .site-header,
+    header {
+        padding: 16px 12px;
+    }
+
     .site-title {
-        font-size: 1.15rem;
+        font-size: 1.35rem;
+    }
+
+    .top-nav,
+    .site-nav {
+        gap: 6px;
+    }
+
+    .top-nav a,
+    .site-nav a {
+        padding: 6px 9px;
+        font-size: 0.82rem;
     }
 
     .menu-button {
+        float: none;
+        display: block;
+        margin: 10px auto 0;
         padding: 6px 10px;
     }
 
@@ -335,8 +597,18 @@ main {
         padding: 26px 16px;
     }
 
-    .content-card {
+    .content-card,
+    .home-info-section,
+    .faith-page {
         padding: 16px;
+    }
+
+    .home-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faith-topic-grid {
+        grid-template-columns: 1fr;
     }
 
     .gallery {
@@ -345,6 +617,10 @@ main {
 
     .photo-card img {
         height: 240px;
+    }
+
+    .home-welcome-logo {
+        width: 75%;
     }
 
     .back-to-top {
@@ -356,6 +632,6 @@ main {
 
 /* ===============================
    SITE VERSION
-   CSS Version V4.8
-   Last updated for Israel page
+   CSS Version V4.9
+   Last updated for Israel page, Home/Faith menus, and At a Glance size
    =============================== */
