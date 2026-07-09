@@ -1,3 +1,230 @@
+/* ===============================
+   GLOBAL SITE STYLE
+   Steve & Anita Hill Family Site
+   =============================== */
+
+:root {
+    --bg: #f5f1e9;
+    --paper: #fffaf1;
+    --ink: #2c251e;
+    --muted: #6e6257;
+    --accent: #6e3f1f;
+    --accent-dark: #432611;
+    --line: #ddcfba;
+    --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    padding-bottom: 90px;
+}
+
+/* HEADER */
+.site-header {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    color: #fffaf1;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    position: relative;
+    z-index: 10;
+}
+
+.site-title {
+    color: #fffaf1;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+}
+
+.menu-button {
+    float: right;
+    background: #fffaf1;
+    color: var(--accent-dark);
+    border: 2px solid #fffaf1;
+    border-radius: 8px;
+    padding: 7px 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.site-nav {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.nav-open .site-nav {
+    display: flex;
+}
+
+.site-nav a {
+    color: #fffaf1;
+    text-decoration: none;
+    padding: 7px 11px;
+    border: 1px solid rgba(255, 250, 241, 0.45);
+    border-radius: 8px;
+    font-size: 0.92rem;
+}
+
+.site-nav a:hover {
+    background: rgba(255, 250, 241, 0.16);
+}
+
+/* MAIN LAYOUT */
+main {
+    width: min(1100px, calc(100% - 32px));
+    margin: 24px auto;
+}
+
+/* HERO */
+.hero {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 36px 24px;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+}
+
+.hero.compact {
+    padding: 24px 20px;
+}
+
+.hero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-style: italic;
+    text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.55);
+}
+
+.hero p {
+    margin: 0;
+    font-size: 1.08rem;
+}
+
+/* CONTENT CARDS */
+.content-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+}
+
+.content-card h2 {
+    margin-top: 0;
+    color: var(--accent-dark);
+}
+
+/* HOME / GENERAL CARDS */
+.card-grid,
+.home-grid,
+.page-grid,
+.link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.card,
+.home-card,
+.page-card,
+.link-card {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(44, 37, 30, 0.12);
+}
+
+.card:hover,
+.home-card:hover,
+.page-card:hover,
+.link-card:hover {
+    transform: translateY(-2px);
+}
+
+/* AT A GLANCE SMALLER */
+.at-a-glance-title {
+    font-size: 1.45rem;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.photo-card {
+    background: #fffaf1;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 10px 22px rgba(44, 37, 30, 0.14);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    background: #f1eadc;
+    border-radius: 10px;
+    display: block;
+    cursor: pointer;
+}
+
+.photo-card p {
+    margin: 10px 0 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+}
+
+/* PHOTO LIGHTBOX */
+.photo-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+.photo-lightbox.active {
+    display: flex;
+}
+
+.photo-lightbox img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
 /* ISRAEL PAGE */
 .israel-feature-line {
     max-width: 900px;
@@ -15,8 +242,9 @@
 }
 
 .return-home-button {
-    display: inline-block;
-    margin: 18px auto 8px;
+    display: block;
+    width: fit-content;
+    margin: 22px auto 8px;
     padding: 10px 18px;
     background: var(--accent-dark);
     color: white;
@@ -32,7 +260,7 @@
 
 .israel-access-card {
     display: block;
-    max-width: 420px;
+    max-width: 430px;
     margin: 18px auto;
     padding: 18px 22px;
     text-align: center;
@@ -50,7 +278,84 @@
     transform: translateY(-2px);
 }
 
-/* SMALLER AT A GLANCE TITLE */
-.at-a-glance-title {
-    font-size: 1.45rem;
+/* BACK TO TOP */
+.back-to-top {
+    position: fixed;
+    right: 18px;
+    bottom: 86px;
+    background: var(--accent-dark);
+    color: white;
+    text-decoration: none;
+    padding: 9px 13px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 }
+
+/* FIXED FOOTER */
+.fixed-bottom-text {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent-dark);
+    color: #fffaf1;
+    text-align: center;
+    padding: 8px 10px;
+    z-index: 1000;
+    box-shadow: 0 -5px 16px rgba(0, 0, 0, 0.24);
+}
+
+.fixed-bottom-text p {
+    margin: 0;
+    font-size: 0.86rem;
+}
+
+.fixed-bottom-text .small {
+    font-size: 0.74rem;
+    opacity: 0.9;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+    main {
+        width: min(100% - 20px, 1100px);
+        margin: 16px auto;
+    }
+
+    .site-title {
+        font-size: 1.15rem;
+    }
+
+    .menu-button {
+        padding: 6px 10px;
+    }
+
+    .hero {
+        padding: 26px 16px;
+    }
+
+    .content-card {
+        padding: 16px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img {
+        height: 240px;
+    }
+
+    .back-to-top {
+        right: 10px;
+        bottom: 82px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ===============================
+   SITE VERSION
+   CSS Version V4.8
+   Last updated for Israel page
+   =============================== */
