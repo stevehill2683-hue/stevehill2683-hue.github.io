@@ -710,7 +710,34 @@ body.home-page {
         font-size: 0.85rem;
     }
 }
+/* ===============================
+   VISIBLE SITE VERSION BADGE
+   Keep near Back to Top button
+   =============================== */
 
+.site-version-badge {
+    position: fixed;
+    right: 18px;
+    bottom: 126px;
+    background: #fffaf1;
+    color: var(--accent-dark);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 0.74rem;
+    font-weight: bold;
+    z-index: 1001;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 700px) {
+    .site-version-badge {
+        right: 10px;
+        bottom: 122px;
+        font-size: 0.68rem;
+        padding: 4px 8px;
+    }
+}
 /* ===============================
    SITE VERSION
    CSS Version V5.2
