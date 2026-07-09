@@ -693,6 +693,39 @@ body.home-page {
         font-size: 0.85rem;
     }
 }
+/* GLOBAL HEADER / MENU HEIGHT REDUCTION */
+.site-header,
+header {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.site-title,
+.site-header .site-title,
+header .site-title {
+    font-size: clamp(1.35rem, 2.4vw, 2.05rem) !important;
+    margin-bottom: 2px !important;
+    line-height: 1.1 !important;
+}
+
+.site-header p,
+header p {
+    margin: 4px 0 6px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.15 !important;
+}
+
+.top-nav {
+    gap: 6px !important;
+    margin-top: 6px !important;
+}
+
+.top-nav a,
+.top-nav a:visited {
+    padding: 5px 10px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.1 !important;
+}
 
 /* ===============================
    SITE VERSION
