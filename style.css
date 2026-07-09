@@ -629,7 +629,49 @@ main,
         font-size: 0.85rem;
     }
 }
+/* EMERGENCY TOP MENU FIX - HOME AND FAITH */
+.site-header {
+    text-align: center !important;
+}
 
+.site-title {
+    display: block !important;
+    text-align: center !important;
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+}
+
+.top-nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 14px !important;
+}
+
+.top-nav a {
+    display: inline-block !important;
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    padding: 8px 14px !important;
+    border: 1px solid rgba(255, 250, 241, 0.55) !important;
+    border-radius: 8px !important;
+    font-size: 0.92rem !important;
+    font-weight: bold !important;
+    background: rgba(255, 250, 241, 0.10) !important;
+}
+
+.top-nav a:visited {
+    color: #fffaf1 !important;
+}
+
+.top-nav a:hover {
+    color: #fffaf1 !important;
+    background: rgba(255, 250, 241, 0.24) !important;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+}
 /* ===============================
    SITE VERSION
    CSS Version V4.9
