@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V5.2
+   CSS Version V11.7
    =============================== */
 
 :root {
@@ -166,6 +166,7 @@ main,
 
 /* ===============================
    HERO - PAGE TITLE AREA SMALLER
+   This controls the big page name and text below it
    =============================== */
 
 .hero {
@@ -573,6 +574,33 @@ body.home-page {
 }
 
 /* ===============================
+   GLOBAL VERSION BADGE - CSS ONLY
+   Change version here one time
+   =============================== */
+
+/* Hide old HTML version badges if any pages still have them */
+.site-version-badge {
+    display: none !important;
+}
+
+/* Show version globally on every page */
+body::after {
+    content: "Ver 11.7";
+    position: fixed;
+    right: 18px;
+    bottom: 126px;
+    background: #fffaf1;
+    color: var(--accent-dark);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 0.74rem;
+    font-weight: bold;
+    z-index: 1001;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* ===============================
    FIXED FOOTER
    =============================== */
 
@@ -709,37 +737,18 @@ body.home-page {
         bottom: 82px;
         font-size: 0.85rem;
     }
-}
-/* ===============================
-   VISIBLE SITE VERSION BADGE
-   Keep near Back to Top button
-   =============================== */
 
-.site-version-badge {
-    position: fixed;
-    right: 18px;
-    bottom: 126px;
-    background: #fffaf1;
-    color: var(--accent-dark);
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 0.74rem;
-    font-weight: bold;
-    z-index: 1001;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-@media (max-width: 700px) {
-    .site-version-badge {
+    body::after {
         right: 10px;
         bottom: 122px;
         font-size: 0.68rem;
         padding: 4px 8px;
     }
 }
+
 /* ===============================
    SITE VERSION
-   CSS Version V5.2
-   Last updated for normal menu size and smaller global page title/hero area
+   CSS Version V11.7
+   Visible page badge generated globally from CSS
+   Last updated for normal menu size, smaller global page title/hero area, photo grid repair, Israel page, and global version badge
    =============================== */
