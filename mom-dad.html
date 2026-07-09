@@ -241,7 +241,7 @@
 
     </main>
 
-    <footer class="fixed-bottom-text">
+       <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
         <p class="small">© Steve & Anita Hill. Personal family website.</p>
     </footer>
@@ -251,59 +251,26 @@
     </div>
 
     <script>
-        const zoomPhotos = document.querySelectorAll(".zoom-photo");
         const lightbox = document.getElementById("photoLightbox");
         const lightboxImg = document.getElementById("photoLightboxImg");
-
-        function openLightbox(photo) {
-            lightboxImg.src = photo.src;
-            lightbox.classList.add("active");
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        }
+        const zoomPhotos = document.querySelectorAll(".zoom-photo");
 
         zoomPhotos.forEach(photo => {
             photo.addEventListener("click", () => {
-                openLightbox(photo);
-            });
-
-            photo.addEventListener("keydown", event => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    openLightbox(photo);
-                }
+                lightboxImg.src = photo.src;
+                lightbox.classList.add("active");
             });
         });
 
         lightbox.addEventListener("click", () => {
-            closeLightbox();
-        });
-
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape") {
-                closeLightbox();
-            }
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
         });
     </script>
-    <footer class="fixed-bottom-text">
-        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
-    </footer>
 
-    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
-        <img id="photoLightboxImg" src="" alt="Expanded photo">
-    </div>
-
-    <script>
-        // your lightbox script here
-    </script>
+    <div class="site-version-badge">Ver 11.6</div>
 
     <a href="#" class="back-to-top">Top ↑</a>
 
-</body>
-</html>
 </body>
 </html>
