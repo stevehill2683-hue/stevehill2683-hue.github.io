@@ -662,6 +662,27 @@ body.home-page {
 
 .israel-no-results.active {
     display: block;
+    animation: noResultsBlink 1s ease-in-out infinite;
+}
+
+@keyframes noResultsBlink {
+    0% {
+        background: #fffaf1;
+        color: var(--accent-dark);
+        border-color: var(--accent);
+    }
+
+    50% {
+        background: #b00000;
+        color: #ffffff;
+        border-color: #7a0000;
+    }
+
+    100% {
+        background: #fffaf1;
+        color: var(--accent-dark);
+        border-color: var(--accent);
+    }
 }
 
 .search-hidden {
@@ -984,5 +1005,5 @@ body::after {
    SITE VERSION
    CSS Version V12.0
    Visible page badge generated globally from CSS
-   Last updated for Israel red HOME button, Table of Contents, compact intro, search box, no-results support, topic sections, photo grid repair, and global version badge
+   Last updated for Israel red HOME button, blinking no-results search message, Table of Contents, compact intro, search box, topic sections, photo grid repair, and global version badge
    =============================== */
