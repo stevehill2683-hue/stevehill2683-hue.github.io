@@ -548,7 +548,12 @@
                         const imageAlt = card.querySelector("img")?.alt.toLowerCase() || "";
                         const tags = card.dataset.search?.toLowerCase() || "";
 
-                        const searchableText = topicTitle + " " + topicText + " " + caption + " " + imageAlt + " " + tags;
+                        const searchableText =
+                            topicTitle + " " +
+                            topicText + " " +
+                            caption + " " +
+                            imageAlt + " " +
+                            tags;
 
                         if (topicTextMatches || searchableText.includes(searchTerm)) {
                             card.classList.remove("search-hidden");
