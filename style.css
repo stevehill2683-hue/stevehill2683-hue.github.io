@@ -566,24 +566,26 @@ body.home-page {
     text-align: center;
 }
 
+/* RED HOME BUTTON BESIDE TABLE OF CONTENTS */
 .israel-home-button,
 .israel-home-button:visited {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--accent-dark);
-    color: #fffaf1 !important;
+    background: #b00000;
+    color: #ffffff !important;
     text-decoration: none !important;
     padding: 7px 13px;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: bold;
-    border: 1px solid var(--accent);
+    border: 1px solid #7a0000;
 }
 
 .israel-home-button:hover {
-    background: var(--accent);
+    background: #d00000;
+    color: #ffffff !important;
 }
 
 .israel-toc-grid {
@@ -928,8 +930,16 @@ body::after {
     .israel-home-button:visited {
         position: static;
         transform: none;
+        background: #b00000;
+        color: #ffffff !important;
         padding: 6px 10px;
         font-size: 0.78rem;
+        border: 1px solid #7a0000;
+    }
+
+    .israel-home-button:hover {
+        background: #d00000;
+        color: #ffffff !important;
     }
 
     .israel-toc-grid {
@@ -974,5 +984,5 @@ body::after {
    SITE VERSION
    CSS Version V12.0
    Visible page badge generated globally from CSS
-   Last updated for Israel Table of Contents HOME button, compact intro, search box, no-results support, topic sections, photo grid repair, and global version badge
+   Last updated for Israel red HOME button, Table of Contents, compact intro, search box, no-results support, topic sections, photo grid repair, and global version badge
    =============================== */
