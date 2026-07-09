@@ -615,13 +615,13 @@ body.home-page {
     transform: translateY(-2px);
 }
 
-/* ISRAEL SEARCH BOX */
+/* ISRAEL SEARCH BOX - COMPACT */
 .israel-search-box {
     background: #303030;
     color: #fffaf1;
     border-radius: 16px;
-    padding: 14px 18px;
-    margin: 16px 0 20px;
+    padding: 10px 16px;
+    margin: 12px 0 16px;
     text-align: center;
     box-shadow: var(--shadow);
     scroll-margin-top: 20px;
@@ -630,36 +630,41 @@ body.home-page {
 .israel-search-box label {
     display: block;
     font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 1.02rem;
+    margin-bottom: 5px;
+    font-size: 0.98rem;
+    line-height: 1.1;
 }
 
 .israel-search-box input {
     width: min(520px, 100%);
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-radius: 10px;
     border: 2px solid #ddcfba;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .israel-search-note {
-    margin: 8px 0 0;
-    font-size: 0.82rem;
+    margin: 6px 0 0;
+    font-size: 0.76rem;
     color: #fffaf1;
     opacity: 0.9;
+    line-height: 1.15;
 }
 
 .israel-no-results {
     display: none;
+    width: min(520px, 100%);
+    margin: 7px auto 0;
     background: #fffaf1;
     color: var(--accent-dark);
     border: 2px solid var(--accent);
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin: 16px 0;
+    border-radius: 10px;
+    padding: 6px 10px;
     text-align: center;
+    font-size: 0.86rem;
     font-weight: bold;
-    box-shadow: var(--shadow);
+    line-height: 1.15;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
 .israel-no-results.active {
@@ -1012,5 +1017,5 @@ body::after {
    SITE VERSION
    CSS Version V14.0
    Visible page badge generated globally from CSS
-   Last updated for Israel red HOME button, blinking no-results search message, one-line intro text, Table of Contents, compact intro, search box, topic sections, photo grid repair, and global version badge
+   Last updated for compact Israel search box with no-results message inside search area, red HOME button, blinking no-results search message, one-line intro text, Table of Contents, photo grid repair, and global version badge
    =============================== */
