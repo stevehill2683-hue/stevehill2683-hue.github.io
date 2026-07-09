@@ -119,56 +119,36 @@
         </nav>
     </header>
 
-    <main class="page-wrap">
-
-        <section class="faith-page">
-            <h1>Faith</h1>
-
-            <p class="faith-intro">
-                A place for Scripture, prayer, testimony, Bible study, and personal reflections about God’s faithfulness.
-            </p>
-
-            <div class="faith-verse">
-                <p>
-                    “For I am persuaded, that neither death, nor life, nor angels, nor principalities,
-                    nor powers, nor things present, nor things to come, nor height, nor depth,
-                    nor any other creature, shall be able to separate us from the love of God,
-                    which is in Christ Jesus our Lord.”
-                </p>
-                <p class="verse-ref">— Romans 8:38–39</p>
-            </div>
-
-            <div class="faith-topic-grid">
-
-                <div class="faith-topic-card">
-                    <h2>Testimony</h2>
-                    <p>Personal faith story, important moments, and reminders of God’s grace.</p>
-                </div>
-
-                <div class="faith-topic-card">
-                    <h2>Favorite Verses</h2>
-                    <p>Scriptures that have been meaningful through life, family, and service.</p>
-                </div>
-
-                <div class="faith-topic-card">
-                    <h2>Prayer</h2>
-                    <p>Prayers, requests, answered prayers, and spiritual reminders.</p>
-                </div>
-
-                <div class="faith-topic-card">
-                    <h2>Bible Study</h2>
-                    <p>Study notes, questions, reflections, and lessons from Scripture.</p>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="fixed-bottom-text">
+        <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
         <p class="small">© Steve & Anita Hill. Personal family website.</p>
     </footer>
+
+    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
+        <img id="photoLightboxImg" src="" alt="Expanded photo">
+    </div>
+
+    <script>
+        const lightbox = document.getElementById("photoLightbox");
+        const lightboxImg = document.getElementById("photoLightboxImg");
+        const zoomPhotos = document.querySelectorAll(".zoom-photo");
+
+        zoomPhotos.forEach(photo => {
+            photo.addEventListener("click", () => {
+                lightboxImg.src = photo.src;
+                lightbox.classList.add("active");
+            });
+        });
+
+        lightbox.addEventListener("click", () => {
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
+        });
+    </script>
+
+    <div class="site-version-badge">Ver 11.6</div>
+
+    <a href="#" class="back-to-top">Top ↑</a>
 
 </body>
 </html>
