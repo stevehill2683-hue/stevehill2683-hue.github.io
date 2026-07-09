@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V11.7
+   CSS Version V12.0
    =============================== */
 
 :root {
@@ -23,6 +23,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 20px;
 }
 
 body {
@@ -519,6 +520,116 @@ body.home-page {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
+.israel-intro-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.israel-intro-card p {
+    max-width: 850px;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+/* TABLE OF CONTENTS */
+.israel-toc {
+    background: #fffaf1;
+    border: 2px solid var(--accent-dark);
+    border-radius: 18px;
+    padding: 22px;
+    margin: 22px 0;
+    box-shadow: var(--shadow);
+}
+
+.israel-toc h2 {
+    text-align: center;
+    margin: 0 0 16px;
+    color: var(--accent-dark);
+    font-size: 1.45rem;
+}
+
+.israel-toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.israel-toc-grid a,
+.israel-toc-grid a:visited {
+    display: block;
+    text-align: center;
+    background: #432611;
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 1px solid #ddcfba;
+    box-shadow: 0 6px 14px rgba(44, 37, 30, 0.16);
+}
+
+.israel-toc-grid a:hover {
+    background: #5a3218;
+    transform: translateY(-2px);
+}
+
+/* ISRAEL TOPIC SECTIONS */
+.israel-topic {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    margin: 24px 0;
+    box-shadow: var(--shadow);
+}
+
+.israel-topic h2 {
+    color: var(--accent-dark);
+    margin: 0 0 8px;
+    font-size: 1.55rem;
+    text-align: center;
+}
+
+.israel-topic-text {
+    max-width: 850px;
+    margin: 0 auto 18px;
+    text-align: center;
+    color: var(--ink);
+    font-size: 1rem;
+}
+
+.israel-topic-divider {
+    height: 8px;
+    background: #555;
+    border-radius: 999px;
+    margin: 30px auto;
+    width: 88%;
+}
+
+.back-to-toc-button,
+.back-to-toc-button:visited {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 9px 16px;
+    background: var(--accent-dark);
+    color: #fffaf1 !important;
+    text-decoration: none !important;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid var(--accent);
+}
+
+.back-to-toc-button:hover {
+    background: var(--accent);
+}
+
 .return-home-button {
     display: block;
     width: fit-content;
@@ -585,7 +696,7 @@ body.home-page {
 
 /* Show version globally on every page */
 body::after {
-    content: "Ver 11.7";
+    content: "Ver-12.0";
     position: fixed;
     right: 18px;
     bottom: 126px;
@@ -634,6 +745,10 @@ body::after {
 
 @media (max-width: 900px) {
     .faith-topic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .israel-toc-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -700,7 +815,10 @@ body::after {
 
     .content-card,
     .home-info-section,
-    .faith-page {
+    .faith-page,
+    .israel-intro-card,
+    .israel-toc,
+    .israel-topic {
         padding: 16px;
     }
 
@@ -709,6 +827,10 @@ body::after {
     }
 
     .faith-topic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .israel-toc-grid {
         grid-template-columns: 1fr;
     }
 
@@ -748,7 +870,7 @@ body::after {
 
 /* ===============================
    SITE VERSION
-   CSS Version V11.7
+   CSS Version V12.0
    Visible page badge generated globally from CSS
-   Last updated for normal menu size, smaller global page title/hero area, photo grid repair, Israel page, and global version badge
+   Last updated for Israel Table of Contents, topic sections, medium dark gray dividers, normal menu size, smaller global page title/hero area, photo grid repair, and global version badge
    =============================== */
