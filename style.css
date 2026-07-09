@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V5.1
+   CSS Version V5.2
    =============================== */
 
 :root {
@@ -34,14 +34,14 @@ body {
 }
 
 /* ===============================
-   HEADER - REDUCED HEIGHT
+   HEADER
    =============================== */
 
 .site-header,
 header {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     color: #fffaf1;
-    padding: 6px 20px;
+    padding: 18px 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
     position: relative;
     z-index: 10;
@@ -54,18 +54,20 @@ header .site-title {
     display: block;
     color: #fffaf1 !important;
     text-decoration: none !important;
-    font-size: clamp(1.15rem, 2vw, 1.65rem);
+    font-size: clamp(1.7rem, 3.4vw, 2.65rem);
     font-weight: bold;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
     text-align: center;
-    margin: 0 auto;
-    line-height: 1.05;
+    margin: 0 auto 6px;
 }
 
-/* Hide subtitle line to reduce vertical menu space */
 .site-header p,
 header p {
-    display: none !important;
+    margin: 8px 0 12px;
+    color: #fffaf1;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
 }
 
 /* ===============================
@@ -78,10 +80,10 @@ header p {
     flex-wrap: wrap !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 4px !important;
-    row-gap: 4px !important;
-    margin-top: 5px !important;
-    line-height: 1 !important;
+    gap: 10px !important;
+    row-gap: 8px !important;
+    margin-top: 10px !important;
+    line-height: 1.2 !important;
 }
 
 .top-nav a,
@@ -89,11 +91,11 @@ header p {
     display: inline-block !important;
     color: #fffaf1 !important;
     text-decoration: none !important;
-    padding: 3px 7px !important;
+    padding: 7px 13px !important;
     border: 1px solid rgba(255, 250, 241, 0.55) !important;
-    border-radius: 6px !important;
-    font-size: 0.74rem !important;
-    line-height: 1 !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.15 !important;
     font-weight: bold !important;
     background: rgba(255, 250, 241, 0.10) !important;
 }
@@ -115,19 +117,18 @@ header p {
     color: var(--accent-dark);
     border: 2px solid #fffaf1;
     border-radius: 8px;
-    padding: 5px 10px;
+    padding: 7px 13px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 6px;
+    margin-top: 10px;
 }
 
 .site-nav {
     display: none;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
-    row-gap: 4px;
-    margin-top: 5px;
+    gap: 8px;
+    margin-top: 16px;
 }
 
 .nav-open .site-nav {
@@ -139,11 +140,10 @@ header p {
     display: inline-block;
     color: #fffaf1 !important;
     text-decoration: none !important;
-    padding: 3px 7px;
+    padding: 7px 11px;
     border: 1px solid rgba(255, 250, 241, 0.45);
-    border-radius: 6px;
-    font-size: 0.74rem;
-    line-height: 1;
+    border-radius: 8px;
+    font-size: 0.92rem;
     font-weight: bold;
     background: rgba(255, 250, 241, 0.08);
 }
@@ -165,35 +165,37 @@ main,
 }
 
 /* ===============================
-   HERO
+   HERO - PAGE TITLE AREA SMALLER
    =============================== */
 
 .hero {
     background: #303030;
     color: #fffaf1;
     text-align: center;
-    padding: 36px 24px;
+    padding: 24px 20px;
     border-radius: 18px;
     box-shadow: var(--shadow);
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .hero.compact {
-    padding: 24px 20px;
+    padding: 18px 18px;
 }
 
 .hero h1 {
-    margin: 0 0 10px;
+    margin: 0 0 6px;
     color: #fffaf1;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.35rem, 2.8vw, 2.15rem);
     font-style: italic;
     text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.65);
+    line-height: 1.05;
 }
 
 .hero p {
     margin: 0;
     color: #fffaf1;
-    font-size: 1.08rem;
+    font-size: 0.9rem;
+    line-height: 1.25;
 }
 
 /* ===============================
@@ -621,35 +623,51 @@ body.home-page {
 
     .site-header,
     header {
-        padding: 6px 10px;
+        padding: 16px 12px;
     }
 
     .site-title,
     .site-header .site-title,
     header .site-title {
-        font-size: 1.15rem;
+        font-size: 1.45rem;
+    }
+
+    .site-header p,
+    header p {
+        font-size: 0.84rem;
     }
 
     .top-nav,
     .site-nav {
-        gap: 3px !important;
-        row-gap: 3px !important;
+        gap: 6px !important;
     }
 
     .top-nav a,
     .site-nav a {
-        padding: 3px 6px !important;
-        font-size: 0.68rem !important;
+        padding: 6px 9px !important;
+        font-size: 0.82rem !important;
     }
 
     .menu-button {
         display: block;
-        margin: 6px auto 0;
-        padding: 4px 8px;
+        margin: 10px auto 0;
+        padding: 6px 10px;
     }
 
     .hero {
-        padding: 26px 16px;
+        padding: 20px 14px;
+    }
+
+    .hero.compact {
+        padding: 16px 14px;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.25rem, 7vw, 1.9rem);
+    }
+
+    .hero p {
+        font-size: 0.85rem;
     }
 
     .content-card,
@@ -695,6 +713,6 @@ body.home-page {
 
 /* ===============================
    SITE VERSION
-   CSS Version V5.1
-   Last updated for shorter global menu/header, Israel page, photo grid repair, and At a Glance size
+   CSS Version V5.2
+   Last updated for normal menu size and smaller global page title/hero area
    =============================== */
