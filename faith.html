@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Faith | Steve & Anita Hill Family & Home</title>
-
     <link rel="stylesheet" href="style.css" />
 
     <style>
@@ -98,10 +96,6 @@
         }
 
         @media (max-width: 600px) {
-            .faith-page {
-                padding: 18px;
-            }
-
             .faith-topic-grid {
                 grid-template-columns: 1fr;
             }
@@ -113,90 +107,44 @@
 
     <header class="site-header">
         <a class="site-title" href="index.html">Steve & Anita Hill</a>
-
-        <p>
-            Faith • Family • Military Service • Memories • Projects • General
-        </p>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
         <nav class="top-nav">
             <a href="index.html">Home</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
-            <a href="israel.html">Israel</a>
+              <a href="israel.html">Israel</a>
             <a href="projects.html">Projects</a>
             <a href="general.html">General</a>
         </nav>
     </header>
 
-    <main class="page faith-page">
-        <h1>Faith</h1>
-
-        <p class="faith-intro">
-            Our faith in God is the foundation of our family, our home, and our lives.
-        </p>
-
-        <section class="faith-verse">
-            <p>
-                <em>
-                    “For I am persuaded, that neither death, nor life, nor
-                    angels, nor principalities, nor powers, nor things present,
-                    nor things to come, nor height, nor depth, nor any other
-                    creature, shall be able to separate us from the love of
-                    God, which is in Christ Jesus our Lord.”
-                </em>
-            </p>
-
-            <p class="verse-ref">— Romans 8:38–39</p>
-        </section>
-
-        <section class="faith-topic-grid">
-            <article class="faith-topic-card">
-                <h2>Our Faith</h2>
-
-                <p>
-                    We believe in God and trust in His love, grace, guidance,
-                    and promises.
-                </p>
-            </article>
-
-            <article class="faith-topic-card">
-                <h2>Jesus Christ</h2>
-
-                <p>
-                    Jesus Christ is our Lord and Savior and the foundation of
-                    our hope.
-                </p>
-            </article>
-
-            <article class="faith-topic-card">
-                <h2>God’s Word</h2>
-
-                <p>
-                    The Bible provides truth, wisdom, comfort, and direction
-                    for our lives.
-                </p>
-            </article>
-
-            <article class="faith-topic-card">
-                <h2>Israel</h2>
-
-                <p>
-                    We honor the Jewish roots of our faith and God’s enduring
-                    promises to Israel.
-                </p>
-            </article>
-        </section>
-    </main>
-
-    <footer class="fixed-bottom-text">
-        <p>
-            “As for me and my house, we will serve the LORD.” — Joshua 24:15
-        </p>
-
-        <p class="small">
-            © Steve & Anita Hill. Personal family website.
-        </p>
+        <footer class="fixed-bottom-text">
+        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
+        <p class="small">© Steve & Anita Hill. Personal family website.</p>
     </footer>
+
+    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
+        <img id="photoLightboxImg" src="" alt="Expanded photo">
+    </div>
+
+    <script>
+        const lightbox = document.getElementById("photoLightbox");
+        const lightboxImg = document.getElementById("photoLightboxImg");
+        const zoomPhotos = document.querySelectorAll(".zoom-photo");
+
+        zoomPhotos.forEach(photo => {
+            photo.addEventListener("click", () => {
+                lightboxImg.src = photo.src;
+                lightbox.classList.add("active");
+            });
+        });
+
+        lightbox.addEventListener("click", () => {
+            lightbox.classList.remove("active");
+            lightboxImg.src = "";
+        });
+    </script>
 
     <div class="site-version-badge">Ver 11.6</div>
 
