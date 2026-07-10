@@ -220,6 +220,28 @@
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
         <p class="small">© Steve & Anita Hill. Personal family website.</p>
     </footer>
+<script>
+    (function () {
+        const updatedTime = document.body.getAttribute("data-page-updated");
 
+        const loadedTime = new Date().toLocaleString("en-US", {
+            timeZone: "America/New_York",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        }) + " ET";
+
+        if (updatedTime) {
+            document.body.setAttribute(
+                "data-page-updated",
+                updatedTime + "\nPage loaded: " + loadedTime
+            );
+        }
+    })();
+</script>
 </body>
 </html>
