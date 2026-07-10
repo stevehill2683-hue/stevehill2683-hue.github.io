@@ -810,7 +810,7 @@ body.home-page {
 }
 
 body::after {
-    content: "Ver-14.0";
+    content: "Ver-14.3";
     position: fixed;
     right: 18px;
     bottom: 126px;
