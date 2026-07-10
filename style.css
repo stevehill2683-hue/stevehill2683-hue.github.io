@@ -809,41 +809,29 @@ body.home-page {
     display: none !important;
 }
 
-/* Page-specific timestamp—upper-right corner */
+/* PAGE TIMESTAMPS HIDDEN SITE-WIDE */
 body[data-page-updated]::before {
-    content: "Page updated: " attr(data-page-updated);
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    max-width: 310px;
-    padding: 5px 10px;
-    background: #fffaf1;
-    color: var(--accent-dark);
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    font-size: 0.68rem;
-    line-height: 1.25;
-    font-weight: bold;
-    text-align: right;
-    white-space: pre-line;
-    z-index: 1001;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    content: none !important;
+    display: none !important;
 }
 
-/* Global site version—lower-right corner */
+/* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Ver-14.5";
-    position: fixed;
+    content: "Version 14.5" !important;
+    display: block !important;
+    position: fixed !important;
     right: 18px;
-    bottom: 126px;
+    bottom: 86px;
     background: #fffaf1;
     color: var(--accent-dark);
-    border: 1px solid var(--accent);
+    border: 2px solid var(--accent);
     border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 0.74rem;
+    padding: 6px 11px;
+    font-size: 0.76rem;
+    line-height: 1;
     font-weight: bold;
-    z-index: 1001;
+    z-index: 1002;
+    pointer-events: none;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
@@ -886,23 +874,6 @@ body::after {
 
     .israel-toc-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    body[data-page-updated]::before {
-        position: relative;
-        top: auto;
-        right: auto;
-        display: block;
-        width: 100%;
-        max-width: none;
-        padding: 4px 8px;
-        border: none;
-        border-bottom: 1px solid var(--accent);
-        border-radius: 0;
-        text-align: center;
-       white-space: pre-line;
-        font-size: 0.64rem;
-        box-shadow: none;
     }
 }
 
@@ -1046,25 +1017,16 @@ body::after {
 
     body::after {
         right: 10px;
-        bottom: 122px;
+        bottom: 82px;
         font-size: 0.68rem;
         padding: 4px 8px;
     }
 }
-/* TEMPORARILY HIDE ALL PAGE-UPDATED TIMESTAMPS */
-.page-updated,
-.updated-time,
-.last-updated,
-[data-page-updated]::after,
-body::after,
-footer::after {
-    display: none !important;
-    content: none !important;
-}
+
 /* ===============================
    SITE VERSION
    CSS Version V14.5
-   Visible version badge generated globally from CSS
-   Page-specific timestamp generated from each HTML body
+   Visible badge: Version 14.5
+   Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
-   =========================
+   =============================== */
