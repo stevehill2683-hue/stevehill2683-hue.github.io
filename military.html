@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body data-page-updated="Jul 10, 2026 at 5:14 PM ET">
 
     <header class="site-header">
         <h1>Military Photos</h1>
@@ -169,7 +169,7 @@
         <img id="photoLightboxImg" src="" alt="Expanded military photograph" />
     </div>
 
-    <div class="site-version-badge">Ver-14.2</div>
+    <div class="site-version-badge">Ver-14.6</div>
 
     <a href="#" class="back-to-top">Top ↑</a>
 
@@ -202,6 +202,31 @@
             photoLightbox.setAttribute("aria-hidden", "true");
             photoLightboxImg.src = "";
         }
+    </script>
+
+    <script>
+        (function () {
+            const updatedTime =
+                document.body.getAttribute("data-page-updated");
+
+            const loadedTime = new Date().toLocaleString("en-US", {
+                timeZone: "America/New_York",
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            }) + " ET";
+
+            if (updatedTime) {
+                document.body.setAttribute(
+                    "data-page-updated",
+                    updatedTime + "\nPage loaded: " + loadedTime
+                );
+            }
+        })();
     </script>
 
 </body>
