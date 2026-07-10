@@ -1051,7 +1051,16 @@ body::after {
         padding: 4px 8px;
     }
 }
-
+/* TEMPORARILY HIDE ALL PAGE-UPDATED TIMESTAMPS */
+.page-updated,
+.updated-time,
+.last-updated,
+[data-page-updated]::after,
+body::after,
+footer::after {
+    display: none !important;
+    content: none !important;
+}
 /* ===============================
    SITE VERSION
    CSS Version V14.5
