@@ -791,13 +791,14 @@ body.home-page {
 .back-to-top {
     position: fixed;
     right: 18px;
-    bottom: 86px;
+    bottom: 126px;
     background: var(--accent-dark);
     color: white !important;
     text-decoration: none !important;
     padding: 9px 13px;
     border-radius: 10px;
     font-weight: bold;
+    z-index: 1002;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
@@ -1009,11 +1010,11 @@ body::after {
         width: 75%;
     }
 
-    .back-to-top {
-        right: 10px;
-        bottom: 82px;
-        font-size: 0.85rem;
-    }
+ .back-to-top {
+    right: 10px;
+    bottom: 120px;
+    font-size: 0.85rem;
+}
 
     body::after {
         right: 10px;
