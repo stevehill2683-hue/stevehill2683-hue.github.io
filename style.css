@@ -533,7 +533,7 @@ body.home-page {
     font-size: 0.86rem;
     color: var(--ink);
     line-height: 1.25;
-    white-space: nowrap;
+   white-space: pre-line;
 }
 
 /* TABLE OF CONTENTS */
@@ -825,7 +825,7 @@ body[data-page-updated]::before {
     line-height: 1.25;
     font-weight: bold;
     text-align: right;
-    white-space: nowrap;
+    white-space: pre-line;
     z-index: 1001;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
@@ -900,7 +900,7 @@ body::after {
         border-bottom: 1px solid var(--accent);
         border-radius: 0;
         text-align: center;
-        white-space: normal;
+       white-space: pre-line;
         font-size: 0.64rem;
         box-shadow: none;
     }
