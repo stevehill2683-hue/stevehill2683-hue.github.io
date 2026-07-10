@@ -802,15 +802,37 @@ body.home-page {
 }
 
 /* ===============================
-   GLOBAL VERSION BADGE - CSS ONLY
+   PAGE TIMESTAMP AND VERSION BADGE
    =============================== */
 
 .site-version-badge {
     display: none !important;
 }
 
+/* Page-specific timestamp—upper-right corner */
+body[data-page-updated]::before {
+    content: "Page updated: " attr(data-page-updated);
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    max-width: 310px;
+    padding: 5px 10px;
+    background: #fffaf1;
+    color: var(--accent-dark);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+    z-index: 1001;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* Global site version—lower-right corner */
 body::after {
-    content: "Ver-14.3 • Updated Jul 10, 2026 at 10:41 AM ET";
+    content: "Ver-14.3";
     position: fixed;
     right: 18px;
     bottom: 126px;
@@ -864,6 +886,23 @@ body::after {
 
     .israel-toc-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body[data-page-updated]::before {
+        position: relative;
+        top: auto;
+        right: auto;
+        display: block;
+        width: 100%;
+        max-width: none;
+        padding: 4px 8px;
+        border: none;
+        border-bottom: 1px solid var(--accent);
+        border-radius: 0;
+        text-align: center;
+        white-space: normal;
+        font-size: 0.64rem;
+        box-shadow: none;
     }
 }
 
@@ -1016,6 +1055,7 @@ body::after {
 /* ===============================
    SITE VERSION
    CSS Version V14.3
-   Visible page badge generated globally from CSS
-   Last updated for compact Israel search box with no-results message inside search area, red HOME button, blinking no-results search message, one-line intro text, Table of Contents, photo grid repair, and global version badge
+   Visible version badge generated globally from CSS
+   Page-specific timestamp generated from each HTML body
+   Keep this SITE VERSION block at the bottom
    =============================== */
