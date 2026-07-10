@@ -1023,7 +1023,13 @@ body::after {
         padding: 4px 8px;
     }
 }
-
+.photo-navigation-help {
+    margin: 0 0 16px;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: bold;
+}
 /* ===============================
    SITE VERSION
    CSS Version V14.5
