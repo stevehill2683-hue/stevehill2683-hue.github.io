@@ -165,25 +165,31 @@
         role="dialog"
         aria-modal="true"
         aria-hidden="true"
+        aria-label="Expanded military photograph viewer"
     >
-        <img id="photoLightboxImg" src="" alt="Expanded military photograph" />
+        <img
+            id="photoLightboxImg"
+            src=""
+            alt="Expanded military photograph"
+        />
     </div>
 
-    <div class="site-version-badge">Ver-14.6</div>
+    <div class="site-version-badge">Ver-14.5</div>
 
     <a href="#" class="back-to-top">Top ↑</a>
 
     <script>
         const photoLightbox = document.getElementById("photoLightbox");
         const photoLightboxImg = document.getElementById("photoLightboxImg");
-        const militaryPhotos = document.querySelectorAll(".photo-card img");
+        const militaryPhotos = Array.from(
+            document.querySelectorAll(".photo-card img")
+        );
 
-        militaryPhotos.forEach(function (photo) {
+        let currentPhotoIndex = 0;
+
+        militaryPhotos.forEach(function (photo, index) {
             photo.addEventListener("click", function () {
-                photoLightboxImg.src = photo.src;
-                photoLightboxImg.alt = photo.alt;
-                photoLightbox.classList.add("active");
-                photoLightbox.setAttribute("aria-hidden", "false");
+                openPhotoLightbox(index);
             });
         });
 
@@ -192,41 +198,89 @@
         });
 
         document.addEventListener("keydown", function (event) {
+            if (!photoLightbox.classList.contains("active")) {
+                return;
+            }
+
             if (event.key === "Escape") {
                 closePhotoLightbox();
             }
+
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                showPreviousPhoto();
+            }
+
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                showNextPhoto();
+            }
         });
+
+        function openPhotoLightbox(index) {
+            currentPhotoIndex = index;
+            showCurrentPhoto();
+
+            photoLightbox.classList.add("active");
+            photoLightbox.setAttribute("aria-hidden", "false");
+
+            document.body.style.overflow = "hidden";
+        }
+
+        function showCurrentPhoto() {
+            const currentPhoto = militaryPhotos[currentPhotoIndex];
+
+            photoLightboxImg.src = currentPhoto.src;
+            photoLightboxImg.alt = currentPhoto.alt;
+
+            preloadNearbyPhotos();
+        }
+
+        function showPreviousPhoto() {
+            currentPhotoIndex--;
+
+            if (currentPhotoIndex < 0) {
+                currentPhotoIndex = militaryPhotos.length - 1;
+            }
+
+            showCurrentPhoto();
+        }
+
+        function showNextPhoto() {
+            currentPhotoIndex++;
+
+            if (currentPhotoIndex >= militaryPhotos.length) {
+                currentPhotoIndex = 0;
+            }
+
+            showCurrentPhoto();
+        }
+
+        function preloadNearbyPhotos() {
+            const previousIndex =
+                currentPhotoIndex === 0
+                    ? militaryPhotos.length - 1
+                    : currentPhotoIndex - 1;
+
+            const nextIndex =
+                currentPhotoIndex === militaryPhotos.length - 1
+                    ? 0
+                    : currentPhotoIndex + 1;
+
+            const previousImage = new Image();
+            previousImage.src = militaryPhotos[previousIndex].src;
+
+            const nextImage = new Image();
+            nextImage.src = militaryPhotos[nextIndex].src;
+        }
 
         function closePhotoLightbox() {
             photoLightbox.classList.remove("active");
             photoLightbox.setAttribute("aria-hidden", "true");
+
             photoLightboxImg.src = "";
+            document.body.style.overflow = "";
         }
-    </script>
-
-    <script>
-        (function () {
-            const updatedTime =
-                document.body.getAttribute("data-page-updated");
-
-            const loadedTime = new Date().toLocaleString("en-US", {
-                timeZone: "America/New_York",
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true
-            }) + " ET";
-
-            if (updatedTime) {
-                document.body.setAttribute(
-                    "data-page-updated",
-                    updatedTime + "\nPage loaded: " + loadedTime
-                );
-            }
-        })();
     </script>
 
 </body>
