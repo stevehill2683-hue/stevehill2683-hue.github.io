@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="style.css" />
 
     <style>
-        .faith-page {
+        main.faith-page {
+            display: block;
+            width: calc(100% - 40px);
+            max-width: none;
+            margin: 24px 20px 100px;
             padding: 22px 28px;
+            background: #fffaf1;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(44, 37, 30, 0.16);
         }
 
         .faith-page h1 {
-            margin-bottom: 8px;
+            margin: 0 0 8px;
         }
 
         .faith-intro {
@@ -91,6 +99,15 @@
             line-height: 1.45;
         }
 
+        footer.fixed-bottom-text {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
         @media (max-width: 900px) {
             .faith-topic-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -98,6 +115,12 @@
         }
 
         @media (max-width: 600px) {
+            main.faith-page {
+                width: calc(100% - 20px);
+                margin: 10px 10px 110px;
+                padding: 18px;
+            }
+
             .faith-topic-grid {
                 grid-template-columns: 1fr;
             }
@@ -194,29 +217,7 @@
         </p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
-        <img id="photoLightboxImg" src="" alt="Expanded photo">
-    </div>
-
-    <script>
-        const lightbox = document.getElementById("photoLightbox");
-        const lightboxImg = document.getElementById("photoLightboxImg");
-        const zoomPhotos = document.querySelectorAll(".zoom-photo");
-
-        zoomPhotos.forEach(photo => {
-            photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
-            });
-        });
-
-        lightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-    </script>
-
-    <div class="site-version-badge">Ver 11.6</div>
+    <div class="site-version-badge">Ver-14.0</div>
 
     <a href="#" class="back-to-top">Top ↑</a>
 
