@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V14.3
+   CSS Version V14.4
    =============================== */
 
 :root {
@@ -832,7 +832,7 @@ body[data-page-updated]::before {
 
 /* Global site version—lower-right corner */
 body::after {
-    content: "Ver-14.3";
+    content: "Ver-14.4";
     position: fixed;
     right: 18px;
     bottom: 126px;
@@ -1054,8 +1054,8 @@ body::after {
 
 /* ===============================
    SITE VERSION
-   CSS Version V14.3
+   CSS Version V14.4
    Visible version badge generated globally from CSS
    Page-specific timestamp generated from each HTML body
    Keep this SITE VERSION block at the bottom
-   =============================== */
+   =========================
