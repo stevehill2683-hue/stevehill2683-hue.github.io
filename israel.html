@@ -7,9 +7,27 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body class="israel-page">
     <header class="site-header">
         <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
+
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a href="faith.html">Faith</a>
+            <a href="military.html">Military</a>
+            <a href="family.html">Family</a>
+            <a href="general.html">General</a>
+            <a href="projects.html">Projects</a>
+            <a href="steve.html">Steve</a>
+            <a href="anita.html">Anita</a>
+            <a href="tony.html">Tony</a>
+            <a href="scott.html">Scott</a>
+            <a href="becky.html">Becky</a>
+            <a href="craig.html">Craig</a>
+            <a href="brian.html">Brian</a>
+            <a href="mom-dad.html">Mom/Dad</a>
+        </nav>
     </header>
 
     <main>
@@ -67,6 +85,12 @@
                 Searches titles, captions, image descriptions, and hidden photo tags.
             </p>
         </section>
+
+        <p class="photo-navigation-help">
+            Click or tap a photo first. On a computer, use the left and right
+            arrow keys. On a phone, swipe left or right. Press Escape or tap
+            the enlarged photo area to close.
+        </p>
 
         <section id="title-1" class="israel-topic">
             <h2>Title 1</h2>
@@ -487,25 +511,190 @@
         <p class="small">© Steve & Anita Hill. Personal family website.</p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
+    <div
+        id="photoLightbox"
+        class="photo-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Expanded Israel photograph viewer"
+    >
         <img id="photoLightboxImg" src="" alt="Expanded photo">
     </div>
 
     <script>
         const lightbox = document.getElementById("photoLightbox");
         const lightboxImg = document.getElementById("photoLightboxImg");
-        const zoomPhotos = document.querySelectorAll(".zoom-photo");
+        const zoomPhotos = Array.from(
+            document.querySelectorAll(".zoom-photo")
+        );
+
+        let activePhotos = zoomPhotos;
+        let currentPhotoIndex = 0;
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchMoved = false;
+
+        function getVisiblePhotos() {
+            const visiblePhotos = zoomPhotos.filter(photo => {
+                const card = photo.closest(".photo-card");
+                const topic = photo.closest(".israel-topic");
+
+                return !card?.classList.contains("search-hidden") &&
+                       !topic?.classList.contains("search-hidden");
+            });
+
+            return visiblePhotos.length > 0 ? visiblePhotos : zoomPhotos;
+        }
+
+        function preloadNearbyPhotos() {
+            if (activePhotos.length < 2) {
+                return;
+            }
+
+            const previousIndex =
+                (currentPhotoIndex - 1 + activePhotos.length) %
+                activePhotos.length;
+
+            const nextIndex =
+                (currentPhotoIndex + 1) % activePhotos.length;
+
+            const previousPhoto = new Image();
+            previousPhoto.src = activePhotos[previousIndex].src;
+
+            const nextPhoto = new Image();
+            nextPhoto.src = activePhotos[nextIndex].src;
+        }
+
+        function showPhoto(index) {
+            currentPhotoIndex =
+                (index + activePhotos.length) % activePhotos.length;
+
+            const selectedPhoto = activePhotos[currentPhotoIndex];
+
+            lightboxImg.src = selectedPhoto.src;
+            lightboxImg.alt = selectedPhoto.alt;
+
+            preloadNearbyPhotos();
+        }
+
+        function openLightbox(photo) {
+            activePhotos = getVisiblePhotos();
+            currentPhotoIndex = activePhotos.indexOf(photo);
+
+            if (currentPhotoIndex < 0) {
+                activePhotos = zoomPhotos;
+                currentPhotoIndex = zoomPhotos.indexOf(photo);
+            }
+
+            showPhoto(currentPhotoIndex);
+            lightbox.classList.add("active");
+            lightbox.setAttribute("aria-hidden", "false");
+            document.body.classList.add("lightbox-open");
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("active");
+            lightbox.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("lightbox-open");
+            lightboxImg.src = "";
+            lightboxImg.alt = "Expanded photo";
+        }
+
+        function showPreviousPhoto() {
+            showPhoto(currentPhotoIndex - 1);
+        }
+
+        function showNextPhoto() {
+            showPhoto(currentPhotoIndex + 1);
+        }
 
         zoomPhotos.forEach(photo => {
             photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
+                openLightbox(photo);
+            });
+
+            photo.addEventListener("keydown", event => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openLightbox(photo);
+                }
             });
         });
 
+        lightbox.addEventListener("touchstart", event => {
+            const touch = event.changedTouches[0];
+
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchMoved = false;
+        }, { passive: true });
+
+        lightbox.addEventListener("touchmove", event => {
+            const touch = event.changedTouches[0];
+
+            const horizontalMovement = touch.clientX - touchStartX;
+            const verticalMovement = touch.clientY - touchStartY;
+
+            if (Math.abs(horizontalMovement) > Math.abs(verticalMovement)) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        lightbox.addEventListener("touchend", event => {
+            const touch = event.changedTouches[0];
+
+            const horizontalDistance = touch.clientX - touchStartX;
+            const verticalDistance = touch.clientY - touchStartY;
+
+            const isHorizontalSwipe =
+                Math.abs(horizontalDistance) >= 50 &&
+                Math.abs(horizontalDistance) > Math.abs(verticalDistance);
+
+            if (!isHorizontalSwipe) {
+                return;
+            }
+
+            touchMoved = true;
+
+            if (horizontalDistance < 0) {
+                showNextPhoto();
+            } else {
+                showPreviousPhoto();
+            }
+
+            setTimeout(() => {
+                touchMoved = false;
+            }, 400);
+        }, { passive: true });
+
         lightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
+            if (touchMoved) {
+                return;
+            }
+
+            closeLightbox();
+        });
+
+        document.addEventListener("keydown", event => {
+            if (!lightbox.classList.contains("active")) {
+                return;
+            }
+
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                showPreviousPhoto();
+            }
+
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                showNextPhoto();
+            }
+
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
         });
 
         const israelSearch = document.getElementById("israelSearch");
