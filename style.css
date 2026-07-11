@@ -1,8 +1,10 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V16.1
+   CSS Version V16.2
    =============================== */
+
+/* VALIDATED VERSION 16.2 — USE THIS COMPLETE FILE */
 
 :root {
     --bg: #f5f1e9;
@@ -19,8 +21,17 @@
     --danger: #b00000;
     --danger-hover: #d00000;
     --danger-border: #7a0000;
+    --accent-hover: #5a3218;
+    --near-black: #111;
+    --photo-bg: #f1eadc;
     --layout-max: 1100px;
     --layout-padding: 16px;
+    --layout-padding-mobile: 10px;
+    --search-max: 520px;
+    --shadow-header: 0 6px 18px rgba(0, 0, 0, 0.22);
+    --shadow-medium: 0 8px 18px rgba(44, 37, 30, 0.18);
+    --shadow-dark: 0 10px 24px rgba(0, 0, 0, 0.18);
+    --shadow-small-dark: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
 /* RESET / GLOBAL FONT */
@@ -56,9 +67,9 @@ body {
 .site-header,
 header {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-    color: #fffaf1;
+    color: var(--on-dark);
     padding: 18px 20px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    box-shadow: var(--shadow-header);
     position: relative;
     z-index: 10;
     text-align: center;
@@ -68,7 +79,7 @@ header {
 .site-header .site-title,
 header .site-title {
     display: block;
-    color: #fffaf1 !important;
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     font-size: clamp(1.7rem, 3.4vw, 2.65rem);
     font-weight: bold;
@@ -80,7 +91,7 @@ header .site-title {
 .site-header p,
 header p {
     margin: 8px 0 12px;
-    color: #fffaf1;
+    color: var(--on-dark);
     text-align: center;
     font-size: 0.95rem;
     font-weight: bold;
@@ -131,9 +142,9 @@ header p {
    =============================== */
 
 .menu-button {
-    background: #fffaf1;
+    background: var(--paper);
     color: var(--accent-dark);
-    border: 2px solid #fffaf1;
+    border: 2px solid var(--paper);
     border-radius: 8px;
     padding: 7px 13px;
     font-weight: bold;
@@ -156,7 +167,7 @@ header p {
 .site-nav a,
 .site-nav a:visited {
     display: inline-block;
-    color: #fffaf1 !important;
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     padding: 7px 11px;
     border: 1px solid rgba(255, 250, 241, 0.45);
@@ -167,7 +178,7 @@ header p {
 }
 
 .site-nav a:hover {
-    color: #fffaf1 !important;
+    color: var(--on-dark) !important;
     background: rgba(255, 250, 241, 0.20);
     text-decoration: none !important;
 }
@@ -205,7 +216,7 @@ main,
 
 .hero h1 {
     margin: 0 0 6px;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: clamp(1.35rem, 2.8vw, 2.15rem);
     font-style: italic;
     text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.65);
@@ -214,7 +225,7 @@ main,
 
 .hero p {
     margin: 0;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 0.9rem;
     line-height: 1.25;
 }
@@ -253,12 +264,12 @@ body.home-page {
 
 .home-welcome-panel {
     text-align: center;
-    background: #303030;
-    color: #fffaf1;
+    background: var(--dark-bg);
+    color: var(--on-dark);
 }
 
 .home-welcome-panel h1 {
-    color: #fffaf1;
+    color: var(--on-dark);
     font-weight: bold;
     font-style: italic;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
@@ -275,7 +286,7 @@ body.home-page {
 .home-welcome-panel p {
     max-width: 760px;
     margin: 0 auto;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-weight: bold;
 }
 
@@ -283,13 +294,13 @@ body.home-page {
     width: 58%;
     max-width: 640px;
     height: 4px;
-    background: #111;
+    background: var(--near-black);
     margin: 14px auto 18px;
     border-radius: 999px;
 }
 
 .at-a-glance-title {
-    font-size: 1.32rem !important;
+    font-size: 1.32rem;
 }
 
 .home-info-grid {
@@ -300,23 +311,23 @@ body.home-page {
 }
 
 .home-info-card {
-    background: #432611;
-    border: 1px solid #ddcfba;
+    background: var(--accent-dark);
+    border: 1px solid var(--line);
     border-radius: 14px;
     padding: 15px 18px;
-    color: #fffaf1;
-    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+    color: var(--on-dark);
+    box-shadow: var(--shadow-medium);
 }
 
 .home-info-card h3 {
     margin: 0 0 6px;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 1.15rem;
 }
 
 .home-info-card p {
     margin: 0;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 0.9rem;
     line-height: 1.4;
 }
@@ -367,18 +378,18 @@ body.home-page {
 }
 
 .faith-verse {
-    background: #303030;
-    color: #fffaf1;
-    border: 1px solid #ddcfba;
+    background: var(--dark-bg);
+    color: var(--on-dark);
+    border: 1px solid var(--line);
     border-radius: 14px;
     padding: 18px 22px;
     margin: 16px 0 18px;
-    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+    box-shadow: var(--shadow-medium);
 }
 
 .faith-verse p {
     margin: 0;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 1rem;
     line-height: 1.55;
     font-weight: bold;
@@ -398,12 +409,12 @@ body.home-page {
 }
 
 .faith-topic-card {
-    background: #432611;
-    border: 1px solid #ddcfba;
+    background: var(--accent-dark);
+    border: 1px solid var(--line);
     border-radius: 14px;
     padding: 18px 20px;
-    color: #fffaf1;
-    box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+    color: var(--on-dark);
+    box-shadow: var(--shadow-medium);
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
@@ -415,21 +426,21 @@ body.home-page {
 .faith-topic-card:focus-within {
     transform: translateY(-4px);
     box-shadow: 0 14px 30px rgba(44, 37, 30, 0.30);
-    border-color: #fffaf1;
-    background: #5a3218;
+    border-color: var(--on-dark);
+    background: var(--accent-hover);
 }
 
 .faith-topic-card h2 {
     margin: 0 0 8px;
     padding: 0;
     border: none;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 1.25rem;
 }
 
 .faith-topic-card p {
     margin: 0;
-    color: #fffaf1;
+    color: var(--on-dark);
     font-size: 0.95rem;
     line-height: 1.45;
 }
@@ -482,7 +493,7 @@ body.home-page {
     height: 260px;
     object-fit: contain;
     display: block;
-    background: #f1eadc;
+    background: var(--photo-bg);
     border-radius: 10px;
     cursor: pointer;
 }
@@ -555,11 +566,11 @@ body.lightbox-open .site-header {
     font-style: italic;
     font-size: 1.35rem;
     font-weight: 600;
-    color: white;
-    background: #111;
+    color: var(--on-dark);
+    background: var(--near-black);
     border: 3px solid black;
     border-radius: 12px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-dark);
 }
 
 .israel-intro-card {
@@ -584,7 +595,7 @@ body.lightbox-open .site-header {
 
 /* TABLE OF CONTENTS */
 .israel-toc {
-    background: #fffaf1;
+    background: var(--paper);
     border: 2px solid var(--accent-dark);
     border-radius: 18px;
     padding: 18px;
@@ -621,19 +632,19 @@ body.lightbox-open .site-header {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #b00000;
-    color: #ffffff !important;
+    background: var(--danger);
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     padding: 7px 13px;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: bold;
-    border: 1px solid #7a0000;
+    border: 1px solid var(--danger-border);
 }
 
 .israel-home-button:hover {
-    background: #d00000;
-    color: #ffffff !important;
+    background: var(--danger-hover);
+    color: var(--on-dark) !important;
 }
 
 .israel-toc-grid {
@@ -646,25 +657,25 @@ body.lightbox-open .site-header {
 .israel-toc-grid a:visited {
     display: block;
     text-align: center;
-    background: #432611;
-    color: #fffaf1 !important;
+    background: var(--accent-dark);
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     padding: 10px 12px;
     border-radius: 10px;
     font-weight: bold;
-    border: 1px solid #ddcfba;
+    border: 1px solid var(--line);
     box-shadow: 0 6px 14px rgba(44, 37, 30, 0.16);
 }
 
 .israel-toc-grid a:hover {
-    background: #5a3218;
+    background: var(--accent-hover);
     transform: translateY(-2px);
 }
 
 /* ISRAEL SEARCH BOX - COMPACT */
 .israel-search-box {
-    background: #303030;
-    color: #fffaf1;
+    background: var(--dark-bg);
+    color: var(--on-dark);
     border-radius: 16px;
     padding: 10px 16px;
     margin: 12px 0 16px;
@@ -682,26 +693,26 @@ body.lightbox-open .site-header {
 }
 
 .israel-search-box input {
-    width: min(520px, 100%);
+    width: min(var(--search-max), 100%);
     padding: 8px 12px;
     border-radius: 10px;
-    border: 2px solid #ddcfba;
+    border: 2px solid var(--line);
     font-size: 0.95rem;
 }
 
 .israel-search-note {
     margin: 6px 0 0;
     font-size: 0.76rem;
-    color: #fffaf1;
+    color: var(--on-dark);
     opacity: 0.9;
     line-height: 1.15;
 }
 
 .israel-no-results {
     display: none;
-    width: min(520px, 100%);
+    width: min(var(--search-max), 100%);
     margin: 7px auto 0;
-    background: #fffaf1;
+    background: var(--paper);
     color: var(--accent-dark);
     border: 2px solid var(--accent);
     border-radius: 10px;
@@ -710,7 +721,7 @@ body.lightbox-open .site-header {
     font-size: 0.86rem;
     font-weight: bold;
     line-height: 1.15;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-small-dark);
 }
 
 .israel-no-results.active {
@@ -720,19 +731,19 @@ body.lightbox-open .site-header {
 
 @keyframes noResultsBlink {
     0% {
-        background: #fffaf1;
+        background: var(--paper);
         color: var(--accent-dark);
         border-color: var(--accent);
     }
 
     50% {
-        background: #b00000;
-        color: #ffffff;
-        border-color: #7a0000;
+        background: var(--danger);
+        color: var(--on-dark);
+        border-color: var(--danger-border);
     }
 
     100% {
-        background: #fffaf1;
+        background: var(--paper);
         color: var(--accent-dark);
         border-color: var(--accent);
     }
@@ -782,7 +793,7 @@ body.lightbox-open .site-header {
     margin: 20px auto 0;
     padding: 9px 16px;
     background: var(--accent-dark);
-    color: #fffaf1 !important;
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     border-radius: 10px;
     font-weight: bold;
@@ -799,7 +810,7 @@ body.lightbox-open .site-header {
     margin: 22px auto 8px;
     padding: 10px 18px;
     background: var(--accent-dark);
-    color: white !important;
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     border-radius: 10px;
     font-weight: bold;
@@ -816,14 +827,14 @@ body.lightbox-open .site-header {
     margin: 18px auto;
     padding: 18px 22px;
     text-align: center;
-    background: #111;
-    color: white !important;
+    background: var(--near-black);
+    color: var(--on-dark) !important;
     border: 3px solid black;
     border-radius: 14px;
     text-decoration: none !important;
     font-style: italic;
     font-weight: bold;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-dark);
 }
 
 .israel-access-card:hover {
@@ -839,13 +850,13 @@ body.lightbox-open .site-header {
     right: 18px;
     bottom: 126px;
     background: var(--accent-dark);
-    color: white !important;
+    color: var(--on-dark) !important;
     text-decoration: none !important;
     padding: 9px 13px;
     border-radius: 10px;
     font-weight: bold;
     z-index: 1002;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    box-shadow: var(--shadow-header);
 }
 
 /* ===============================
@@ -870,12 +881,12 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 16.1" !important;
+    content: "Version 16.2" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
     bottom: 86px;
-    background: #fffaf1;
+    background: var(--paper);
     color: var(--accent-dark);
     border: 2px solid var(--accent);
     border-radius: 8px;
@@ -885,7 +896,7 @@ body::after {
     font-weight: bold;
     z-index: 1002;
     pointer-events: none;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-small-dark);
 }
 
 /* ===============================
@@ -898,7 +909,7 @@ body::after {
     right: 0;
     bottom: 0;
     background: var(--accent-dark);
-    color: #fffaf1;
+    color: var(--on-dark);
     text-align: center;
     padding: 8px 10px;
     z-index: 1000;
@@ -908,7 +919,7 @@ body::after {
 .fixed-bottom-text p {
     margin: 0;
     font-size: 0.86rem;
-    color: #fffaf1;
+    color: var(--on-dark);
 }
 
 .fixed-bottom-text .small {
@@ -937,7 +948,10 @@ body::after {
 
     main,
     .page-wrap {
-        width: min(100% - 20px, 1100px);
+        width: min(
+            calc(100% - (var(--layout-padding-mobile) * 2)),
+            var(--layout-max)
+        );
         margin: 16px auto;
     }
 
@@ -1027,7 +1041,7 @@ body::after {
         position: static;
         transform: none;
         background: var(--danger);
-        color: #ffffff !important;
+        color: var(--on-dark) !important;
         padding: 6px 10px;
         font-size: 0.78rem;
         border: 1px solid var(--danger-border);
@@ -1035,7 +1049,7 @@ body::after {
 
     .israel-home-button:hover {
         background: var(--danger-hover);
-        color: #ffffff !important;
+        color: var(--on-dark) !important;
     }
 
     .israel-toc-grid {
@@ -1077,8 +1091,8 @@ body::after {
 }
 /* ===============================
    SITE VERSION
-   CSS Version V16.1
-   Visible badge: Version 16.1
+   CSS Version V16.2
+   Visible badge: Version 16.2
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
