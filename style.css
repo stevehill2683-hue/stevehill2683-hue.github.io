@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V16.0
+   CSS Version V16.1
    =============================== */
 
 :root {
@@ -13,12 +13,27 @@
     --accent-dark: #432611;
     --line: #ddcfba;
     --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
+    --shadow-soft: 0 10px 22px rgba(44, 37, 30, 0.14);
+    --on-dark: #fffaf1;
+    --dark-bg: #303030;
+    --danger: #b00000;
+    --danger-hover: #d00000;
+    --danger-border: #7a0000;
+    --layout-max: 1100px;
+    --layout-padding: 16px;
 }
 
 /* RESET / GLOBAL FONT */
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -76,34 +91,38 @@ header p {
    =============================== */
 
 .top-nav {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 10px !important;
-    row-gap: 8px !important;
-    margin-top: 10px !important;
-    line-height: 1.2 !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    row-gap: 8px;
+    max-width: 100%;
+    margin-top: 10px;
+    line-height: 1.2;
+    overflow: visible;
 }
 
 .top-nav a,
 .top-nav a:visited {
-    display: inline-block !important;
-    color: #fffaf1 !important;
-    text-decoration: none !important;
-    padding: 7px 13px !important;
-    border: 1px solid rgba(255, 250, 241, 0.55) !important;
-    border-radius: 8px !important;
-    font-size: 0.9rem !important;
-    line-height: 1.15 !important;
-    font-weight: bold !important;
-    background: rgba(255, 250, 241, 0.10) !important;
+    display: inline-block;
+    flex: 0 0 auto;
+    color: var(--on-dark);
+    text-decoration: none;
+    padding: 7px 13px;
+    border: 1px solid rgba(255, 250, 241, 0.55);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.15;
+    font-weight: bold;
+    white-space: nowrap;
+    background: rgba(255, 250, 241, 0.10);
 }
 
 .top-nav a:hover {
-    color: #fffaf1 !important;
-    background: rgba(255, 250, 241, 0.24) !important;
-    text-decoration: none !important;
+    color: var(--on-dark);
+    background: rgba(255, 250, 241, 0.24);
+    text-decoration: none;
     transform: translateY(-1px);
 }
 
@@ -159,7 +178,10 @@ header p {
 
 main,
 .page-wrap {
-    width: min(1100px, calc(100% - 32px));
+    width: min(
+        var(--layout-max),
+        calc(100% - (var(--layout-padding) * 2))
+    );
     margin: 24px auto;
 }
 
@@ -168,8 +190,8 @@ main,
    =============================== */
 
 .hero {
-    background: #303030;
-    color: #fffaf1;
+    background: var(--dark-bg);
+    color: var(--on-dark);
     text-align: center;
     padding: 24px 20px;
     border-radius: 18px;
@@ -424,12 +446,12 @@ body.home-page {
 .family-gallery,
 .image-gallery,
 .mom-dad-gallery {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-    gap: 18px !important;
-    align-items: start !important;
-    width: 100% !important;
-    margin-top: 18px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    align-items: start;
+    width: 100%;
+    margin-top: 18px;
 }
 
 .gallery > .photo-card,
@@ -440,61 +462,85 @@ body.home-page {
 .family-gallery > .photo-card,
 .image-gallery > .photo-card,
 .mom-dad-gallery > .photo-card {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
+    width: 100%;
+    max-width: none;
+    margin: 0;
 }
 
 .photo-card {
-    background: #fffaf1 !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 14px !important;
-    padding: 12px !important;
-    text-align: center !important;
-    box-shadow: 0 10px 22px rgba(44, 37, 30, 0.14) !important;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
 }
 
 .photo-card img,
 .photo-card .zoom-photo {
-    width: 100% !important;
-    height: 260px !important;
-    object-fit: contain !important;
-    display: block !important;
-    background: #f1eadc !important;
-    border-radius: 10px !important;
-    cursor: pointer !important;
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    display: block;
+    background: #f1eadc;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .photo-card p {
-    margin: 10px 0 0 !important;
-    font-size: 0.95rem !important;
-    color: var(--ink) !important;
+    margin: 10px 0 0;
+    font-size: 0.95rem;
+    color: var(--ink);
 }
 
 /* ===============================
    PHOTO LIGHTBOX
    =============================== */
 
+body.lightbox-open {
+    overflow: hidden;
+}
+
 .photo-lightbox {
     display: none;
     position: fixed;
-    z-index: 9999;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 12px;
+    box-sizing: border-box;
     align-items: center;
-    padding: 18px;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 999999;
 }
 
 .photo-lightbox.active {
     display: flex;
+    touch-action: none;
 }
 
 .photo-lightbox img {
-    max-width: 95vw;
-    max-height: 92vh;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
     object-fit: contain;
-    border-radius: 10px;
+}
+
+body.lightbox-open .site-header {
+    z-index: 1;
+}
+
+.photo-navigation-help {
+    margin: 0 0 16px;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: bold;
 }
 
 /* ===============================
@@ -824,7 +870,7 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 16.0" !important;
+    content: "Version 16.1" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -913,13 +959,13 @@ body::after {
 
     .top-nav,
     .site-nav {
-        gap: 6px !important;
+        gap: 6px;
     }
 
     .top-nav a,
     .site-nav a {
-        padding: 6px 9px !important;
-        font-size: 0.82rem !important;
+        padding: 6px 9px;
+        font-size: 0.82rem;
     }
 
     .menu-button {
@@ -980,15 +1026,15 @@ body::after {
     .israel-home-button:visited {
         position: static;
         transform: none;
-        background: #b00000;
+        background: var(--danger);
         color: #ffffff !important;
         padding: 6px 10px;
         font-size: 0.78rem;
-        border: 1px solid #7a0000;
+        border: 1px solid var(--danger-border);
     }
 
     .israel-home-button:hover {
-        background: #d00000;
+        background: var(--danger-hover);
         color: #ffffff !important;
     }
 
@@ -1004,12 +1050,12 @@ body::after {
     .family-gallery,
     .image-gallery,
     .mom-dad-gallery {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
     }
 
     .photo-card img,
     .photo-card .zoom-photo {
-        height: 240px !important;
+        height: 240px;
     }
 
     .home-welcome-logo {
@@ -1029,77 +1075,10 @@ body::after {
         padding: 4px 8px;
     }
 }
-.photo-navigation-help {
-    margin: 0 0 16px;
-    text-align: center;
-    font-size: 0.92rem;
-    color: var(--muted);
-    font-weight: bold;
-}
-/* =========================================================
-   LIGHTBOX ABOVE STICKY HEADER + NARROW SCREEN NAVIGATION FIX
-   ========================================================= */
-
-body.lightbox-open {
-    overflow: hidden !important;
-}
-
-/* Keep the enlarged-photo viewer above every page element */
-.photo-lightbox {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-    padding: 12px !important;
-    box-sizing: border-box !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(0, 0, 0, 0.92) !important;
-    z-index: 999999 !important;
-}
-
-.photo-lightbox.active {
-    display: flex !important;
-}
-
-/* Make the complete enlarged photo fit within the screen */
-.photo-lightbox img {
-    display: block !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: calc(100vw - 24px) !important;
-    max-height: calc(100vh - 24px) !important;
-    max-height: calc(100dvh - 24px) !important;
-    object-fit: contain !important;
-}
-
-/* Temporarily place the sticky header below the lightbox */
-body.lightbox-open .site-header {
-    z-index: 1 !important;
-}
-
-/* Keep navigation buttons from running beyond the screen */
-.top-nav {
-    max-width: 100% !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    overflow: visible !important;
-}
-
-.top-nav a {
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-}
-
-/* Prevent the browser page from moving during a phone swipe */
-.photo-lightbox.active {
-    touch-action: none;
-}
 /* ===============================
    SITE VERSION
-   CSS Version V16.0
-   Visible badge: Version 16.0
+   CSS Version V16.1
+   Visible badge: Version 16.1
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
