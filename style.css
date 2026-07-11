@@ -1036,6 +1036,66 @@ body::after {
     color: var(--muted);
     font-weight: bold;
 }
+/* =========================================================
+   LIGHTBOX ABOVE STICKY HEADER + NARROW SCREEN NAVIGATION FIX
+   ========================================================= */
+
+body.lightbox-open {
+    overflow: hidden !important;
+}
+
+/* Keep the enlarged-photo viewer above every page element */
+.photo-lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.92) !important;
+    z-index: 999999 !important;
+}
+
+.photo-lightbox.active {
+    display: flex !important;
+}
+
+/* Make the complete enlarged photo fit within the screen */
+.photo-lightbox img {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    object-fit: contain !important;
+}
+
+/* Temporarily place the sticky header below the lightbox */
+body.lightbox-open .site-header {
+    z-index: 1 !important;
+}
+
+/* Keep navigation buttons from running beyond the screen */
+.top-nav {
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    overflow: visible !important;
+}
+
+.top-nav a {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+}
+
+/* Prevent the browser page from moving during a phone swipe */
+.photo-lightbox.active {
+    touch-action: none;
+}
 /* ===============================
    SITE VERSION
    CSS Version V15.2
