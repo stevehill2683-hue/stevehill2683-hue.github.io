@@ -818,7 +818,7 @@ body[data-page-updated]::before {
 
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 14.5" !important;
+    content: "Version 15.0" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
