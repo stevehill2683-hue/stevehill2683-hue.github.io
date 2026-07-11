@@ -45,8 +45,9 @@
             </p>
 
             <p class="photo-navigation-help">
-                Click a photo to enlarge it. Then use the left and right arrow keys
-                to view other photos. Press Escape or click the enlarged photo to close.
+                Click a photo to enlarge it. Use the left and right arrow keys on a
+                computer, or swipe left and right on a phone or tablet. Press Escape
+                or tap the enlarged photo to close.
             </p>
 
             <div class="gallery">
@@ -224,6 +225,10 @@
         const lightboxImg = document.getElementById("photoLightboxImg");
 
         let currentPhotoIndex = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let ignoreNextClick = false;
+        let ignoreClickTimer;
 
         function preloadNearbyPhotos() {
             const previousIndex =
@@ -285,7 +290,68 @@
             });
         });
 
+        lightbox.addEventListener(
+            "touchstart",
+            event => {
+                if (!lightbox.classList.contains("active")) {
+                    return;
+                }
+
+                const touch = event.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+            },
+            { passive: true }
+        );
+
+        lightbox.addEventListener(
+            "touchend",
+            event => {
+                if (
+                    !lightbox.classList.contains("active") ||
+                    event.changedTouches.length === 0
+                ) {
+                    return;
+                }
+
+                const touch = event.changedTouches[0];
+                const changeX = touch.clientX - touchStartX;
+                const changeY = touch.clientY - touchStartY;
+                const minimumSwipeDistance = 50;
+
+                const isHorizontalSwipe =
+                    Math.abs(changeX) > Math.abs(changeY);
+
+                if (
+                    isHorizontalSwipe &&
+                    Math.abs(changeX) >= minimumSwipeDistance
+                ) {
+                    event.preventDefault();
+
+                    if (changeX < 0) {
+                        showNextPhoto();
+                    } else {
+                        showPreviousPhoto();
+                    }
+
+                    ignoreNextClick = true;
+                    clearTimeout(ignoreClickTimer);
+
+                    ignoreClickTimer = setTimeout(() => {
+                        ignoreNextClick = false;
+                    }, 500);
+                }
+            },
+            { passive: false }
+        );
+
         lightbox.addEventListener("click", () => {
+            if (ignoreNextClick) {
+                ignoreNextClick = false;
+                clearTimeout(ignoreClickTimer);
+                return;
+            }
+
             closeLightbox();
         });
 
