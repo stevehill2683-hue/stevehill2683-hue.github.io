@@ -1,7 +1,7 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V15.9
+   CSS Version V16.0
    =============================== */
 
 :root {
@@ -824,7 +824,7 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 15.9" !important;
+    content: "Version 16.0" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -1098,8 +1098,8 @@ body.lightbox-open .site-header {
 }
 /* ===============================
    SITE VERSION
-   CSS Version V15.9
-   Visible badge: Version 15.9
+   CSS Version V16.0
+   Visible badge: Version 16.0
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
