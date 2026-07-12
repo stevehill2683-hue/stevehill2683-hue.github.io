@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | Steve Hill Family & Home</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Steve &amp; Anita Hill Family &amp; Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header class="site-header">
-        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <a class="site-title" href="index.html">Steve &amp; Anita Hill</a>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="faith.html">Faith</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
-            <a href="steve.html">Steve</a>
-            <a href="anita.html">Anita</a>
-            <a href="tony.html">Tony</a>
-            <a href="scott.html">Scott</a>
-            <a href="becky.html">Becky</a>
-            <a href="craig.html">Craig</a>
-            <a href="brian.html">Brian</a>
-            <a href="mom-dad.html">Mom/Dad</a>
             <a href="general.html">General</a>
         </nav>
     </header>
@@ -31,28 +25,32 @@
     <main>
         <section class="hero compact">
             <h1>Projects</h1>
-            <p>Home projects, website work, repairs, improvements, and things worth remembering.</p>
+            <p>
+                Home projects, website work, repairs, improvements, and things worth remembering.
+            </p>
         </section>
 
         <section class="content-card">
-            <h2>Project Notes</h2>
+            <h2>Project Overview</h2>
+
             <p>
                 This page is for keeping track of projects around the house, website updates,
-                repair notes, ideas, and improvements.
+                repair information, ideas, and improvements.
             </p>
 
             <div class="page-grid">
-
                 <div class="page-card">
                     <h3>Website Project</h3>
+
                     <p>
-                        Notes and updates for this family website, including page changes,
+                        Information and updates for this family website, including page changes,
                         photo pages, layout fixes, and version updates.
                     </p>
                 </div>
 
                 <div class="page-card">
                     <h3>Home Projects</h3>
+
                     <p>
                         Repairs, improvements, maintenance, and house-related projects to remember.
                     </p>
@@ -60,52 +58,28 @@
 
                 <div class="page-card">
                     <h3>Technology</h3>
+
                     <p>
-                        Computer, network, camera system, home theater, and equipment notes.
+                        Computer, network, camera system, home theater, and equipment information.
                     </p>
                 </div>
 
                 <div class="page-card">
                     <h3>Future Ideas</h3>
+
                     <p>
                         Ideas to consider later, including upgrades, changes, and improvements.
                     </p>
                 </div>
-
             </div>
         </section>
     </main>
 
     <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+        <p class="small">© Steve &amp; Anita Hill. Personal family website.</p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
-        <img id="photoLightboxImg" src="" alt="Expanded photo">
-    </div>
-
-    <script>
-        const lightbox = document.getElementById("photoLightbox");
-        const lightboxImg = document.getElementById("photoLightboxImg");
-        const zoomPhotos = document.querySelectorAll(".zoom-photo");
-
-        zoomPhotos.forEach(photo => {
-            photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
-            });
-        });
-
-        lightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-    </script>
-
-    <div class="site-version-badge">Ver 11.6</div>
-
     <a href="#" class="back-to-top">Top ↑</a>
-
 </body>
 </html>
