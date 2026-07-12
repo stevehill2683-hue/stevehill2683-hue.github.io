@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Faith | Steve & Anita Hill Family & Home</title>
+    <title>Faith | Steve &amp; Anita Hill Family &amp; Home</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 
     <style>
         main.faith-page {
@@ -128,20 +128,22 @@
     </style>
 </head>
 
-<body data-page-updated="Jul 10, 2026 at 4:18 PM ET">
+<body>
 
     <header class="site-header">
-        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <a class="site-title" href="index.html">
+            Steve &amp; Anita Hill
+        </a>
 
         <p>
             Faith • Family • Military Service • Memories • Projects • General
         </p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
-            <a href="israel.html">Israel</a>
             <a href="projects.html">Projects</a>
             <a href="general.html">General</a>
         </nav>
@@ -154,7 +156,7 @@
             Our faith in God is the foundation of our family, our home, and our lives.
         </p>
 
-        <section class="faith-verse">
+        <section class="faith-verse" aria-label="Romans 8:38–39">
             <p>
                 <em>
                     “For I am persuaded, that neither death, nor life, nor
@@ -168,7 +170,7 @@
             <p class="verse-ref">— Romans 8:38–39</p>
         </section>
 
-        <section class="faith-topic-grid">
+        <div class="faith-topic-grid">
             <article class="faith-topic-card">
                 <h2>Our Faith</h2>
 
@@ -204,7 +206,7 @@
                     promises to Israel.
                 </p>
             </article>
-        </section>
+        </div>
     </main>
 
     <footer class="fixed-bottom-text">
@@ -213,35 +215,13 @@
         </p>
 
         <p class="small">
-            © Steve & Anita Hill. Personal family website.
+            © Steve &amp; Anita Hill. Personal family website.
         </p>
     </footer>
 
-    <div class="site-version-badge">Ver-14.0</div>
+    <div class="site-version-badge">Ver-14.5</div>
 
     <a href="#" class="back-to-top">Top ↑</a>
-<script>
-    (function () {
-        const updatedTime = document.body.getAttribute("data-page-updated");
 
-        const loadedTime = new Date().toLocaleString("en-US", {
-            timeZone: "America/New_York",
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true
-        }) + " ET";
-
-        if (updatedTime) {
-            document.body.setAttribute(
-                "data-page-updated",
-                updatedTime + "\nPage loaded: " + loadedTime
-            );
-        }
-    })();
-</script>
 </body>
 </html>
