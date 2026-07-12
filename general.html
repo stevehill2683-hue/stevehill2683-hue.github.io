@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>General | Steve Hill Family & Home</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General | Steve &amp; Anita Hill Family &amp; Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
- 
+
 <body>
     <header class="site-header">
-        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <a class="site-title" href="index.html">Steve &amp; Anita Hill</a>
+        <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="faith.html">Faith</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
+            <a href="projects.html">Projects</a>
             <a href="steve.html">Steve</a>
             <a href="anita.html">Anita</a>
             <a href="tony.html">Tony</a>
@@ -24,7 +27,6 @@
             <a href="craig.html">Craig</a>
             <a href="brian.html">Brian</a>
             <a href="mom-dad.html">Mom/Dad</a>
-            <a href="projects.html">Projects</a>
         </nav>
     </header>
 
@@ -42,7 +44,6 @@
             </p>
 
             <div class="page-grid">
-
                 <div class="page-card">
                     <h3>Family Information</h3>
                     <p>
@@ -70,41 +71,15 @@
                         Other notes, thoughts, and details that belong on the family website.
                     </p>
                 </div>
-
             </div>
         </section>
     </main>
 
     <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+        <p class="small">© Steve &amp; Anita Hill. Personal family website.</p>
     </footer>
 
-    <div id="photoLightbox" class="photo-lightbox" role="dialog" aria-modal="true">
-        <img id="photoLightboxImg" src="" alt="Expanded photo">
-    </div>
-
-    <script>
-        const lightbox = document.getElementById("photoLightbox");
-        const lightboxImg = document.getElementById("photoLightboxImg");
-        const zoomPhotos = document.querySelectorAll(".zoom-photo");
-
-        zoomPhotos.forEach(photo => {
-            photo.addEventListener("click", () => {
-                lightboxImg.src = photo.src;
-                lightbox.classList.add("active");
-            });
-        });
-
-        lightbox.addEventListener("click", () => {
-            lightbox.classList.remove("active");
-            lightboxImg.src = "";
-        });
-    </script>
-
-    <div class="site-version-badge">Ver 11.6</div>
-
     <a href="#" class="back-to-top">Top ↑</a>
-
 </body>
 </html>
