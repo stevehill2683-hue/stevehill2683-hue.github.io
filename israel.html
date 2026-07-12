@@ -1463,16 +1463,21 @@
         let touchStartY = 0;
         let touchMoved = false;
 
-        function getVisiblePhotos() {
-            const visiblePhotos = zoomPhotos.filter(photo => {
-                const card = photo.closest(".photo-card");
-                const topic = photo.closest(".israel-topic");
+        function getGalleryPhotos(photo) {
+            const gallery = photo.closest(".gallery");
+            const galleryPhotos = gallery
+                ? Array.from(gallery.querySelectorAll(".zoom-photo"))
+                : zoomPhotos;
+
+            const visiblePhotos = galleryPhotos.filter(galleryPhoto => {
+                const card = galleryPhoto.closest(".photo-card");
+                const topic = galleryPhoto.closest(".israel-topic");
 
                 return !card?.classList.contains("search-hidden") &&
                        !topic?.classList.contains("search-hidden");
             });
 
-            return visiblePhotos.length > 0 ? visiblePhotos : zoomPhotos;
+            return visiblePhotos.length > 0 ? visiblePhotos : galleryPhotos;
         }
 
         function preloadNearbyPhotos() {
@@ -1507,7 +1512,7 @@
         }
 
         function openLightbox(photo) {
-            activePhotos = getVisiblePhotos();
+            activePhotos = getGalleryPhotos(photo);
             currentPhotoIndex = activePhotos.indexOf(photo);
 
             if (currentPhotoIndex < 0) {
