@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Family | Steve & Anita Hill Family & Home</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family | Steve &amp; Anita Hill Family &amp; Home</title>
+    <link rel="stylesheet" href="style.css">
 
     <style>
         .family-directory {
@@ -81,15 +81,16 @@
     </style>
 </head>
 
-<body data-page-updated="Jul 10, 2026 at 5:25 PM ET">
+<body>
 
     <header class="site-header">
-        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <a class="site-title" href="index.html">Steve &amp; Anita Hill</a>
         <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="faith.html">Faith</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="projects.html">Projects</a>
             <a href="general.html">General</a>
@@ -97,15 +98,14 @@
     </header>
 
     <main class="page-wrap">
-
         <section class="family-directory">
             <h1>Family</h1>
+
             <p class="family-intro">
                 Choose a family member below to view photos, memories, stories, and family records.
             </p>
 
             <div class="family-member-grid">
-
                 <a href="steve.html" class="family-member-card">
                     <h2>Steve</h2>
                     <p>Photos, memories, faith, service, projects, and family records.</p>
@@ -145,41 +145,14 @@
                     <h2>Mom/Dad</h2>
                     <p>Family roots, parents, memories, and legacy.</p>
                 </a>
-
             </div>
         </section>
-
     </main>
 
     <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+        <p class="small">© Steve &amp; Anita Hill. Personal family website.</p>
     </footer>
-
-    <script>
-        (function () {
-            const updatedTime =
-                document.body.getAttribute("data-page-updated");
-
-            const loadedTime = new Date().toLocaleString("en-US", {
-                timeZone: "America/New_York",
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true
-            }) + " ET";
-
-            if (updatedTime) {
-                document.body.setAttribute(
-                    "data-page-updated",
-                    updatedTime + "\nPage loaded: " + loadedTime
-                );
-            }
-        })();
-    </script>
 
 </body>
 </html>
