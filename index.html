@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Steve & Anita Hill Family & Home</title>
+
+    <title>Steve &amp; Anita Hill Family &amp; Home</title>
+
     <link rel="stylesheet" href="style.css" />
 
     <style>
@@ -14,7 +16,7 @@
 
         body.home-page .site-header,
         body.home-page header {
-            padding: 18px 20px 18px;
+            padding: 18px 20px;
         }
 
         body.home-page .site-title {
@@ -66,11 +68,11 @@
         }
 
         .home-welcome-logo {
-            max-width: 260px;
+            display: block;
             width: 60%;
+            max-width: 260px;
             height: auto;
             margin: 0 auto 14px;
-            display: block;
         }
 
         .home-welcome-panel p {
@@ -155,15 +157,18 @@
     </style>
 </head>
 
-<body class="home-page" data-page-updated="Jul 10, 2026 at 10:50 AM ET">
+<body class="home-page">
 
     <header class="site-header">
-        <span class="site-title">Steve & Anita Hill</span>
-        <p>Faith • Family • Military Service • Memories • Projects • General</p>
+        <span class="site-title">Steve &amp; Anita Hill</span>
 
-        <nav class="top-nav">
+        <p>
+            Faith • Family • Military Service • Memories • Projects • General
+        </p>
+
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="faith.html">Faith</a>
-              <a href="israel.html">Israel</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
             <a href="projects.html">Projects</a>
@@ -176,38 +181,42 @@
         <section class="hero compact home-welcome-panel">
             <h1>Welcome</h1>
 
-            <img 
-                src="family-logo3.png" 
-                alt="Steve and Anita Hill family logo" 
+            <img
+                src="family-logo3.png"
+                alt="Steve and Anita Hill family logo"
                 class="home-welcome-logo"
-            >
+            />
 
             <p>
-                This personal family website is a place to preserve faith, family history,
-                military service, photos, memories, projects, and the stories that matter most.
+                This personal family website is a place to preserve faith, family
+                history, military service, photos, memories, projects, and the
+                stories that matter most.
             </p>
         </section>
 
         <div class="home-divider"></div>
 
         <section class="home-info-section">
-          <h2 class="at-a-glance-title">At a Glance</h2>
+            <h2 class="at-a-glance-title">At a Glance</h2>
 
             <div class="home-info-grid">
 
                 <div class="home-info-card">
                     <h3>About This Site</h3>
+
                     <p>
                         Organized around faith, military service, family memories,
-                        personal projects, and general notes.
+                        personal projects, and general interests.
                     </p>
                 </div>
 
                 <div class="home-info-card">
                     <h3>Recent Work</h3>
+
                     <p>
-                        Family photo pages are being built and updated, including Steve,
-                        Anita, Family including our parents and Military memories.
+                        Family photo pages are being built and updated, including
+                        pages for Steve, Anita, our family and parents, and military
+                        memories.
                     </p>
                 </div>
 
@@ -217,31 +226,14 @@
     </main>
 
     <footer class="fixed-bottom-text">
-        <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+        <p>
+            “As for me and my house, we will serve the LORD.” — Joshua 24:15
+        </p>
+
+        <p class="small">
+            © Steve &amp; Anita Hill. Personal family website.
+        </p>
     </footer>
-<script>
-    (function () {
-        const updatedTime = document.body.getAttribute("data-page-updated");
 
-        const loadedTime = new Date().toLocaleString("en-US", {
-            timeZone: "America/New_York",
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true
-        }) + " ET";
-
-        if (updatedTime) {
-            document.body.setAttribute(
-                "data-page-updated",
-                updatedTime + "\nPage loaded: " + loadedTime
-            );
-        }
-    })();
-</script>
 </body>
 </html>
