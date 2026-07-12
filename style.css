@@ -1,10 +1,10 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Hill Family Site
-   CSS Version V16.2
+   CSS Version V16.3
    =============================== */
 
-/* VALIDATED VERSION 16.2 — USE THIS COMPLETE FILE */
+/* VALIDATED VERSION 16.3 — USE THIS COMPLETE FILE */
 
 :root {
     --bg: #f5f1e9;
@@ -95,6 +95,37 @@ header p {
     text-align: center;
     font-size: 0.95rem;
     font-weight: bold;
+}
+
+/* HEADER SIDE LOGOS — DISPLAY ONLY WHEN THERE IS ROOM */
+@media (min-width: 1100px) {
+    .site-header::before,
+    .site-header::after {
+        content: "";
+        position: absolute;
+        top: 14px;
+        width: 110px;
+        height: 82px;
+        background-image: url("family-logo3.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .site-header::before {
+        left: 24px;
+    }
+
+    .site-header::after {
+        right: 24px;
+    }
+
+    .site-header > * {
+        position: relative;
+        z-index: 1;
+    }
 }
 
 /* ===============================
@@ -881,7 +912,7 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 16.2" !important;
+    content: "Version 16.3" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -1091,8 +1122,8 @@ body::after {
 }
 /* ===============================
    SITE VERSION
-   CSS Version V16.2
-   Visible badge: Version 16.2
+   CSS Version V16.3
+   Visible badge: Version 16.3
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
