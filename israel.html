@@ -1,32 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Visit to the Holy Land of Israel | Steve Hill Family & Home</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israel | Steve &amp; Anita Hill Family &amp; Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="israel-page">
     <header class="site-header">
-        <a class="site-title" href="index.html">Steve & Anita Hill</a>
+        <a class="site-title" href="index.html">Steve &amp; Anita Hill</a>
         <p>Faith • Family • Military Service • Memories • Projects • General</p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="faith.html">Faith</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
-            <a href="general.html">General</a>
             <a href="projects.html">Projects</a>
-            <a href="steve.html">Steve</a>
-            <a href="anita.html">Anita</a>
-            <a href="tony.html">Tony</a>
-            <a href="scott.html">Scott</a>
-            <a href="becky.html">Becky</a>
-            <a href="craig.html">Craig</a>
-            <a href="brian.html">Brian</a>
-            <a href="mom-dad.html">Mom/Dad</a>
+            <a href="general.html">General</a>
         </nav>
     </header>
 
@@ -508,7 +500,7 @@
 
     <footer class="fixed-bottom-text">
         <p>“As for me and my house, we will serve the LORD.” — Joshua 24:15</p>
-        <p class="small">© Steve & Anita Hill. Personal family website.</p>
+        <p class="small">© Steve &amp; Anita Hill. Personal family website.</p>
     </footer>
 
     <div
@@ -519,7 +511,7 @@
         aria-hidden="true"
         aria-label="Expanded Israel photograph viewer"
     >
-        <img id="photoLightboxImg" src="" alt="Expanded photo">
+        <img id="photoLightboxImg" src="Israel-T01-01.jpg" alt="Expanded photo">
     </div>
 
     <script>
@@ -598,7 +590,7 @@
             lightbox.classList.remove("active");
             lightbox.setAttribute("aria-hidden", "true");
             document.body.classList.remove("lightbox-open");
-            lightboxImg.src = "";
+            lightboxImg.removeAttribute("src");
             lightboxImg.alt = "Expanded photo";
         }
 
