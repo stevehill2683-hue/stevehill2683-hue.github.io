@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Anita - Steve & Anita Hill</title>
+    <title>Anita - Steve &amp; Anita Hill</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,16 +14,17 @@
 
     <header class="site-header">
         <a href="index.html" class="site-title">
-            Steve & Anita Hill
+            Steve &amp; Anita Hill
         </a>
 
         <p>
             Faith • Family • Military Service • Memories • Projects • General
         </p>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="faith.html">Faith</a>
+            <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
             <a href="family.html">Family</a>
             <a href="general.html">General</a>
@@ -169,7 +170,7 @@
         </p>
 
         <p class="small">
-            © Steve & Anita Hill. Personal family website.
+            © Steve &amp; Anita Hill. Personal family website.
         </p>
     </footer>
 
@@ -182,7 +183,7 @@
     >
         <img
             id="photoLightboxImg"
-            src=""
+            src="Anita-1.jpg"
             alt="Expanded photo"
         >
     </div>
@@ -249,7 +250,7 @@
         function closeLightbox() {
             lightbox.classList.remove("active");
             document.body.classList.remove("lightbox-open");
-            lightboxImg.src = "";
+            lightboxImg.removeAttribute("src");
             lightboxImg.alt = "Expanded photo";
         }
 
