@@ -95,8 +95,9 @@
 
         <p class="photo-navigation-help">
             Click or tap a photo first. On a computer, use the left and right
-            arrow keys. On a phone, swipe left or right. Press Escape or tap
-            the enlarged photo area to close.
+            arrow keys, + to zoom in, - to zoom out, and 0 to reset the zoom.
+            On a phone, swipe left or right. Press Escape or tap the enlarged
+            photo area to close.
         </p>
 
         <section id="title-1" class="israel-topic">
@@ -2488,6 +2489,11 @@ Camp B is the larger camp farther back on the left and likely served as the prin
 
         let activePhotos = zoomPhotos;
         let currentPhotoIndex = 0;
+        let zoomLevel = 1;
+
+        const minimumZoom = 1;
+        const maximumZoom = 4;
+        const zoomStep = 0.25;
 
         let touchStartX = 0;
         let touchStartY = 0;
@@ -2529,6 +2535,26 @@ Camp B is the larger camp farther back on the left and likely served as the prin
             nextPhoto.src = activePhotos[nextIndex].src;
         }
 
+        function applyZoom() {
+            lightboxImg.style.transform = `scale(${zoomLevel})`;
+            lightboxImg.style.transformOrigin = "center center";
+            lightboxImg.style.transition = "transform 0.15s ease";
+        }
+
+        function resetZoom() {
+            zoomLevel = minimumZoom;
+            applyZoom();
+        }
+
+        function changeZoom(amount) {
+            zoomLevel = Math.min(
+                maximumZoom,
+                Math.max(minimumZoom, zoomLevel + amount)
+            );
+
+            applyZoom();
+        }
+
         function showPhoto(index) {
             currentPhotoIndex =
                 (index + activePhotos.length) % activePhotos.length;
@@ -2537,6 +2563,7 @@ Camp B is the larger camp farther back on the left and likely served as the prin
 
             lightboxImg.src = selectedPhoto.src;
             lightboxImg.alt = selectedPhoto.alt;
+            resetZoom();
 
             preloadNearbyPhotos();
         }
@@ -2652,6 +2679,21 @@ Camp B is the larger camp farther back on the left and likely served as the prin
             if (event.key === "ArrowRight") {
                 event.preventDefault();
                 showNextPhoto();
+            }
+
+            if (event.key === "+" || event.key === "=") {
+                event.preventDefault();
+                changeZoom(zoomStep);
+            }
+
+            if (event.key === "-" || event.key === "_") {
+                event.preventDefault();
+                changeZoom(-zoomStep);
+            }
+
+            if (event.key === "0") {
+                event.preventDefault();
+                resetZoom();
             }
 
             if (event.key === "Escape") {
