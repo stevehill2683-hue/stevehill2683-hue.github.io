@@ -5,6 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Israel | Steve &amp; Anita Hill Family &amp; Home</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .photo-lightbox-controls {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 10001;
+            max-width: min(270px, calc(100vw - 36px));
+            padding: 12px 16px;
+            color: #ffffff;
+            background: rgba(20, 20, 20, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 10px;
+            box-shadow: 0 5px 16px rgba(0, 0, 0, 0.35);
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-align: left;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+
+        .photo-lightbox.active .photo-lightbox-controls {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .photo-lightbox-controls strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+
+        .photo-lightbox-controls kbd {
+            display: inline-block;
+            min-width: 24px;
+            padding: 1px 5px;
+            color: #111111;
+            background: #ffffff;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .photo-lightbox-controls {
+                top: 10px;
+                left: 10px;
+                max-width: calc(100vw - 20px);
+                padding: 8px 10px;
+                font-size: 0.78rem;
+                line-height: 1.35;
+            }
+
+            .photo-lightbox-controls strong {
+                font-size: 0.88rem;
+            }
+        }
+    </style>
 </head>
 
 <body class="israel-page">
@@ -94,10 +156,11 @@
         </section>
 
         <p class="photo-navigation-help">
-            Click or tap a photo first. On a computer, use the left and right
-            arrow keys, + to zoom in, - to zoom out, and 0 to reset the zoom.
-            On a phone, swipe left or right. Press Escape or tap the enlarged
-            photo area to close.
+            Click or tap a photo first. At normal size, use the left and right
+            arrow keys to change photos. Use + to zoom in and - to zoom out.
+            When zoomed, use all four arrow keys to move around the photo and
+            press 0 to reset. On a phone, swipe left or right. Press Escape or
+            tap the enlarged photo area to close.
         </p>
 
         <section id="title-1" class="israel-topic">
@@ -2478,6 +2541,14 @@ Camp B is the larger camp farther back on the left and likely served as the prin
         aria-label="Expanded Israel photograph viewer"
     >
         <img id="photoLightboxImg" alt="Expanded photo">
+
+        <aside class="photo-lightbox-controls" aria-label="Photo viewer controls">
+            <strong>Photo controls</strong>
+            Normal: <kbd>←</kbd> <kbd>→</kbd> previous or next<br>
+            Zoom: <kbd>+</kbd> in &nbsp; <kbd>−</kbd> out<br>
+            Zoomed: <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> move<br>
+            <kbd>0</kbd> reset &nbsp; <kbd>Esc</kbd> close
+        </aside>
     </div>
 
     <script>
@@ -2490,10 +2561,13 @@ Camp B is the larger camp farther back on the left and likely served as the prin
         let activePhotos = zoomPhotos;
         let currentPhotoIndex = 0;
         let zoomLevel = 1;
+        let panX = 0;
+        let panY = 0;
 
         const minimumZoom = 1;
         const maximumZoom = 4;
         const zoomStep = 0.25;
+        const panStep = 60;
 
         let touchStartX = 0;
         let touchStartY = 0;
@@ -2535,14 +2609,34 @@ Camp B is the larger camp farther back on the left and likely served as the prin
             nextPhoto.src = activePhotos[nextIndex].src;
         }
 
+        function clampPan() {
+            const maximumPanX = Math.max(
+                0,
+                (lightboxImg.clientWidth * zoomLevel - lightbox.clientWidth) / 2
+            );
+
+            const maximumPanY = Math.max(
+                0,
+                (lightboxImg.clientHeight * zoomLevel - lightbox.clientHeight) / 2
+            );
+
+            panX = Math.max(-maximumPanX, Math.min(maximumPanX, panX));
+            panY = Math.max(-maximumPanY, Math.min(maximumPanY, panY));
+        }
+
         function applyZoom() {
-            lightboxImg.style.transform = `scale(${zoomLevel})`;
+            clampPan();
+
+            lightboxImg.style.transform =
+                `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
             lightboxImg.style.transformOrigin = "center center";
             lightboxImg.style.transition = "transform 0.15s ease";
         }
 
         function resetZoom() {
             zoomLevel = minimumZoom;
+            panX = 0;
+            panY = 0;
             applyZoom();
         }
 
@@ -2552,6 +2646,21 @@ Camp B is the larger camp farther back on the left and likely served as the prin
                 Math.max(minimumZoom, zoomLevel + amount)
             );
 
+            if (zoomLevel === minimumZoom) {
+                panX = 0;
+                panY = 0;
+            }
+
+            applyZoom();
+        }
+
+        function panPhoto(horizontalAmount, verticalAmount) {
+            if (zoomLevel <= minimumZoom) {
+                return;
+            }
+
+            panX += horizontalAmount;
+            panY += verticalAmount;
             applyZoom();
         }
 
@@ -2671,14 +2780,36 @@ Camp B is the larger camp farther back on the left and likely served as the prin
                 return;
             }
 
+            const photoIsZoomed = zoomLevel > minimumZoom;
+
             if (event.key === "ArrowLeft") {
                 event.preventDefault();
-                showPreviousPhoto();
+
+                if (photoIsZoomed) {
+                    panPhoto(panStep, 0);
+                } else {
+                    showPreviousPhoto();
+                }
             }
 
             if (event.key === "ArrowRight") {
                 event.preventDefault();
-                showNextPhoto();
+
+                if (photoIsZoomed) {
+                    panPhoto(-panStep, 0);
+                } else {
+                    showNextPhoto();
+                }
+            }
+
+            if (event.key === "ArrowUp" && photoIsZoomed) {
+                event.preventDefault();
+                panPhoto(0, panStep);
+            }
+
+            if (event.key === "ArrowDown" && photoIsZoomed) {
+                event.preventDefault();
+                panPhoto(0, -panStep);
             }
 
             if (event.key === "+" || event.key === "=") {
@@ -2698,6 +2829,12 @@ Camp B is the larger camp farther back on the left and likely served as the prin
 
             if (event.key === "Escape") {
                 closeLightbox();
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (lightbox.classList.contains("active")) {
+                applyZoom();
             }
         });
 
