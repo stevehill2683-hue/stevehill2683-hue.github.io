@@ -1,1198 +1,509 @@
-/* ===============================
-   GLOBAL SITE STYLE
-   Steve & Anita Hill Family Site
-   CSS Version V17.6
-   =============================== */
-
-/* VALIDATED VERSION 17.6 — USE THIS COMPLETE FILE */
-
-:root {
-    --bg: #f5f1e9;
-    --paper: #fffaf1;
-    --ink: #2c251e;
-    --muted: #6e6257;
-    --accent: #6e3f1f;
-    --accent-dark: #432611;
-    --line: #ddcfba;
-    --shadow: 0 18px 40px rgba(44, 37, 30, 0.18);
-    --shadow-soft: 0 10px 22px rgba(44, 37, 30, 0.14);
-    --on-dark: #fffaf1;
-    --dark-bg: #303030;
-    --danger: #b00000;
-    --danger-hover: #d00000;
-    --danger-border: #7a0000;
-    --accent-hover: #5a3218;
-    --near-black: #111;
-    --photo-bg: #f1eadc;
-    --layout-max: 1100px;
-    --layout-padding: 16px;
-    --layout-padding-mobile: 10px;
-    --search-max: 520px;
-    --shadow-header: 0 6px 18px rgba(0, 0, 0, 0.22);
-    --shadow-medium: 0 8px 18px rgba(44, 37, 30, 0.18);
-    --shadow-dark: 0 10px 24px rgba(0, 0, 0, 0.18);
-    --shadow-small-dark: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-/* RESET / GLOBAL FONT */
-* {
-    box-sizing: border-box;
-}
-
-body,
-button,
-input,
-select,
-textarea {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 20px;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-
-body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-    padding-bottom: 95px;
-}
-
-/* ===============================
-   HEADER
-   =============================== */
-
-.site-header,
-header {
-    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-    color: var(--on-dark);
-    padding: 18px 20px;
-    box-shadow: var(--shadow-header);
-    position: relative;
-    z-index: 10;
-    text-align: center;
-}
-
-.site-title,
-.site-header .site-title,
-header .site-title {
-    display: block;
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    font-size: clamp(1.7rem, 3.4vw, 2.65rem);
-    font-weight: bold;
-    letter-spacing: 0.4px;
-    text-align: center;
-    margin: 0 auto 6px;
-}
-
-.site-header p,
-header p {
-    margin: 8px 0 12px;
-    color: var(--on-dark);
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: bold;
-}
-
-/* HEADER SIDE LOGOS — DISPLAY ONLY WHEN THERE IS ROOM */
-@media (min-width: 1100px) {
-    .site-header::before,
-    .site-header::after {
-        content: "";
-        position: absolute;
-        top: 14px;
-        width: 110px;
-        height: 82px;
-        background-image: url("family-logo3.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    .site-header::before {
-        left: 24px;
-    }
-
-    .site-header::after {
-        right: 24px;
-    }
-
-    .site-header > * {
-        position: relative;
-        z-index: 1;
-    }
-}
-
-/* ===============================
-   TOP NAV MENU
-   =============================== */
-
-.top-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    row-gap: 8px;
-    max-width: 100%;
-    margin-top: 10px;
-    line-height: 1.2;
-    overflow: visible;
-}
-
-.top-nav a,
-.top-nav a:visited {
-    display: inline-block;
-    flex: 0 0 auto;
-    color: var(--on-dark);
-    text-decoration: none;
-    padding: 7px 13px;
-    border: 1px solid rgba(255, 250, 241, 0.55);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    line-height: 1.15;
-    font-weight: bold;
-    white-space: nowrap;
-    background: rgba(255, 250, 241, 0.10);
-}
-
-.top-nav a:hover {
-    color: var(--on-dark);
-    background: rgba(255, 250, 241, 0.24);
-    text-decoration: none;
-    transform: translateY(-1px);
-}
-
-/* ===============================
-   MENU BUTTON NAV
-   =============================== */
-
-.menu-button {
-    background: var(--paper);
-    color: var(--accent-dark);
-    border: 2px solid var(--paper);
-    border-radius: 8px;
-    padding: 7px 13px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.site-nav {
-    display: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
-}
-
-.nav-open .site-nav {
-    display: flex;
-}
-
-.site-nav a,
-.site-nav a:visited {
-    display: inline-block;
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    padding: 7px 11px;
-    border: 1px solid rgba(255, 250, 241, 0.45);
-    border-radius: 8px;
-    font-size: 0.92rem;
-    font-weight: bold;
-    background: rgba(255, 250, 241, 0.08);
-}
-
-.site-nav a:hover {
-    color: var(--on-dark) !important;
-    background: rgba(255, 250, 241, 0.20);
-    text-decoration: none !important;
-}
-
-/* ===============================
-   MAIN LAYOUT
-   =============================== */
-
-main,
-.page-wrap {
-    width: min(
-        var(--layout-max),
-        calc(100% - (var(--layout-padding) * 2))
-    );
-    margin: 24px auto;
-}
-
-/* ===============================
-   HERO - PAGE TITLE AREA
-   =============================== */
-
-.hero {
-    background: var(--dark-bg);
-    color: var(--on-dark);
-    text-align: center;
-    padding: 24px 20px;
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    margin-bottom: 18px;
-}
-
-.hero.compact {
-    padding: 18px 18px;
-}
-
-.hero h1 {
-    margin: 0 0 6px;
-    color: var(--on-dark);
-    font-size: clamp(1.35rem, 2.8vw, 2.15rem);
-    font-style: italic;
-    text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.65);
-    line-height: 1.05;
-}
-
-.hero p {
-    margin: 0;
-    color: var(--on-dark);
-    font-size: 0.9rem;
-    line-height: 1.25;
-}
-
-/* ===============================
-   CONTENT CARDS
-   =============================== */
-
-.content-card,
-.home-info-section,
-.faith-page {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 22px;
-    margin: 20px 0;
-    box-shadow: var(--shadow);
-}
-
-.content-card h1,
-.content-card h2,
-.home-info-section h2,
-.faith-page h1,
-.faith-page h2 {
-    margin-top: 0;
-    color: var(--accent-dark);
-}
-
-/* ===============================
-   HOME PAGE
-   =============================== */
-
-body.home-page {
-    padding-bottom: 75px;
-}
-
-.home-welcome-panel {
-    text-align: center;
-    background: var(--dark-bg);
-    color: var(--on-dark);
-}
-
-.home-welcome-panel h1 {
-    color: var(--on-dark);
-    font-weight: bold;
-    font-style: italic;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
-}
-
-.home-welcome-logo {
-    max-width: 260px;
-    width: 60%;
-    height: auto;
-    margin: 0 auto 14px;
-    display: block;
-}
-
-.home-welcome-panel p {
-    max-width: 760px;
-    margin: 0 auto;
-    color: var(--on-dark);
-    font-weight: bold;
-}
-
-.home-divider {
-    width: 58%;
-    max-width: 640px;
-    height: 4px;
-    background: var(--near-black);
-    margin: 14px auto 18px;
-    border-radius: 999px;
-}
-
-.at-a-glance-title {
-    font-size: 1.32rem;
-}
-
-.home-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    margin-top: 14px;
-}
-
-.home-info-card {
-    background: var(--accent-dark);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 15px 18px;
-    color: var(--on-dark);
-    box-shadow: var(--shadow-medium);
-}
-
-.home-info-card h3 {
-    margin: 0 0 6px;
-    color: var(--on-dark);
-    font-size: 1.15rem;
-}
-
-.home-info-card p {
-    margin: 0;
-    color: var(--on-dark);
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-/* ===============================
-   GENERAL CARD GRIDS
-   =============================== */
-
-.card-grid,
-.home-grid,
-.page-grid,
-.link-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 18px;
-}
-
-.card,
-.home-card,
-.page-card,
-.link-card {
-    display: block;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 18px;
-    color: var(--ink);
-    text-decoration: none;
-    box-shadow: 0 10px 24px rgba(44, 37, 30, 0.12);
-}
-
-.card:hover,
-.home-card:hover,
-.page-card:hover,
-.link-card:hover {
-    transform: translateY(-2px);
-}
-
-/* ===============================
-   FAITH PAGE
-   =============================== */
-
-.faith-intro {
-    margin: 0 0 16px;
-    color: #4a3a2d;
-    font-size: 1rem;
-}
-
-.faith-verse {
-    background: var(--dark-bg);
-    color: var(--on-dark);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 18px 22px;
-    margin: 16px 0 18px;
-    box-shadow: var(--shadow-medium);
-}
-
-.faith-verse p {
-    margin: 0;
-    color: var(--on-dark);
-    font-size: 1rem;
-    line-height: 1.55;
-    font-weight: bold;
-}
-
-.faith-verse .verse-ref {
-    margin-top: 10px;
-    font-style: italic;
-    font-weight: bold;
-}
-
-.faith-topic-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 18px;
-}
-
-.faith-topic-card {
-    background: var(--accent-dark);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 18px 20px;
-    color: var(--on-dark);
-    box-shadow: var(--shadow-medium);
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease;
-}
-
-.faith-topic-card:hover,
-.faith-topic-card:focus-within {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 30px rgba(44, 37, 30, 0.30);
-    border-color: var(--on-dark);
-    background: var(--accent-hover);
-}
-
-.faith-topic-card h2 {
-    margin: 0 0 8px;
-    padding: 0;
-    border: none;
-    color: var(--on-dark);
-    font-size: 1.25rem;
-}
-
-.faith-topic-card p {
-    margin: 0;
-    color: var(--on-dark);
-    font-size: 0.95rem;
-    line-height: 1.45;
-}
-
-/* ===============================
-   PHOTO GALLERIES
-   =============================== */
-
-.gallery,
-.photo-gallery,
-.photo-grid,
-.photos-grid,
-.military-gallery,
-.family-gallery,
-.image-gallery,
-.mom-dad-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    align-items: start;
-    width: 100%;
-    margin-top: 18px;
-}
-
-.gallery > .photo-card,
-.photo-gallery > .photo-card,
-.photo-grid > .photo-card,
-.photos-grid > .photo-card,
-.military-gallery > .photo-card,
-.family-gallery > .photo-card,
-.image-gallery > .photo-card,
-.mom-dad-gallery > .photo-card {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-}
-
-.photo-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 12px;
-    text-align: center;
-    box-shadow: var(--shadow-soft);
-}
-
-.photo-card img,
-.photo-card .zoom-photo {
-    width: 100%;
-    height: 260px;
-    object-fit: contain;
-    display: block;
-    background: var(--photo-bg);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.photo-card p {
-    margin: 10px 0 0;
-    font-size: 0.95rem;
-    color: var(--ink);
-}
-
-/* ===============================
-   PHOTO LIGHTBOX
-   =============================== */
-
-body.lightbox-open {
-    overflow: hidden;
-}
-
-.photo-lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    padding: 12px;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 999999;
-}
-
-.photo-lightbox.active {
-    display: flex;
-    touch-action: none;
-}
-
-.photo-lightbox img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: calc(100vw - 24px);
-    max-height: calc(100vh - 24px);
-    max-height: calc(100dvh - 24px);
-    object-fit: contain;
-    transform-origin: center center;
-    transition: transform 0.15s ease;
-    will-change: transform;
-}
-
-.photo-lightbox:focus {
-    outline: none;
-}
-
-.photo-lightbox-controls {
-    position: fixed;
-    top: 18px;
-    left: 18px;
-    z-index: 2;
-    max-width: min(270px, calc(100vw - 36px));
-    padding: 12px 16px;
-    color: #ffffff;
-    background: rgba(20, 20, 20, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 10px;
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.35);
-    font-family: Arial, sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    text-align: left;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease;
-}
-
-.photo-lightbox.active .photo-lightbox-controls {
-    opacity: 1;
-    visibility: visible;
-}
-
-.photo-lightbox-controls strong {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 1rem;
-}
-
-.photo-lightbox-controls kbd {
-    display: inline-block;
-    min-width: 24px;
-    padding: 1px 5px;
-    color: #111111;
-    background: #ffffff;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    text-align: center;
-}
-
-body.lightbox-open .site-header {
-    z-index: 1;
-}
-
-.photo-navigation-help {
-    margin: 0 0 16px;
-    text-align: center;
-    font-size: 0.92rem;
-    color: var(--muted);
-    font-weight: bold;
-}
-
-@media (max-width: 700px) {
-    .photo-lightbox-controls {
-        top: 10px;
-        left: 10px;
-        max-width: calc(100vw - 20px);
-        padding: 8px 10px;
-        font-size: 0.78rem;
-        line-height: 1.35;
-    }
-
-    .photo-lightbox-controls strong {
-        font-size: 0.88rem;
-    }
-}
-
-/* ===============================
-   ISRAEL PAGE
-   =============================== */
-
-.israel-feature-line {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 14px 20px;
-    text-align: center;
-    font-style: italic;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--on-dark);
-    background: var(--near-black);
-    border: 3px solid black;
-    border-radius: 12px;
-    box-shadow: var(--shadow-dark);
-}
-
-.israel-intro-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 14px 18px;
-    margin: 14px 0;
-    box-shadow: var(--shadow);
-    text-align: center;
-}
-
-.israel-intro-card p {
-    max-width: none;
-    width: 100%;
-    margin: 0 auto;
-    font-size: 0.86rem;
-    color: var(--ink);
-    line-height: 1.25;
-   white-space: pre-line;
-}
-
-/* TABLE OF CONTENTS */
-.israel-toc {
-    background: var(--paper);
-    border: 2px solid var(--accent-dark);
-    border-radius: 18px;
-    padding: 18px;
-    margin: 18px 0;
-    box-shadow: var(--shadow);
-}
-
-.israel-toc h2 {
-    text-align: center;
-    margin: 0 0 16px;
-    color: var(--accent-dark);
-    font-size: 1.45rem;
-}
-
-.israel-toc-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-bottom: 16px;
-}
-
-.israel-toc-header h2 {
-    margin: 0;
-    color: var(--accent-dark);
-    font-size: 1.45rem;
-    text-align: center;
-}
-
-/* RED HOME BUTTON BESIDE TABLE OF CONTENTS */
-.israel-home-button,
-.israel-home-button:visited {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--danger);
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    padding: 7px 13px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    border: 1px solid var(--danger-border);
-}
-
-.israel-home-button:hover {
-    background: var(--danger-hover);
-    color: var(--on-dark) !important;
-}
-
-.israel-toc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 10px;
-}
-
-.israel-toc-grid a,
-.israel-toc-grid a:visited {
-    display: block;
-    text-align: center;
-    background: var(--accent-dark);
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    padding: 10px 12px;
-    border-radius: 10px;
-    font-weight: bold;
-    border: 1px solid var(--line);
-    box-shadow: 0 6px 14px rgba(44, 37, 30, 0.16);
-}
-
-.israel-toc-grid a:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
-}
-
-/* ISRAEL SEARCH BOX - COMPACT */
-.israel-search-box {
-    background: var(--dark-bg);
-    color: var(--on-dark);
-    border-radius: 16px;
-    padding: 10px 16px;
-    margin: 12px 0 16px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    scroll-margin-top: 20px;
-}
-
-.israel-search-box label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 0.98rem;
-    line-height: 1.1;
-}
-
-.israel-search-box input {
-    width: min(var(--search-max), 100%);
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 2px solid var(--line);
-    font-size: 0.95rem;
-}
-
-.israel-search-note {
-    margin: 6px 0 0;
-    font-size: 0.76rem;
-    color: var(--on-dark);
-    opacity: 0.9;
-    line-height: 1.15;
-}
-
-.israel-no-results {
-    display: none;
-    width: min(var(--search-max), 100%);
-    margin: 7px auto 0;
-    background: var(--paper);
-    color: var(--accent-dark);
-    border: 2px solid var(--accent);
-    border-radius: 10px;
-    padding: 6px 10px;
-    text-align: center;
-    font-size: 0.86rem;
-    font-weight: bold;
-    line-height: 1.15;
-    box-shadow: var(--shadow-small-dark);
-}
-
-.israel-no-results.active {
-    display: block;
-    animation: noResultsBlink 1s ease-in-out infinite;
-}
-
-@keyframes noResultsBlink {
-    0% {
-        background: var(--paper);
-        color: var(--accent-dark);
-        border-color: var(--accent);
-    }
-
-    50% {
-        background: var(--danger);
-        color: var(--on-dark);
-        border-color: var(--danger-border);
-    }
-
-    100% {
-        background: var(--paper);
-        color: var(--accent-dark);
-        border-color: var(--accent);
-    }
-}
-
-.search-hidden {
-    display: none !important;
-}
-
-/* ISRAEL TOPIC SECTIONS */
-.israel-topic {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 22px;
-    margin: 24px 0;
-    box-shadow: var(--shadow);
-}
-
-.israel-topic h2 {
-    color: var(--accent-dark);
-    margin: 0 0 8px;
-    font-size: 1.55rem;
-    text-align: center;
-}
-
-.israel-topic-text {
-    max-width: 850px;
-    margin: 0 auto 18px;
-    text-align: center;
-    color: var(--ink);
-    font-size: 1rem;
-}
-
-.israel-topic-divider {
-    height: 8px;
-    background: #555;
-    border-radius: 999px;
-    margin: 30px auto;
-    width: 88%;
-}
-
-.back-to-toc-button,
-.back-to-toc-button:visited {
-    display: block;
-    width: fit-content;
-    margin: 20px auto 0;
-    padding: 9px 16px;
-    background: var(--accent-dark);
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    border-radius: 10px;
-    font-weight: bold;
-    border: 2px solid var(--accent);
-}
-
-.back-to-toc-button:hover {
-    background: var(--accent);
-}
-
-.return-home-button {
-    display: block;
-    width: fit-content;
-    margin: 22px auto 8px;
-    padding: 10px 18px;
-    background: var(--accent-dark);
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    border-radius: 10px;
-    font-weight: bold;
-    border: 2px solid var(--accent);
-}
-
-.return-home-button:hover {
-    background: var(--accent);
-}
-
-.israel-access-card {
-    display: block;
-    max-width: 430px;
-    margin: 18px auto;
-    padding: 18px 22px;
-    text-align: center;
-    background: var(--near-black);
-    color: var(--on-dark) !important;
-    border: 3px solid black;
-    border-radius: 14px;
-    text-decoration: none !important;
-    font-style: italic;
-    font-weight: bold;
-    box-shadow: var(--shadow-dark);
-}
-
-.israel-access-card:hover {
-    transform: translateY(-2px);
-}
-
-/* ===============================
-   BACK TO TOP
-   =============================== */
-
-.back-to-top {
-    position: fixed;
-    right: 18px;
-    bottom: 126px;
-    background: var(--accent-dark);
-    color: var(--on-dark) !important;
-    text-decoration: none !important;
-    padding: 9px 13px;
-    border-radius: 10px;
-    font-weight: bold;
-    z-index: 1002;
-    box-shadow: var(--shadow-header);
-}
-
-/* ===============================
-   PAGE TIMESTAMP AND VERSION BADGE
-   =============================== */
-
-.site-version-badge {
-    display: none !important;
-}
-
-/* PAGE TIMESTAMPS HIDDEN SITE-WIDE */
-body[data-page-updated]::before {
-    content: none !important;
-    display: none !important;
-}
-/* STICKY HEADER FOR PEOPLE PAGES */
-.person-page .site-header {
-    position: sticky !important;
-    top: 0 !important;
-    width: 100%;
-    z-index: 10000 !important;
-}
-/* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
-body::after {
-    content: "Version 17.6" !important;
-    display: block !important;
-    position: fixed !important;
-    right: 18px;
-    bottom: 86px;
-    background: var(--paper);
-    color: var(--accent-dark);
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    padding: 6px 11px;
-    font-size: 0.76rem;
-    line-height: 1;
-    font-weight: bold;
-    z-index: 1002;
-    pointer-events: none;
-    box-shadow: var(--shadow-small-dark);
-}
-
-/* ===============================
-   FIXED FOOTER
-   =============================== */
-
-.fixed-bottom-text {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--accent-dark);
-    color: var(--on-dark);
-    text-align: center;
-    padding: 8px 10px;
-    z-index: 1000;
-    box-shadow: 0 -5px 16px rgba(0, 0, 0, 0.24);
-}
-
-.fixed-bottom-text p {
-    margin: 0;
-    font-size: 0.86rem;
-    color: var(--on-dark);
-}
-
-.fixed-bottom-text .small {
-    font-size: 0.74rem;
-    opacity: 0.9;
-}
-
-/* ===============================
-   MOBILE / TABLET
-   =============================== */
-
-@media (max-width: 900px) {
-    .faith-topic-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .israel-toc-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 700px) {
-    body {
-        padding-bottom: 120px;
-    }
-
-    main,
-    .page-wrap {
-        width: min(
-            calc(100% - (var(--layout-padding-mobile) * 2)),
-            var(--layout-max)
-        );
-        margin: 16px auto;
-    }
-
-    .site-header,
-    header {
-        padding: 16px 12px;
-    }
-
-    .site-title,
-    .site-header .site-title,
-    header .site-title {
-        font-size: 1.45rem;
-    }
-
-    .site-header p,
-    header p {
-        font-size: 0.84rem;
-    }
-
-    .top-nav,
-    .site-nav {
-        gap: 6px;
-    }
-
-    .top-nav a,
-    .site-nav a {
-        padding: 6px 9px;
-        font-size: 0.82rem;
-    }
-
-    .menu-button {
-        display: block;
-        margin: 10px auto 0;
-        padding: 6px 10px;
-    }
-
-    .hero {
-        padding: 20px 14px;
-    }
-
-    .hero.compact {
-        padding: 16px 14px;
-    }
-
-    .hero h1 {
-        font-size: clamp(1.25rem, 7vw, 1.9rem);
-    }
-
-    .hero p {
-        font-size: 0.85rem;
-    }
-
-    .content-card,
-    .home-info-section,
-    .faith-page,
-    .israel-intro-card,
-    .israel-toc,
-    .israel-search-box,
-    .israel-topic {
-        padding: 16px;
-    }
-
-    .israel-intro-card p {
-        white-space: normal;
-        font-size: 0.82rem;
-    }
-
-    .home-info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .faith-topic-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .israel-toc-header {
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .israel-toc-header h2 {
-        font-size: 1.25rem;
-    }
-
-    .israel-home-button,
-    .israel-home-button:visited {
-        position: static;
-        transform: none;
-        background: var(--danger);
-        color: var(--on-dark) !important;
-        padding: 6px 10px;
-        font-size: 0.78rem;
-        border: 1px solid var(--danger-border);
-    }
-
-    .israel-home-button:hover {
-        background: var(--danger-hover);
-        color: var(--on-dark) !important;
-    }
-
-    .israel-toc-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .gallery,
-    .photo-gallery,
-    .photo-grid,
-    .photos-grid,
-    .military-gallery,
-    .family-gallery,
-    .image-gallery,
-    .mom-dad-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .photo-card img,
-    .photo-card .zoom-photo {
-        height: 240px;
-    }
-
-    .home-welcome-logo {
-        width: 75%;
-    }
-
- .back-to-top {
-    right: 10px;
-    bottom: 120px;
-    font-size: 0.85rem;
-}
-
-    body::after {
-        right: 10px;
-        bottom: 82px;
-        font-size: 0.68rem;
-        padding: 4px 8px;
-    }
-}
-/* ===============================
-   SITE VERSION
-   CSS Version V17.6
-   Visible badge: Version 17.6
-   Page timestamps remain in HTML but are hidden
-   Keep this SITE VERSION block at the bottom
-   =============================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Steve &amp; Anita Hill Family &amp; Home</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
+        body.home-page {
+            padding-bottom: 70px;
+        }
+
+        body.home-page .site-header,
+        body.home-page header {
+            padding: 18px 20px;
+        }
+
+        body.home-page .site-title {
+            font-size: clamp(1.9rem, 3.2vw, 2.55rem);
+            margin-bottom: 6px;
+        }
+
+        body.home-page .confidential-label {
+            margin: 0 0 4px;
+            color: #c00000;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-align: center;
+            text-shadow: 2px 2px 3px #333333;
+        }
+
+        body.home-page .site-header p,
+        body.home-page header p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        body.home-page .top-nav a {
+            padding: 7px 13px;
+            font-size: 0.9rem;
+        }
+
+        body.home-page .site-header::before,
+        body.home-page header::before,
+        body.home-page .site-header::after,
+        body.home-page header::after {
+            width: 120px;
+            height: 80px;
+            top: 18px;
+        }
+
+        body.home-page .page-wrap {
+            max-width: 1020px;
+            margin: 18px auto 0;
+            padding: 0 16px;
+        }
+
+        .menu-access-panel {
+            width: min(100%, 470px);
+            margin: 10px auto 0;
+            padding: 12px 16px;
+            background: #fffaf1;
+            border: 1px solid #ddcfba;
+            border-radius: 12px;
+            color: #303030;
+            box-shadow: 0 6px 14px rgba(44, 37, 30, 0.2);
+        }
+
+        body.home-page .menu-access-panel p {
+            color: #303030;
+        }
+
+        body.home-page .menu-access-title {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .menu-access-panel .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .menu-access-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-code-input {
+            width: 145px;
+            min-height: 38px;
+            padding: 7px 10px;
+            border: 1px solid #7b6653;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #111111;
+            font: inherit;
+            text-align: center;
+            letter-spacing: 0.16em;
+        }
+
+        .menu-code-input:focus {
+            outline: 3px solid rgba(126, 83, 43, 0.3);
+            outline-offset: 2px;
+        }
+
+        .menu-access-button {
+            min-height: 38px;
+            padding: 7px 14px;
+            border: 1px solid #2c180b;
+            border-radius: 8px;
+            background: #432611;
+            color: #fffaf1;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .menu-access-button:hover,
+        .menu-access-button:focus-visible {
+            background: #65401f;
+        }
+
+        body.home-page .menu-access-message {
+            min-height: 1.25em;
+            margin: 8px 0 0;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        body.home-page .menu-access-message.is-error {
+            color: #9b1c1c;
+        }
+
+        body.home-page .menu-access-panel.is-locked {
+            border-color: #9b1c1c;
+            background: #fff1f1;
+        }
+
+        body.home-page .top-nav[hidden],
+        .menu-access-panel[hidden],
+        .menu-access-controls[hidden] {
+            display: none;
+        }
+
+        .home-welcome-panel {
+            text-align: center;
+            background: #303030;
+            color: #fffaf1;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+        }
+
+        .home-welcome-panel h1 {
+            color: #fffaf1;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.75rem;
+            margin-bottom: 12px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.85);
+        }
+
+        .home-welcome-logo {
+            display: block;
+            width: 60%;
+            max-width: 260px;
+            height: auto;
+            margin: 0 auto 14px;
+        }
+
+        .home-welcome-panel p {
+            max-width: 760px;
+            margin: 0 auto;
+            color: #fffaf1;
+            font-weight: bold;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .home-divider {
+            width: 58%;
+            max-width: 640px;
+            height: 4px;
+            background: #111;
+            margin: 14px auto 18px;
+            border-radius: 999px;
+        }
+
+        .home-info-section {
+            padding: 18px 22px;
+            margin-bottom: 0;
+        }
+
+        .home-info-section h2 {
+            margin-bottom: 10px;
+            font-size: 1.55rem;
+        }
+
+        .home-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .home-info-card {
+            background: #432611;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            padding: 15px 18px;
+            color: #fffaf1;
+            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+        }
+
+        .home-info-card h3 {
+            margin: 0 0 6px;
+            color: #fffaf1;
+            font-size: 1.15rem;
+        }
+
+        .home-info-card p {
+            margin: 0;
+            color: #fffaf1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            body.home-page .site-header::before,
+            body.home-page header::before,
+            body.home-page .site-header::after,
+            body.home-page header::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body.home-page {
+                padding-bottom: 120px;
+            }
+
+            .menu-access-controls {
+                flex-direction: column;
+            }
+
+            .menu-code-input,
+            .menu-access-button {
+                width: min(100%, 230px);
+            }
+
+            .home-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-welcome-logo {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body class="home-page">
+
+    <header class="site-header">
+        <span class="site-title">Steve &amp; Anita Hill</span>
+
+        <p class="confidential-label">***CONFIDENTIAL***</p>
+
+        <p>
+            Faith • Family • Military Service • Memories • Projects • General
+        </p>
+
+        <section
+            id="menuAccessPanel"
+            class="menu-access-panel"
+            aria-labelledby="menuAccessTitle"
+        >
+            <form id="menuAccessForm" novalidate>
+                <p id="menuAccessTitle" class="menu-access-title">
+                    Enter access code to open the menu
+                </p>
+
+                <div id="menuAccessControls" class="menu-access-controls">
+                    <label class="visually-hidden" for="menuAccessCode">
+                        Access code
+                    </label>
+
+                    <input
+                        id="menuAccessCode"
+                        class="menu-code-input"
+                        type="password"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        maxlength="4"
+                        autocomplete="one-time-code"
+                        aria-describedby="menuAccessMessage"
+                    >
+
+                    <button class="menu-access-button" type="submit">
+                        Open Menu
+                    </button>
+                </div>
+
+                <p
+                    id="menuAccessMessage"
+                    class="menu-access-message"
+                    role="status"
+                    aria-live="polite"
+                >
+                    10 attempts remaining.
+                </p>
+            </form>
+        </section>
+
+        <nav
+            id="mainNavigation"
+            class="top-nav"
+            aria-label="Main navigation"
+            hidden
+        >
+            <a href="faith.html">Faith</a>
+            <a href="israel.html">Israel</a>
+            <a href="military.html">Military</a>
+            <a href="family.html">Family</a>
+            <a href="projects.html">Projects</a>
+            <a href="general.html">General</a>
+        </nav>
+    </header>
+
+    <main class="page-wrap">
+
+        <section class="hero compact home-welcome-panel">
+            <h1>Welcome</h1>
+
+            <img
+                src="family-logo3.png"
+                alt="Steve and Anita Hill family logo"
+                class="home-welcome-logo"
+            >
+
+            <p>
+                This personal family website is a place to preserve faith, family
+                history, military service, photos, memories, projects, and the
+                stories that matter most.
+            </p>
+        </section>
+
+        <div class="home-divider"></div>
+
+        <section class="home-info-section">
+            <h2 class="at-a-glance-title">At a Glance</h2>
+
+            <div class="home-info-grid">
+
+                <div class="home-info-card">
+                    <h3>About This Site</h3>
+
+                    <p>
+                        Organized around faith, military service, family memories,
+                        personal projects, and general interests.
+                    </p>
+                </div>
+
+                <div class="home-info-card">
+                    <h3>Recent Work</h3>
+
+                    <p>
+                        Family photo pages are being built and updated, including
+                        pages for Steve, Anita, our family and parents, and military
+                        memories.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="fixed-bottom-text">
+        <p>
+            “As for me and my house, we will serve the LORD.” — Joshua 24:15
+        </p>
+
+        <p class="small">
+            © Steve &amp; Anita Hill. Personal family website.
+        </p>
+    </footer>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const correctCode = "1040";
+            const maximumAttempts = 10;
+            const unlockedKey = "steveAnitaMenuUnlockedV17_6";
+            const attemptsKey = "steveAnitaMenuAttemptsV17_6";
+
+            const accessPanel = document.getElementById("menuAccessPanel");
+            const accessForm = document.getElementById("menuAccessForm");
+            const accessTitle = document.getElementById("menuAccessTitle");
+            const accessControls = document.getElementById("menuAccessControls");
+            const codeInput = document.getElementById("menuAccessCode");
+            const accessMessage = document.getElementById("menuAccessMessage");
+            const mainNavigation = document.getElementById("mainNavigation");
+
+            const readSessionValue = (key) => {
+                try {
+                    return window.sessionStorage.getItem(key);
+                } catch (error) {
+                    return null;
+                }
+            };
+
+            const saveSessionValue = (key, value) => {
+                try {
+                    window.sessionStorage.setItem(key, value);
+                } catch (error) {
+                    // The menu still works if browser storage is unavailable.
+                }
+            };
+
+            const storedAttempts = Number.parseInt(
+                readSessionValue(attemptsKey) || "0",
+                10
+            );
+
+            let attemptsUsed = Number.isNaN(storedAttempts)
+                ? 0
+                : Math.min(Math.max(storedAttempts, 0), maximumAttempts);
+
+            const openMenu = () => {
+                mainNavigation.hidden = false;
+                accessPanel.hidden = true;
+                saveSessionValue(unlockedKey, "true");
+                saveSessionValue(attemptsKey, "0");
+            };
+
+            const lockMenu = () => {
+                mainNavigation.hidden = true;
+                accessPanel.hidden = false;
+                accessPanel.classList.add("is-locked");
+                accessControls.hidden = true;
+                accessTitle.textContent = "Access denied";
+                accessMessage.textContent =
+                    "The menu is locked because all 10 attempts were used.";
+                accessMessage.classList.add("is-error");
+                saveSessionValue(attemptsKey, String(maximumAttempts));
+            };
+
+            if (readSessionValue(unlockedKey) === "true") {
+                openMenu();
+                return;
+            }
+
+            if (attemptsUsed >= maximumAttempts) {
+                lockMenu();
+                return;
+            }
+
+            accessMessage.textContent = `${maximumAttempts - attemptsUsed} ${
+                maximumAttempts - attemptsUsed === 1 ? "attempt" : "attempts"
+            } remaining.`;
+
+            codeInput.focus();
+
+            accessForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                if (codeInput.value.trim() === correctCode) {
+                    openMenu();
+                    return;
+                }
+
+                attemptsUsed += 1;
+                saveSessionValue(attemptsKey, String(attemptsUsed));
+                codeInput.value = "";
+
+                const attemptsRemaining = maximumAttempts - attemptsUsed;
+
+                if (attemptsRemaining <= 0) {
+                    lockMenu();
+                    return;
+                }
+
+                accessMessage.textContent = `Incorrect code. ${attemptsRemaining} ${
+                    attemptsRemaining === 1 ? "attempt" : "attempts"
+                } remaining.`;
+                accessMessage.classList.add("is-error");
+                codeInput.focus();
+            });
+        })();
+    </script>
+
+</body>
+</html>
