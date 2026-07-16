@@ -639,7 +639,7 @@ body.lightbox-open .site-header {
     font-weight: bold;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
     .photo-lightbox-controls {
         display: none;
     }
