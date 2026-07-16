@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Steve &amp; Anita Hill Family &amp; Home</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 
     <style>
         /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
@@ -48,6 +48,103 @@
             max-width: 1020px;
             margin: 18px auto 0;
             padding: 0 16px;
+        }
+
+        .menu-access-panel {
+            width: min(100%, 470px);
+            margin: 10px auto 0;
+            padding: 12px 16px;
+            background: #fffaf1;
+            border: 1px solid #ddcfba;
+            border-radius: 12px;
+            color: #303030;
+            box-shadow: 0 6px 14px rgba(44, 37, 30, 0.2);
+        }
+
+        body.home-page .menu-access-panel p {
+            color: #303030;
+        }
+
+        body.home-page .menu-access-title {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .menu-access-panel .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .menu-access-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-code-input {
+            width: 145px;
+            min-height: 38px;
+            padding: 7px 10px;
+            border: 1px solid #7b6653;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #111111;
+            font: inherit;
+            text-align: center;
+            letter-spacing: 0.16em;
+        }
+
+        .menu-code-input:focus {
+            outline: 3px solid rgba(126, 83, 43, 0.3);
+            outline-offset: 2px;
+        }
+
+        .menu-access-button {
+            min-height: 38px;
+            padding: 7px 14px;
+            border: 1px solid #2c180b;
+            border-radius: 8px;
+            background: #432611;
+            color: #fffaf1;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .menu-access-button:hover,
+        .menu-access-button:focus-visible {
+            background: #65401f;
+        }
+
+        body.home-page .menu-access-message {
+            min-height: 1.25em;
+            margin: 8px 0 0;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        body.home-page .menu-access-message.is-error {
+            color: #9b1c1c;
+        }
+
+        body.home-page .menu-access-panel.is-locked {
+            border-color: #9b1c1c;
+            background: #fff1f1;
+        }
+
+        body.home-page .top-nav[hidden],
+        .menu-access-panel[hidden],
+        .menu-access-controls[hidden] {
+            display: none;
         }
 
         .home-welcome-panel {
@@ -146,6 +243,15 @@
                 padding-bottom: 120px;
             }
 
+            .menu-access-controls {
+                flex-direction: column;
+            }
+
+            .menu-code-input,
+            .menu-access-button {
+                width: min(100%, 230px);
+            }
+
             .home-info-grid {
                 grid-template-columns: 1fr;
             }
@@ -166,7 +272,54 @@
             Faith • Family • Military Service • Memories • Projects • General
         </p>
 
-        <nav class="top-nav" aria-label="Main navigation">
+        <section
+            id="menuAccessPanel"
+            class="menu-access-panel"
+            aria-labelledby="menuAccessTitle"
+        >
+            <form id="menuAccessForm" novalidate>
+                <p id="menuAccessTitle" class="menu-access-title">
+                    Enter access code to open the menu
+                </p>
+
+                <div id="menuAccessControls" class="menu-access-controls">
+                    <label class="visually-hidden" for="menuAccessCode">
+                        Access code
+                    </label>
+
+                    <input
+                        id="menuAccessCode"
+                        class="menu-code-input"
+                        type="password"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        maxlength="4"
+                        autocomplete="one-time-code"
+                        aria-describedby="menuAccessMessage"
+                    >
+
+                    <button class="menu-access-button" type="submit">
+                        Open Menu
+                    </button>
+                </div>
+
+                <p
+                    id="menuAccessMessage"
+                    class="menu-access-message"
+                    role="status"
+                    aria-live="polite"
+                >
+                    10 attempts remaining.
+                </p>
+            </form>
+        </section>
+
+        <nav
+            id="mainNavigation"
+            class="top-nav"
+            aria-label="Main navigation"
+            hidden
+        >
             <a href="faith.html">Faith</a>
             <a href="israel.html">Israel</a>
             <a href="military.html">Military</a>
@@ -185,7 +338,7 @@
                 src="family-logo3.png"
                 alt="Steve and Anita Hill family logo"
                 class="home-welcome-logo"
-            />
+            >
 
             <p>
                 This personal family website is a place to preserve faith, family
@@ -234,6 +387,111 @@
             © Steve &amp; Anita Hill. Personal family website.
         </p>
     </footer>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const correctCode = "1040";
+            const maximumAttempts = 10;
+            const unlockedKey = "steveAnitaMenuUnlockedV17_6";
+            const attemptsKey = "steveAnitaMenuAttemptsV17_6";
+
+            const accessPanel = document.getElementById("menuAccessPanel");
+            const accessForm = document.getElementById("menuAccessForm");
+            const accessTitle = document.getElementById("menuAccessTitle");
+            const accessControls = document.getElementById("menuAccessControls");
+            const codeInput = document.getElementById("menuAccessCode");
+            const accessMessage = document.getElementById("menuAccessMessage");
+            const mainNavigation = document.getElementById("mainNavigation");
+
+            const readSessionValue = (key) => {
+                try {
+                    return window.sessionStorage.getItem(key);
+                } catch (error) {
+                    return null;
+                }
+            };
+
+            const saveSessionValue = (key, value) => {
+                try {
+                    window.sessionStorage.setItem(key, value);
+                } catch (error) {
+                    // The menu still works if browser storage is unavailable.
+                }
+            };
+
+            const storedAttempts = Number.parseInt(
+                readSessionValue(attemptsKey) || "0",
+                10
+            );
+
+            let attemptsUsed = Number.isNaN(storedAttempts)
+                ? 0
+                : Math.min(Math.max(storedAttempts, 0), maximumAttempts);
+
+            const openMenu = () => {
+                mainNavigation.hidden = false;
+                accessPanel.hidden = true;
+                saveSessionValue(unlockedKey, "true");
+                saveSessionValue(attemptsKey, "0");
+            };
+
+            const lockMenu = () => {
+                mainNavigation.hidden = true;
+                accessPanel.hidden = false;
+                accessPanel.classList.add("is-locked");
+                accessControls.hidden = true;
+                accessTitle.textContent = "Access denied";
+                accessMessage.textContent =
+                    "The menu is locked because all 10 attempts were used.";
+                accessMessage.classList.add("is-error");
+                saveSessionValue(attemptsKey, String(maximumAttempts));
+            };
+
+            if (readSessionValue(unlockedKey) === "true") {
+                openMenu();
+                return;
+            }
+
+            if (attemptsUsed >= maximumAttempts) {
+                lockMenu();
+                return;
+            }
+
+            accessMessage.textContent = `${maximumAttempts - attemptsUsed} ${
+                maximumAttempts - attemptsUsed === 1 ? "attempt" : "attempts"
+            } remaining.`;
+
+            codeInput.focus();
+
+            accessForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                if (codeInput.value.trim() === correctCode) {
+                    openMenu();
+                    return;
+                }
+
+                attemptsUsed += 1;
+                saveSessionValue(attemptsKey, String(attemptsUsed));
+                codeInput.value = "";
+
+                const attemptsRemaining = maximumAttempts - attemptsUsed;
+
+                if (attemptsRemaining <= 0) {
+                    lockMenu();
+                    return;
+                }
+
+                accessMessage.textContent = `Incorrect code. ${attemptsRemaining} ${
+                    attemptsRemaining === 1 ? "attempt" : "attempts"
+                } remaining.`;
+                accessMessage.classList.add("is-error");
+                codeInput.focus();
+            });
+        })();
+    </script>
 
 </body>
 </html>
