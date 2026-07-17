@@ -755,12 +755,31 @@ body.lightbox-open .site-header {
     border-radius: 10px;
     font-weight: bold;
     border: 1px solid var(--line);
-    box-shadow: 0 6px 14px rgba(44, 37, 30, 0.16);
+    box-shadow:
+        0 4px 0 rgba(44, 24, 12, 0.72),
+        0 9px 18px rgba(44, 37, 30, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.15s ease;
 }
 
 .israel-toc-grid a:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
+    box-shadow:
+        0 6px 0 rgba(44, 24, 12, 0.72),
+        0 12px 22px rgba(44, 37, 30, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.israel-toc-grid a:active {
+    transform: translateY(3px);
+    box-shadow:
+        0 1px 0 rgba(44, 24, 12, 0.72),
+        0 4px 9px rgba(44, 37, 30, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 /* ISRAEL SEARCH BOX - COMPACT */
