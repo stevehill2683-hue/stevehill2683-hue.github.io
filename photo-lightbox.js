@@ -125,6 +125,10 @@
                 : galleryPhotos;
         }
 
+        function getFullPhotoSource(photo) {
+            return photo.dataset.full || photo.currentSrc || photo.src;
+        }
+
         function preloadNearbyPhotos() {
             if (activePhotos.length < 2) {
                 return;
@@ -138,10 +142,12 @@
                 (currentPhotoIndex + 1) % activePhotos.length;
 
             const previousPhoto = new Image();
-            previousPhoto.src = activePhotos[previousIndex].src;
+            previousPhoto.src = getFullPhotoSource(
+                activePhotos[previousIndex]
+            );
 
             const nextPhoto = new Image();
-            nextPhoto.src = activePhotos[nextIndex].src;
+            nextPhoto.src = getFullPhotoSource(activePhotos[nextIndex]);
         }
 
         function clampPan() {
@@ -205,7 +211,7 @@
 
             const selectedPhoto = activePhotos[currentPhotoIndex];
 
-            lightboxImg.src = selectedPhoto.currentSrc || selectedPhoto.src;
+            lightboxImg.src = getFullPhotoSource(selectedPhoto);
             lightboxImg.alt = selectedPhoto.alt || "Expanded photo";
             resetZoom();
             preloadNearbyPhotos();
