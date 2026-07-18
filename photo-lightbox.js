@@ -167,6 +167,48 @@
             return photo.dataset.full || photo.currentSrc || photo.src;
         }
 
+        function preloadFullGalleryInBackground() {
+            const pendingSources = Array.from(new Set(
+                zoomPhotos.map(getFullPhotoSource)
+            ));
+            const simultaneousLoads = 3;
+
+            function loadNext() {
+                const source = pendingSources.shift();
+
+                if (!source) {
+                    return;
+                }
+
+                const photo = new Image();
+                const continueQueue = () => {
+                    setTimeout(loadNext, 250);
+                };
+
+                photo.addEventListener("load", continueQueue, { once: true });
+                photo.addEventListener("error", continueQueue, { once: true });
+                photo.src = source;
+            }
+
+            for (let index = 0; index < simultaneousLoads; index += 1) {
+                loadNext();
+            }
+        }
+
+        function scheduleBackgroundPreload() {
+            const beginPreload = () => {
+                setTimeout(preloadFullGalleryInBackground, 3000);
+            };
+
+            if (document.readyState === "complete") {
+                beginPreload();
+            } else {
+                window.addEventListener("load", beginPreload, { once: true });
+            }
+        }
+
+        scheduleBackgroundPreload();
+
         function preloadNearbyPhotos() {
             if (activePhotos.length < 2) {
                 return;
