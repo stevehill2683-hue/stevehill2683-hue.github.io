@@ -16,7 +16,44 @@
         <kbd>0</kbd> reset &nbsp; <kbd>Esc</kbd> close
     `;
 
+    function initializeDeferredPhotos() {
+        const deferredPhotos = Array.from(
+            document.querySelectorAll(".zoom-photo[data-src]")
+        );
+
+        if (deferredPhotos.length === 0) {
+            return;
+        }
+
+        function loadPhoto(photo) {
+            photo.src = photo.dataset.src;
+            photo.removeAttribute("data-src");
+        }
+
+        if (!("IntersectionObserver" in window)) {
+            deferredPhotos.forEach(loadPhoto);
+            return;
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                loadPhoto(entry.target);
+                observer.unobserve(entry.target);
+            });
+        }, {
+            rootMargin: "200px 0px"
+        });
+
+        deferredPhotos.forEach(photo => observer.observe(photo));
+    }
+
     function initializePhotoLightbox() {
+        initializeDeferredPhotos();
+
         const zoomPhotos = Array.from(
             document.querySelectorAll(".zoom-photo")
         );
