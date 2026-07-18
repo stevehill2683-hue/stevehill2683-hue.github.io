@@ -143,7 +143,6 @@
         let touchStartX = 0;
         let touchStartY = 0;
         let touchMoved = false;
-        let fullPhotoBundle = null;
 
         function getGalleryPhotos(photo) {
             const gallery = photo.closest(".gallery, .photo-grid");
@@ -165,44 +164,50 @@
         }
 
         function getFullPhotoSource(photo) {
-            const regularSource =
-                photo.dataset.full || photo.currentSrc || photo.src;
-
-            return fullPhotoBundle?.[regularSource] || regularSource;
+            return photo.dataset.full || photo.currentSrc || photo.src;
         }
 
-        function loadFullPhotoBundle() {
-            fetch("craig-photo-bundle.json?v=18.5G", {
-                cache: "force-cache"
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Photo bundle was unavailable.");
-                    }
+        function preloadFullGalleryInBackground() {
+            const pendingSources = Array.from(new Set(
+                zoomPhotos.map(getFullPhotoSource)
+            ));
+            const simultaneousLoads = 3;
 
-                    return response.json();
-                })
-                .then(bundle => {
-                    fullPhotoBundle = bundle;
-                })
-                .catch(() => {
-                    fullPhotoBundle = null;
-                });
-        }
+            function loadNext() {
+                const source = pendingSources.shift();
 
-        function scheduleFullPhotoBundle() {
-            const beginLoading = () => {
-                setTimeout(loadFullPhotoBundle, 1500);
-            };
+                if (!source) {
+                    return;
+                }
 
-            if (document.readyState === "complete") {
-                beginLoading();
-            } else {
-                window.addEventListener("load", beginLoading, { once: true });
+                const photo = new Image();
+                const continueQueue = () => {
+                    setTimeout(loadNext, 250);
+                };
+
+                photo.addEventListener("load", continueQueue, { once: true });
+                photo.addEventListener("error", continueQueue, { once: true });
+                photo.src = source;
+            }
+
+            for (let index = 0; index < simultaneousLoads; index += 1) {
+                loadNext();
             }
         }
 
-        scheduleFullPhotoBundle();
+        function scheduleBackgroundPreload() {
+            const beginPreload = () => {
+                setTimeout(preloadFullGalleryInBackground, 3000);
+            };
+
+            if (document.readyState === "complete") {
+                beginPreload();
+            } else {
+                window.addEventListener("load", beginPreload, { once: true });
+            }
+        }
+
+        scheduleBackgroundPreload();
 
         function preloadNearbyPhotos() {
             if (activePhotos.length < 2) {
