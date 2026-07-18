@@ -129,6 +129,7 @@
 
         let activePhotos = zoomPhotos;
         let currentPhotoIndex = 0;
+        let fullPhotoRequestId = 0;
         let zoomLevel = 1;
         let panX = 0;
         let panY = 0;
@@ -247,11 +248,30 @@
                 (index + activePhotos.length) % activePhotos.length;
 
             const selectedPhoto = activePhotos[currentPhotoIndex];
+            const thumbnailSource =
+                selectedPhoto.currentSrc || selectedPhoto.src;
+            const fullPhotoSource = getFullPhotoSource(selectedPhoto);
+            const requestId = ++fullPhotoRequestId;
 
-            lightboxImg.src = getFullPhotoSource(selectedPhoto);
+            lightboxImg.src = thumbnailSource;
             lightboxImg.alt = selectedPhoto.alt || "Expanded photo";
             resetZoom();
-            preloadNearbyPhotos();
+
+            if (fullPhotoSource === thumbnailSource) {
+                return;
+            }
+
+            const fullPhoto = new Image();
+
+            fullPhoto.addEventListener("load", () => {
+                if (requestId !== fullPhotoRequestId) {
+                    return;
+                }
+
+                lightboxImg.src = fullPhotoSource;
+            });
+
+            fullPhoto.src = fullPhotoSource;
         }
 
         function openLightbox(photo) {
@@ -272,6 +292,7 @@
         }
 
         function closeLightbox() {
+            fullPhotoRequestId += 1;
             lightbox.classList.remove("active");
             lightbox.setAttribute("aria-hidden", "true");
             document.body.classList.remove("lightbox-open");
