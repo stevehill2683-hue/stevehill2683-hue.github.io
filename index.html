@@ -151,6 +151,36 @@
             color: #9b1c1c;
         }
 
+        .menu-forgot-button {
+            margin: 6px auto 0;
+            padding: 2px 4px;
+            border: 0;
+            background: transparent;
+            color: #4b2e17;
+            font: inherit;
+            font-size: 0.85rem;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .menu-forgot-button:hover,
+        .menu-forgot-button:focus-visible {
+            color: #7a451f;
+        }
+
+        .menu-forgot-button:focus-visible {
+            outline: 3px solid rgba(126, 83, 43, 0.3);
+            outline-offset: 2px;
+        }
+
+        body.home-page .menu-access-help {
+            max-width: 380px;
+            margin: 6px auto 0;
+            font-size: 0.85rem;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+
         body.home-page .menu-access-panel.is-locked {
             border-color: #9b1c1c;
             background: #fff1f1;
@@ -158,8 +188,23 @@
 
         body.home-page .top-nav[hidden],
         .menu-access-panel[hidden],
-        .menu-access-controls[hidden] {
+        .menu-access-controls[hidden],
+        .menu-access-help[hidden] {
             display: none;
+        }
+
+        @keyframes home-menu-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        body.home-page .top-nav.menu-is-opening {
+            animation: home-menu-fade-in 200ms ease-out;
         }
 
         .home-welcome-panel {
@@ -242,6 +287,12 @@
             color: #fffaf1;
             font-size: 0.9rem;
             line-height: 1.4;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body.home-page .top-nav.menu-is-opening {
+                animation: none;
+            }
         }
 
         @media (max-width: 900px) {
@@ -327,6 +378,24 @@
                     aria-live="polite"
                 >
                     10 attempts remaining.
+                </p>
+
+                <button
+                    id="menuForgotCodeButton"
+                    class="menu-forgot-button"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="menuForgotCodeHelp"
+                >
+                    Forgot the code?
+                </button>
+
+                <p
+                    id="menuForgotCodeHelp"
+                    class="menu-access-help"
+                    hidden
+                >
+                    Contact the site owner by email, Facebook, postal mail, or phone to request access.
                 </p>
             </form>
         </section>
@@ -421,7 +490,19 @@
             const accessControls = document.getElementById("menuAccessControls");
             const codeInput = document.getElementById("menuAccessCode");
             const accessMessage = document.getElementById("menuAccessMessage");
+            const forgotCodeButton = document.getElementById("menuForgotCodeButton");
+            const forgotCodeHelp = document.getElementById("menuForgotCodeHelp");
             const mainNavigation = document.getElementById("mainNavigation");
+
+            forgotCodeButton.addEventListener("click", () => {
+                const willShowHelp = forgotCodeHelp.hidden;
+
+                forgotCodeHelp.hidden = !willShowHelp;
+                forgotCodeButton.setAttribute(
+                    "aria-expanded",
+                    String(willShowHelp)
+                );
+            });
 
             const readSessionValue = (key) => {
                 try {
@@ -450,6 +531,7 @@
 
             const openMenu = () => {
                 mainNavigation.hidden = false;
+                mainNavigation.classList.add("menu-is-opening");
                 accessPanel.hidden = true;
                 saveSessionValue(unlockedKey, "true");
                 saveSessionValue(attemptsKey, "0");
