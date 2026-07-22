@@ -628,6 +628,10 @@ body.lightbox-open {
     justify-content: center;
     background: rgba(0, 0, 0, 0.92);
     z-index: 999999;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .photo-lightbox.active {
@@ -646,6 +650,9 @@ body.lightbox-open {
     transform-origin: center center;
     transition: transform 0.15s ease;
     will-change: transform;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .photo-lightbox:focus {

@@ -95,6 +95,7 @@
 
         lightboxImg.removeAttribute("src");
         lightboxImg.alt = "Expanded photo";
+        lightboxImg.draggable = false;
 
         let controls = lightbox.querySelector(".photo-lightbox-controls");
 
@@ -337,6 +338,14 @@
         });
 
         lightboxImg.addEventListener("load", applyZoom);
+
+        lightboxImg.addEventListener("dragstart", event => {
+            event.preventDefault();
+        });
+
+        lightbox.addEventListener("selectstart", event => {
+            event.preventDefault();
+        });
 
         lightbox.addEventListener("touchstart", event => {
             const touch = event.changedTouches[0];
