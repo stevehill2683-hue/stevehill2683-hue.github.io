@@ -161,13 +161,31 @@ header p {
     font-weight: bold;
     white-space: nowrap;
     background: rgba(255, 250, 241, 0.10);
+    box-shadow:
+        0 4px 7px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease;
 }
 
-.top-nav a:hover {
+.top-nav a:hover,
+.top-nav a:focus-visible {
     color: var(--on-dark);
     background: rgba(255, 250, 241, 0.24);
     text-decoration: none;
     transform: translateY(-1px);
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.top-nav a:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.34),
+        inset 0 2px 3px rgba(0, 0, 0, 0.24);
 }
 
 /* ===============================
@@ -183,6 +201,28 @@ header p {
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    box-shadow:
+        0 4px 7px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease;
+}
+
+.menu-button:hover,
+.menu-button:focus-visible {
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.menu-button:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.34),
+        inset 0 2px 3px rgba(0, 0, 0, 0.18);
 }
 
 .site-nav {
@@ -208,12 +248,31 @@ header p {
     font-size: 0.92rem;
     font-weight: bold;
     background: rgba(255, 250, 241, 0.08);
+    box-shadow:
+        0 4px 7px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease;
 }
 
-.site-nav a:hover {
+.site-nav a:hover,
+.site-nav a:focus-visible {
     color: var(--on-dark) !important;
     background: rgba(255, 250, 241, 0.20);
     text-decoration: none !important;
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.site-nav a:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.34),
+        inset 0 2px 3px rgba(0, 0, 0, 0.24);
 }
 
 /* ===============================
