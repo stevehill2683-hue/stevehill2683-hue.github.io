@@ -45,6 +45,27 @@
         body.home-page .top-nav a {
             padding: 7px 13px;
             font-size: 0.9rem;
+            box-shadow:
+                0 4px 7px rgba(0, 0, 0, 0.38),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition:
+                transform 140ms ease,
+                box-shadow 140ms ease;
+        }
+
+        body.home-page .top-nav a:hover,
+        body.home-page .top-nav a:focus-visible {
+            transform: translateY(-1px);
+            box-shadow:
+                0 6px 10px rgba(0, 0, 0, 0.42),
+                inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        }
+
+        body.home-page .top-nav a:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.34),
+                inset 0 2px 3px rgba(0, 0, 0, 0.24);
         }
 
         body.home-page .site-header::before,
