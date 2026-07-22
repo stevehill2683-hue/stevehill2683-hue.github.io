@@ -1,6 +1,6 @@
 /* ===============================
    GLOBAL SITE STYLE
-   Steve & Anita Hill Family Site
+   Steve & Anita Family Site
    CSS Version V19.2
    =============================== */
 
@@ -88,6 +88,13 @@ header .site-title {
     letter-spacing: 0.4px;
     text-align: center;
     margin: 0 auto 6px;
+    text-shadow:
+        2px 2px 0 #333333,
+        4px 4px 2px #1f1f1f,
+        6px 6px 8px rgba(0, 0, 0, 0.78);
+}
+
+.site-header .military-page-title {
     text-shadow:
         2px 2px 0 #333333,
         4px 4px 2px #1f1f1f,
