@@ -1,10 +1,10 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Family Site
-   CSS Version V19.2
+   CSS Version V19.4
    =============================== */
 
-/* VALIDATED VERSION 19.2 — USE THIS COMPLETE FILE */
+/* VALIDATED VERSION 19.4 — USE THIS COMPLETE FILE */
 
 :root {
     --bg: #f5f1e9;
@@ -1068,7 +1068,7 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 19.2" !important;
+    content: "Version 19.4" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -1278,8 +1278,9 @@ body::after {
 }
 /* ===============================
    SITE VERSION
-   CSS Version V19.2
-   Visible badge: Version 19.2
+   CSS Version V19.4
+   Visible badge: Version 19.4
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
+
