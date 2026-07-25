@@ -1068,7 +1068,7 @@ body[data-page-updated]::before {
 }
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
 body::after {
-    content: "Version 19.4" !important;
+    content: "Version 20.0" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -1318,8 +1318,8 @@ body::after {
         inset 0 2px 3px rgba(0, 0, 0, 0.24);
 }
 /* Confidential page red label */
-.confidential-red {
-    color: red;
+.site-header .confidential-red {
+    color: red !important;
 }
 /* ===============================
    SITE VERSION
