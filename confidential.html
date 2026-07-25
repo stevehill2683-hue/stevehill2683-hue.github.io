@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+
+<body class="person-page">
+
 
 <header class="site-header">
 
@@ -29,7 +31,9 @@
 </header>
 
 
+
 <main class="page-wrap">
+
 
 <section class="content-card" id="lockedArea">
 
@@ -39,32 +43,115 @@
         Enter confidential access code.
     </p>
 
+
     <input
         id="confidentialCode"
         type="password"
         maxlength="4"
         inputmode="numeric"
+        autocomplete="off"
     >
+
 
     <button onclick="checkCode()">
         Enter
     </button>
 
+
 </section>
+
+
+
 
 
 <section class="content-card" id="privateContent" style="display:none;">
 
+
     <h1>Welcome to the Confidential Area</h1>
+
 
     <p>
         This section is reserved for private family information,
         documents, memories, and future protected content.
     </p>
 
+
+
+    <h2>Future Private Memories</h2>
+
+
+    <div class="family-grid">
+
+
+        <div class="family-card">
+            <h3>Future Picture 1</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 2</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 3</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 4</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 5</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 6</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 7</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 8</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 9</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+        <div class="family-card">
+            <h3>Future Picture 10</h3>
+            <p>Reserved for future private photo.</p>
+        </div>
+
+
+    </div>
+
+
 </section>
 
+
 </main>
+
+
 
 
 <footer class="fixed-bottom-text">
@@ -76,50 +163,75 @@
 </footer>
 
 
+
+
+
 <script>
 
+
 let attempts = 0;
+
 const correctPassword = "2683";
+
 
 
 function checkCode() {
 
+
     const entered =
         document.getElementById("confidentialCode").value;
+
 
     const message =
         document.getElementById("message");
 
 
+
     if (entered === correctPassword) {
+
 
         document.getElementById("lockedArea").style.display = "none";
 
+
         document.getElementById("privateContent").style.display = "block";
 
-    } 
-    
+
+    }
+
+
     else {
 
+
         attempts++;
+
 
         message.textContent =
         "Incorrect code. Attempts used: " + attempts;
 
+
+
         if (attempts >= 10) {
+
 
             message.textContent =
             "Access locked.";
 
+
             document.getElementById("confidentialCode").disabled = true;
+
 
         }
 
+
     }
+
 
 }
 
+
+
 </script>
+
 
 
 </body>
