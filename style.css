@@ -1267,8 +1267,8 @@ body::after {
     right: 10px;
     bottom: 120px;
     font-size: 0.85rem;
-}
 
+}
     body::after {
         right: 10px;
         bottom: 82px;
@@ -1276,6 +1276,48 @@ body::after {
         padding: 4px 8px;
     }
 }
+
+/* ===============================
+   CONFIDENTIAL ACCESS BUTTON
+   =============================== */
+
+.confidential-button,
+.confidential-button:visited {
+    display: inline-block;
+    color: var(--on-dark) !important;
+    text-decoration: none !important;
+    padding: 7px 13px;
+    border: 1px solid rgba(255, 250, 241, 0.55);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    background: rgba(255, 250, 241, 0.10);
+    box-shadow:
+        0 4px 7px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease;
+}
+
+.confidential-button:hover,
+.confidential-button:focus-visible {
+    background: rgba(255, 250, 241, 0.24);
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.confidential-button:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.34),
+        inset 0 2px 3px rgba(0, 0, 0, 0.24);
+}
+
 /* ===============================
    SITE VERSION
    CSS Version V19.4
