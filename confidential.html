@@ -2,49 +2,65 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Confidential | Steve & Anita</title>
+    <title>Confidential | Steve & Anita</title>
 
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="site-header">
 
-<h1 class="site-title">
-Steve & Anita
-</h1>
+    <span class="site-title">
+        Steve &amp; Anita
+    </span>
 
-<p class="confidential-label">
-***CONFIDENTIAL***
-</p>
+    <p class="confidential-label">
+        ***CONFIDENTIAL***
+    </p>
 
-<p>
-Private family information area
-</p>
+    <p>
+        Private Family Area
+    </p>
 
 </header>
 
 
 <main class="page-wrap">
 
-<section class="content-card">
+<section class="content-card" id="lockedArea">
 
-<h1>Confidential Area</h1>
+    <h1>Confidential Area</h1>
 
-<p>
-This section contains private family information,
-memories, documents, and materials intended for
-authorized family members.
-</p>
+    <p id="message">
+        Enter confidential access code.
+    </p>
 
-<p>
-Access is restricted.
-</p>
+    <input
+        id="confidentialCode"
+        type="password"
+        maxlength="4"
+        inputmode="numeric"
+    >
+
+    <button onclick="checkCode()">
+        Enter
+    </button>
+
+</section>
+
+
+<section class="content-card" id="privateContent" style="display:none;">
+
+    <h1>Welcome to the Confidential Area</h1>
+
+    <p>
+        This section is reserved for private family information,
+        documents, memories, and future protected content.
+    </p>
 
 </section>
 
@@ -58,6 +74,52 @@ Access is restricted.
 </p>
 
 </footer>
+
+
+<script>
+
+let attempts = 0;
+const correctPassword = "2683";
+
+
+function checkCode() {
+
+    const entered =
+        document.getElementById("confidentialCode").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if (entered === correctPassword) {
+
+        document.getElementById("lockedArea").style.display = "none";
+
+        document.getElementById("privateContent").style.display = "block";
+
+    } 
+    
+    else {
+
+        attempts++;
+
+        message.textContent =
+        "Incorrect code. Attempts used: " + attempts;
+
+        if (attempts >= 10) {
+
+            message.textContent =
+            "Access locked.";
+
+            document.getElementById("confidentialCode").disabled = true;
+
+        }
+
+    }
+
+}
+
+</script>
 
 
 </body>
