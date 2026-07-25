@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Confidential | Steve & Anita</title>
+<title>Confidential | Steve & Anita Hill</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 
@@ -16,46 +16,65 @@
 
 <header class="site-header">
 
-    <span class="site-title">
-        Steve &amp; Anita
-    </span>
+<a href="index.html" class="site-title">
+Steve &amp; Anita Hill
+</a>
 
-    <p class="confidential-label">
-        ***CONFIDENTIAL***
-    </p>
+<p class="confidential-label">
+***CONFIDENTIAL***
+</p>
 
-    <p>
-        Private Family Area
-    </p>
+<p>
+Private Family Area
+</p>
+
+
+<nav class="top-nav" aria-label="Main navigation">
+
+<a href="index.html">Home</a>
+<a href="faith.html">Faith</a>
+<a href="family.html">Family</a>
+<a href="military.html">Military</a>
+<a href="israel.html">Israel</a>
+<a href="general.html">General</a>
+
+</nav>
+
 
 </header>
+
 
 
 
 <main class="page-wrap">
 
 
+
 <section class="content-card" id="lockedArea">
 
-    <h1>Confidential Area</h1>
 
-    <p id="message">
-        Enter confidential access code.
-    </p>
+<h1>Confidential Area</h1>
 
 
-    <input
-        id="confidentialCode"
-        type="password"
-        maxlength="4"
-        inputmode="numeric"
-        autocomplete="off"
-    >
+<p id="message">
+Enter confidential access code.
+</p>
 
 
-    <button onclick="checkCode()">
-        Enter
-    </button>
+
+<input
+id="confidentialCode"
+type="password"
+maxlength="4"
+inputmode="numeric"
+autocomplete="off"
+>
+
+
+<button onclick="checkCode()">
+Enter
+</button>
+
 
 
 </section>
@@ -67,89 +86,102 @@
 <section class="content-card" id="privateContent" style="display:none;">
 
 
-    <h1>Welcome to the Confidential Area</h1>
-
-
-    <p>
-        This section is reserved for private family information,
-        documents, memories, and future protected content.
-    </p>
+<h1>
+Welcome to the Confidential Area
+</h1>
 
 
 
-    <h2>Future Private Memories</h2>
+<p>
+This section is reserved for private family information,
+documents, memories, and future protected content.
+</p>
 
 
-    <div class="family-grid">
 
 
-        <div class="family-card">
-            <h3>Future Picture 1</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<h2>
+Future Private Memories
+</h2>
 
 
-        <div class="family-card">
-            <h3>Future Picture 2</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 3</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-grid">
 
 
-        <div class="family-card">
-            <h3>Future Picture 4</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+
+<div class="family-card">
+<h3>Future Picture 1</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 5</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 2</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 6</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 3</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 7</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 4</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 8</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 5</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 9</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 6</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-        <div class="family-card">
-            <h3>Future Picture 10</h3>
-            <p>Reserved for future private photo.</p>
-        </div>
+<div class="family-card">
+<h3>Future Picture 7</h3>
+<p>Reserved for future private photo.</p>
+</div>
 
 
-    </div>
+<div class="family-card">
+<h3>Future Picture 8</h3>
+<p>Reserved for future private photo.</p>
+</div>
+
+
+<div class="family-card">
+<h3>Future Picture 9</h3>
+<p>Reserved for future private photo.</p>
+</div>
+
+
+<div class="family-card">
+<h3>Future Picture 10</h3>
+<p>Reserved for future private photo.</p>
+</div>
+
+
+
+</div>
+
 
 
 </section>
 
 
+
 </main>
+
 
 
 
@@ -166,73 +198,70 @@
 
 
 
-<script>
 
+<script>
 
 let attempts = 0;
 
 const correctPassword = "2683";
 
 
-
 function checkCode() {
 
 
-    const entered =
-        document.getElementById("confidentialCode").value;
+let entered =
+document.getElementById("confidentialCode").value;
 
 
-    const message =
-        document.getElementById("message");
-
-
-
-    if (entered === correctPassword) {
-
-
-        document.getElementById("lockedArea").style.display = "none";
-
-
-        document.getElementById("privateContent").style.display = "block";
-
-
-    }
-
-
-    else {
-
-
-        attempts++;
-
-
-        message.textContent =
-        "Incorrect code. Attempts used: " + attempts;
+let message =
+document.getElementById("message");
 
 
 
-        if (attempts >= 10) {
+if (entered === correctPassword) {
 
 
-            message.textContent =
-            "Access locked.";
+document.getElementById("lockedArea").style.display = "none";
 
 
-            document.getElementById("confidentialCode").disabled = true;
+document.getElementById("privateContent").style.display = "block";
 
 
-        }
+}
+
+else {
 
 
-    }
+attempts++;
+
+
+message.textContent =
+"Incorrect code. Attempts used: " + attempts;
+
+
+
+if (attempts >= 10) {
+
+
+message.textContent =
+"Access locked.";
+
+
+document.getElementById("confidentialCode").disabled = true;
 
 
 }
 
 
+}
+
+
+}
+
 
 </script>
 
 
-
 </body>
+
 </html>
