@@ -1,10 +1,10 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Family Site
-   CSS Version V19.4
+   CSS Version V20.0
    =============================== */
 
-/* VALIDATED VERSION 19.4 — USE THIS COMPLETE FILE */
+/* VALIDATED VERSION 20.0 — USE THIS COMPLETE FILE */
 
 :root {
     --bg: #f5f1e9;
@@ -1317,11 +1317,14 @@ body::after {
         0 2px 4px rgba(0, 0, 0, 0.34),
         inset 0 2px 3px rgba(0, 0, 0, 0.24);
 }
-
+/* Confidential page red label */
+.confidential-red {
+    color: red;
+}
 /* ===============================
    SITE VERSION
-   CSS Version V19.4
-   Visible badge: Version 19.4
+   CSS Version V20.0
+   Visible badge: Version 20.0
    Page timestamps remain in HTML but are hidden
    Keep this SITE VERSION block at the bottom
    =============================== */
