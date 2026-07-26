@@ -704,18 +704,29 @@
                 musicButton.textContent = "Play Music";
             }
         });
+musicPlayer.addEventListener("ended", () => {
+    currentTrack += 1;
 
-        musicPlayer.addEventListener("ended", async () => {
-            currentTrack = (currentTrack + 1) % tracks.length;
-            loadTrack();
+    if (currentTrack >= tracks.length) {
+        currentTrack = 0;
+    }
 
-            try {
-                await musicPlayer.play();
-                musicButton.textContent = "Pause Music";
-            } catch (error) {
-                musicButton.textContent = "Play Music";
-            }
+    musicPlayer.src = tracks[currentTrack].src;
+    musicStatus.textContent = `Music: ${tracks[currentTrack].name}`;
+
+    musicPlayer.load();
+
+    musicPlayer.play()
+        .then(() => {
+            musicButton.textContent = "Pause Music";
+        })
+        .catch(() => {
+            musicButton.textContent = "Play Music";
+            musicStatus.textContent =
+                `Music: ${tracks[currentTrack].name} — click Play Music`;
         });
+});
+      
 
         musicPlayer.addEventListener("play", () => {
             musicButton.textContent = "Pause Music";
