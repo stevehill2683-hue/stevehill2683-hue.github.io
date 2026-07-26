@@ -485,7 +485,18 @@
 
             </div>
         </section>
+<section class="site-music-player" aria-label="Website music player">
+    <p id="musicStatus">Music: Track 1</p>
 
+    <button type="button" id="musicButton">
+        Play Music
+    </button>
+
+    <audio id="siteMusic" preload="metadata">
+        Your browser does not support audio playback.
+    </audio>
+</section>
+        
     </main>
 
     <footer class="fixed-bottom-text">
@@ -620,6 +631,70 @@
             });
         })();
     </script>
+<script>
+    (() => {
+        "use strict";
 
+        const tracks = [
+            {
+                src: "audio/track-1.mp3",
+                name: "Track 1"
+            },
+            {
+                src: "audio/track-2.mp3",
+                name: "Track 2"
+            }
+        ];
+
+        const musicPlayer = document.getElementById("siteMusic");
+        const musicButton = document.getElementById("musicButton");
+        const musicStatus = document.getElementById("musicStatus");
+
+        let currentTrack = 0;
+
+        const loadTrack = () => {
+            musicPlayer.src = tracks[currentTrack].src;
+            musicStatus.textContent = `Music: ${tracks[currentTrack].name}`;
+        };
+
+        musicButton.addEventListener("click", async () => {
+            if (musicPlayer.paused) {
+                try {
+                    await musicPlayer.play();
+                    musicButton.textContent = "Pause Music";
+                } catch (error) {
+                    musicStatus.textContent = "Music could not start.";
+                }
+            } else {
+                musicPlayer.pause();
+                musicButton.textContent = "Play Music";
+            }
+        });
+
+        musicPlayer.addEventListener("ended", async () => {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack();
+
+            try {
+                await musicPlayer.play();
+                musicButton.textContent = "Pause Music";
+            } catch (error) {
+                musicButton.textContent = "Play Music";
+            }
+        });
+
+        musicPlayer.addEventListener("play", () => {
+            musicButton.textContent = "Pause Music";
+        });
+
+        musicPlayer.addEventListener("pause", () => {
+            if (!musicPlayer.ended) {
+                musicButton.textContent = "Play Music";
+            }
+        });
+
+        loadTrack();
+    })();
+</script>
 </body>
 </html>
