@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Special Documents | Steve &amp; Anita</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .special-documents-page {
+            width: calc(100% - 40px);
+            max-width: 900px;
+            margin: 24px auto 100px;
+            padding: 24px;
+            background: #fffaf1;
+            border: 1px solid #ddcfba;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(44, 37, 30, 0.16);
+        }
+
+        .special-documents-page h1 {
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .special-documents-intro {
+            margin: 0 auto 20px;
+            text-align: center;
+            color: #4a3a2d;
+            line-height: 1.5;
+        }
+
+        .document-list {
+            display: grid;
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .document-link {
+            display: block;
+            padding: 14px 18px;
+            background: #432611;
+            color: #fffaf1;
+            border: 1px solid #2c180b;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 6px 12px rgba(44, 37, 30, 0.18);
+        }
+
+        .document-link:hover,
+        .document-link:focus-visible {
+            background: #65401f;
+        }
+
+        .return-home {
+            display: block;
+            width: fit-content;
+            margin: 24px auto 0;
+            padding: 10px 18px;
+            background: #303030;
+            color: #fffaf1;
+            border: 1px solid #111111;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .return-home:hover,
+        .return-home:focus-visible {
+            background: #4a4a4a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <a href="index.html" class="site-title">Steve &amp; Anita</a>
+
+        <p>
+            Faith • Family • Military Service • Memories • Special Documents
+        </p>
+    </header>
+
+    <main class="special-documents-page">
+
+        <h1>Special Documents</h1>
+
+        <p class="special-documents-intro">
+            Click a document title below to open and read the PDF.
+            Use your browser’s Back button to return to this page.
+        </p>
+
+        <div class="document-list">
+
+            <a class="document-link" href="documents/document-1.pdf">
+                Document 1
+            </a>
+
+            <a class="document-link" href="documents/document-2.pdf">
+                Document 2
+            </a>
+
+            <a class="document-link" href="documents/document-3.pdf">
+                Document 3
+            </a>
+
+        </div>
+
+        <a class="return-home" href="index.html">
+            Return to Home
+        </a>
+
+    </main>
+
+    <footer class="fixed-bottom-text">
+        <p>
+            “As for me and my house, we will serve the LORD.” — Joshua 24:15
+        </p>
+
+        <p class="small">
+            © Steve &amp; Anita. Personal family website.
+        </p>
+    </footer>
+
+</body>
+</html>
