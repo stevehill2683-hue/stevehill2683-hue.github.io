@@ -10,6 +10,7 @@
 
     <style>
         /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
+
         body.home-page {
             padding-bottom: 70px;
         }
@@ -23,14 +24,23 @@
             font-size: clamp(1.9rem, 3.2vw, 2.55rem);
             margin-bottom: 6px;
         }
-body.home-page .site-header .site-request-note {
-    margin: 2px 0 8px;
-    color: #303030;
-    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
-    font-weight: 700;
-    line-height: 1.3;
-    text-align: center;
-}
+
+        body.home-page .site-header p,
+        body.home-page header p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        body.home-page .site-header .site-request-note {
+            margin: 2px 0 8px;
+            color: #ffeb3b;
+            font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+            font-weight: 700;
+            line-height: 1.3;
+            text-align: center;
+            text-shadow: 1px 1px 3px #000000;
+        }
+
         body.home-page .confidential-label {
             margin: 0 0 4px;
             color: #000000;
@@ -41,15 +51,9 @@ body.home-page .site-header .site-request-note {
             transform: scaleY(1.2);
             transform-origin: center;
             text-shadow:
-        2px 2px 0 #c00000,
-        4px 4px 0 #7a0000,
-        6px 6px 8px rgba(0, 0, 0, 0.75);
-        }
-
-        body.home-page .site-header p,
-        body.home-page header p {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+                2px 2px 0 #c00000,
+                4px 4px 0 #7a0000,
+                6px 6px 8px rgba(0, 0, 0, 0.75);
         }
 
         body.home-page .top-nav a {
@@ -275,7 +279,7 @@ body.home-page .site-header .site-request-note {
             width: 58%;
             max-width: 640px;
             height: 4px;
-            background: #111;
+            background: #111111;
             margin: 14px auto 18px;
             border-radius: 999px;
         }
@@ -318,6 +322,7 @@ body.home-page .site-header .site-request-note {
             font-size: 0.9rem;
             line-height: 1.4;
         }
+
         .site-music-player {
             width: min(100%, 360px);
             margin: 14px auto 24px;
@@ -353,6 +358,7 @@ body.home-page .site-header .site-request-note {
         .site-music-player button:focus-visible {
             background: #65401f;
         }
+
         @media (prefers-reduced-motion: reduce) {
             body.home-page .top-nav.menu-is-opening {
                 animation: none;
@@ -396,11 +402,14 @@ body.home-page .site-header .site-request-note {
 <body class="home-page">
 
     <header class="site-header">
+
         <span class="site-title">Steve &amp; Anita</span>
+
         <p class="site-request-note">
-    If there is a document or image you would like to see here, simply message it to me.
-</p>
-      
+            If there is a document or image you would like to see here,
+            simply message it to me.
+        </p>
+
         <p class="confidential-label">***CONFIDENTIAL***</p>
 
         <p>
@@ -413,11 +422,13 @@ body.home-page .site-header .site-request-note {
             aria-labelledby="menuAccessTitle"
         >
             <form id="menuAccessForm" novalidate>
+
                 <p id="menuAccessTitle" class="menu-access-title">
                     Enter access code to open the menu
                 </p>
 
                 <div id="menuAccessControls" class="menu-access-controls">
+
                     <label class="visually-hidden" for="menuAccessCode">
                         Access code
                     </label>
@@ -436,6 +447,7 @@ body.home-page .site-header .site-request-note {
                     <button class="menu-access-button" type="submit">
                         Open Menu
                     </button>
+
                 </div>
 
                 <p
@@ -462,8 +474,10 @@ body.home-page .site-header .site-request-note {
                     class="menu-access-help"
                     hidden
                 >
-                    Contact the site owner by email, Facebook, postal mail, or phone to request access.
+                    Contact the site owner by email, Facebook, postal mail,
+                    or phone to request access.
                 </p>
+
             </form>
         </section>
 
@@ -480,13 +494,20 @@ body.home-page .site-header .site-request-note {
             <a href="general.html">3131</a>
             <a href="2406.html">2406</a>
             <a href="special-documents.html">Special Documents</a>
-            <a class="confidential-menu-link" href="confidential.html">Confidential</a>
+            <a
+                class="confidential-menu-link"
+                href="confidential.html"
+            >
+                Confidential
+            </a>
         </nav>
+
     </header>
 
     <main class="page-wrap">
 
         <section class="hero compact home-welcome-panel">
+
             <h1>Welcome</h1>
 
             <img
@@ -496,62 +517,78 @@ body.home-page .site-header .site-request-note {
             >
 
             <p>
-                This personal family website is a place to preserve faith, family
-                history, military service, photos, memories, and the
+                This personal family website is a place to preserve faith,
+                family history, military service, photos, memories, and the
                 stories that matter most.
             </p>
+
         </section>
 
         <div class="home-divider"></div>
 
         <section class="home-info-section">
+
             <h2 class="at-a-glance-title">At a Glance</h2>
 
             <div class="home-info-grid">
 
                 <div class="home-info-card">
+
                     <h3>About This Site</h3>
 
                     <p>
-                        Organized around faith, military service, family memories,
-                        and general interests.
+                        Organized around faith, military service, family
+                        memories, and general interests.
                     </p>
+
                 </div>
 
                 <div class="home-info-card">
+
                     <h3>Recent Work</h3>
 
                     <p>
-                        Family photo pages are being built and updated, including
-                        pages for Steve, Anita, our family and parents, and military
-                        memories.
+                        Family photo pages are being built and updated,
+                        including pages for Steve, Anita, our family and
+                        parents, and military memories.
                     </p>
+
                 </div>
 
             </div>
+
         </section>
-<section class="site-music-player" aria-label="Website music player">
-    <p id="musicStatus">Music: Track 1</p>
 
-    <button type="button" id="musicButton">
-        Play Music
-    </button>
+        <section
+            class="site-music-player"
+            aria-label="Website music player"
+        >
 
-    <audio id="siteMusic" preload="metadata">
-        Your browser does not support audio playback.
-    </audio>
-</section>
-        
+            <p id="musicStatus">Music: Track 1</p>
+
+            <button type="button" id="musicButton">
+                Play Music
+            </button>
+
+            <audio id="siteMusic" preload="metadata">
+                Your browser does not support audio playback.
+            </audio>
+
+        </section>
+
     </main>
 
     <footer class="fixed-bottom-text">
+
         <p>
-            “As for me and my house, we will serve the LORD.” — Joshua 24:15
+            “As for me and my house, we will serve the LORD.”
+            — Joshua 24:15
         </p>
 
         <p class="small">
             © Steve &amp; Anita. Personal family website.
         </p>
+
     </footer>
 
     <script>
@@ -563,20 +600,38 @@ body.home-page .site-header .site-request-note {
             const unlockedKey = "steveAnitaMenuUnlockedV20_0";
             const attemptsKey = "steveAnitaMenuAttemptsV20_0";
 
-            const accessPanel = document.getElementById("menuAccessPanel");
-            const accessForm = document.getElementById("menuAccessForm");
-            const accessTitle = document.getElementById("menuAccessTitle");
-            const accessControls = document.getElementById("menuAccessControls");
-            const codeInput = document.getElementById("menuAccessCode");
-            const accessMessage = document.getElementById("menuAccessMessage");
-            const forgotCodeButton = document.getElementById("menuForgotCodeButton");
-            const forgotCodeHelp = document.getElementById("menuForgotCodeHelp");
-            const mainNavigation = document.getElementById("mainNavigation");
+            const accessPanel =
+                document.getElementById("menuAccessPanel");
+
+            const accessForm =
+                document.getElementById("menuAccessForm");
+
+            const accessTitle =
+                document.getElementById("menuAccessTitle");
+
+            const accessControls =
+                document.getElementById("menuAccessControls");
+
+            const codeInput =
+                document.getElementById("menuAccessCode");
+
+            const accessMessage =
+                document.getElementById("menuAccessMessage");
+
+            const forgotCodeButton =
+                document.getElementById("menuForgotCodeButton");
+
+            const forgotCodeHelp =
+                document.getElementById("menuForgotCodeHelp");
+
+            const mainNavigation =
+                document.getElementById("mainNavigation");
 
             forgotCodeButton.addEventListener("click", () => {
                 const willShowHelp = forgotCodeHelp.hidden;
 
                 forgotCodeHelp.hidden = !willShowHelp;
+
                 forgotCodeButton.setAttribute(
                     "aria-expanded",
                     String(willShowHelp)
@@ -595,7 +650,10 @@ body.home-page .site-header .site-request-note {
                 try {
                     window.sessionStorage.setItem(key, value);
                 } catch (error) {
-                    // The menu still works if browser storage is unavailable.
+                    /*
+                        The menu still works if browser storage
+                        is unavailable.
+                    */
                 }
             };
 
@@ -606,17 +664,24 @@ body.home-page .site-header .site-request-note {
 
             let attemptsUsed = Number.isNaN(storedAttempts)
                 ? 0
-                : Math.min(Math.max(storedAttempts, 0), maximumAttempts);
+                : Math.min(
+                    Math.max(storedAttempts, 0),
+                    maximumAttempts
+                );
 
             const openMenu = () => {
                 mainNavigation.classList.remove("menu-is-opening");
                 mainNavigation.hidden = false;
 
-                // Force layout so the animation begins after the menu becomes visible.
+                /*
+                    Force layout so the animation begins after
+                    the menu becomes visible.
+                */
                 void mainNavigation.offsetWidth;
 
                 mainNavigation.classList.add("menu-is-opening");
                 accessPanel.hidden = true;
+
                 saveSessionValue(unlockedKey, "true");
                 saveSessionValue(attemptsKey, "0");
             };
@@ -626,11 +691,18 @@ body.home-page .site-header .site-request-note {
                 accessPanel.hidden = false;
                 accessPanel.classList.add("is-locked");
                 accessControls.hidden = true;
+
                 accessTitle.textContent = "Access denied";
+
                 accessMessage.textContent =
                     "The menu is locked because all 10 attempts were used.";
+
                 accessMessage.classList.add("is-error");
-                saveSessionValue(attemptsKey, String(maximumAttempts));
+
+                saveSessionValue(
+                    attemptsKey,
+                    String(maximumAttempts)
+                );
             };
 
             if (readSessionValue(unlockedKey) === "true") {
@@ -643,9 +715,15 @@ body.home-page .site-header .site-request-note {
                 return;
             }
 
-            accessMessage.textContent = `${maximumAttempts - attemptsUsed} ${
-                maximumAttempts - attemptsUsed === 1 ? "attempt" : "attempts"
-            } remaining.`;
+            const initialAttemptsRemaining =
+                maximumAttempts - attemptsUsed;
+
+            accessMessage.textContent =
+                `${initialAttemptsRemaining} ${
+                    initialAttemptsRemaining === 1
+                        ? "attempt"
+                        : "attempts"
+                } remaining.`;
 
             codeInput.focus();
 
@@ -658,99 +736,118 @@ body.home-page .site-header .site-request-note {
                 }
 
                 attemptsUsed += 1;
-                saveSessionValue(attemptsKey, String(attemptsUsed));
+
+                saveSessionValue(
+                    attemptsKey,
+                    String(attemptsUsed)
+                );
+
                 codeInput.value = "";
 
-                const attemptsRemaining = maximumAttempts - attemptsUsed;
+                const attemptsRemaining =
+                    maximumAttempts - attemptsUsed;
 
                 if (attemptsRemaining <= 0) {
                     lockMenu();
                     return;
                 }
 
-                accessMessage.textContent = `Incorrect code. ${attemptsRemaining} ${
-                    attemptsRemaining === 1 ? "attempt" : "attempts"
-                } remaining.`;
+                accessMessage.textContent =
+                    `Incorrect code. ${attemptsRemaining} ${
+                        attemptsRemaining === 1
+                            ? "attempt"
+                            : "attempts"
+                    } remaining.`;
+
                 accessMessage.classList.add("is-error");
                 codeInput.focus();
             });
         })();
     </script>
-<script>
-    (() => {
-        "use strict";
 
-        const tracks = [
-            {
-                src: "audio/track-1.mp3",
-                name: "Track 1"
-            },
-            {
-                src: "audio/track-2.mp3",
-                name: "Track 2"
-            }
-        ];
+    <script>
+        (() => {
+            "use strict";
 
-        const musicPlayer = document.getElementById("siteMusic");
-        const musicButton = document.getElementById("musicButton");
-        const musicStatus = document.getElementById("musicStatus");
+            const tracks = [
+                {
+                    src: "audio/track-1.mp3",
+                    name: "Track 1"
+                },
+                {
+                    src: "audio/track-2.mp3",
+                    name: "Track 2"
+                }
+            ];
 
-        let currentTrack = 0;
+            const musicPlayer =
+                document.getElementById("siteMusic");
 
-        const loadTrack = () => {
-            musicPlayer.src = tracks[currentTrack].src;
-            musicStatus.textContent = `Music: ${tracks[currentTrack].name}`;
-        };
+            const musicButton =
+                document.getElementById("musicButton");
 
-        musicButton.addEventListener("click", async () => {
-            if (musicPlayer.paused) {
+            const musicStatus =
+                document.getElementById("musicStatus");
+
+            let currentTrack = 0;
+
+            const loadTrack = () => {
+                musicPlayer.src = tracks[currentTrack].src;
+
+                musicStatus.textContent =
+                    `Music: ${tracks[currentTrack].name}`;
+
+                musicPlayer.load();
+            };
+
+            musicButton.addEventListener("click", async () => {
+                if (musicPlayer.paused) {
+                    try {
+                        await musicPlayer.play();
+                        musicButton.textContent = "Pause Music";
+                    } catch (error) {
+                        musicStatus.textContent =
+                            "Music could not start.";
+                    }
+                } else {
+                    musicPlayer.pause();
+                    musicButton.textContent = "Play Music";
+                }
+            });
+
+            musicPlayer.addEventListener("ended", async () => {
+                currentTrack += 1;
+
+                if (currentTrack >= tracks.length) {
+                    currentTrack = 0;
+                }
+
+                loadTrack();
+
                 try {
                     await musicPlayer.play();
                     musicButton.textContent = "Pause Music";
                 } catch (error) {
-                    musicStatus.textContent = "Music could not start.";
+                    musicButton.textContent = "Play Music";
+
+                    musicStatus.textContent =
+                        `Music: ${tracks[currentTrack].name} — click Play Music`;
                 }
-            } else {
-                musicPlayer.pause();
-                musicButton.textContent = "Play Music";
-            }
-        });
-musicPlayer.addEventListener("ended", () => {
-    currentTrack += 1;
+            });
 
-    if (currentTrack >= tracks.length) {
-        currentTrack = 0;
-    }
+            musicPlayer.addEventListener("play", () => {
+                musicButton.textContent = "Pause Music";
+            });
 
-    musicPlayer.src = tracks[currentTrack].src;
-    musicStatus.textContent = `Music: ${tracks[currentTrack].name}`;
+            musicPlayer.addEventListener("pause", () => {
+                if (!musicPlayer.ended) {
+                    musicButton.textContent = "Play Music";
+                }
+            });
 
-    musicPlayer.load();
+            loadTrack();
+        })();
+    </script>
 
-    musicPlayer.play()
-        .then(() => {
-            musicButton.textContent = "Pause Music";
-        })
-        .catch(() => {
-            musicButton.textContent = "Play Music";
-            musicStatus.textContent =
-                `Music: ${tracks[currentTrack].name} — click Play Music`;
-        });
-});
-      
-
-        musicPlayer.addEventListener("play", () => {
-            musicButton.textContent = "Pause Music";
-        });
-
-        musicPlayer.addEventListener("pause", () => {
-            if (!musicPlayer.ended) {
-                musicButton.textContent = "Play Music";
-            }
-        });
-
-        loadTrack();
-    })();
-</script>
 </body>
 </html>
