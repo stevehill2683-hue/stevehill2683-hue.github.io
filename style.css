@@ -1,10 +1,10 @@
 /* ===============================
    GLOBAL SITE STYLE
    Steve & Anita Family Site
-   CSS Version V20.3
+   CSS Version V20.5
    =============================== */
 
-/* VALIDATED VERSION 20.3 — USE THIS COMPLETE FILE */
+/* VALIDATED VERSION 20.5 — USE THIS COMPLETE FILE */
 
 :root {
     --bg: #f5f1e9;
@@ -22,7 +22,7 @@
     --danger-hover: #d00000;
     --danger-border: #7a0000;
     --accent-hover: #5a3218;
-    --near-black: #111;
+    --near-black: #111111;
     --photo-bg: #f1eadc;
     --layout-max: 1100px;
     --layout-padding: 16px;
@@ -34,11 +34,14 @@
     --shadow-small-dark: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
-/* RESET / GLOBAL FONT */
+/* ===============================
+   RESET / GLOBAL FONT
+   =============================== */
+
 * {
     box-sizing: border-box;
 }
- 
+
 body,
 button,
 input,
@@ -461,12 +464,19 @@ body.home-page {
     color: var(--ink);
     text-decoration: none;
     box-shadow: 0 10px 24px rgba(44, 37, 30, 0.12);
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease;
 }
 
 .card:hover,
+.card:focus-visible,
 .home-card:hover,
+.home-card:focus-visible,
 .page-card:hover,
-.link-card:hover {
+.page-card:focus-visible,
+.link-card:hover,
+.link-card:focus-visible {
     transform: translateY(-2px);
 }
 
@@ -758,10 +768,11 @@ body.lightbox-open .site-header {
     font-size: 0.86rem;
     color: var(--ink);
     line-height: 1.25;
-   white-space: pre-line;
+    white-space: pre-line;
 }
 
 /* TABLE OF CONTENTS */
+
 .israel-toc {
     background: var(--paper);
     border: 2px solid var(--accent-dark);
@@ -794,6 +805,7 @@ body.lightbox-open .site-header {
 }
 
 /* RED HOME BUTTON BESIDE TABLE OF CONTENTS */
+
 .israel-home-button,
 .israel-home-button:visited {
     position: absolute;
@@ -860,6 +872,7 @@ body.lightbox-open .site-header {
 }
 
 /* ISRAEL SEARCH BOX - COMPACT */
+
 .israel-search-box {
     background: var(--dark-bg);
     color: var(--on-dark);
@@ -941,6 +954,7 @@ body.lightbox-open .site-header {
 }
 
 /* ISRAEL TOPIC SECTIONS */
+
 .israel-topic {
     background: var(--paper);
     border: 1px solid var(--line);
@@ -967,7 +981,7 @@ body.lightbox-open .site-header {
 
 .israel-topic-divider {
     height: 8px;
-    background: #555;
+    background: #555555;
     border-radius: 999px;
     margin: 30px auto;
     width: 88%;
@@ -1055,20 +1069,25 @@ body.lightbox-open .site-header {
 }
 
 /* PAGE TIMESTAMPS HIDDEN SITE-WIDE */
+
 body[data-page-updated]::before {
     content: none !important;
     display: none !important;
 }
+
 /* STICKY HEADER FOR PEOPLE PAGES */
+
 .person-page .site-header {
     position: sticky !important;
     top: 0 !important;
     width: 100%;
     z-index: 10000 !important;
 }
+
 /* GLOBAL SITE VERSION — LOWER-RIGHT CORNER */
+
 body::after {
-    content: "Version 20.3" !important;
+    content: "Version 20.5" !important;
     display: block !important;
     position: fixed !important;
     right: 18px;
@@ -1263,12 +1282,12 @@ body::after {
         width: 75%;
     }
 
- .back-to-top {
-    right: 10px;
-    bottom: 120px;
-    font-size: 0.85rem;
+    .back-to-top {
+        right: 10px;
+        bottom: 120px;
+        font-size: 0.85rem;
+    }
 
-}
     body::after {
         right: 10px;
         bottom: 82px;
@@ -1317,41 +1336,43 @@ body::after {
         0 2px 4px rgba(0, 0, 0, 0.34),
         inset 0 2px 3px rgba(0, 0, 0, 0.24);
 }
+
 /* Confidential page red label */
+
 .site-header .confidential-red {
     color: red !important;
 }
+
 /* Confidential menu text */
+
 .confidential-menu-link,
 .confidential-menu-link:visited {
     color: red !important;
 }
+
 /* ===============================
-   DARK MODE FOUNDATION
-   Version 20.3 
+   ACCESSIBILITY / REDUCED MOTION
    =============================== */
 
-:root {
-    --bg-color: #f5f1e9;
-    --text-color: #303030;
-    --card-color: #fffaf1;
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
-[data-theme="dark"] {
-    --bg-color: #111111;
-    --text-color: #eeeeee;
-    --card-color: #222222;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
 /* ===============================
    SITE VERSION
-   CSS Version V20.3
-   Visible badge: Version 20.3
+   CSS Version V20.5
+   Visible badge: Version 20.5
    Page timestamps remain in HTML but are hidden
+   Dark mode foundation removed
    Keep this SITE VERSION block at the bottom
    =============================== */
-
