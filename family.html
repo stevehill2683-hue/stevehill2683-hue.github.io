@@ -26,6 +26,9 @@
         /*
             One outer border surrounding all eight
             family-member cards.
+
+            The thin red border is immediately inside
+            the black border with no space between them.
         */
         .family-member-grid {
             display: grid;
@@ -39,6 +42,7 @@
             border-radius: 18px;
 
             box-shadow:
+                inset 0 0 0 1px #c00000,
                 0 0 0 5px rgba(70, 70, 70, 0.55),
                 0 12px 24px rgba(45, 45, 45, 0.45);
         }
@@ -145,6 +149,7 @@
             <a href="general.html">3131</a>
             <a href="2406.html">2406</a>
             <a href="1040.html">1040</a>
+
             <a href="special-documents.html">
                 Special Documents
             </a>
