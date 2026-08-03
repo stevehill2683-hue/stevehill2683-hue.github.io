@@ -300,7 +300,6 @@
             : new Date();
 
         item.textContent =
-            `${state.pageNumber}. ` +
             `${pageName} ` +
             `(${pagePath}) — ` +
             formatDateTime(enteredDate);
@@ -513,10 +512,12 @@
         }
     };
 
-    const beginSession = async (
+   const beginSession = async (
         result,
-        restoredStartedAt = null
+        restoredStartedAt = null,
+        shouldRecordPage = true
     ) => {
+        
         clearIdleTimers();
         closeIdleDialog();
 
@@ -580,10 +581,12 @@
             "success"
         );
 
-        await recordPage(
-            "Visitor Log Test",
-            "/access-test.html"
-        );
+    if (shouldRecordPage) {
+    await recordPage(
+        "Visitor Log Test",
+        "/access-test.html"
+    );
+}      
     };
 
     const continueSession = async () => {
@@ -724,7 +727,8 @@
                             .sessionToken
                 },
 
-                storedSession.startedAt
+                storedSession.startedAt,
+                false
             );
 
             return true;
