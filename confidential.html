@@ -2,10 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow, noarchive">
 
-    <title>Confidential Owner Dashboard | Steve &amp; Anita</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow, noarchive"
+    >
+
+    <title>
+        Confidential Owner Dashboard | Steve &amp; Anita
+    </title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -20,14 +30,16 @@
 
         .owner-dashboard-wrap {
             display: block;
-            width: min(96%, 1180px);
-            max-width: 1180px;
+            width: min(96%, 1240px);
+            max-width: 1240px;
             margin: 24px auto 100px;
         }
 
         .owner-intro-card,
         .owner-login-card,
         .owner-toolbar-card,
+        .owner-members-card,
+        .owner-member-editor,
         .owner-visits-card,
         .owner-detail-card,
         .owner-private-content-note {
@@ -42,20 +54,53 @@
             font-weight: 700;
         }
 
-        .owner-login-form {
+        .owner-login-form,
+        .owner-add-member-form,
+        .owner-edit-form {
             display: grid;
-            grid-template-columns: minmax(220px, 420px) auto;
             gap: 12px;
             align-items: end;
-            max-width: 680px;
         }
 
-        .owner-login-form label {
-            grid-column: 1 / -1;
+        .owner-login-form {
+            grid-template-columns:
+                minmax(220px, 420px)
+                auto;
+            max-width: 700px;
+        }
+
+        .owner-add-member-form {
+            grid-template-columns:
+                minmax(190px, 1fr)
+                minmax(150px, 220px)
+                minmax(160px, 220px)
+                auto;
+            margin-top: 18px;
+        }
+
+        .owner-edit-form {
+            grid-template-columns:
+                minmax(220px, 1fr)
+                auto;
+            margin-top: 14px;
+        }
+
+        .owner-login-form label,
+        .owner-add-member-form label,
+        .owner-edit-form label {
+            display: grid;
+            gap: 6px;
             font-weight: 700;
         }
 
-        .owner-login-form input {
+        .owner-login-form > label {
+            grid-column: 1 / -1;
+        }
+
+        .owner-login-form input,
+        .owner-add-member-form input,
+        .owner-add-member-form select,
+        .owner-edit-form input {
             min-height: 46px;
             padding: 10px 12px;
             border: 2px solid #7b6653;
@@ -65,7 +110,10 @@
             font: inherit;
         }
 
-        .owner-login-form input:focus {
+        .owner-login-form input:focus,
+        .owner-add-member-form input:focus,
+        .owner-add-member-form select:focus,
+        .owner-edit-form input:focus {
             outline: 3px solid rgba(126, 83, 43, 0.3);
             outline-offset: 2px;
         }
@@ -73,9 +121,13 @@
         .owner-login-form button,
         .owner-toolbar-buttons button,
         .owner-section-heading button,
-        .owner-detail-button {
-            min-height: 44px;
-            padding: 9px 16px;
+        .owner-detail-button,
+        .owner-member-button,
+        .owner-add-member-form button,
+        .owner-edit-form button,
+        .owner-editor-actions button {
+            min-height: 42px;
+            padding: 9px 15px;
             border: 1px solid #2c180b;
             border-radius: 8px;
             background: #432611;
@@ -89,18 +141,33 @@
         .owner-toolbar-buttons button:hover,
         .owner-section-heading button:hover,
         .owner-detail-button:hover,
+        .owner-member-button:hover,
+        .owner-add-member-form button:hover,
+        .owner-edit-form button:hover,
+        .owner-editor-actions button:hover,
         .owner-login-form button:focus-visible,
         .owner-toolbar-buttons button:focus-visible,
         .owner-section-heading button:focus-visible,
-        .owner-detail-button:focus-visible {
+        .owner-detail-button:focus-visible,
+        .owner-member-button:focus-visible,
+        .owner-add-member-form button:focus-visible,
+        .owner-edit-form button:focus-visible,
+        .owner-editor-actions button:focus-visible {
             background: #65401f;
         }
 
-        .owner-login-form button:disabled,
-        .owner-toolbar-buttons button:disabled,
-        .owner-detail-button:disabled {
-            cursor: wait;
-            opacity: 0.65;
+        button:disabled {
+            cursor: not-allowed !important;
+            opacity: 0.55;
+        }
+
+        .owner-secondary-button {
+            background: #655849 !important;
+        }
+
+        .owner-secondary-button:hover,
+        .owner-secondary-button:focus-visible {
+            background: #7b6d5c !important;
         }
 
         .owner-danger-button {
@@ -110,6 +177,15 @@
         .owner-danger-button:hover,
         .owner-danger-button:focus-visible {
             background: #ad2b24 !important;
+        }
+
+        .owner-success-button {
+            background: #285f25 !important;
+        }
+
+        .owner-success-button:hover,
+        .owner-success-button:focus-visible {
+            background: #397d34 !important;
         }
 
         .owner-message {
@@ -145,7 +221,9 @@
             font-weight: 700;
         }
 
-        .owner-toolbar-buttons {
+        .owner-toolbar-buttons,
+        .owner-editor-actions,
+        .owner-row-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
@@ -153,7 +231,8 @@
 
         .owner-summary-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
             gap: 16px;
             margin-bottom: 22px;
         }
@@ -163,7 +242,9 @@
             background: #fffaf1;
             border: 1px solid #d3c3ad;
             border-radius: 12px;
-            box-shadow: 0 8px 22px rgba(44, 37, 30, 0.14);
+            box-shadow:
+                0 8px 22px
+                rgba(44, 37, 30, 0.14);
         }
 
         .owner-summary-card strong,
@@ -181,6 +262,16 @@
             font-weight: 700;
         }
 
+        .owner-subsection {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #d3c3ad;
+        }
+
+        .owner-subsection h3 {
+            margin-top: 0;
+        }
+
         .owner-table-wrap {
             width: 100%;
             overflow-x: auto;
@@ -190,9 +281,13 @@
 
         .owner-data-table {
             width: 100%;
-            min-width: 850px;
+            min-width: 920px;
             border-collapse: collapse;
             background: #ffffff;
+        }
+
+        .owner-members-table {
+            min-width: 880px;
         }
 
         .owner-data-table th,
@@ -217,7 +312,8 @@
             background: #fff4c7;
         }
 
-        .owner-detail-button {
+        .owner-detail-button,
+        .owner-member-button {
             min-height: 36px;
             padding: 6px 11px;
             white-space: nowrap;
@@ -232,14 +328,17 @@
             text-align: center;
         }
 
-        .owner-detail-grid {
+        .owner-detail-grid,
+        .owner-member-facts {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
             gap: 12px;
             margin: 18px 0 24px;
         }
 
-        .owner-detail-fact {
+        .owner-detail-fact,
+        .owner-member-fact {
             padding: 13px;
             background: #eee5d9;
             border: 1px solid #d3c3ad;
@@ -247,23 +346,77 @@
         }
 
         .owner-detail-fact strong,
-        .owner-detail-fact span {
+        .owner-detail-fact span,
+        .owner-member-fact strong,
+        .owner-member-fact span {
             display: block;
         }
 
-        .owner-detail-fact strong {
+        .owner-detail-fact strong,
+        .owner-member-fact strong {
             margin-bottom: 5px;
             color: #432611;
+        }
+
+        .owner-status-badge {
+            display: inline-block;
+            min-width: 72px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .owner-status-active {
+            background: #dcefd8;
+            color: #245b20;
+        }
+
+        .owner-status-inactive {
+            background: #f1d8d6;
+            color: #8b1717;
+        }
+
+        .owner-status-owner {
+            background: #fff0b8;
+            color: #5d4300;
+        }
+
+        .owner-status-normal {
+            background: #e4e8ef;
+            color: #27374e;
         }
 
         .owner-private-content-note {
             border-left: 6px solid #8c1d18;
         }
 
+        .owner-editor-warning {
+            padding: 11px 13px;
+            background: #fff4c7;
+            border: 1px solid #d7b85a;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .owner-code-note {
+            margin-top: 7px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 1000px) {
+            .owner-add-member-form {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 900px) {
             .owner-summary-grid,
-            .owner-detail-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .owner-detail-grid,
+            .owner-member-facts {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
             }
         }
 
@@ -273,14 +426,20 @@
             }
 
             .owner-login-form,
+            .owner-add-member-form,
+            .owner-edit-form,
             .owner-summary-grid,
-            .owner-detail-grid {
+            .owner-detail-grid,
+            .owner-member-facts {
                 grid-template-columns: 1fr;
             }
 
             .owner-login-form button,
+            .owner-add-member-form button,
+            .owner-edit-form button,
             .owner-toolbar-buttons button,
-            .owner-section-heading button {
+            .owner-section-heading button,
+            .owner-editor-actions button {
                 width: 100%;
             }
 
@@ -289,7 +448,8 @@
                 flex-direction: column;
             }
 
-            .owner-toolbar-buttons {
+            .owner-toolbar-buttons,
+            .owner-editor-actions {
                 width: 100%;
             }
         }
@@ -309,7 +469,7 @@
         </p>
 
         <p>
-            Owner security and private visit records
+            Owner security, family access, and private visit records
         </p>
 
         <nav
@@ -324,6 +484,7 @@
             <a href="general.html">3131</a>
             <a href="2406.html">2406</a>
             <a href="1040.html">1040</a>
+
             <a href="special-documents.html">
                 Special Documents
             </a>
@@ -340,15 +501,16 @@
             </h1>
 
             <p>
-                Sign in with the separate owner password to view
-                protected visitor records. The password and session
-                token are never displayed on this page.
+                Sign in with the separate owner password to manage
+                family access and view protected visitor records.
+                Passwords, access codes, salts, hashes, and session
+                tokens are never displayed by this page.
             </p>
 
             <p class="owner-security-note">
-                This test dashboard reads only from the separate
-                Cloudflare security database. It does not change the
-                live main website.
+                This test dashboard uses the separate Cloudflare
+                security database. It does not change the live main
+                website.
             </p>
 
         </section>
@@ -371,16 +533,16 @@
 
                 <label for="ownerPassword">
                     Confidential owner password
-                </label>
 
-                <input
-                    id="ownerPassword"
-                    name="ownerPassword"
-                    type="password"
-                    autocomplete="current-password"
-                    maxlength="256"
-                    required
-                >
+                    <input
+                        id="ownerPassword"
+                        name="ownerPassword"
+                        type="password"
+                        autocomplete="current-password"
+                        maxlength="256"
+                        required
+                    >
+                </label>
 
                 <button
                     id="ownerLoginButton"
@@ -411,7 +573,7 @@
                 <div>
 
                     <h2>
-                        Private Visitor Records
+                        Confidential Owner Controls
                     </h2>
 
                     <p
@@ -424,10 +586,10 @@
                 <div class="owner-toolbar-buttons">
 
                     <button
-                        id="refreshVisitsButton"
+                        id="refreshAllButton"
                         type="button"
                     >
-                        Refresh Records
+                        Refresh Everything
                     </button>
 
                     <button
@@ -437,6 +599,357 @@
                     >
                         Sign Out
                     </button>
+
+                </div>
+
+            </section>
+
+            <section
+                class="owner-summary-grid"
+                aria-label="Member summary"
+            >
+
+                <article class="owner-summary-card">
+
+                    <strong>
+                        Total members
+                    </strong>
+
+                    <span id="totalMembersValue">
+                        0
+                    </span>
+
+                </article>
+
+                <article class="owner-summary-card">
+
+                    <strong>
+                        Active members
+                    </strong>
+
+                    <span id="activeMembersValue">
+                        0
+                    </span>
+
+                </article>
+
+                <article class="owner-summary-card">
+
+                    <strong>
+                        Logging enabled
+                    </strong>
+
+                    <span id="loggingMembersValue">
+                        0
+                    </span>
+
+                </article>
+
+            </section>
+
+            <section class="content-card owner-members-card">
+
+                <div class="owner-section-heading">
+
+                    <div>
+
+                        <h2>
+                            Family Access Members
+                        </h2>
+
+                        <p>
+                            Add members, rename them, change their
+                            six-digit access codes, activate or
+                            deactivate access, and control visit
+                            logging.
+                        </p>
+
+                    </div>
+
+                    <p
+                        id="ownerMembersMessage"
+                        class="owner-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                </div>
+
+                <div class="owner-subsection">
+
+                    <h3>
+                        Add a Family Member
+                    </h3>
+
+                    <form
+                        id="addMemberForm"
+                        class="owner-add-member-form"
+                        novalidate
+                    >
+
+                        <label for="newMemberName">
+                            Display name
+
+                            <input
+                                id="newMemberName"
+                                name="newMemberName"
+                                type="text"
+                                maxlength="80"
+                                autocomplete="off"
+                                required
+                            >
+                        </label>
+
+                        <label for="newMemberCode">
+                            Six-digit code
+
+                            <input
+                                id="newMemberCode"
+                                name="newMemberCode"
+                                type="password"
+                                inputmode="numeric"
+                                pattern="[0-9]{6}"
+                                minlength="6"
+                                maxlength="6"
+                                autocomplete="new-password"
+                                required
+                            >
+                        </label>
+
+                        <label for="newMemberLogging">
+                            Visit logging
+
+                            <select
+                                id="newMemberLogging"
+                                name="newMemberLogging"
+                            >
+                                <option value="enabled">
+                                    Enabled
+                                </option>
+
+                                <option value="disabled">
+                                    Disabled
+                                </option>
+                            </select>
+                        </label>
+
+                        <button
+                            id="addMemberButton"
+                            type="submit"
+                        >
+                            Add Member
+                        </button>
+
+                    </form>
+
+                    <p class="owner-code-note">
+                        The code is immediately converted to a
+                        protected hash. It cannot be read back later.
+                    </p>
+
+                </div>
+
+                <div class="owner-subsection">
+
+                    <h3>
+                        Current Members
+                    </h3>
+
+                    <div
+                        id="ownerMembersEmpty"
+                        class="owner-empty-state"
+                        hidden
+                    >
+                        No family members are currently stored.
+                    </div>
+
+                    <div
+                        id="ownerMembersTableWrap"
+                        class="owner-table-wrap"
+                        hidden
+                    >
+
+                        <table
+                            class="
+                                owner-data-table
+                                owner-members-table
+                            "
+                        >
+
+                            <thead>
+
+                                <tr>
+                                    <th scope="col">Member</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Access</th>
+                                    <th scope="col">Logging</th>
+                                    <th scope="col">Last updated</th>
+                                    <th scope="col">Management</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="ownerMembersTableBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section
+                id="ownerMemberEditor"
+                class="content-card owner-member-editor"
+                hidden
+            >
+
+                <div class="owner-section-heading">
+
+                    <div>
+
+                        <h2>
+                            Manage Selected Member
+                        </h2>
+
+                        <p id="selectedMemberHeading">
+                            No member selected.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="closeMemberEditorButton"
+                        class="owner-secondary-button"
+                        type="button"
+                    >
+                        Close Member Editor
+                    </button>
+
+                </div>
+
+                <div
+                    id="selectedMemberFacts"
+                    class="owner-member-facts"
+                ></div>
+
+                <div
+                    id="selectedMemberWarning"
+                    class="owner-editor-warning"
+                    hidden
+                ></div>
+
+                <div class="owner-subsection">
+
+                    <h3>
+                        Change Display Name
+                    </h3>
+
+                    <form
+                        id="renameMemberForm"
+                        class="owner-edit-form"
+                        novalidate
+                    >
+
+                        <label for="renameMemberName">
+                            New display name
+
+                            <input
+                                id="renameMemberName"
+                                name="renameMemberName"
+                                type="text"
+                                maxlength="80"
+                                autocomplete="off"
+                                required
+                            >
+                        </label>
+
+                        <button
+                            id="renameMemberButton"
+                            type="submit"
+                        >
+                            Save Name
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <div class="owner-subsection">
+
+                    <h3>
+                        Change Six-Digit Access Code
+                    </h3>
+
+                    <form
+                        id="changeCodeForm"
+                        class="owner-edit-form"
+                        novalidate
+                    >
+
+                        <label for="changeMemberCode">
+                            New six-digit code
+
+                            <input
+                                id="changeMemberCode"
+                                name="changeMemberCode"
+                                type="password"
+                                inputmode="numeric"
+                                pattern="[0-9]{6}"
+                                minlength="6"
+                                maxlength="6"
+                                autocomplete="new-password"
+                                required
+                            >
+                        </label>
+
+                        <button
+                            id="changeCodeButton"
+                            type="submit"
+                        >
+                            Change Code
+                        </button>
+
+                    </form>
+
+                    <p class="owner-code-note">
+                        The current code cannot be displayed. Entering
+                        a new code replaces it.
+                    </p>
+
+                </div>
+
+                <div class="owner-subsection">
+
+                    <h3>
+                        Access and Logging Controls
+                    </h3>
+
+                    <div class="owner-editor-actions">
+
+                        <button
+                            id="toggleMemberStatusButton"
+                            type="button"
+                        >
+                            Change Access Status
+                        </button>
+
+                        <button
+                            id="toggleMemberLoggingButton"
+                            type="button"
+                        >
+                            Change Logging Status
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="memberEditorMessage"
+                        class="owner-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
 
                 </div>
 
@@ -571,6 +1084,7 @@
 
                     <button
                         id="closeVisitDetailButton"
+                        class="owner-secondary-button"
                         type="button"
                     >
                         Close Details
@@ -602,7 +1116,10 @@
                 >
 
                     <table
-                        class="owner-data-table owner-pages-table"
+                        class="
+                            owner-data-table
+                            owner-pages-table
+                        "
                     >
 
                         <thead>
@@ -628,7 +1145,10 @@
             </section>
 
             <section
-                class="content-card owner-private-content-note"
+                class="
+                    content-card
+                    owner-private-content-note
+                "
             >
 
                 <h2>
@@ -673,6 +1193,8 @@
                 expiresAt: null,
                 expiryTimer: null,
                 selectedVisitId: null,
+                selectedMemberId: null,
+                members: [],
                 requestInProgress: false
             };
 
@@ -701,11 +1223,89 @@
                 sessionStatus:
                     byId("ownerSessionStatus"),
 
-                refreshButton:
-                    byId("refreshVisitsButton"),
+                refreshAllButton:
+                    byId("refreshAllButton"),
 
                 signOutButton:
                     byId("ownerSignOutButton"),
+
+                membersMessage:
+                    byId("ownerMembersMessage"),
+
+                totalMembers:
+                    byId("totalMembersValue"),
+
+                activeMembers:
+                    byId("activeMembersValue"),
+
+                loggingMembers:
+                    byId("loggingMembersValue"),
+
+                addMemberForm:
+                    byId("addMemberForm"),
+
+                newMemberName:
+                    byId("newMemberName"),
+
+                newMemberCode:
+                    byId("newMemberCode"),
+
+                newMemberLogging:
+                    byId("newMemberLogging"),
+
+                addMemberButton:
+                    byId("addMemberButton"),
+
+                membersEmpty:
+                    byId("ownerMembersEmpty"),
+
+                membersTableWrap:
+                    byId("ownerMembersTableWrap"),
+
+                membersTableBody:
+                    byId("ownerMembersTableBody"),
+
+                memberEditor:
+                    byId("ownerMemberEditor"),
+
+                selectedMemberHeading:
+                    byId("selectedMemberHeading"),
+
+                selectedMemberFacts:
+                    byId("selectedMemberFacts"),
+
+                selectedMemberWarning:
+                    byId("selectedMemberWarning"),
+
+                closeMemberEditorButton:
+                    byId("closeMemberEditorButton"),
+
+                renameMemberForm:
+                    byId("renameMemberForm"),
+
+                renameMemberName:
+                    byId("renameMemberName"),
+
+                renameMemberButton:
+                    byId("renameMemberButton"),
+
+                changeCodeForm:
+                    byId("changeCodeForm"),
+
+                changeMemberCode:
+                    byId("changeMemberCode"),
+
+                changeCodeButton:
+                    byId("changeCodeButton"),
+
+                toggleMemberStatusButton:
+                    byId("toggleMemberStatusButton"),
+
+                toggleMemberLoggingButton:
+                    byId("toggleMemberLoggingButton"),
+
+                memberEditorMessage:
+                    byId("memberEditorMessage"),
 
                 visitsMessage:
                     byId("ownerVisitsMessage"),
@@ -877,16 +1477,30 @@
                         `Bearer ${token}`;
                 }
 
-                const response = await fetch(
-                    `${API_BASE}${endpoint}`,
-                    {
-                        method: "POST",
-                        headers,
-                        body:
-                            JSON.stringify(body),
-                        cache: "no-store"
-                    }
-                );
+                let response;
+
+                try {
+                    response = await fetch(
+                        `${API_BASE}${endpoint}`,
+                        {
+                            method: "POST",
+                            headers,
+                            body:
+                                JSON.stringify(body),
+                            cache: "no-store"
+                        }
+                    );
+                } catch {
+                    const error =
+                        new Error(
+                            "The security service could not be reached. Stored records were not changed."
+                        );
+
+                    error.code =
+                        "SERVICE_UNREACHABLE";
+
+                    throw error;
+                }
 
                 let data;
 
@@ -894,9 +1508,15 @@
                     data =
                         await response.json();
                 } catch {
-                    throw new Error(
-                        "Cloudflare returned an unreadable response."
-                    );
+                    const error =
+                        new Error(
+                            "Cloudflare returned an unreadable response. Stored records were not changed."
+                        );
+
+                    error.code =
+                        "UNREADABLE_RESPONSE";
+
+                    throw error;
                 }
 
                 if (!response.ok) {
@@ -962,6 +1582,8 @@
                 state.displayName = null;
                 state.expiresAt = null;
                 state.selectedVisitId = null;
+                state.selectedMemberId = null;
+                state.members = [];
             };
 
             const scheduleExpiry = () => {
@@ -1006,16 +1628,23 @@
                 state.requestInProgress =
                     busy;
 
-                elements.loginButton.disabled =
-                    busy;
+                const buttons =
+                    document.querySelectorAll(
+                        "button"
+                    );
 
-                elements.refreshButton.disabled =
-                    busy;
+                buttons.forEach(
+                    (button) => {
+                        button.disabled = busy;
+                    }
+                );
 
                 elements.loginButton.textContent =
                     busy
-                        ? "Checking..."
+                        ? "Working..."
                         : "Sign In Securely";
+
+                updateSelectedMemberControls();
             };
 
             const showLogin = (
@@ -1028,6 +1657,9 @@
                     false;
 
                 elements.detailPanel.hidden =
+                    true;
+
+                elements.memberEditor.hidden =
                     true;
 
                 elements.password.value =
@@ -1062,12 +1694,27 @@
                     }.`;
             };
 
-            const signOut = (
-                message =
-                    "Owner session ended."
-            ) => {
-                clearSession();
+            const clearMemberDisplay = () => {
+                elements.membersTableBody
+                    .replaceChildren();
 
+                elements.membersEmpty.hidden =
+                    true;
+
+                elements.membersTableWrap.hidden =
+                    true;
+
+                elements.totalMembers
+                    .textContent = "0";
+
+                elements.activeMembers
+                    .textContent = "0";
+
+                elements.loggingMembers
+                    .textContent = "0";
+            };
+
+            const clearVisitDisplay = () => {
                 elements.visitsTableBody
                     .replaceChildren();
 
@@ -1077,6 +1724,15 @@
                 elements.detailFacts
                     .replaceChildren();
 
+                elements.visitsEmpty.hidden =
+                    true;
+
+                elements.visitsTableWrap.hidden =
+                    true;
+
+                elements.detailPanel.hidden =
+                    true;
+
                 elements.totalVisits
                     .textContent = "0";
 
@@ -1085,7 +1741,16 @@
 
                 elements.generatedAt
                     .textContent =
-                        "Not loaded";
+                        "Unavailable";
+            };
+
+            const signOut = (
+                message =
+                    "Owner session ended."
+            ) => {
+                clearSession();
+                clearMemberDisplay();
+                clearVisitDisplay();
 
                 showLogin(message);
             };
@@ -1133,6 +1798,380 @@
                 row.appendChild(cell);
 
                 return cell;
+            };
+
+            const createStatusBadge = (
+                text,
+                className
+            ) => {
+                const badge =
+                    document.createElement(
+                        "span"
+                    );
+
+                badge.className =
+                    `owner-status-badge ${className}`;
+
+                badge.textContent = text;
+
+                return badge;
+            };
+
+            const addFact = (
+                container,
+                className,
+                label,
+                value
+            ) => {
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    className;
+
+                const strong =
+                    document.createElement(
+                        "strong"
+                    );
+
+                strong.textContent =
+                    label;
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.textContent =
+                    value;
+
+                item.append(
+                    strong,
+                    span
+                );
+
+                container.appendChild(item);
+            };
+
+            const getSelectedMember = () =>
+                state.members.find(
+                    (member) =>
+                        Number(
+                            member.memberId
+                        ) ===
+                        Number(
+                            state.selectedMemberId
+                        )
+                ) || null;
+
+            const updateSelectedMemberControls =
+                () => {
+                    const member =
+                        getSelectedMember();
+
+                    if (!member) {
+                        return;
+                    }
+
+                    elements.toggleMemberStatusButton
+                        .textContent =
+                            member.isActive
+                                ? "Deactivate Access"
+                                : "Activate Access";
+
+                    elements.toggleMemberStatusButton
+                        .className =
+                            member.isActive
+                                ? "owner-danger-button"
+                                : "owner-success-button";
+
+                    elements.toggleMemberLoggingButton
+                        .textContent =
+                            member.loggingEnabled
+                                ? "Disable Logging"
+                                : "Enable Logging";
+
+                    elements.toggleMemberLoggingButton
+                        .className =
+                            member.loggingEnabled
+                                ? "owner-danger-button"
+                                : "owner-success-button";
+
+                    if (member.isOwner) {
+                        elements.toggleMemberStatusButton
+                            .disabled = true;
+
+                        elements.toggleMemberLoggingButton
+                            .disabled = true;
+
+                        elements.selectedMemberWarning
+                            .hidden = false;
+
+                        elements.selectedMemberWarning
+                            .textContent =
+                                "The owner account cannot be deactivated. Owner visit logging remains off unless Test Logging is selected during a family-code login.";
+                    } else {
+                        elements.toggleMemberStatusButton
+                            .disabled =
+                                state.requestInProgress;
+
+                        elements.toggleMemberLoggingButton
+                            .disabled =
+                                state.requestInProgress;
+
+                        elements.selectedMemberWarning
+                            .hidden = true;
+
+                        elements.selectedMemberWarning
+                            .textContent = "";
+                    }
+                };
+
+            const renderSelectedMember = () => {
+                const member =
+                    getSelectedMember();
+
+                if (!member) {
+                    elements.memberEditor.hidden =
+                        true;
+
+                    return;
+                }
+
+                elements.selectedMemberHeading
+                    .textContent =
+                        `${member.displayName} — Member ${member.memberId}`;
+
+                elements.renameMemberName
+                    .value =
+                        member.displayName;
+
+                elements.changeMemberCode
+                    .value = "";
+
+                elements.selectedMemberFacts
+                    .replaceChildren();
+
+                addFact(
+                    elements.selectedMemberFacts,
+                    "owner-member-fact",
+                    "Role",
+                    member.isOwner
+                        ? "Owner"
+                        : "Family member"
+                );
+
+                addFact(
+                    elements.selectedMemberFacts,
+                    "owner-member-fact",
+                    "Access",
+                    member.isActive
+                        ? "Active"
+                        : "Inactive"
+                );
+
+                addFact(
+                    elements.selectedMemberFacts,
+                    "owner-member-fact",
+                    "Visit logging",
+                    member.loggingEnabled
+                        ? "Enabled"
+                        : "Disabled"
+                );
+
+                addFact(
+                    elements.selectedMemberFacts,
+                    "owner-member-fact",
+                    "Last updated",
+                    formatDateTime(
+                        member.updatedAt
+                    )
+                );
+
+                setMessage(
+                    elements.memberEditorMessage,
+                    ""
+                );
+
+                updateSelectedMemberControls();
+
+                elements.memberEditor.hidden =
+                    false;
+
+                elements.memberEditor
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+            };
+
+            const renderMembers = (data) => {
+                elements.membersTableBody
+                    .replaceChildren();
+
+                const members =
+                    Array.isArray(
+                        data.members
+                    )
+                        ? data.members
+                        : [];
+
+                state.members = members;
+
+                const activeCount =
+                    members.filter(
+                        (member) =>
+                            member.isActive
+                    ).length;
+
+                const loggingCount =
+                    members.filter(
+                        (member) =>
+                            member.loggingEnabled
+                    ).length;
+
+                elements.totalMembers
+                    .textContent =
+                        String(members.length);
+
+                elements.activeMembers
+                    .textContent =
+                        String(activeCount);
+
+                elements.loggingMembers
+                    .textContent =
+                        String(loggingCount);
+
+                elements.membersEmpty.hidden =
+                    members.length !== 0;
+
+                elements.membersTableWrap.hidden =
+                    members.length === 0;
+
+                members.forEach((member) => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    createCell(
+                        row,
+                        member.displayName ||
+                        "Unnamed member"
+                    );
+
+                    const roleCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    roleCell.appendChild(
+                        createStatusBadge(
+                            member.isOwner
+                                ? "Owner"
+                                : "Family",
+                            member.isOwner
+                                ? "owner-status-owner"
+                                : "owner-status-normal"
+                        )
+                    );
+
+                    row.appendChild(roleCell);
+
+                    const accessCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    accessCell.appendChild(
+                        createStatusBadge(
+                            member.isActive
+                                ? "Active"
+                                : "Inactive",
+                            member.isActive
+                                ? "owner-status-active"
+                                : "owner-status-inactive"
+                        )
+                    );
+
+                    row.appendChild(
+                        accessCell
+                    );
+
+                    createCell(
+                        row,
+                        member.loggingEnabled
+                            ? "Enabled"
+                            : "Disabled"
+                    );
+
+                    createCell(
+                        row,
+                        formatDateTime(
+                            member.updatedAt
+                        )
+                    );
+
+                    const actionCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+                    button.type =
+                        "button";
+
+                    button.className =
+                        "owner-member-button";
+
+                    button.textContent =
+                        "Manage";
+
+                    button.dataset.memberId =
+                        String(
+                            member.memberId
+                        );
+
+                    actionCell.appendChild(
+                        button
+                    );
+
+                    row.appendChild(
+                        actionCell
+                    );
+
+                    elements.membersTableBody
+                        .appendChild(row);
+                });
+
+                if (state.selectedMemberId) {
+                    const stillExists =
+                        members.some(
+                            (member) =>
+                                Number(
+                                    member.memberId
+                                ) ===
+                                Number(
+                                    state.selectedMemberId
+                                )
+                        );
+
+                    if (stillExists) {
+                        renderSelectedMember();
+                    } else {
+                        state.selectedMemberId =
+                            null;
+
+                        elements.memberEditor.hidden =
+                            true;
+                    }
+                }
             };
 
             const renderVisits = (data) => {
@@ -1262,43 +2301,6 @@
                 });
             };
 
-            const addDetailFact = (
-                label,
-                value
-            ) => {
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "owner-detail-fact";
-
-                const strong =
-                    document.createElement(
-                        "strong"
-                    );
-
-                strong.textContent =
-                    label;
-
-                const span =
-                    document.createElement(
-                        "span"
-                    );
-
-                span.textContent =
-                    value;
-
-                item.append(
-                    strong,
-                    span
-                );
-
-                elements.detailFacts
-                    .appendChild(item);
-            };
-
             const renderVisitDetail = (
                 data
             ) => {
@@ -1326,52 +2328,68 @@
                 elements.detailFacts
                     .replaceChildren();
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Started",
                     formatDateTime(
                         visit.startedAt
                     )
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Last activity",
                     formatDateTime(
                         visit.lastActivityAt
                     )
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Ended",
                     formatDateTime(
                         visit.endedAt
                     )
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "End reason",
                     visit.endReason ||
                     "Still active"
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Device",
                     visit.deviceType ||
                     "Unknown"
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Browser",
                     visit.browserFamily ||
                     "Unknown"
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Time zone",
                     visit.clientTimezone ||
                     "Unknown"
                 );
 
-                addDetailFact(
+                addFact(
+                    elements.detailFacts,
+                    "owner-detail-fact",
                     "Recorded time",
                     formatDuration(
                         visit.recordedSeconds
@@ -1453,12 +2471,53 @@
 
                 elements.detailPanel
                     .scrollIntoView({
-                        behavior:
-                            "smooth",
-
-                        block:
-                            "start"
+                        behavior: "smooth",
+                        block: "start"
                     });
+            };
+
+            const loadMembers = async () => {
+                if (
+                    !state.token ||
+                    state.requestInProgress
+                ) {
+                    return;
+                }
+
+                setBusy(true);
+
+                setMessage(
+                    elements.membersMessage,
+                    "Loading protected member records..."
+                );
+
+                clearMemberDisplay();
+
+                try {
+                    const data =
+                        await apiRequest(
+                            "/owner-members",
+                            {},
+                            state.token
+                        );
+
+                    renderMembers(data);
+
+                    setMessage(
+                        elements.membersMessage,
+                        "Protected member records loaded.",
+                        "success"
+                    );
+                } catch (error) {
+                    clearMemberDisplay();
+
+                    handleSecureError(
+                        error,
+                        elements.membersMessage
+                    );
+                } finally {
+                    setBusy(false);
+                }
             };
 
             const loadVisits = async () => {
@@ -1473,8 +2532,10 @@
 
                 setMessage(
                     elements.visitsMessage,
-                    "Loading protected records..."
+                    "Loading protected visit records..."
                 );
+
+                clearVisitDisplay();
 
                 try {
                     const data =
@@ -1498,6 +2559,8 @@
                         "success"
                     );
                 } catch (error) {
+                    clearVisitDisplay();
+
                     handleSecureError(
                         error,
                         elements.visitsMessage
@@ -1506,6 +2569,19 @@
                     setBusy(false);
                 }
             };
+
+            const refreshEverything =
+                async () => {
+                    if (
+                        !state.token ||
+                        state.requestInProgress
+                    ) {
+                        return;
+                    }
+
+                    await loadMembers();
+                    await loadVisits();
+                };
 
             const loadVisitDetail = async (
                 visitId
@@ -1552,6 +2628,381 @@
                     setBusy(false);
                 }
             };
+
+            const createMember = async () => {
+                const displayName =
+                    elements.newMemberName
+                        .value
+                        .trim();
+
+                const code =
+                    elements.newMemberCode
+                        .value
+                        .trim();
+
+                const loggingEnabled =
+                    elements.newMemberLogging
+                        .value ===
+                        "enabled";
+
+                if (!displayName) {
+                    setMessage(
+                        elements.membersMessage,
+                        "Enter the family member name.",
+                        "error"
+                    );
+
+                    elements.newMemberName
+                        .focus();
+
+                    return;
+                }
+
+                if (!/^\d{6}$/.test(code)) {
+                    setMessage(
+                        elements.membersMessage,
+                        "The family access code must contain exactly six digits.",
+                        "error"
+                    );
+
+                    elements.newMemberCode
+                        .focus();
+
+                    return;
+                }
+
+                setBusy(true);
+
+                setMessage(
+                    elements.membersMessage,
+                    "Creating the family member securely..."
+                );
+
+                try {
+                    await apiRequest(
+                        "/owner-member-create",
+                        {
+                            displayName,
+                            code,
+                            loggingEnabled
+                        },
+                        state.token
+                    );
+
+                    elements.addMemberForm
+                        .reset();
+
+                    elements.newMemberLogging
+                        .value =
+                            "enabled";
+
+                    setMessage(
+                        elements.membersMessage,
+                        "Family member created successfully.",
+                        "success"
+                    );
+                } catch (error) {
+                    handleSecureError(
+                        error,
+                        elements.membersMessage
+                    );
+
+                    return;
+                } finally {
+                    setBusy(false);
+                }
+
+                await loadMembers();
+            };
+
+            const renameSelectedMember =
+                async () => {
+                    const member =
+                        getSelectedMember();
+
+                    if (!member) {
+                        return;
+                    }
+
+                    const displayName =
+                        elements.renameMemberName
+                            .value
+                            .trim();
+
+                    if (!displayName) {
+                        setMessage(
+                            elements.memberEditorMessage,
+                            "Enter the new display name.",
+                            "error"
+                        );
+
+                        elements.renameMemberName
+                            .focus();
+
+                        return;
+                    }
+
+                    setBusy(true);
+
+                    setMessage(
+                        elements.memberEditorMessage,
+                        "Saving the new display name..."
+                    );
+
+                    try {
+                        await apiRequest(
+                            "/owner-member-update",
+                            {
+                                memberId:
+                                    member.memberId,
+
+                                displayName
+                            },
+                            state.token
+                        );
+
+                        setMessage(
+                            elements.memberEditorMessage,
+                            "Display name updated.",
+                            "success"
+                        );
+                    } catch (error) {
+                        handleSecureError(
+                            error,
+                            elements.memberEditorMessage
+                        );
+
+                        return;
+                    } finally {
+                        setBusy(false);
+                    }
+
+                    await loadMembers();
+                };
+
+            const changeSelectedMemberCode =
+                async () => {
+                    const member =
+                        getSelectedMember();
+
+                    if (!member) {
+                        return;
+                    }
+
+                    const code =
+                        elements.changeMemberCode
+                            .value
+                            .trim();
+
+                    if (!/^\d{6}$/.test(code)) {
+                        setMessage(
+                            elements.memberEditorMessage,
+                            "The new family access code must contain exactly six digits.",
+                            "error"
+                        );
+
+                        elements.changeMemberCode
+                            .focus();
+
+                        return;
+                    }
+
+                    const confirmed =
+                        window.confirm(
+                            `Change the six-digit access code for ${member.displayName}?`
+                        );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    setBusy(true);
+
+                    setMessage(
+                        elements.memberEditorMessage,
+                        "Changing the access code securely..."
+                    );
+
+                    try {
+                        await apiRequest(
+                            "/owner-member-code",
+                            {
+                                memberId:
+                                    member.memberId,
+
+                                code
+                            },
+                            state.token
+                        );
+
+                        elements.changeMemberCode
+                            .value = "";
+
+                        setMessage(
+                            elements.memberEditorMessage,
+                            "Access code changed successfully.",
+                            "success"
+                        );
+                    } catch (error) {
+                        handleSecureError(
+                            error,
+                            elements.memberEditorMessage
+                        );
+
+                        return;
+                    } finally {
+                        setBusy(false);
+                    }
+
+                    await loadMembers();
+                };
+
+            const toggleSelectedMemberStatus =
+                async () => {
+                    const member =
+                        getSelectedMember();
+
+                    if (
+                        !member ||
+                        member.isOwner
+                    ) {
+                        return;
+                    }
+
+                    const newStatus =
+                        !member.isActive;
+
+                    const action =
+                        newStatus
+                            ? "activate"
+                            : "deactivate";
+
+                    const confirmed =
+                        window.confirm(
+                            `${
+                                action === "activate"
+                                    ? "Activate"
+                                    : "Deactivate"
+                            } access for ${member.displayName}?`
+                        );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    setBusy(true);
+
+                    setMessage(
+                        elements.memberEditorMessage,
+                        `${action === "activate" ? "Activating" : "Deactivating"} access...`
+                    );
+
+                    try {
+                        await apiRequest(
+                            "/owner-member-status",
+                            {
+                                memberId:
+                                    member.memberId,
+
+                                isActive:
+                                    newStatus
+                            },
+                            state.token
+                        );
+
+                        setMessage(
+                            elements.memberEditorMessage,
+                            `Member access ${
+                                newStatus
+                                    ? "activated"
+                                    : "deactivated"
+                            }.`,
+                            "success"
+                        );
+                    } catch (error) {
+                        handleSecureError(
+                            error,
+                            elements.memberEditorMessage
+                        );
+
+                        return;
+                    } finally {
+                        setBusy(false);
+                    }
+
+                    await loadMembers();
+                };
+
+            const toggleSelectedMemberLogging =
+                async () => {
+                    const member =
+                        getSelectedMember();
+
+                    if (
+                        !member ||
+                        member.isOwner
+                    ) {
+                        return;
+                    }
+
+                    const newStatus =
+                        !member.loggingEnabled;
+
+                    const confirmed =
+                        window.confirm(
+                            `${
+                                newStatus
+                                    ? "Enable"
+                                    : "Disable"
+                            } visit logging for ${member.displayName}?`
+                        );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    setBusy(true);
+
+                    setMessage(
+                        elements.memberEditorMessage,
+                        `${newStatus ? "Enabling" : "Disabling"} visit logging...`
+                    );
+
+                    try {
+                        await apiRequest(
+                            "/owner-member-logging",
+                            {
+                                memberId:
+                                    member.memberId,
+
+                                loggingEnabled:
+                                    newStatus
+                            },
+                            state.token
+                        );
+
+                        setMessage(
+                            elements.memberEditorMessage,
+                            `Visit logging ${
+                                newStatus
+                                    ? "enabled"
+                                    : "disabled"
+                            }.`,
+                            "success"
+                        );
+                    } catch (error) {
+                        handleSecureError(
+                            error,
+                            elements.memberEditorMessage
+                        );
+
+                        return;
+                    } finally {
+                        setBusy(false);
+                    }
+
+                    await loadMembers();
+                };
 
             const restoreSession = async () => {
                 const storedValue =
@@ -1604,9 +3055,8 @@
                     saveSession();
                     scheduleExpiry();
                     showDashboard();
-                    setBusy(false);
 
-                    await loadVisits();
+                    await refreshEverything();
                 } catch (error) {
                     clearSession();
 
@@ -1677,9 +3127,6 @@
                             saveSession();
                             scheduleExpiry();
                             showDashboard();
-                            setBusy(false);
-
-                            await loadVisits();
                         } catch (error) {
                             elements.password
                                 .value = "";
@@ -1692,18 +3139,22 @@
 
                             elements.password
                                 .focus();
+
+                            return;
                         } finally {
                             setBusy(false);
                         }
+
+                        await refreshEverything();
                     }
                 );
 
-            elements.refreshButton
+            elements.refreshAllButton
                 .addEventListener(
                     "click",
 
                     () => {
-                        void loadVisits();
+                        void refreshEverything();
                     }
                 );
 
@@ -1715,6 +3166,134 @@
                         signOut(
                             "Owner signed out securely."
                         );
+                    }
+                );
+
+            elements.addMemberForm
+                .addEventListener(
+                    "submit",
+
+                    (event) => {
+                        event.preventDefault();
+
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        void createMember();
+                    }
+                );
+
+            elements.membersTableBody
+                .addEventListener(
+                    "click",
+
+                    (event) => {
+                        const button =
+                            event.target.closest(
+                                "button[data-member-id]"
+                            );
+
+                        if (!button) {
+                            return;
+                        }
+
+                        const memberId =
+                            Number(
+                                button.dataset
+                                    .memberId
+                            );
+
+                        if (
+                            Number.isInteger(
+                                memberId
+                            ) &&
+                            memberId > 0
+                        ) {
+                            state.selectedMemberId =
+                                memberId;
+
+                            renderSelectedMember();
+                        }
+                    }
+                );
+
+            elements.closeMemberEditorButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        state.selectedMemberId =
+                            null;
+
+                        elements.memberEditor.hidden =
+                            true;
+                    }
+                );
+
+            elements.renameMemberForm
+                .addEventListener(
+                    "submit",
+
+                    (event) => {
+                        event.preventDefault();
+
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        void renameSelectedMember();
+                    }
+                );
+
+            elements.changeCodeForm
+                .addEventListener(
+                    "submit",
+
+                    (event) => {
+                        event.preventDefault();
+
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        void changeSelectedMemberCode();
+                    }
+                );
+
+            elements.toggleMemberStatusButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        void toggleSelectedMemberStatus();
+                    }
+                );
+
+            elements.toggleMemberLoggingButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        void toggleSelectedMemberLogging();
                     }
                 );
 
