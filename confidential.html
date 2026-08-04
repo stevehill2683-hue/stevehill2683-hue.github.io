@@ -1,287 +1,1772 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
 
-<title>Confidential | Steve & Anita</title>
+    <title>Confidential Owner Dashboard | Steve &amp; Anita</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        [hidden] {
+            display: none !important;
+        }
+
+        body.confidential-owner-page {
+            padding-bottom: 84px;
+        }
+
+        .owner-dashboard-wrap {
+            display: block;
+            width: min(96%, 1180px);
+            max-width: 1180px;
+            margin: 24px auto 100px;
+        }
+
+        .owner-intro-card,
+        .owner-login-card,
+        .owner-toolbar-card,
+        .owner-visits-card,
+        .owner-detail-card,
+        .owner-private-content-note {
+            margin-bottom: 22px;
+        }
+
+        .owner-security-note {
+            padding: 12px 14px;
+            background: #fff4c7;
+            border: 1px solid #d7b85a;
+            border-radius: 9px;
+            font-weight: 700;
+        }
+
+        .owner-login-form {
+            display: grid;
+            grid-template-columns: minmax(220px, 420px) auto;
+            gap: 12px;
+            align-items: end;
+            max-width: 680px;
+        }
+
+        .owner-login-form label {
+            grid-column: 1 / -1;
+            font-weight: 700;
+        }
+
+        .owner-login-form input {
+            min-height: 46px;
+            padding: 10px 12px;
+            border: 2px solid #7b6653;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #111111;
+            font: inherit;
+        }
+
+        .owner-login-form input:focus {
+            outline: 3px solid rgba(126, 83, 43, 0.3);
+            outline-offset: 2px;
+        }
+
+        .owner-login-form button,
+        .owner-toolbar-buttons button,
+        .owner-section-heading button,
+        .owner-detail-button {
+            min-height: 44px;
+            padding: 9px 16px;
+            border: 1px solid #2c180b;
+            border-radius: 8px;
+            background: #432611;
+            color: #fffaf1;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .owner-login-form button:hover,
+        .owner-toolbar-buttons button:hover,
+        .owner-section-heading button:hover,
+        .owner-detail-button:hover,
+        .owner-login-form button:focus-visible,
+        .owner-toolbar-buttons button:focus-visible,
+        .owner-section-heading button:focus-visible,
+        .owner-detail-button:focus-visible {
+            background: #65401f;
+        }
+
+        .owner-login-form button:disabled,
+        .owner-toolbar-buttons button:disabled,
+        .owner-detail-button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        .owner-danger-button {
+            background: #8c1d18 !important;
+        }
+
+        .owner-danger-button:hover,
+        .owner-danger-button:focus-visible {
+            background: #ad2b24 !important;
+        }
+
+        .owner-message {
+            min-height: 1.5em;
+            margin: 12px 0 0;
+            font-weight: 700;
+        }
+
+        .owner-message.is-error {
+            color: #8b1717;
+        }
+
+        .owner-message.is-success {
+            color: #245b20;
+        }
+
+        .owner-toolbar-card,
+        .owner-section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .owner-toolbar-card h2,
+        .owner-section-heading h2 {
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        .owner-session-status {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .owner-toolbar-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .owner-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .owner-summary-card {
+            padding: 18px;
+            background: #fffaf1;
+            border: 1px solid #d3c3ad;
+            border-radius: 12px;
+            box-shadow: 0 8px 22px rgba(44, 37, 30, 0.14);
+        }
+
+        .owner-summary-card strong,
+        .owner-summary-card span {
+            display: block;
+        }
+
+        .owner-summary-card strong {
+            margin-bottom: 8px;
+            color: #432611;
+        }
+
+        .owner-summary-card span {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .owner-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #d3c3ad;
+            border-radius: 10px;
+        }
+
+        .owner-data-table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+            background: #ffffff;
+        }
+
+        .owner-data-table th,
+        .owner-data-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid #e4dacd;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .owner-data-table th {
+            background: #432611;
+            color: #fffaf1;
+            white-space: nowrap;
+        }
+
+        .owner-data-table tbody tr:nth-child(even) {
+            background: #f8f3eb;
+        }
+
+        .owner-data-table tbody tr:hover {
+            background: #fff4c7;
+        }
+
+        .owner-detail-button {
+            min-height: 36px;
+            padding: 6px 11px;
+            white-space: nowrap;
+        }
+
+        .owner-empty-state {
+            padding: 22px;
+            background: #ece6dc;
+            border: 1px dashed #9e8a76;
+            border-radius: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .owner-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin: 18px 0 24px;
+        }
+
+        .owner-detail-fact {
+            padding: 13px;
+            background: #eee5d9;
+            border: 1px solid #d3c3ad;
+            border-radius: 9px;
+        }
+
+        .owner-detail-fact strong,
+        .owner-detail-fact span {
+            display: block;
+        }
+
+        .owner-detail-fact strong {
+            margin-bottom: 5px;
+            color: #432611;
+        }
+
+        .owner-private-content-note {
+            border-left: 6px solid #8c1d18;
+        }
+
+        @media (max-width: 900px) {
+            .owner-summary-grid,
+            .owner-detail-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.confidential-owner-page {
+                padding-bottom: 108px;
+            }
+
+            .owner-login-form,
+            .owner-summary-grid,
+            .owner-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .owner-login-form button,
+            .owner-toolbar-buttons button,
+            .owner-section-heading button {
+                width: 100%;
+            }
+
+            .owner-toolbar-card,
+            .owner-section-heading {
+                flex-direction: column;
+            }
+
+            .owner-toolbar-buttons {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
+<body class="confidential-owner-page">
+
+    <header class="site-header">
+
+        <a href="index.html" class="site-title">
+            Steve &amp; Anita
+        </a>
+
+        <p class="confidential-label confidential-red">
+            ***CONFIDENTIAL***
+        </p>
+
+        <p>
+            Owner security and private visit records
+        </p>
+
+        <nav
+            class="top-nav professional-nav"
+            aria-label="Main navigation"
+        >
+            <a href="index.html">Home</a>
+            <a href="faith.html">Faith</a>
+            <a href="family.html">Family</a>
+            <a href="military.html">Military</a>
+            <a href="israel.html">Israel</a>
+            <a href="general.html">3131</a>
+            <a href="2406.html">2406</a>
+            <a href="1040.html">1040</a>
+            <a href="special-documents.html">
+                Special Documents
+            </a>
+        </nav>
+
+    </header>
+
+    <main class="page-wrap owner-dashboard-wrap">
+
+        <section class="content-card owner-intro-card">
+
+            <h1>
+                Confidential Owner Dashboard
+            </h1>
+
+            <p>
+                Sign in with the separate owner password to view
+                protected visitor records. The password and session
+                token are never displayed on this page.
+            </p>
+
+            <p class="owner-security-note">
+                This test dashboard reads only from the separate
+                Cloudflare security database. It does not change the
+                live main website.
+            </p>
+
+        </section>
+
+        <section
+            id="ownerLoginPanel"
+            class="content-card owner-login-card"
+            aria-labelledby="ownerLoginTitle"
+        >
+
+            <h2 id="ownerLoginTitle">
+                Owner Sign In
+            </h2>
+
+            <form
+                id="ownerLoginForm"
+                class="owner-login-form"
+                novalidate
+            >
+
+                <label for="ownerPassword">
+                    Confidential owner password
+                </label>
+
+                <input
+                    id="ownerPassword"
+                    name="ownerPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    maxlength="256"
+                    required
+                >
+
+                <button
+                    id="ownerLoginButton"
+                    type="submit"
+                >
+                    Sign In Securely
+                </button>
 
-<body>
+            </form>
 
+            <p
+                id="ownerLoginMessage"
+                class="owner-message"
+                role="status"
+                aria-live="polite"
+            ></p>
 
-<header class="site-header">
+        </section>
 
-<a href="index.html" class="site-title">
-Steve &amp; Anita Hill
-</a>
+        <section
+            id="ownerDashboardPanel"
+            class="owner-dashboard-panel"
+            hidden
+        >
 
-<p class="confidential-label confidential-red">
-***CONFIDENTIAL***
-</p>
+            <section class="content-card owner-toolbar-card">
 
-<p>
-Private Family Area
-</p>
+                <div>
 
+                    <h2>
+                        Private Visitor Records
+                    </h2>
 
-<nav class="top-nav professional-nav" aria-label="Main navigation">
+                    <p
+                        id="ownerSessionStatus"
+                        class="owner-session-status"
+                    ></p>
 
-    <a href="index.html">Home</a>
-    <a href="faith.html">Faith</a>
-    <a href="family.html">Family</a>
-    <a href="military.html">Military</a>
-    <a href="israel.html">Israel</a>
-    <a href="general.html">3131</a>
-    <a href="2406.html">2406</a>
-    <a href="1040.html">1040</a>
-    <a href="special-documents.html">Special Documents</a>
+                </div>
 
-</nav>
+                <div class="owner-toolbar-buttons">
 
+                    <button
+                        id="refreshVisitsButton"
+                        type="button"
+                    >
+                        Refresh Records
+                    </button>
 
-</header>
+                    <button
+                        id="ownerSignOutButton"
+                        class="owner-danger-button"
+                        type="button"
+                    >
+                        Sign Out
+                    </button>
 
+                </div>
 
+            </section>
 
+            <section
+                class="owner-summary-grid"
+                aria-label="Visit summary"
+            >
 
-<main class="page-wrap">
+                <article class="owner-summary-card">
 
+                    <strong>
+                        Total visits
+                    </strong>
 
+                    <span id="totalVisitsValue">
+                        0
+                    </span>
 
-<section class="content-card" id="lockedArea">
+                </article>
 
+                <article class="owner-summary-card">
 
-<h1>Confidential Area</h1>
+                    <strong>
+                        Visits displayed
+                    </strong>
 
+                    <span id="returnedVisitsValue">
+                        0
+                    </span>
 
-<p id="message">
-Enter confidential access code.
-</p>
+                </article>
 
+                <article class="owner-summary-card">
 
+                    <strong>
+                        Last refreshed
+                    </strong>
 
-<input
-id="confidentialCode"
-type="password"
-maxlength="4"
-inputmode="numeric"
-autocomplete="off"
->
+                    <span id="generatedAtValue">
+                        Not loaded
+                    </span>
 
+                </article>
 
-<button onclick="checkCode()">
-Enter
-</button>
+            </section>
 
+            <section class="content-card owner-visits-card">
 
+                <div class="owner-section-heading">
 
-</section>
+                    <div>
 
+                        <h2>
+                            Recent Visits
+                        </h2>
 
+                        <p>
+                            Select a visit to view its full page
+                            history.
+                        </p>
 
+                    </div>
 
+                    <p
+                        id="ownerVisitsMessage"
+                        class="owner-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
 
-<section class="content-card" id="privateContent" style="display:none;">
+                </div>
 
+                <div
+                    id="ownerVisitsEmpty"
+                    class="owner-empty-state"
+                    hidden
+                >
+                    No logged family visits are currently stored.
+                </div>
 
-<h1>
-Welcome to the Confidential Area
-</h1>
+                <div
+                    id="ownerVisitsTableWrap"
+                    class="owner-table-wrap"
+                    hidden
+                >
 
+                    <table class="owner-data-table">
 
+                        <thead>
 
-<p>
-This section is reserved for private family information,
-documents, memories, and future protected content.
-</p>
+                            <tr>
+                                <th scope="col">Visitor</th>
+                                <th scope="col">Started</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Device</th>
+                                <th scope="col">Pages</th>
+                                <th scope="col">Recorded time</th>
+                                <th scope="col">Details</th>
+                            </tr>
 
+                        </thead>
 
+                        <tbody id="ownerVisitsTableBody"></tbody>
 
-<h2>
-Private Documents
-</h2>
+                    </table>
 
-<div class="family-grid">
+                </div>
 
-<a
-class="family-card"
-href="Illness.pdf"
-target="_blank"
-rel="noopener"
-style="display:block; text-decoration:none; color:inherit;"
->
-<h3>Illness</h3>
-<p>Click to open the illness PDF document.</p>
-</a>
+            </section>
 
-</div>
-<h2>
-Future Private Memories
-</h2>
+            <section
+                id="ownerVisitDetailPanel"
+                class="content-card owner-detail-card"
+                hidden
+            >
 
+                <div class="owner-section-heading">
 
+                    <div>
 
+                        <h2>
+                            Selected Visit Detail
+                        </h2>
 
-<div class="family-grid">
+                        <p id="ownerVisitDetailHeading">
+                            No visit selected.
+                        </p>
 
+                    </div>
 
+                    <button
+                        id="closeVisitDetailButton"
+                        type="button"
+                    >
+                        Close Details
+                    </button>
 
-<div class="family-card">
-<h3>Future Picture 1</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                </div>
 
+                <div
+                    id="ownerVisitFacts"
+                    class="owner-detail-grid"
+                ></div>
 
-<div class="family-card">
-<h3>Future Picture 2</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                <h3>
+                    Page History
+                </h3>
 
+                <div
+                    id="ownerPagesEmpty"
+                    class="owner-empty-state"
+                    hidden
+                >
+                    This visit has no recorded pages.
+                </div>
 
-<div class="family-card">
-<h3>Future Picture 3</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                <div
+                    id="ownerPagesTableWrap"
+                    class="owner-table-wrap"
+                    hidden
+                >
 
+                    <table
+                        class="owner-data-table owner-pages-table"
+                    >
 
-<div class="family-card">
-<h3>Future Picture 4</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                        <thead>
 
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Page</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">Entered</th>
+                                <th scope="col">Left</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Status</th>
+                            </tr>
 
-<div class="family-card">
-<h3>Future Picture 5</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                        </thead>
 
+                        <tbody id="ownerPagesTableBody"></tbody>
 
-<div class="family-card">
-<h3>Future Picture 6</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                    </table>
 
+                </div>
 
-<div class="family-card">
-<h3>Future Picture 7</h3>
-<p>Reserved for future private photo.</p>
-</div>
+            </section>
 
+            <section
+                class="content-card owner-private-content-note"
+            >
 
-<div class="family-card">
-<h3>Future Picture 8</h3>
-<p>Reserved for future private photo.</p>
-</div>
+                <h2>
+                    Private Documents and Memories
+                </h2>
 
+                <p>
+                    Private files will be connected only after
+                    protected file delivery is completed. They are
+                    intentionally not linked directly from the public
+                    GitHub repository.
+                </p>
 
-<div class="family-card">
-<h3>Future Picture 9</h3>
-<p>Reserved for future private photo.</p>
-</div>
+            </section>
 
+        </section>
 
-<div class="family-card">
-<h3>Future Picture 10</h3>
-<p>Reserved for future private photo.</p>
-</div>
+    </main>
 
+    <footer class="fixed-bottom-text">
 
+        <p>
+            “As for me and my house, we will serve the LORD.”
+            — Joshua 24:15
+        </p>
 
-</div>
+    </footer>
 
+    <script>
+        (() => {
+            "use strict";
 
+            const API_BASE =
+                "https://steve-anita-family-access-test.stevehill2683.workers.dev";
 
-</section>
+            const OWNER_SESSION_STORAGE_KEY =
+                "steve-anita-owner-session-test";
 
+            const state = {
+                token: null,
+                displayName: null,
+                expiresAt: null,
+                expiryTimer: null,
+                selectedVisitId: null,
+                requestInProgress: false
+            };
 
+            const byId = (id) =>
+                document.getElementById(id);
 
-</main>
+            const elements = {
+                loginPanel:
+                    byId("ownerLoginPanel"),
 
+                dashboardPanel:
+                    byId("ownerDashboardPanel"),
 
+                loginForm:
+                    byId("ownerLoginForm"),
 
+                password:
+                    byId("ownerPassword"),
 
+                loginButton:
+                    byId("ownerLoginButton"),
 
-<footer class="fixed-bottom-text">
+                loginMessage:
+                    byId("ownerLoginMessage"),
 
-<p>
-“As for me and my house, we will serve the LORD.” — Joshua 24:15
-</p>
+                sessionStatus:
+                    byId("ownerSessionStatus"),
 
-</footer>
+                refreshButton:
+                    byId("refreshVisitsButton"),
 
+                signOutButton:
+                    byId("ownerSignOutButton"),
 
+                visitsMessage:
+                    byId("ownerVisitsMessage"),
 
+                totalVisits:
+                    byId("totalVisitsValue"),
 
+                returnedVisits:
+                    byId("returnedVisitsValue"),
 
+                generatedAt:
+                    byId("generatedAtValue"),
 
-<script>
+                visitsEmpty:
+                    byId("ownerVisitsEmpty"),
 
-let attempts = 0;
+                visitsTableWrap:
+                    byId("ownerVisitsTableWrap"),
 
-const correctPassword = "2683";
+                visitsTableBody:
+                    byId("ownerVisitsTableBody"),
 
+                detailPanel:
+                    byId("ownerVisitDetailPanel"),
 
-function checkCode() {
+                detailHeading:
+                    byId("ownerVisitDetailHeading"),
 
+                detailFacts:
+                    byId("ownerVisitFacts"),
 
-let entered =
-document.getElementById("confidentialCode").value;
+                closeDetailButton:
+                    byId("closeVisitDetailButton"),
 
+                pagesEmpty:
+                    byId("ownerPagesEmpty"),
 
-let message =
-document.getElementById("message");
+                pagesTableWrap:
+                    byId("ownerPagesTableWrap"),
 
+                pagesTableBody:
+                    byId("ownerPagesTableBody")
+            };
 
+            const setMessage = (
+                element,
+                text,
+                type = "normal"
+            ) => {
+                element.textContent = text;
+                element.className =
+                    "owner-message";
 
-if (entered === correctPassword) {
+                if (type === "error") {
+                    element.classList.add(
+                        "is-error"
+                    );
+                }
 
+                if (type === "success") {
+                    element.classList.add(
+                        "is-success"
+                    );
+                }
+            };
 
-document.getElementById("lockedArea").style.display = "none";
+            const formatDateTime = (value) => {
+                if (!value) {
+                    return "Not recorded";
+                }
 
+                let date;
 
-document.getElementById("privateContent").style.display = "block";
+                if (typeof value === "number") {
+                    date =
+                        new Date(value * 1000);
+                } else {
+                    const normalized =
+                        String(value).includes("T")
+                            ? String(value)
+                            : `${
+                                String(value)
+                                    .replace(" ", "T")
+                            }Z`;
 
-
-}
-
-else {
-
-
-attempts++;
-
-
-message.textContent =
-"Incorrect code. Attempts used: " + attempts;
-
-
-
-if (attempts >= 10) {
-
-
-message.textContent =
-"Access locked.";
-
-
-document.getElementById("confidentialCode").disabled = true;
-
-
-}
-
-
-}
-
-
-}
-
-
-</script>
-
+                    date =
+                        new Date(normalized);
+                }
+
+                if (
+                    Number.isNaN(
+                        date.getTime()
+                    )
+                ) {
+                    return String(value);
+                }
+
+                return new Intl.DateTimeFormat(
+                    "en-US",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "medium"
+                    }
+                ).format(date);
+            };
+
+            const formatDuration = (seconds) => {
+                const totalSeconds =
+                    Number(seconds);
+
+                if (
+                    !Number.isFinite(
+                        totalSeconds
+                    ) ||
+                    totalSeconds < 0
+                ) {
+                    return "Not recorded";
+                }
+
+                const wholeSeconds =
+                    Math.floor(totalSeconds);
+
+                const hours =
+                    Math.floor(
+                        wholeSeconds / 3600
+                    );
+
+                const minutes =
+                    Math.floor(
+                        (
+                            wholeSeconds %
+                            3600
+                        ) / 60
+                    );
+
+                const remainingSeconds =
+                    wholeSeconds % 60;
+
+                if (hours > 0) {
+                    return (
+                        `${hours}h ` +
+                        `${minutes}m ` +
+                        `${remainingSeconds}s`
+                    );
+                }
+
+                if (minutes > 0) {
+                    return (
+                        `${minutes}m ` +
+                        `${remainingSeconds}s`
+                    );
+                }
+
+                return `${remainingSeconds}s`;
+            };
+
+            const apiRequest = async (
+                endpoint,
+                body,
+                token = null
+            ) => {
+                const headers = {
+                    "Content-Type":
+                        "application/json"
+                };
+
+                if (token) {
+                    headers.Authorization =
+                        `Bearer ${token}`;
+                }
+
+                const response = await fetch(
+                    `${API_BASE}${endpoint}`,
+                    {
+                        method: "POST",
+                        headers,
+                        body:
+                            JSON.stringify(body),
+                        cache: "no-store"
+                    }
+                );
+
+                let data;
+
+                try {
+                    data =
+                        await response.json();
+                } catch {
+                    throw new Error(
+                        "Cloudflare returned an unreadable response."
+                    );
+                }
+
+                if (!response.ok) {
+                    const error =
+                        new Error(
+                            data.message ||
+                            "The secure request was not accepted."
+                        );
+
+                    error.code =
+                        data.code ||
+                        "REQUEST_FAILED";
+
+                    error.status =
+                        response.status;
+
+                    throw error;
+                }
+
+                return data;
+            };
+
+            const saveSession = () => {
+                if (!state.token) {
+                    sessionStorage.removeItem(
+                        OWNER_SESSION_STORAGE_KEY
+                    );
+
+                    return;
+                }
+
+                sessionStorage.setItem(
+                    OWNER_SESSION_STORAGE_KEY,
+                    JSON.stringify({
+                        token:
+                            state.token,
+
+                        displayName:
+                            state.displayName,
+
+                        expiresAt:
+                            state.expiresAt
+                    })
+                );
+            };
+
+            const clearExpiryTimer = () => {
+                window.clearTimeout(
+                    state.expiryTimer
+                );
+
+                state.expiryTimer = null;
+            };
+
+            const clearSession = () => {
+                clearExpiryTimer();
+
+                sessionStorage.removeItem(
+                    OWNER_SESSION_STORAGE_KEY
+                );
+
+                state.token = null;
+                state.displayName = null;
+                state.expiresAt = null;
+                state.selectedVisitId = null;
+            };
+
+            const scheduleExpiry = () => {
+                clearExpiryTimer();
+
+                const expiresAt =
+                    Number(
+                        state.expiresAt
+                    );
+
+                const delay =
+                    expiresAt * 1000 -
+                    Date.now();
+
+                if (
+                    !Number.isFinite(delay) ||
+                    delay <= 0
+                ) {
+                    signOut(
+                        "The owner session expired. Please sign in again."
+                    );
+
+                    return;
+                }
+
+                state.expiryTimer =
+                    window.setTimeout(
+                        () => {
+                            signOut(
+                                "The owner session expired. Please sign in again."
+                            );
+                        },
+
+                        Math.min(
+                            delay,
+                            2147483647
+                        )
+                    );
+            };
+
+            const setBusy = (busy) => {
+                state.requestInProgress =
+                    busy;
+
+                elements.loginButton.disabled =
+                    busy;
+
+                elements.refreshButton.disabled =
+                    busy;
+
+                elements.loginButton.textContent =
+                    busy
+                        ? "Checking..."
+                        : "Sign In Securely";
+            };
+
+            const showLogin = (
+                message = ""
+            ) => {
+                elements.dashboardPanel.hidden =
+                    true;
+
+                elements.loginPanel.hidden =
+                    false;
+
+                elements.detailPanel.hidden =
+                    true;
+
+                elements.password.value =
+                    "";
+
+                setMessage(
+                    elements.loginMessage,
+
+                    message ||
+                    "Enter the confidential owner password."
+                );
+
+                elements.password.focus();
+            };
+
+            const showDashboard = () => {
+                elements.loginPanel.hidden =
+                    true;
+
+                elements.dashboardPanel.hidden =
+                    false;
+
+                elements.sessionStatus.textContent =
+                    `${
+                        state.displayName ||
+                        "Owner"
+                    } is securely signed in. ` +
+                    `Session expires ${
+                        formatDateTime(
+                            state.expiresAt
+                        )
+                    }.`;
+            };
+
+            const signOut = (
+                message =
+                    "Owner session ended."
+            ) => {
+                clearSession();
+
+                elements.visitsTableBody
+                    .replaceChildren();
+
+                elements.pagesTableBody
+                    .replaceChildren();
+
+                elements.detailFacts
+                    .replaceChildren();
+
+                elements.totalVisits
+                    .textContent = "0";
+
+                elements.returnedVisits
+                    .textContent = "0";
+
+                elements.generatedAt
+                    .textContent =
+                        "Not loaded";
+
+                showLogin(message);
+            };
+
+            const handleSecureError = (
+                error,
+                messageElement
+            ) => {
+                if (
+                    error.status === 401 ||
+                    error.code ===
+                        "OWNER_SESSION_REQUIRED" ||
+                    error.code ===
+                        "OWNER_SESSION_INVALID" ||
+                    error.code ===
+                        "OWNER_SESSION_EXPIRED" ||
+                    error.code ===
+                        "OWNER_INACTIVE"
+                ) {
+                    signOut(
+                        error.message
+                    );
+
+                    return;
+                }
+
+                setMessage(
+                    messageElement,
+                    error.message,
+                    "error"
+                );
+            };
+
+            const createCell = (
+                row,
+                text
+            ) => {
+                const cell =
+                    document.createElement(
+                        "td"
+                    );
+
+                cell.textContent = text;
+
+                row.appendChild(cell);
+
+                return cell;
+            };
+
+            const renderVisits = (data) => {
+                elements.visitsTableBody
+                    .replaceChildren();
+
+                elements.totalVisits
+                    .textContent =
+                        String(
+                            data.totalVisits ||
+                            0
+                        );
+
+                elements.returnedVisits
+                    .textContent =
+                        String(
+                            data.returnedVisits ||
+                            0
+                        );
+
+                elements.generatedAt
+                    .textContent =
+                        formatDateTime(
+                            data.generatedAt
+                        );
+
+                const visits =
+                    Array.isArray(
+                        data.visits
+                    )
+                        ? data.visits
+                        : [];
+
+                elements.visitsEmpty.hidden =
+                    visits.length !== 0;
+
+                elements.visitsTableWrap.hidden =
+                    visits.length === 0;
+
+                visits.forEach((visit) => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    createCell(
+                        row,
+                        visit.displayName ||
+                        "Unknown"
+                    );
+
+                    createCell(
+                        row,
+                        formatDateTime(
+                            visit.startedAt
+                        )
+                    );
+
+                    createCell(
+                        row,
+                        visit.status ||
+                        "Unknown"
+                    );
+
+                    createCell(
+                        row,
+                        `${
+                            visit.deviceType ||
+                            "Unknown"
+                        } / ` +
+                        `${
+                            visit.browserFamily ||
+                            "Unknown"
+                        }`
+                    );
+
+                    createCell(
+                        row,
+                        String(
+                            visit.pageCount ||
+                            0
+                        )
+                    );
+
+                    createCell(
+                        row,
+                        formatDuration(
+                            visit.recordedSeconds ||
+                            0
+                        )
+                    );
+
+                    const actionCell =
+                        document.createElement(
+                            "td"
+                        );
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+                    button.type =
+                        "button";
+
+                    button.className =
+                        "owner-detail-button";
+
+                    button.textContent =
+                        "View Details";
+
+                    button.dataset.visitId =
+                        String(
+                            visit.visitId
+                        );
+
+                    actionCell.appendChild(
+                        button
+                    );
+
+                    row.appendChild(
+                        actionCell
+                    );
+
+                    elements.visitsTableBody
+                        .appendChild(row);
+                });
+            };
+
+            const addDetailFact = (
+                label,
+                value
+            ) => {
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "owner-detail-fact";
+
+                const strong =
+                    document.createElement(
+                        "strong"
+                    );
+
+                strong.textContent =
+                    label;
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.textContent =
+                    value;
+
+                item.append(
+                    strong,
+                    span
+                );
+
+                elements.detailFacts
+                    .appendChild(item);
+            };
+
+            const renderVisitDetail = (
+                data
+            ) => {
+                const visit =
+                    data.visit;
+
+                const pages =
+                    Array.isArray(
+                        data.pages
+                    )
+                        ? data.pages
+                        : [];
+
+                state.selectedVisitId =
+                    visit.visitId;
+
+                elements.detailHeading
+                    .textContent =
+                        `${
+                            visit.displayName
+                        } — Visit ${
+                            visit.visitId
+                        }`;
+
+                elements.detailFacts
+                    .replaceChildren();
+
+                addDetailFact(
+                    "Started",
+                    formatDateTime(
+                        visit.startedAt
+                    )
+                );
+
+                addDetailFact(
+                    "Last activity",
+                    formatDateTime(
+                        visit.lastActivityAt
+                    )
+                );
+
+                addDetailFact(
+                    "Ended",
+                    formatDateTime(
+                        visit.endedAt
+                    )
+                );
+
+                addDetailFact(
+                    "End reason",
+                    visit.endReason ||
+                    "Still active"
+                );
+
+                addDetailFact(
+                    "Device",
+                    visit.deviceType ||
+                    "Unknown"
+                );
+
+                addDetailFact(
+                    "Browser",
+                    visit.browserFamily ||
+                    "Unknown"
+                );
+
+                addDetailFact(
+                    "Time zone",
+                    visit.clientTimezone ||
+                    "Unknown"
+                );
+
+                addDetailFact(
+                    "Recorded time",
+                    formatDuration(
+                        visit.recordedSeconds
+                    )
+                );
+
+                elements.pagesTableBody
+                    .replaceChildren();
+
+                elements.pagesEmpty.hidden =
+                    pages.length !== 0;
+
+                elements.pagesTableWrap.hidden =
+                    pages.length === 0;
+
+                pages.forEach((page) => {
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    createCell(
+                        row,
+                        String(
+                            page.sequenceNumber ||
+                            0
+                        )
+                    );
+
+                    createCell(
+                        row,
+                        page.pageName ||
+                        "Untitled page"
+                    );
+
+                    createCell(
+                        row,
+                        page.pagePath ||
+                        "/"
+                    );
+
+                    createCell(
+                        row,
+                        formatDateTime(
+                            page.enteredAt
+                        )
+                    );
+
+                    createCell(
+                        row,
+                        formatDateTime(
+                            page.leftAt
+                        )
+                    );
+
+                    createCell(
+                        row,
+
+                        page.durationSeconds ===
+                            null
+                            ? "Still active"
+                            : formatDuration(
+                                page.durationSeconds
+                            )
+                    );
+
+                    createCell(
+                        row,
+                        page.status ||
+                        "Unknown"
+                    );
+
+                    elements.pagesTableBody
+                        .appendChild(row);
+                });
+
+                elements.detailPanel.hidden =
+                    false;
+
+                elements.detailPanel
+                    .scrollIntoView({
+                        behavior:
+                            "smooth",
+
+                        block:
+                            "start"
+                    });
+            };
+
+            const loadVisits = async () => {
+                if (
+                    !state.token ||
+                    state.requestInProgress
+                ) {
+                    return;
+                }
+
+                setBusy(true);
+
+                setMessage(
+                    elements.visitsMessage,
+                    "Loading protected records..."
+                );
+
+                try {
+                    const data =
+                        await apiRequest(
+                            "/owner-visits",
+                            {
+                                limit: 50
+                            },
+                            state.token
+                        );
+
+                    renderVisits(data);
+
+                    setMessage(
+                        elements.visitsMessage,
+
+                        data.totalVisits === 0
+                            ? "No logged family visits are currently stored."
+                            : "Protected visitor records loaded.",
+
+                        "success"
+                    );
+                } catch (error) {
+                    handleSecureError(
+                        error,
+                        elements.visitsMessage
+                    );
+                } finally {
+                    setBusy(false);
+                }
+            };
+
+            const loadVisitDetail = async (
+                visitId
+            ) => {
+                if (
+                    !state.token ||
+                    state.requestInProgress
+                ) {
+                    return;
+                }
+
+                setBusy(true);
+
+                setMessage(
+                    elements.visitsMessage,
+                    "Loading selected visit..."
+                );
+
+                try {
+                    const data =
+                        await apiRequest(
+                            "/owner-visit-detail",
+                            {
+                                visitId
+                            },
+                            state.token
+                        );
+
+                    renderVisitDetail(
+                        data
+                    );
+
+                    setMessage(
+                        elements.visitsMessage,
+                        "Selected visit detail loaded.",
+                        "success"
+                    );
+                } catch (error) {
+                    handleSecureError(
+                        error,
+                        elements.visitsMessage
+                    );
+                } finally {
+                    setBusy(false);
+                }
+            };
+
+            const restoreSession = async () => {
+                const storedValue =
+                    sessionStorage.getItem(
+                        OWNER_SESSION_STORAGE_KEY
+                    );
+
+                if (!storedValue) {
+                    showLogin();
+                    return;
+                }
+
+                let stored;
+
+                try {
+                    stored =
+                        JSON.parse(
+                            storedValue
+                        );
+                } catch {
+                    clearSession();
+                    showLogin();
+                    return;
+                }
+
+                if (!stored.token) {
+                    clearSession();
+                    showLogin();
+                    return;
+                }
+
+                try {
+                    const data =
+                        await apiRequest(
+                            "/owner-session",
+                            {},
+                            stored.token
+                        );
+
+                    state.token =
+                        stored.token;
+
+                    state.displayName =
+                        data.displayName ||
+                        stored.displayName;
+
+                    state.expiresAt =
+                        data.expiresAt;
+
+                    saveSession();
+                    scheduleExpiry();
+                    showDashboard();
+                    setBusy(false);
+
+                    await loadVisits();
+                } catch (error) {
+                    clearSession();
+
+                    showLogin(
+                        error.message
+                    );
+                }
+            };
+
+            elements.loginForm
+                .addEventListener(
+                    "submit",
+
+                    async (event) => {
+                        event.preventDefault();
+
+                        if (
+                            state.requestInProgress
+                        ) {
+                            return;
+                        }
+
+                        const password =
+                            elements.password
+                                .value;
+
+                        if (!password) {
+                            setMessage(
+                                elements.loginMessage,
+                                "Enter the confidential owner password.",
+                                "error"
+                            );
+
+                            elements.password
+                                .focus();
+
+                            return;
+                        }
+
+                        setBusy(true);
+
+                        setMessage(
+                            elements.loginMessage,
+                            "Checking securely..."
+                        );
+
+                        try {
+                            const data =
+                                await apiRequest(
+                                    "/owner-login",
+                                    {
+                                        password
+                                    }
+                                );
+
+                            state.token =
+                                data.ownerSessionToken;
+
+                            state.displayName =
+                                data.displayName;
+
+                            state.expiresAt =
+                                data.expiresAt;
+
+                            elements.password
+                                .value = "";
+
+                            saveSession();
+                            scheduleExpiry();
+                            showDashboard();
+                            setBusy(false);
+
+                            await loadVisits();
+                        } catch (error) {
+                            elements.password
+                                .value = "";
+
+                            setMessage(
+                                elements.loginMessage,
+                                error.message,
+                                "error"
+                            );
+
+                            elements.password
+                                .focus();
+                        } finally {
+                            setBusy(false);
+                        }
+                    }
+                );
+
+            elements.refreshButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        void loadVisits();
+                    }
+                );
+
+            elements.signOutButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        signOut(
+                            "Owner signed out securely."
+                        );
+                    }
+                );
+
+            elements.visitsTableBody
+                .addEventListener(
+                    "click",
+
+                    (event) => {
+                        const button =
+                            event.target.closest(
+                                "button[data-visit-id]"
+                            );
+
+                        if (!button) {
+                            return;
+                        }
+
+                        const visitId =
+                            Number(
+                                button.dataset
+                                    .visitId
+                            );
+
+                        if (
+                            Number.isInteger(
+                                visitId
+                            ) &&
+                            visitId > 0
+                        ) {
+                            void loadVisitDetail(
+                                visitId
+                            );
+                        }
+                    }
+                );
+
+            elements.closeDetailButton
+                .addEventListener(
+                    "click",
+
+                    () => {
+                        state.selectedVisitId =
+                            null;
+
+                        elements.detailPanel.hidden =
+                            true;
+                    }
+                );
+
+            void restoreSession();
+        })();
+    </script>
 
 </body>
-
 </html>
