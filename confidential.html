@@ -3346,6 +3346,1081 @@
             void restoreSession();
         })();
     </script>
+<!-- =========================================================
+     CONFIDENTIAL OWNER SECURITY ADD-ON
+     Paste this complete block immediately before </body>
+     ========================================================= -->
+<script>
+(() => {
+    "use strict";
 
+    const SECURITY_API_BASE =
+        "https://steve-anita-family-access-test.stevehill2683.workers.dev";
+
+    const SECURITY_STORAGE_KEY =
+        "steve-anita-owner-session-test";
+
+    const WARNING_SECONDS = 5 * 60;
+
+    const securityState = {
+        observedToken: "",
+        observedExpiresAt: 0,
+        warningTimer: null,
+        expiryTimer: null,
+        countdownTimer: null,
+        requestInProgress: false
+    };
+
+    const byId = (id) =>
+        document.getElementById(id);
+
+    const readStoredSession = () => {
+        const storedValue =
+            sessionStorage.getItem(
+                SECURITY_STORAGE_KEY
+            );
+
+        if (!storedValue) {
+            return null;
+        }
+
+        try {
+            const stored =
+                JSON.parse(storedValue);
+
+            if (
+                !stored ||
+                typeof stored.token !== "string" ||
+                !stored.token ||
+                !Number.isFinite(
+                    Number(stored.expiresAt)
+                )
+            ) {
+                return null;
+            }
+
+            return {
+                token: stored.token,
+                displayName:
+                    stored.displayName ||
+                    "Steve",
+                expiresAt:
+                    Number(stored.expiresAt)
+            };
+        } catch {
+            return null;
+        }
+    };
+
+    const saveStoredSession = (
+        data,
+        fallbackDisplayName = "Steve"
+    ) => {
+        sessionStorage.setItem(
+            SECURITY_STORAGE_KEY,
+            JSON.stringify({
+                token:
+                    data.ownerSessionToken,
+                displayName:
+                    data.displayName ||
+                    fallbackDisplayName,
+                expiresAt:
+                    Number(data.expiresAt)
+            })
+        );
+    };
+
+    const clearSecurityTimers = () => {
+        window.clearTimeout(
+            securityState.warningTimer
+        );
+
+        window.clearTimeout(
+            securityState.expiryTimer
+        );
+
+        window.clearInterval(
+            securityState.countdownTimer
+        );
+
+        securityState.warningTimer = null;
+        securityState.expiryTimer = null;
+        securityState.countdownTimer = null;
+    };
+
+    const setSecurityMessage = (
+        element,
+        text,
+        type = "normal"
+    ) => {
+        element.textContent = text;
+        element.className =
+            "owner-security-addon-message";
+
+        if (type === "error") {
+            element.classList.add(
+                "is-error"
+            );
+        }
+
+        if (type === "success") {
+            element.classList.add(
+                "is-success"
+            );
+        }
+    };
+
+    const secureRequest = async (
+        endpoint,
+        body,
+        token = null
+    ) => {
+        const headers = {
+            "Content-Type":
+                "application/json"
+        };
+
+        if (token) {
+            headers.Authorization =
+                `Bearer ${token}`;
+        }
+
+        let response;
+
+        try {
+            response = await fetch(
+                `${SECURITY_API_BASE}${endpoint}`,
+                {
+                    method: "POST",
+                    headers,
+                    body:
+                        JSON.stringify(body),
+                    cache: "no-store"
+                }
+            );
+        } catch {
+            throw new Error(
+                "The security service could not be reached. Stored records were not changed."
+            );
+        }
+
+        let data;
+
+        try {
+            data = await response.json();
+        } catch {
+            throw new Error(
+                "Cloudflare returned an unreadable response. Stored records were not changed."
+            );
+        }
+
+        if (!response.ok) {
+            const error = new Error(
+                data.message ||
+                "The secure request was not accepted."
+            );
+
+            error.status = response.status;
+            error.code =
+                data.code ||
+                "REQUEST_FAILED";
+
+            throw error;
+        }
+
+        return data;
+    };
+
+    const addStyles = () => {
+        if (byId("ownerSecurityAddonStyles")) {
+            return;
+        }
+
+        const style =
+            document.createElement("style");
+
+        style.id =
+            "ownerSecurityAddonStyles";
+
+        style.textContent = `
+            .owner-security-addon-card {
+                margin-bottom: 22px;
+                border-left: 6px solid #285f25;
+            }
+
+            .owner-security-addon-grid {
+                display: grid;
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+                gap: 12px;
+                align-items: end;
+                margin-top: 16px;
+            }
+
+            .owner-security-addon-grid label,
+            .owner-security-warning-card label {
+                display: grid;
+                gap: 6px;
+                font-weight: 700;
+            }
+
+            .owner-security-addon-grid input,
+            .owner-security-warning-card input {
+                min-height: 46px;
+                padding: 10px 12px;
+                border: 2px solid #7b6653;
+                border-radius: 8px;
+                background: #ffffff;
+                color: #111111;
+                font: inherit;
+            }
+
+            .owner-security-addon-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            .owner-security-addon-actions button,
+            .owner-security-warning-card button {
+                min-height: 42px;
+                padding: 9px 15px;
+                border: 1px solid #2c180b;
+                border-radius: 8px;
+                background: #432611;
+                color: #fffaf1;
+                font: inherit;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .owner-security-warning-card .danger {
+                background: #8c1d18;
+            }
+
+            .owner-security-addon-message {
+                min-height: 1.5em;
+                margin: 12px 0 0;
+                font-weight: 700;
+            }
+
+            .owner-security-addon-message.is-error {
+                color: #8b1717;
+            }
+
+            .owner-security-addon-message.is-success {
+                color: #245b20;
+            }
+
+            .owner-security-warning-backdrop {
+                position: fixed;
+                inset: 0;
+                z-index: 99999;
+                display: grid;
+                place-items: center;
+                padding: 20px;
+                background:
+                    rgba(20, 12, 7, 0.72);
+            }
+
+            .owner-security-warning-backdrop[hidden] {
+                display: none !important;
+            }
+
+            .owner-security-warning-card {
+                width: min(96%, 620px);
+                padding: 26px;
+                background: #fffaf1;
+                border: 2px solid #8c1d18;
+                border-radius: 14px;
+                box-shadow:
+                    0 22px 60px
+                    rgba(0, 0, 0, 0.4);
+            }
+
+            .owner-security-warning-card h2 {
+                margin-top: 0;
+                color: #8c1d18;
+            }
+
+            .owner-security-countdown {
+                font-size: 1.15rem;
+                font-weight: 700;
+            }
+
+            @media (max-width: 850px) {
+                .owner-security-addon-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .owner-security-addon-actions button,
+                .owner-security-warning-card button {
+                    width: 100%;
+                }
+            }
+        `;
+
+        document.head.appendChild(style);
+    };
+
+    const buildPasswordPanel = () => {
+        if (byId("ownerSecurityAddonCard")) {
+            return;
+        }
+
+        const dashboard =
+            byId("ownerDashboardPanel");
+
+        if (!dashboard) {
+            return;
+        }
+
+        const section =
+            document.createElement("section");
+
+        section.id =
+            "ownerSecurityAddonCard";
+
+        section.className =
+            "content-card owner-security-addon-card";
+
+        section.hidden = true;
+
+        const heading =
+            document.createElement("h2");
+
+        heading.textContent =
+            "Owner Password and Session Security";
+
+        const description =
+            document.createElement("p");
+
+        description.textContent =
+            "Change the confidential owner password here. A successful change immediately revokes earlier owner sessions and starts a new secure session on this device.";
+
+        const form =
+            document.createElement("form");
+
+        form.id =
+            "ownerPasswordChangeForm";
+
+        form.className =
+            "owner-security-addon-grid";
+
+        form.noValidate = true;
+
+        const createPasswordField = (
+            id,
+            labelText,
+            autocomplete
+        ) => {
+            const label =
+                document.createElement("label");
+
+            label.htmlFor = id;
+            label.textContent = labelText;
+
+            const input =
+                document.createElement("input");
+
+            input.id = id;
+            input.type = "password";
+            input.maxLength = 256;
+            input.autocomplete = autocomplete;
+            input.required = true;
+
+            label.appendChild(input);
+
+            return {
+                label,
+                input
+            };
+        };
+
+        const currentField =
+            createPasswordField(
+                "ownerCurrentPassword",
+                "Current owner password",
+                "current-password"
+            );
+
+        const newField =
+            createPasswordField(
+                "ownerNewPassword",
+                "New owner password (14+ characters)",
+                "new-password"
+            );
+
+        const confirmField =
+            createPasswordField(
+                "ownerConfirmPassword",
+                "Confirm new owner password",
+                "new-password"
+            );
+
+        form.append(
+            currentField.label,
+            newField.label,
+            confirmField.label
+        );
+
+        const actions =
+            document.createElement("div");
+
+        actions.className =
+            "owner-security-addon-actions";
+
+        const submitButton =
+            document.createElement("button");
+
+        submitButton.type = "submit";
+        submitButton.textContent =
+            "Change Owner Password Securely";
+
+        const testWarningButton =
+            document.createElement("button");
+
+        testWarningButton.type = "button";
+        testWarningButton.textContent =
+            "Test Session Warning Now";
+
+        actions.append(
+            submitButton,
+            testWarningButton
+        );
+
+        form.appendChild(actions);
+
+        const message =
+            document.createElement("p");
+
+        message.id =
+            "ownerPasswordChangeMessage";
+
+        message.className =
+            "owner-security-addon-message";
+
+        message.setAttribute(
+            "role",
+            "status"
+        );
+
+        message.setAttribute(
+            "aria-live",
+            "polite"
+        );
+
+        section.append(
+            heading,
+            description,
+            form,
+            message
+        );
+
+        const toolbar =
+            dashboard.querySelector(
+                ".owner-toolbar-card"
+            );
+
+        if (toolbar) {
+            toolbar.insertAdjacentElement(
+                "afterend",
+                section
+            );
+        } else {
+            dashboard.prepend(section);
+        }
+
+        testWarningButton.addEventListener(
+            "click",
+            () => {
+                showWarning();
+            }
+        );
+
+        form.addEventListener(
+            "submit",
+            async (event) => {
+                event.preventDefault();
+
+                if (
+                    securityState
+                        .requestInProgress
+                ) {
+                    return;
+                }
+
+                const stored =
+                    readStoredSession();
+
+                if (!stored) {
+                    setSecurityMessage(
+                        message,
+                        "The owner session is no longer available. Sign in again.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                const currentPassword =
+                    currentField.input.value;
+
+                const newPassword =
+                    newField.input.value;
+
+                const confirmPassword =
+                    confirmField.input.value;
+
+                if (!currentPassword) {
+                    setSecurityMessage(
+                        message,
+                        "Enter the current owner password.",
+                        "error"
+                    );
+
+                    currentField.input.focus();
+                    return;
+                }
+
+                if (
+                    newPassword.length < 14 ||
+                    newPassword.length > 128
+                ) {
+                    setSecurityMessage(
+                        message,
+                        "The new owner password must contain 14 to 128 characters.",
+                        "error"
+                    );
+
+                    newField.input.focus();
+                    return;
+                }
+
+                if (
+                    newPassword !==
+                    confirmPassword
+                ) {
+                    setSecurityMessage(
+                        message,
+                        "The new password confirmation does not match.",
+                        "error"
+                    );
+
+                    confirmField.input.focus();
+                    return;
+                }
+
+                const confirmed =
+                    window.confirm(
+                        "Change the confidential owner password and revoke earlier owner sessions?"
+                    );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                securityState
+                    .requestInProgress = true;
+
+                submitButton.disabled = true;
+
+                setSecurityMessage(
+                    message,
+                    "Changing the owner password securely..."
+                );
+
+                try {
+                    const data =
+                        await secureRequest(
+                            "/owner-password-change",
+                            {
+                                currentPassword,
+                                newPassword,
+                                confirmPassword
+                            },
+                            stored.token
+                        );
+
+                    saveStoredSession(
+                        data,
+                        stored.displayName
+                    );
+
+                    currentField.input.value = "";
+                    newField.input.value = "";
+                    confirmField.input.value = "";
+
+                    setSecurityMessage(
+                        message,
+                        "Owner password changed. Earlier owner sessions were revoked. Reloading the protected dashboard...",
+                        "success"
+                    );
+
+                    window.setTimeout(
+                        () => {
+                            window.location.reload();
+                        },
+                        900
+                    );
+                } catch (error) {
+                    setSecurityMessage(
+                        message,
+                        error.message,
+                        "error"
+                    );
+                } finally {
+                    securityState
+                        .requestInProgress = false;
+
+                    submitButton.disabled = false;
+                }
+            }
+        );
+    };
+
+    const buildWarningModal = () => {
+        if (byId("ownerSecurityWarning")) {
+            return;
+        }
+
+        const backdrop =
+            document.createElement("div");
+
+        backdrop.id =
+            "ownerSecurityWarning";
+
+        backdrop.className =
+            "owner-security-warning-backdrop";
+
+        backdrop.hidden = true;
+
+        const card =
+            document.createElement("section");
+
+        card.className =
+            "owner-security-warning-card";
+
+        card.setAttribute(
+            "role",
+            "dialog"
+        );
+
+        card.setAttribute(
+            "aria-modal",
+            "true"
+        );
+
+        card.setAttribute(
+            "aria-labelledby",
+            "ownerSecurityWarningTitle"
+        );
+
+        const heading =
+            document.createElement("h2");
+
+        heading.id =
+            "ownerSecurityWarningTitle";
+
+        heading.textContent =
+            "Owner Session Expiring Soon";
+
+        const explanation =
+            document.createElement("p");
+
+        explanation.textContent =
+            "For security, the confidential owner session lasts one hour. Re-enter the owner password to begin a fresh secure session without losing your place.";
+
+        const countdown =
+            document.createElement("p");
+
+        countdown.id =
+            "ownerSecurityCountdown";
+
+        countdown.className =
+            "owner-security-countdown";
+
+        const label =
+            document.createElement("label");
+
+        label.htmlFor =
+            "ownerSecurityReauthPassword";
+
+        label.textContent =
+            "Confidential owner password";
+
+        const password =
+            document.createElement("input");
+
+        password.id =
+            "ownerSecurityReauthPassword";
+
+        password.type = "password";
+        password.autocomplete =
+            "current-password";
+
+        password.maxLength = 256;
+
+        label.appendChild(password);
+
+        const actions =
+            document.createElement("div");
+
+        actions.className =
+            "owner-security-addon-actions";
+
+        const extendButton =
+            document.createElement("button");
+
+        extendButton.type = "button";
+        extendButton.textContent =
+            "Start Fresh Secure Session";
+
+        const signOutButton =
+            document.createElement("button");
+
+        signOutButton.type = "button";
+        signOutButton.className = "danger";
+        signOutButton.textContent =
+            "Sign Out Now";
+
+        actions.append(
+            extendButton,
+            signOutButton
+        );
+
+        const message =
+            document.createElement("p");
+
+        message.id =
+            "ownerSecurityWarningMessage";
+
+        message.className =
+            "owner-security-addon-message";
+
+        message.setAttribute(
+            "role",
+            "status"
+        );
+
+        message.setAttribute(
+            "aria-live",
+            "polite"
+        );
+
+        card.append(
+            heading,
+            explanation,
+            countdown,
+            label,
+            actions,
+            message
+        );
+
+        backdrop.appendChild(card);
+        document.body.appendChild(backdrop);
+
+        extendButton.addEventListener(
+            "click",
+            async () => {
+                if (
+                    securityState
+                        .requestInProgress
+                ) {
+                    return;
+                }
+
+                const stored =
+                    readStoredSession();
+
+                if (!stored) {
+                    setSecurityMessage(
+                        message,
+                        "The owner session is no longer available. Sign in again.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                if (!password.value) {
+                    setSecurityMessage(
+                        message,
+                        "Enter the confidential owner password.",
+                        "error"
+                    );
+
+                    password.focus();
+                    return;
+                }
+
+                securityState
+                    .requestInProgress = true;
+
+                extendButton.disabled = true;
+                signOutButton.disabled = true;
+
+                setSecurityMessage(
+                    message,
+                    "Starting a fresh secure owner session..."
+                );
+
+                try {
+                    const data =
+                        await secureRequest(
+                            "/owner-login",
+                            {
+                                password:
+                                    password.value
+                            }
+                        );
+
+                    saveStoredSession(
+                        data,
+                        stored.displayName
+                    );
+
+                    password.value = "";
+
+                    setSecurityMessage(
+                        message,
+                        "Fresh secure session started. Reloading the dashboard...",
+                        "success"
+                    );
+
+                    window.setTimeout(
+                        () => {
+                            window.location.reload();
+                        },
+                        700
+                    );
+                } catch (error) {
+                    setSecurityMessage(
+                        message,
+                        error.message,
+                        "error"
+                    );
+
+                    password.value = "";
+                    password.focus();
+                } finally {
+                    securityState
+                        .requestInProgress = false;
+
+                    extendButton.disabled = false;
+                    signOutButton.disabled = false;
+                }
+            }
+        );
+
+        signOutButton.addEventListener(
+            "click",
+            () => {
+                sessionStorage.removeItem(
+                    SECURITY_STORAGE_KEY
+                );
+
+                window.location.reload();
+            }
+        );
+    };
+
+    const formatRemaining = (
+        remainingSeconds
+    ) => {
+        const safeSeconds = Math.max(
+            0,
+            Math.floor(remainingSeconds)
+        );
+
+        const minutes = Math.floor(
+            safeSeconds / 60
+        );
+
+        const seconds =
+            safeSeconds % 60;
+
+        return (
+            `${minutes}:` +
+            `${String(seconds).padStart(2, "0")}`
+        );
+    };
+
+    const showWarning = () => {
+        const stored =
+            readStoredSession();
+
+        const backdrop =
+            byId("ownerSecurityWarning");
+
+        const countdown =
+            byId("ownerSecurityCountdown");
+
+        const password =
+            byId("ownerSecurityReauthPassword");
+
+        const message =
+            byId("ownerSecurityWarningMessage");
+
+        if (
+            !stored ||
+            !backdrop ||
+            !countdown ||
+            !password ||
+            !message
+        ) {
+            return;
+        }
+
+        backdrop.hidden = false;
+        password.value = "";
+
+        setSecurityMessage(
+            message,
+            ""
+        );
+
+        const updateCountdown = () => {
+            const current =
+                readStoredSession();
+
+            if (!current) {
+                countdown.textContent =
+                    "The owner session has ended.";
+
+                return;
+            }
+
+            const remainingSeconds =
+                current.expiresAt -
+                Math.floor(Date.now() / 1000);
+
+            countdown.textContent =
+                `Automatic sign-out in ${formatRemaining(remainingSeconds)}.`;
+        };
+
+        updateCountdown();
+
+        window.clearInterval(
+            securityState.countdownTimer
+        );
+
+        securityState.countdownTimer =
+            window.setInterval(
+                updateCountdown,
+                1000
+            );
+
+        window.setTimeout(
+            () => {
+                password.focus();
+            },
+            50
+        );
+    };
+
+    const scheduleSecurityWarning = (
+        stored
+    ) => {
+        clearSecurityTimers();
+
+        const nowSeconds =
+            Math.floor(Date.now() / 1000);
+
+        const warningAt =
+            stored.expiresAt -
+            WARNING_SECONDS;
+
+        const warningDelay =
+            Math.max(
+                0,
+                (warningAt - nowSeconds) *
+                1000
+            );
+
+        const expiryDelay =
+            Math.max(
+                0,
+                (
+                    stored.expiresAt -
+                    nowSeconds
+                ) * 1000
+            );
+
+        securityState.warningTimer =
+            window.setTimeout(
+                showWarning,
+                warningDelay
+            );
+
+        securityState.expiryTimer =
+            window.setTimeout(
+                () => {
+                    sessionStorage.removeItem(
+                        SECURITY_STORAGE_KEY
+                    );
+
+                    window.location.reload();
+                },
+                expiryDelay + 250
+            );
+    };
+
+    const synchronizeSecurityUi = () => {
+        const stored =
+            readStoredSession();
+
+        const dashboard =
+            byId("ownerDashboardPanel");
+
+        const panel =
+            byId("ownerSecurityAddonCard");
+
+        if (
+            panel &&
+            dashboard
+        ) {
+            panel.hidden =
+                !stored ||
+                dashboard.hidden;
+        }
+
+        if (!stored) {
+            securityState.observedToken = "";
+            securityState.observedExpiresAt = 0;
+            clearSecurityTimers();
+            return;
+        }
+
+        if (
+            stored.token !==
+                securityState.observedToken ||
+            stored.expiresAt !==
+                securityState.observedExpiresAt
+        ) {
+            securityState.observedToken =
+                stored.token;
+
+            securityState.observedExpiresAt =
+                stored.expiresAt;
+
+            scheduleSecurityWarning(
+                stored
+            );
+        }
+    };
+
+    addStyles();
+    buildPasswordPanel();
+    buildWarningModal();
+    synchronizeSecurityUi();
+
+    window.setInterval(
+        synchronizeSecurityUi,
+        1000
+    );
+})();
+</script>
 </body>
 </html>
