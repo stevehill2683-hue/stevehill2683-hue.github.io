@@ -437,16 +437,37 @@
             );
 
             return true;
-        } catch (error) {
-            if (
+            } catch (error) {
+            const sessionEnded =
                 error.code ===
                     "IDLE_TIMEOUT" ||
                 error.code ===
                     "SESSION_ENDED" ||
                 error.code ===
-                    "SESSION_EXPIRED"
-            ) {
+                    "SESSION_EXPIRED" ||
+                error.code ===
+                    "SESSION_INVALID" ||
+                error.code ===
+                    "SESSION_REVOKED";
+
+            if (sessionEnded) {
+                const message =
+                    error.code ===
+                        "SESSION_REVOKED"
+                        ? "Your access code was changed. " +
+                            "Sign in again with the new code."
+                        : error.message;
+
                 resetLocalState();
+
+                showMessage(
+                    message,
+                    "error"
+                );
+
+                elements.accessCode.focus();
+
+                return false;
             }
 
             showMessage(
@@ -455,7 +476,7 @@
             );
 
             return false;
-        }
+        }       
     };
 
     const recordPage = async (
@@ -504,12 +525,45 @@
                 "Logging is ON. The page was " +
                 "recorded in the separate " +
                 "Cloudflare test database.";
-        } catch (error) {
+           } catch (error) {
+            const sessionEnded =
+                error.code ===
+                    "IDLE_TIMEOUT" ||
+                error.code ===
+                    "SESSION_ENDED" ||
+                error.code ===
+                    "SESSION_EXPIRED" ||
+                error.code ===
+                                     "SESSION_INVALID" ||
+                error.code ===
+                    "SESSION_REVOKED";
+
+            if (sessionEnded) {
+                const message =
+                    error.code ===
+                        "IDLE_TIMEOUT"
+                        ? error.message
+                        : "Your session ended. " +
+                            "Your access code may have changed. " +
+                            "Sign in again with the current code.";
+
+                resetLocalState();
+
+                showMessage(
+                    message,
+                    "error"
+                );
+
+                elements.accessCode.focus();
+
+                return;
+            }
+
             showMessage(
                 error.message,
                 "error"
             );
-        }
+        }    
     };
 
    const beginSession = async (
