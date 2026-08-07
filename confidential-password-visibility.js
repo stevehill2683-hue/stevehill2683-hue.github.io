@@ -2,10 +2,10 @@
     "use strict";
 
     const API_BASE =
-        "https://steve-anita-family-access-test.stevehill2683.workers.dev";
+        "https://steve-anita-family-access.stevehill2683.workers.dev";
 
     const SESSION_STORAGE_KEY =
-        "steve-anita-owner-session-test";
+        "steve-anita-owner-session";
 
     const WARNING_SECONDS =
         5 * 60;
