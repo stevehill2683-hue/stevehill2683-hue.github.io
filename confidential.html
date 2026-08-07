@@ -3343,6 +3343,54 @@
                     }
                 );
 
+                  window.addEventListener(
+                "owner-session-renewed",
+                () => {
+                    const storedValue =
+                        sessionStorage.getItem(
+                            OWNER_SESSION_STORAGE_KEY
+                        );
+
+                    if (!storedValue) {
+                        return;
+                    }
+
+                    try {
+                        const stored =
+                            JSON.parse(
+                                storedValue
+                            );
+
+                        if (
+                            !stored.token ||
+                            !Number.isFinite(
+                                Number(
+                                    stored.expiresAt
+                                )
+                            )
+                        ) {
+                            return;
+                        }
+
+                        state.token =
+                            stored.token;
+
+                        state.displayName =
+                            stored.displayName ||
+                            state.displayName;
+
+                        state.expiresAt =
+                            Number(
+                                stored.expiresAt
+                            );
+
+                        scheduleExpiry();
+                        showDashboard();
+                    } catch {
+                        return;
+                    }
+                }
+            );      
             void restoreSession();
         })();
     </script>
@@ -4182,19 +4230,27 @@
                     );
 
                     password.value = "";
-
                     setSecurityMessage(
                         message,
-                        "Fresh secure session started. Reloading the dashboard...",
+                        "Fresh secure session started.",
                         "success"
                     );
 
-                    window.setTimeout(
-                        () => {
-                            window.location.reload();
-                        },
-                        700
+                    backdrop.hidden = true;
+
+                    clearSecurityTimers();
+
+                    securityState.observedToken = "";
+                    securityState.observedExpiresAt = 0;
+
+                    window.dispatchEvent(
+                        new Event(
+                            "owner-session-renewed"
+                        )
                     );
+
+                    synchronizeSecurityUi();
+                  
                 } catch (error) {
                     setSecurityMessage(
                         message,
