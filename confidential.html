@@ -18,6 +18,104 @@
     </title>
 
     <link rel="stylesheet" href="style.css">
+        <style>
+        html.family-session-check body {
+            visibility: hidden;
+        }
+    </style>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const API_BASE =
+                "https://steve-anita-family-access.stevehill2683.workers.dev";
+
+            const FAMILY_SESSION_KEY =
+                "steve-anita-family-session";
+
+            document.documentElement.classList.add(
+                "family-session-check"
+            );
+
+            const returnHome = () => {
+                try {
+                    sessionStorage.removeItem(
+                        FAMILY_SESSION_KEY
+                    );
+                } catch {
+                    /* Browser storage unavailable. */
+                }
+
+                window.location.replace("index.html");
+            };
+
+            let storedSession = null;
+
+            try {
+                const storedValue =
+                    sessionStorage.getItem(
+                        FAMILY_SESSION_KEY
+                    );
+
+                if (!storedValue) {
+                    returnHome();
+                    return;
+                }
+
+                storedSession =
+                    JSON.parse(storedValue);
+            } catch {
+                returnHome();
+                return;
+            }
+
+            if (
+                !storedSession ||
+                !storedSession.sessionToken
+            ) {
+                returnHome();
+                return;
+            }
+
+            fetch(
+                `${API_BASE}/session`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        sessionToken:
+                            storedSession.sessionToken
+                    }),
+
+                    cache: "no-store"
+                }
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(
+                            "Family session is not valid."
+                        );
+                    }
+
+                    return response.json();
+                })
+                .then(() => {
+                    document.documentElement
+                        .classList.remove(
+                            "family-session-check"
+                        );
+                })
+                .catch(() => {
+                    returnHome();
+                });
+        })();
+    </script>
 
     <style>
         [hidden] {
@@ -1176,7 +1274,8 @@
         </p>
 
     </footer>
-
+    <script src="family-access.js"></script>
+    
     <script>
         (() => {
             "use strict";
