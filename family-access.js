@@ -21,6 +21,7 @@
         idleLogoutSeconds: 1020,
         idleWarningTimer: null,
         idleLogoutTimer: null,
+        idleCountdownTimer: null,
         lastActivitySentAt: 0,
         requestInProgress: false
     };
@@ -299,10 +300,17 @@
             state.idleLogoutTimer
         );
 
+        window.clearInterval(
+            state.idleCountdownTimer
+        );
+
         state.idleWarningTimer =
             null;
 
         state.idleLogoutTimer =
+            null;
+
+        state.idleCountdownTimer =
             null;
     };
 
@@ -669,6 +677,19 @@
 
         removeIdleDialog();
 
+        const warningWindowSeconds =
+            Math.max(
+                1,
+
+                state.idleLogoutSeconds -
+                    state.idleWarningSeconds
+            );
+
+        const logoutAt =
+            Date.now() +
+            warningWindowSeconds *
+                1000;
+
         const dialog =
             document.createElement(
                 "dialog"
@@ -697,9 +718,21 @@
                 </h2>
 
                 <p>
-                    Your family website session will
-                    end in about two minutes unless
+                    Your family website session
+                    will automatically end unless
                     you continue.
+                </p>
+
+                <p
+                    id="familyAccessIdleCountdown"
+                    style="
+                        margin: 18px 0;
+                        font-size: 1.35rem;
+                        font-weight: 700;
+                    "
+                    aria-live="polite"
+                >
+                    Automatic logout in 2:00
                 </p>
 
                 <div style="
@@ -739,6 +772,54 @@
                 "familyAccessSignOutButton"
             );
 
+        const countdown =
+            byId(
+                "familyAccessIdleCountdown"
+            );
+
+        const updateCountdown = () => {
+            if (!countdown) {
+                return;
+            }
+
+            const remainingSeconds =
+                Math.max(
+                    0,
+
+                    Math.ceil(
+                        (
+                            logoutAt -
+                            Date.now()
+                        ) / 1000
+                    )
+                );
+
+            const minutes =
+                Math.floor(
+                    remainingSeconds / 60
+                );
+
+            const seconds =
+                remainingSeconds % 60;
+
+            countdown.textContent =
+                "Automatic logout in " +
+                `${minutes}:` +
+                String(seconds)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+        };
+
+        updateCountdown();
+
+        state.idleCountdownTimer =
+            window.setInterval(
+                updateCountdown,
+                1000
+            );
+
         if (continueButton) {
             continueButton
                 .addEventListener(
@@ -772,14 +853,6 @@
                 ""
             );
         }
-
-        const warningWindowSeconds =
-            Math.max(
-                1,
-
-                state.idleLogoutSeconds -
-                    state.idleWarningSeconds
-            );
 
         state.idleLogoutTimer =
             window.setTimeout(
