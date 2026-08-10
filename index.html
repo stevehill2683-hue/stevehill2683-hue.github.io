@@ -280,53 +280,64 @@
             max-width: 640px;
             height: 4px;
             background: #111111;
-            margin: 14px auto 18px;
+            margin: 12px auto;
             border-radius: 999px;
         }
 
+        /* TIGHTER AT-A-GLANCE AREA */
+
         .home-info-section {
-            padding: 18px 22px;
+            padding: 8px 22px 6px;
             margin-bottom: 0;
         }
 
         .home-info-section h2 {
-            margin-bottom: 10px;
-            font-size: 1.55rem;
+            margin: 0 0 6px;
+            font-size: 1.25rem;
+            line-height: 1.15;
         }
 
         .home-info-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 14px;
+            gap: 10px;
+            margin-top: 6px;
         }
 
         .home-info-card {
             background: #432611;
             border: 1px solid #ddcfba;
-            border-radius: 14px;
-            padding: 15px 18px;
+            border-radius: 12px;
+            padding: 9px 14px;
             color: #fffaf1;
-            box-shadow: 0 8px 18px rgba(44, 37, 30, 0.18);
+            box-shadow: 0 6px 14px rgba(44, 37, 30, 0.18);
         }
 
         .home-info-card h3 {
-            margin: 0 0 6px;
+            margin: 0 0 3px;
             color: #fffaf1;
-            font-size: 1.15rem;
+            font-size: 1rem;
+            line-height: 1.15;
         }
 
         .home-info-card p {
             margin: 0;
             color: #fffaf1;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.82rem;
+            line-height: 1.28;
         }
 
+        /* COMPACT HORIZONTAL MUSIC PLAYER */
+
         .site-music-player {
-            width: min(100%, 360px);
-            margin: 14px auto 24px;
-            padding: 12px 16px;
+            width: min(100%, 420px);
+            box-sizing: border-box;
+            margin: 8px auto 18px;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             text-align: center;
             background: #fffaf1;
             border: 1px solid #ddcfba;
@@ -335,16 +346,19 @@
         }
 
         .site-music-player p {
-            margin: 0 0 8px;
+            margin: 0;
             color: #303030;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: bold;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .site-music-player button {
             min-width: 130px;
-            min-height: 38px;
-            padding: 7px 14px;
+            min-height: 36px;
+            padding: 6px 14px;
+            flex: 0 0 auto;
             border: 1px solid #2c180b;
             border-radius: 8px;
             background: #432611;
@@ -390,10 +404,32 @@
 
             .home-info-grid {
                 grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .home-info-section {
+                padding: 8px 12px 6px;
             }
 
             .home-welcome-logo {
                 width: 75%;
+            }
+
+            .site-music-player {
+                width: min(100%, 390px);
+                padding: 8px 10px;
+                gap: 9px;
+            }
+
+            .site-music-player p {
+                font-size: 0.84rem;
+            }
+
+            .site-music-player button {
+                min-width: 120px;
+                min-height: 34px;
+                padding: 5px 10px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -481,34 +517,36 @@
             </form>
         </section>
 
-      <nav
-    id="mainNavigation"
-    class="top-nav professional-nav"
-    aria-label="Main navigation"
-    hidden
->
-    <a href="faith.html">Faith</a>
-    <a href="family.html">Family</a>
-    <a href="military.html">Military</a>
-    <a href="israel.html">Israel</a>
-    <a href="general.html">3131</a>
-    <a href="2406.html">2406</a>
-    <a href="1040.html">1040</a>
-    <a href="special-documents.html">Special Documents</a>
-    <a
-        class="confidential-menu-link"
-        href="confidential.html"
-    >
-        Confidential
-    </a>
-      <a
-    id="familySignOutLink"
-    href="#"
-    onclick="window.SteveAnitaFamilyAccess.signOut(); return false;"
->
-    Sign Out
-</a>    
-</nav>
+        <nav
+            id="mainNavigation"
+            class="top-nav professional-nav"
+            aria-label="Main navigation"
+            hidden
+        >
+            <a href="faith.html">Faith</a>
+            <a href="family.html">Family</a>
+            <a href="military.html">Military</a>
+            <a href="israel.html">Israel</a>
+            <a href="general.html">3131</a>
+            <a href="2406.html">2406</a>
+            <a href="1040.html">1040</a>
+            <a href="special-documents.html">Special Documents</a>
+
+            <a
+                class="confidential-menu-link"
+                href="confidential.html"
+            >
+                Confidential
+            </a>
+
+            <a
+                id="familySignOutLink"
+                href="#"
+                onclick="window.SteveAnitaFamilyAccess.signOut(); return false;"
+            >
+                Sign Out
+            </a>
+        </nav>
 
     </header>
 
@@ -772,7 +810,9 @@
             });
         })();
     </script>
-<script src="family-access.js"></script>
+
+    <script src="family-access.js"></script>
+
     <script>
         (() => {
             "use strict";
@@ -857,5 +897,5 @@
         })();
     </script>
 
-  </body>
+</body>
 </html>
