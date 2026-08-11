@@ -501,7 +501,107 @@
             margin-top: 7px;
             font-size: 0.95rem;
         }
+        /* =========================================
+           PHOTO REVIEW VISUAL / USABILITY CLEANUP
+           ========================================= */
 
+        .owner-confidential-word {
+            display: inline-block;
+            padding: 3px 10px;
+            margin-right: 5px;
+            background: #111111;
+            color: #ff3030;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-shadow: 0 1px 2px #000000;
+        }
+
+        .owner-publish-warning {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #111111;
+            color: #ffffff;
+            border-radius: 5px;
+            font-weight: 800;
+        }
+
+        .owner-toolbar-buttons
+        label[for="ownerPhotoStatusFilter"] {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px 6px 10px;
+            background: #111111;
+            color: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        #ownerPhotoStatusFilter {
+            min-height: 38px;
+            padding: 6px 10px;
+            background: #9b1717;
+            color: #ffffff;
+            border: 2px solid #610000;
+            border-radius: 6px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        #ownerPhotoStatusFilter option {
+            background: #9b1717;
+            color: #ffffff;
+        }
+
+        .owner-photo-submissions-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .owner-photo-submissions-list
+        .owner-summary-card {
+            display: flow-root;
+            padding: 18px;
+        }
+
+        .owner-photo-submissions-list
+        .owner-summary-card > img {
+            float: right;
+            width: 48% !important;
+            max-width: 520px;
+            max-height: 360px !important;
+            margin: 0 0 12px 20px !important;
+        }
+
+        .owner-photo-submissions-list
+        .owner-summary-card h3 {
+            margin: 0 0 8px;
+        }
+
+        .owner-photo-submissions-list
+        .owner-summary-card p {
+            margin: 3px 0;
+            line-height: 1.3;
+        }
+
+        .owner-photo-submissions-list
+        .owner-editor-actions {
+            margin-top: 10px !important;
+        }
+
+        @media (max-width: 700px) {
+            .owner-photo-submissions-list
+            .owner-summary-card > img {
+                float: none;
+                width: 100% !important;
+                max-width: 100%;
+                margin: 0 0 14px !important;
+            }
+        }
         @media (max-width: 1000px) {
             .owner-add-member-form {
                 grid-template-columns:
@@ -595,7 +695,10 @@
         <section class="content-card owner-intro-card">
 
             <h1>
-                Confidential Owner Dashboard
+    <span class="owner-confidential-word">
+        CONFIDENTIAL
+    </span>
+    Owner Dashboard
             </h1>
 
             <p>
@@ -1259,7 +1362,9 @@
                            Photos remain pending until you approve,
                            reject, edit, or delete them. Approving a
                             photo makes it approved for owner use;
-                           it does not publish the photo to the website.
+                          <span class="owner-publish-warning">
+                            it does not publish the photo to the website.
+</span>
                         </p>
 
                     </div>
