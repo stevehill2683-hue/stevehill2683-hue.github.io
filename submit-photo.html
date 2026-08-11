@@ -344,10 +344,12 @@
                 if (type === "success") statusElement.classList.add("is-success");
             };
 
-            const setDuplicateStopStatus = () => {
+            const setDuplicateStopStatus = (
+                message =
+                    "This exact photo has already been submitted from this device."
+            ) => {
                 statusElement.className = "photo-submit-status is-error";
-                statusElement.textContent =
-                    "This exact photo has already been submitted from this device.";
+                statusElement.textContent = message;
 
                 const stop = document.createElement("span");
                 stop.className = "photo-submit-stop";
@@ -511,9 +513,11 @@
                 }
 
                 if (isKnownLocalDuplicate(hash)) {
-                    throw new Error(
+                    const error = new Error(
                         "This exact photo has already been submitted from this device."
                     );
+                    error.code = "LOCAL_PHOTO_DUPLICATE";
+                    throw error;
                 }
 
                 return {
@@ -521,6 +525,130 @@
                     width: dimensions.width,
                     height: dimensions.height
                 };
+            };
+
+            const requestPhotoDuplicateCheck = async (
+                sessionToken,
+                sha256
+            ) => {
+                const response = await fetch(
+                    `${API_BASE}/photo-duplicate-check`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            sessionToken,
+                            sha256
+                        }),
+                        cache: "no-store"
+                    }
+                );
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch {
+                    throw new Error(
+                        "The site-wide duplicate check returned an unreadable response."
+                    );
+                }
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        throw new Error(
+                            "Your family session has ended. Please sign in again."
+                        );
+                    }
+
+                    throw new Error(
+                        data.message ||
+                        "The site-wide duplicate check could not be completed."
+                    );
+                }
+
+                if (data.duplicate === true) {
+                    const error = new Error(
+                        data.message ||
+                        "This exact photo has already been submitted."
+                    );
+
+                    error.code =
+                        data.source === "website"
+                            ? "PHOTO_ALREADY_ON_SITE"
+                            : "PHOTO_DUPLICATE";
+
+                    throw error;
+                }
+
+                return data;
+            };
+
+            const recordPhotoSubmission = async ({
+                sessionToken,
+                file,
+                fileUuid,
+                destination,
+                familyMember,
+                caption,
+                photoCheck
+            }) => {
+                const response = await fetch(
+                    `${API_BASE}/photo-submission`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            sessionToken,
+                            sha256: photoCheck.hash,
+                            uploadcareUuid: fileUuid,
+                            originalFilename: file.name,
+                            mimeType: file.type,
+                            fileSizeBytes: file.size,
+                            pixelWidth: photoCheck.width,
+                            pixelHeight: photoCheck.height,
+                            destination,
+                            familyMember:
+                                destination === "Family"
+                                    ? familyMember
+                                    : "",
+                            caption
+                        }),
+                        cache: "no-store"
+                    }
+                );
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch {
+                    throw new Error(
+                        "The owner review record returned an unreadable response."
+                    );
+                }
+
+                if (!response.ok) {
+                    const error = new Error(
+                        data.message ||
+                        "The owner review record could not be created."
+                    );
+                    error.code = data.code || "PHOTO_SUBMISSION_FAILED";
+                    throw error;
+                }
+
+                if (
+                    data.status !== "OK" ||
+                    !data.submissionId
+                ) {
+                    throw new Error(
+                        "The photo uploaded, but the owner review record was incomplete."
+                    );
+                }
+
+                return data;
             };
 
             const requestUploadSignature = async (sessionToken) => {
@@ -610,6 +738,25 @@
 
                     if (mySequence !== checkSequence) return;
 
+                    const familySession = getFamilySession();
+
+                    if (!familySession) {
+                        throw new Error(
+                            "Your secure family session is not ready. Please return Home and sign in again."
+                        );
+                    }
+
+                    setStatus(
+                        "Photo quality check passed. Checking site-wide duplicates..."
+                    );
+
+                    await requestPhotoDuplicateCheck(
+                        familySession.sessionToken,
+                        result.hash
+                    );
+
+                    if (mySequence !== checkSequence) return;
+
                     checkedPhoto = result;
                     previewUrl = URL.createObjectURL(file);
                     previewImage.src = previewUrl;
@@ -618,7 +765,7 @@
 
                     setStatus(
                         `Photo check passed — ${result.width} × ${result.height} pixels, ` +
-                        `${formatMegabytes(file.size)} MB.`,
+                        `${formatMegabytes(file.size)} MB. No exact duplicate found.`,
                         "success"
                     );
                 } catch (error) {
@@ -630,10 +777,11 @@
                     previewImage.removeAttribute("src");
                     previewWrap.hidden = true;
                     if (
-                        error.message ===
-                        "This exact photo has already been submitted from this device."
+                        error.code === "LOCAL_PHOTO_DUPLICATE" ||
+                        error.code === "PHOTO_DUPLICATE" ||
+                        error.code === "PHOTO_ALREADY_ON_SITE"
                     ) {
-                        setDuplicateStopStatus();
+                        setDuplicateStopStatus(error.message);
                     } else {
                         setStatus(
                             error.message || "This photo did not pass the pre-check.",
@@ -670,9 +818,11 @@
                         );
                     }
                     if (isKnownLocalDuplicate(checkedPhoto.hash)) {
-                        throw new Error(
+                        const error = new Error(
                             "This exact photo has already been submitted from this device."
                         );
+                        error.code = "LOCAL_PHOTO_DUPLICATE";
+                        throw error;
                     }
                     if (!destination) throw new Error("Choose where the photo belongs.");
                     if (destination === "Family" && !familyMember) {
@@ -680,8 +830,15 @@
                     }
 
                     setBusy(true);
-                    setStatus("Creating secure upload permission...");
+                    setStatus("Rechecking site-wide duplicates...");
                     resultBox.hidden = true;
+
+                    await requestPhotoDuplicateCheck(
+                        familySession.sessionToken,
+                        checkedPhoto.hash
+                    );
+
+                    setStatus("Creating secure upload permission...");
 
                     const signatureData = await requestUploadSignature(familySession.sessionToken);
                     setStatus("Secure permission accepted. Uploading photo...");
@@ -697,14 +854,34 @@
                         photoCheck: checkedPhoto
                     });
 
-                    setStatus("Photo submitted successfully for owner review.", "success");
+                    setStatus(
+                        "Photo uploaded. Creating the owner review record..."
+                    );
+
+                    const submissionRecord =
+                        await recordPhotoSubmission({
+                            sessionToken:
+                                familySession.sessionToken,
+                            file,
+                            fileUuid,
+                            destination,
+                            familyMember,
+                            caption,
+                            photoCheck: checkedPhoto
+                        });
+
+                    setStatus(
+                        "Photo submitted successfully for owner review.",
+                        "success"
+                    );
                     const destinationLabel =
                         destination === "Family" && familyMember
                             ? `${destination} — ${familyMember}`
                             : destination;
 
                     resultText.textContent =
-                        `${file.name} was received for ${destinationLabel}. Submission ID: ${fileUuid}`;
+                        `${file.name} was received for ${destinationLabel}. ` +
+                        `Submission ID: ${submissionRecord.submissionId}`;
                     resultBox.hidden = false;
                     rememberSuccessfulHash(checkedPhoto.hash);
                     form.reset();
@@ -712,10 +889,11 @@
                     clearPreview();
                 } catch (error) {
                     if (
-                        error.message ===
-                        "This exact photo has already been submitted from this device."
+                        error.code === "LOCAL_PHOTO_DUPLICATE" ||
+                        error.code === "PHOTO_DUPLICATE" ||
+                        error.code === "PHOTO_ALREADY_ON_SITE"
                     ) {
-                        setDuplicateStopStatus();
+                        setDuplicateStopStatus(error.message);
                     } else {
                         setStatus(
                             error.message || "The photo could not be submitted.",
