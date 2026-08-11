@@ -1241,7 +1241,154 @@
                 </div>
 
             </section>
+            <section
+                id="ownerPhotoReviewSection"
+                class="content-card owner-visits-card"
+            >
 
+                <div class="owner-section-heading">
+
+                    <div>
+
+                        <h2>
+                            Photo Submissions
+                        </h2>
+
+                        <p>
+                            Review photos submitted by family members.
+                            Photos remain pending until you approve,
+                            reject, edit, or delete them.
+                        </p>
+
+                    </div>
+
+                    <div class="owner-toolbar-buttons">
+
+                        <label for="ownerPhotoStatusFilter">
+                            Show
+
+                            <select id="ownerPhotoStatusFilter">
+                                <option value="pending" selected>
+                                    Pending
+                                </option>
+
+                                <option value="approved">
+                                    Approved
+                                </option>
+
+                                <option value="rejected">
+                                    Rejected
+                                </option>
+
+                                <option value="deleted">
+                                    Deleted
+                                </option>
+
+                                <option value="all">
+                                    All
+                                </option>
+                            </select>
+                        </label>
+
+                        <button
+                            id="refreshPhotoSubmissionsButton"
+                            type="button"
+                        >
+                            Refresh Photos
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <p
+                    id="ownerPhotoMessage"
+                    class="owner-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+                <div
+                    class="owner-summary-grid"
+                    aria-label="Photo submission summary"
+                >
+
+                    <article class="owner-summary-card">
+
+                        <strong>
+                            Total photos
+                        </strong>
+
+                        <span id="ownerPhotoTotalValue">
+                            0
+                        </span>
+
+                    </article>
+
+                    <article class="owner-summary-card">
+
+                        <strong>
+                            Pending
+                        </strong>
+
+                        <span id="ownerPhotoPendingValue">
+                            0
+                        </span>
+
+                    </article>
+
+                    <article class="owner-summary-card">
+
+                        <strong>
+                            Approved
+                        </strong>
+
+                        <span id="ownerPhotoApprovedValue">
+                            0
+                        </span>
+
+                    </article>
+
+                    <article class="owner-summary-card">
+
+                        <strong>
+                            Rejected
+                        </strong>
+
+                        <span id="ownerPhotoRejectedValue">
+                            0
+                        </span>
+
+                    </article>
+
+                    <article class="owner-summary-card">
+
+                        <strong>
+                            Deleted
+                        </strong>
+
+                        <span id="ownerPhotoDeletedValue">
+                            0
+                        </span>
+
+                    </article>
+
+                </div>
+
+                <div
+                    id="ownerPhotoSubmissionsEmpty"
+                    class="owner-empty-state"
+                    hidden
+                >
+                    No photo submissions were found.
+                </div>
+
+                <div
+                    id="ownerPhotoSubmissionsList"
+                    class="owner-photo-submissions-list"
+                ></div>
+
+            </section>
             <section
                 class="
                     content-card
@@ -1445,8 +1592,41 @@
                 pagesTableWrap:
                     byId("ownerPagesTableWrap"),
 
-                pagesTableBody:
-                    byId("ownerPagesTableBody")
+               pagesTableBody:
+    byId("ownerPagesTableBody"),
+
+photoReviewSection:
+    byId("ownerPhotoReviewSection"),
+
+photoStatusFilter:
+    byId("ownerPhotoStatusFilter"),
+
+refreshPhotoSubmissionsButton:
+    byId("refreshPhotoSubmissionsButton"),
+
+photoMessage:
+    byId("ownerPhotoMessage"),
+
+photoTotal:
+    byId("ownerPhotoTotalValue"),
+
+photoPending:
+    byId("ownerPhotoPendingValue"),
+
+photoApproved:
+    byId("ownerPhotoApprovedValue"),
+
+photoRejected:
+    byId("ownerPhotoRejectedValue"),
+
+photoDeleted:
+    byId("ownerPhotoDeletedValue"),
+
+photoSubmissionsEmpty:
+    byId("ownerPhotoSubmissionsEmpty"),
+
+photoSubmissionsList:
+    byId("ownerPhotoSubmissionsList")
             };
 
             const setMessage = (
@@ -2574,7 +2754,618 @@
                         block: "start"
                     });
             };
+const clearPhotoDisplay = () => {
+    elements.photoSubmissionsList
+        .replaceChildren();
 
+    elements.photoSubmissionsEmpty.hidden =
+        true;
+
+    elements.photoTotal.textContent =
+        "0";
+
+    elements.photoPending.textContent =
+        "0";
+
+    elements.photoApproved.textContent =
+        "0";
+
+    elements.photoRejected.textContent =
+        "0";
+
+    elements.photoDeleted.textContent =
+        "0";
+};
+
+const renderPhotoSubmissions = (data) => {
+    const submissions =
+        Array.isArray(
+            data.submissions
+        )
+            ? data.submissions
+            : [];
+
+    const counts =
+        data.counts || {};
+
+    elements.photoTotal.textContent =
+        String(
+            counts.total || 0
+        );
+
+    elements.photoPending.textContent =
+        String(
+            counts.pending || 0
+        );
+
+    elements.photoApproved.textContent =
+        String(
+            counts.approved || 0
+        );
+
+    elements.photoRejected.textContent =
+        String(
+            counts.rejected || 0
+        );
+
+    elements.photoDeleted.textContent =
+        String(
+            counts.deleted || 0
+        );
+
+    elements.photoSubmissionsList
+        .replaceChildren();
+
+    elements.photoSubmissionsEmpty.hidden =
+        submissions.length !== 0;
+
+    submissions.forEach(
+        (submission) => {
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "owner-summary-card";
+
+            card.dataset.submissionId =
+                submission.submissionId;
+
+            if (submission.previewUrl) {
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.src =
+                    submission.previewUrl;
+
+                image.alt =
+                    submission.caption ||
+                    submission.originalFilename ||
+                    "Submitted family photo";
+
+                image.loading =
+                    "lazy";
+
+                image.style.width =
+                    "100%";
+
+                image.style.maxHeight =
+                    "420px";
+
+                image.style.objectFit =
+                    "contain";
+
+                image.style.marginBottom =
+                    "14px";
+
+                image.style.borderRadius =
+                    "8px";
+
+                card.appendChild(
+                    image
+                );
+            }
+
+            const heading =
+                document.createElement(
+                    "h3"
+                );
+
+            heading.textContent =
+                submission.originalFilename ||
+                "Submitted Photo";
+
+            card.appendChild(
+                heading
+            );
+
+            const status =
+                document.createElement(
+                    "p"
+                );
+
+            status.textContent =
+                `Status: ${
+                    submission.status ||
+                    "pending"
+                }`;
+
+            status.style.fontWeight =
+                "700";
+
+            card.appendChild(
+                status
+            );
+
+            const submittedBy =
+                document.createElement(
+                    "p"
+                );
+
+            submittedBy.textContent =
+                `Submitted by: ${
+                    submission.submittedBy ||
+                    "Unknown"
+                }`;
+
+            card.appendChild(
+                submittedBy
+            );
+
+            const destination =
+                document.createElement(
+                    "p"
+                );
+
+            destination.textContent =
+                `Destination: ${
+                    submission.destination ||
+                    "Owner Decides"
+                }`;
+
+            card.appendChild(
+                destination
+            );
+
+            if (
+                submission.familyMember
+            ) {
+                const familyMember =
+                    document.createElement(
+                        "p"
+                    );
+
+                familyMember.textContent =
+                    `Family member: ${
+                        submission.familyMember
+                    }`;
+
+                card.appendChild(
+                    familyMember
+                );
+            }
+
+            const dimensions =
+                document.createElement(
+                    "p"
+                );
+
+            dimensions.textContent =
+                `Size: ${
+                    submission.pixelWidth ||
+                    0
+                } × ${
+                    submission.pixelHeight ||
+                    0
+                } pixels`;
+
+            card.appendChild(
+                dimensions
+            );
+
+            const fileSize =
+                document.createElement(
+                    "p"
+                );
+
+            const megabytes =
+                Number(
+                    submission.fileSizeBytes ||
+                    0
+                ) /
+                (1024 * 1024);
+
+            fileSize.textContent =
+                `File size: ${
+                    megabytes.toFixed(2)
+                } MB`;
+
+            card.appendChild(
+                fileSize
+            );
+
+            const submittedAt =
+                document.createElement(
+                    "p"
+                );
+
+            submittedAt.textContent =
+                `Submitted: ${
+                    formatDateTime(
+                        submission.createdAt
+                    )
+                }`;
+
+            card.appendChild(
+                submittedAt
+            );
+
+            const captionLabel =
+                document.createElement(
+                    "strong"
+                );
+
+            captionLabel.textContent =
+                "Caption";
+
+            card.appendChild(
+                captionLabel
+            );
+
+            const caption =
+                document.createElement(
+                    "p"
+                );
+
+            caption.textContent =
+                submission.caption ||
+                "No caption entered.";
+
+            card.appendChild(
+                caption
+            );
+
+            const submissionId =
+                document.createElement(
+                    "p"
+                );
+
+            submissionId.textContent =
+                `Submission ID: ${
+                    submission.submissionId
+                }`;
+
+            submissionId.style.fontSize =
+                "0.85rem";
+
+            submissionId.style.wordBreak =
+                "break-all";
+
+         card.appendChild(
+    submissionId
+);
+
+if (
+    submission.status !==
+    "deleted"
+) {
+    const actions =
+        document.createElement(
+            "div"
+        );
+
+    actions.className =
+        "owner-editor-actions";
+
+    actions.style.marginTop =
+        "16px";
+
+    const approveButton =
+        document.createElement(
+            "button"
+        );
+
+    approveButton.type =
+        "button";
+
+    approveButton.className =
+        "owner-success-button";
+
+    approveButton.textContent =
+        "Approve";
+
+    approveButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "approve",
+                submission.caption || ""
+            );
+        }
+    );
+
+    const rejectButton =
+        document.createElement(
+            "button"
+        );
+
+    rejectButton.type =
+        "button";
+
+    rejectButton.className =
+        "owner-danger-button";
+
+    rejectButton.textContent =
+        "Reject";
+
+    rejectButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "reject",
+                submission.caption || ""
+            );
+        }
+    );
+
+    const editCaptionButton =
+        document.createElement(
+            "button"
+        );
+
+    editCaptionButton.type =
+        "button";
+
+    editCaptionButton.className =
+        "owner-secondary-button";
+
+    editCaptionButton.textContent =
+        "Edit Caption";
+
+    editCaptionButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "edit-caption",
+                submission.caption || ""
+            );
+        }
+    );
+
+    const deleteButton =
+        document.createElement(
+            "button"
+        );
+
+    deleteButton.type =
+        "button";
+
+    deleteButton.className =
+        "owner-danger-button";
+
+    deleteButton.textContent =
+        "Delete Photo";
+
+    deleteButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "delete",
+                submission.caption || ""
+            );
+        }
+    );
+
+    actions.append(
+        approveButton,
+        rejectButton,
+        editCaptionButton,
+        deleteButton
+    );
+
+    card.appendChild(
+        actions
+    );
+} else {
+    const deletedNote =
+        document.createElement(
+            "p"
+        );
+
+    deletedNote.textContent =
+        "This photo has been deleted. No further actions are available.";
+
+    deletedNote.style.fontWeight =
+        "700";
+
+    card.appendChild(
+        deletedNote
+    );
+}
+
+elements.photoSubmissionsList
+    .appendChild(
+        card
+    );  
+        }
+    );
+};
+const runPhotoAction =
+    async (
+        submissionId,
+        action,
+        currentCaption = ""
+    ) => {
+        if (
+            !state.token ||
+            state.requestInProgress
+        ) {
+            return;
+        }
+
+        const body = {
+            submissionId,
+            action
+        };
+
+        if (action === "approve") {
+            const confirmed =
+                window.confirm(
+                    "Approve this photo for owner use?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "reject") {
+            const confirmed =
+                window.confirm(
+                    "Reject this photo submission?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "edit-caption") {
+            const newCaption =
+                window.prompt(
+                    "Edit the photo caption:",
+                    currentCaption || ""
+                );
+
+            if (newCaption === null) {
+                return;
+            }
+
+            if (newCaption.length > 300) {
+                setMessage(
+                    elements.photoMessage,
+                    "The caption cannot exceed 300 characters.",
+                    "error"
+                );
+
+                return;
+            }
+
+            body.caption =
+                newCaption;
+        }
+
+        if (action === "delete") {
+            const confirmed =
+                window.confirm(
+                    "DELETE this photo from Uploadcare storage? This cannot be undone."
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        setBusy(true);
+
+        setMessage(
+            elements.photoMessage,
+            "Updating the protected photo record..."
+        );
+
+        try {
+            const data =
+                await apiRequest(
+                    "/owner-photo-action",
+                    body,
+                    state.token
+                );
+
+            setBusy(false);
+
+            await loadPhotoSubmissions();
+
+            setMessage(
+                elements.photoMessage,
+                data.message ||
+                    "Photo record updated successfully.",
+                "success"
+            );
+        } catch (error) {
+            handleSecureError(
+                error,
+                elements.photoMessage
+            );
+        } finally {
+            if (
+                state.requestInProgress
+            ) {
+                setBusy(false);
+            }
+        }
+    };
+const loadPhotoSubmissions =
+    async () => {
+        if (
+            !state.token ||
+            state.requestInProgress
+        ) {
+            return;
+        }
+
+        setBusy(true);
+
+        setMessage(
+            elements.photoMessage,
+            "Loading protected photo submissions..."
+        );
+
+        clearPhotoDisplay();
+
+        try {
+            const data =
+                await apiRequest(
+                    "/owner-photo-submissions",
+                    {
+                        status:
+                            elements
+                                .photoStatusFilter
+                                .value
+                    },
+                    state.token
+                );
+
+            renderPhotoSubmissions(
+                data
+            );
+
+            setMessage(
+                elements.photoMessage,
+
+                data.returnedSubmissions === 0
+                    ? "No photo submissions were found for this selection."
+                    : "Protected photo submissions loaded.",
+
+                "success"
+            );
+        } catch (error) {
+            clearPhotoDisplay();
+
+            handleSecureError(
+                error,
+                elements.photoMessage
+            );
+        } finally {
+            setBusy(false);
+        }
+    };
             const loadMembers = async () => {
                 if (
                     !state.token ||
@@ -2669,18 +3460,19 @@
                 }
             };
 
-            const refreshEverything =
-                async () => {
-                    if (
-                        !state.token ||
-                        state.requestInProgress
-                    ) {
-                        return;
-                    }
+          const refreshEverything =
+    async () => {
+        if (
+            !state.token ||
+            state.requestInProgress
+        ) {
+            return;
+        }
 
-                    await loadMembers();
-                    await loadVisits();
-                };
+        await loadMembers();
+        await loadVisits();
+        await loadPhotoSubmissions();
+    };
 
             const loadVisitDetail = async (
                 visitId
@@ -3256,7 +4048,35 @@
                         void refreshEverything();
                     }
                 );
+elements.refreshPhotoSubmissionsButton
+    .addEventListener(
+        "click",
 
+        () => {
+            if (
+                state.requestInProgress
+            ) {
+                return;
+            }
+
+            void loadPhotoSubmissions();
+        }
+    );
+
+elements.photoStatusFilter
+    .addEventListener(
+        "change",
+
+        () => {
+            if (
+                state.requestInProgress
+            ) {
+                return;
+            }
+
+            void loadPhotoSubmissions();
+        }
+    );
             elements.signOutButton
                 .addEventListener(
                     "click",
