@@ -76,6 +76,25 @@
         .photo-submit-status { min-height: 1.5em; margin: 0; font-weight: 700; }
         .photo-submit-status.is-error { color: #8b0000; }
         .photo-submit-status.is-success { color: #185f20; }
+
+        .photo-submit-stop {
+            color: #d00000;
+            font-weight: 900;
+            margin-left: 8px;
+            animation: photo-submit-stop-flash 0.8s steps(2, start) infinite;
+        }
+
+        @keyframes photo-submit-stop-flash {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.15; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .photo-submit-stop {
+                animation: none;
+                text-decoration: underline;
+            }
+        }
         .photo-upload-result {
             margin-top: 18px;
             padding: 14px;
@@ -323,6 +342,18 @@
                 statusElement.className = "photo-submit-status";
                 if (type === "error") statusElement.classList.add("is-error");
                 if (type === "success") statusElement.classList.add("is-success");
+            };
+
+            const setDuplicateStopStatus = () => {
+                statusElement.className = "photo-submit-status is-error";
+                statusElement.textContent =
+                    "This exact photo has already been submitted from this device.";
+
+                const stop = document.createElement("span");
+                stop.className = "photo-submit-stop";
+                stop.textContent = "STOP";
+                stop.setAttribute("aria-label", "Stop");
+                statusElement.appendChild(stop);
             };
 
             const setBusy = (busy) => {
@@ -598,10 +629,17 @@
                     revokePreviewUrl();
                     previewImage.removeAttribute("src");
                     previewWrap.hidden = true;
-                    setStatus(
-                        error.message || "This photo did not pass the pre-check.",
-                        "error"
-                    );
+                    if (
+                        error.message ===
+                        "This exact photo has already been submitted from this device."
+                    ) {
+                        setDuplicateStopStatus();
+                    } else {
+                        setStatus(
+                            error.message || "This photo did not pass the pre-check.",
+                            "error"
+                        );
+                    }
                 }
             });
 
@@ -673,7 +711,17 @@
                     updateFamilyMemberField();
                     clearPreview();
                 } catch (error) {
-                    setStatus(error.message || "The photo could not be submitted.", "error");
+                    if (
+                        error.message ===
+                        "This exact photo has already been submitted from this device."
+                    ) {
+                        setDuplicateStopStatus();
+                    } else {
+                        setStatus(
+                            error.message || "The photo could not be submitted.",
+                            "error"
+                        );
+                    }
                 } finally {
                     setBusy(false);
                 }
