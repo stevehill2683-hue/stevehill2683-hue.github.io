@@ -202,6 +202,22 @@
                         </select>
                     </div>
 
+                    <div id="familyMemberField" class="photo-submit-field" hidden>
+                        <label for="photoFamilyMember">Which family member?</label>
+                        <select id="photoFamilyMember" name="photoFamilyMember">
+                            <option value="">Select a family member</option>
+                            <option value="Steve">Steve</option>
+                            <option value="Anita">Anita</option>
+                            <option value="Tony">Tony</option>
+                            <option value="Scott">Scott</option>
+                            <option value="Becky">Becky</option>
+                            <option value="Craig">Craig</option>
+                            <option value="Brian">Brian</option>
+                            <option value="Mom & Dad">Mom &amp; Dad</option>
+                            <option value="Owner Decides">Other / Owner decides</option>
+                        </select>
+                    </div>
+
                     <div class="photo-submit-field">
                         <label for="photoCaption">Caption or note (optional)</label>
                         <textarea
@@ -245,6 +261,8 @@
             const form = document.getElementById("photoSubmitForm");
             const fileInput = document.getElementById("photoFile");
             const destinationInput = document.getElementById("photoDestination");
+            const familyMemberField = document.getElementById("familyMemberField");
+            const familyMemberInput = document.getElementById("photoFamilyMember");
             const captionInput = document.getElementById("photoCaption");
             const submitButton = document.getElementById("photoSubmitButton");
             const resetButton = document.getElementById("photoResetButton");
@@ -299,6 +317,7 @@
                 resetButton.disabled = busy;
                 fileInput.disabled = busy;
                 destinationInput.disabled = busy;
+                familyMemberInput.disabled = busy;
                 captionInput.disabled = busy;
                 submitButton.textContent = busy ? "Uploading..." : "Submit Photo";
             };
@@ -317,8 +336,19 @@
                 selectedInfoElement.textContent = "";
             };
 
+            const updateFamilyMemberField = () => {
+                const isFamily = destinationInput.value === "Family";
+                familyMemberField.hidden = !isFamily;
+                familyMemberInput.required = isFamily;
+
+                if (!isFamily) {
+                    familyMemberInput.value = "";
+                }
+            };
+
             const resetForm = () => {
                 form.reset();
+                updateFamilyMemberField();
                 clearPreview();
                 setStatus("");
                 resultBox.hidden = true;
@@ -363,7 +393,7 @@
             };
 
             const uploadToUploadcare = async ({
-                file, signature, expire, destination, caption, displayName
+                file, signature, expire, destination, familyMember, caption, displayName
             }) => {
                 const uploadData = new FormData();
                 uploadData.append("UPLOADCARE_PUB_KEY", UPLOADCARE_PUBLIC_KEY);
@@ -372,6 +402,9 @@
                 uploadData.append("expire", expire);
                 uploadData.append("metadata[submission_status]", "pending");
                 uploadData.append("metadata[destination]", destination);
+                if (familyMember) {
+                    uploadData.append("metadata[family_member]", familyMember);
+                }
                 uploadData.append("metadata[submitted_by]", displayName);
                 uploadData.append("metadata[submitted_at]", new Date().toISOString());
                 uploadData.append("metadata[caption]", caption || "No caption supplied");
@@ -421,6 +454,11 @@
                 setStatus("");
             });
 
+            destinationInput.addEventListener("change", () => {
+                updateFamilyMemberField();
+                setStatus("");
+            });
+
             resetButton.addEventListener("click", resetForm);
 
             form.addEventListener("submit", async (event) => {
@@ -433,11 +471,15 @@
 
                 const file = fileInput.files && fileInput.files[0];
                 const destination = destinationInput.value.trim();
+                const familyMember = familyMemberInput.value.trim();
                 const caption = captionInput.value.trim();
 
                 try {
                     validateFile(file);
                     if (!destination) throw new Error("Choose where the photo belongs.");
+                    if (destination === "Family" && !familyMember) {
+                        throw new Error("Choose which family member the photo belongs to.");
+                    }
 
                     setBusy(true);
                     setStatus("Creating secure upload permission...");
@@ -451,12 +493,19 @@
                         signature: signatureData.secureSignature,
                         expire: signatureData.secureExpire,
                         destination,
+                        familyMember,
                         caption,
                         displayName: familySession.displayName
                     });
 
                     setStatus("Photo submitted successfully for owner review.", "success");
-                    resultText.textContent = `${file.name} was received for ${destination}. Submission ID: ${fileUuid}`;
+                    const destinationLabel =
+                        destination === "Family" && familyMember
+                            ? `${destination} — ${familyMember}`
+                            : destination;
+
+                    resultText.textContent =
+                        `${file.name} was received for ${destinationLabel}. Submission ID: ${fileUuid}`;
                     resultBox.hidden = false;
                     form.reset();
                     clearPreview();
@@ -467,6 +516,7 @@
                 }
             });
 
+            updateFamilyMemberField();
             window.addEventListener("beforeunload", revokePreviewUrl);
             waitForValidatedSession();
         })();
