@@ -178,7 +178,7 @@
                     <div class="photo-submit-field">
                         <label for="photoFile">Choose one photo</label>
                         <input id="photoFile" name="photoFile" type="file" accept="image/*" required>
-                        <p class="photo-submit-help">One image per submission. Maximum size: 20 MB.</p>
+                        <p class="photo-submit-help">One image per submission. Maximum size: 5 MB.</p>
                         <p id="photoSelectedInfo" class="photo-selected-info" aria-live="polite"></p>
                     </div>
 
@@ -256,7 +256,18 @@
 
             const API_BASE = "https://steve-anita-family-access.stevehill2683.workers.dev";
             const UPLOADCARE_PUBLIC_KEY = "688aae67441aae87ce5a";
-            const MAX_FILE_BYTES = 20 * 1024 * 1024;
+            const MAX_FILE_BYTES = 5 * 1024 * 1024;
+            const MIN_SHORT_SIDE_PIXELS = 320;
+            const MIN_LONG_SIDE_PIXELS = 480;
+            const ACCEPTED_IMAGE_TYPES = new Set([
+                "image/jpeg",
+                "image/png",
+                "image/webp",
+                "image/heic",
+                "image/heif"
+            ]);
+            const LOCAL_HASH_HISTORY_KEY =
+                "steve-anita-photo-upload-hashes-v1";
 
             const form = document.getElementById("photoSubmitForm");
             const fileInput = document.getElementById("photoFile");
@@ -275,6 +286,8 @@
             const resultText = document.getElementById("photoUploadResultText");
 
             let previewUrl = null;
+            let checkedPhoto = null;
+            let checkSequence = 0;
 
             const getFamilySession = () => {
                 const stored = window.submitPhotoFamilySession;
@@ -334,6 +347,7 @@
                 previewImage.removeAttribute("src");
                 previewWrap.hidden = true;
                 selectedInfoElement.textContent = "";
+                checkedPhoto = null;
             };
 
             const updateFamilyMemberField = () => {
@@ -359,12 +373,123 @@
 
             const validateFile = (file) => {
                 if (!file) throw new Error("Choose a photo first.");
-                if (!file.type || !file.type.startsWith("image/")) {
-                    throw new Error("Please choose an image file.");
+
+                if (!ACCEPTED_IMAGE_TYPES.has(file.type)) {
+                    throw new Error(
+                        "Please choose a JPG/JPEG, PNG, WebP, HEIC, or HEIF photo."
+                    );
                 }
+
                 if (file.size > MAX_FILE_BYTES) {
-                    throw new Error("That photo is larger than 20 MB. Please choose a smaller image.");
+                    throw new Error(
+                        `This photo is ${formatMegabytes(file.size)} MB. ` +
+                        "Maximum allowed size is 5 MB."
+                    );
                 }
+            };
+
+            const bytesToHex = (bytes) =>
+                Array.from(bytes)
+                    .map((byte) => byte.toString(16).padStart(2, "0"))
+                    .join("");
+
+            const calculateSha256 = async (file) => {
+                const digest = await crypto.subtle.digest(
+                    "SHA-256",
+                    await file.arrayBuffer()
+                );
+                return bytesToHex(new Uint8Array(digest));
+            };
+
+            const getLocalHashHistory = () => {
+                try {
+                    const raw = localStorage.getItem(LOCAL_HASH_HISTORY_KEY);
+                    const parsed = raw ? JSON.parse(raw) : [];
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch {
+                    return [];
+                }
+            };
+
+            const isKnownLocalDuplicate = (hash) =>
+                getLocalHashHistory().includes(hash);
+
+            const rememberSuccessfulHash = (hash) => {
+                if (!hash) return;
+                try {
+                    const hashes = getLocalHashHistory()
+                        .filter((value) => value !== hash);
+                    hashes.unshift(hash);
+                    localStorage.setItem(
+                        LOCAL_HASH_HISTORY_KEY,
+                        JSON.stringify(hashes.slice(0, 500))
+                    );
+                } catch {
+                    /* Local duplicate history is optional. */
+                }
+            };
+
+            const getImageDimensions = (file) =>
+                new Promise((resolve, reject) => {
+                    const objectUrl = URL.createObjectURL(file);
+                    const image = new Image();
+                    image.onload = () => {
+                        const width = image.naturalWidth;
+                        const height = image.naturalHeight;
+                        URL.revokeObjectURL(objectUrl);
+                        resolve({ width, height });
+                    };
+                    image.onerror = () => {
+                        URL.revokeObjectURL(objectUrl);
+                        reject(
+                            new Error(
+                                "This browser could not read the selected photo. " +
+                                "Please try a JPG or PNG version."
+                            )
+                        );
+                    };
+                    image.src = objectUrl;
+                });
+
+            const inspectPhoto = async (file) => {
+                validateFile(file);
+
+                const [hash, dimensions] = await Promise.all([
+                    calculateSha256(file),
+                    getImageDimensions(file)
+                ]);
+
+                const shortSide = Math.min(
+                    dimensions.width,
+                    dimensions.height
+                );
+                const longSide = Math.max(
+                    dimensions.width,
+                    dimensions.height
+                );
+
+                if (
+                    shortSide < MIN_SHORT_SIDE_PIXELS ||
+                    longSide < MIN_LONG_SIDE_PIXELS
+                ) {
+                    throw new Error(
+                        `This photo is only ${dimensions.width} × ${dimensions.height} pixels. ` +
+                        `Minimum usable size is ${MIN_LONG_SIDE_PIXELS} × ${MIN_SHORT_SIDE_PIXELS} pixels ` +
+                        "in either orientation."
+                    );
+                }
+
+                if (isKnownLocalDuplicate(hash)) {
+                    throw new Error(
+                        "This exact photo has already been submitted from this device."
+                    );
+                }
+
+                return {
+                    hash,
+                    width: dimensions.width,
+                    height: dimensions.height
+                };
             };
 
             const requestUploadSignature = async (sessionToken) => {
@@ -393,7 +518,7 @@
             };
 
             const uploadToUploadcare = async ({
-                file, signature, expire, destination, familyMember, caption, displayName
+                file, signature, expire, destination, familyMember, caption, displayName, photoCheck
             }) => {
                 const uploadData = new FormData();
                 uploadData.append("UPLOADCARE_PUB_KEY", UPLOADCARE_PUBLIC_KEY);
@@ -409,6 +534,10 @@
                 uploadData.append("metadata[submitted_at]", new Date().toISOString());
                 uploadData.append("metadata[caption]", caption || "No caption supplied");
                 uploadData.append("metadata[source]", "steve-anita-family-site");
+                uploadData.append("metadata[sha256]", photoCheck.hash);
+                uploadData.append("metadata[pixel_width]", String(photoCheck.width));
+                uploadData.append("metadata[pixel_height]", String(photoCheck.height));
+                uploadData.append("metadata[precheck]", "passed");
                 uploadData.append("tags", "steve-anita-family,pending");
                 uploadData.append("file", file, file.name);
 
@@ -434,24 +563,39 @@
                 return String(fileUuid);
             };
 
-            fileInput.addEventListener("change", () => {
+            fileInput.addEventListener("change", async () => {
                 clearPreview();
                 resultBox.hidden = true;
                 const file = fileInput.files && fileInput.files[0];
                 if (!file) return;
 
-                try { validateFile(file); }
-                catch (error) {
-                    setStatus(error.message, "error");
-                    fileInput.value = "";
-                    return;
-                }
+                const mySequence = ++checkSequence;
+                selectedInfoElement.textContent =
+                    `${file.name} — ${formatMegabytes(file.size)} MB`;
+                setStatus("Checking photo before upload...");
 
-                selectedInfoElement.textContent = `${file.name} — ${formatMegabytes(file.size)} MB`;
-                previewUrl = URL.createObjectURL(file);
-                previewImage.src = previewUrl;
-                previewWrap.hidden = false;
-                setStatus("");
+                try {
+                    const result = await inspectPhoto(file);
+
+                    if (mySequence !== checkSequence) return;
+
+                    checkedPhoto = result;
+                    previewUrl = URL.createObjectURL(file);
+                    previewImage.src = previewUrl;
+                    previewImage.style.imageOrientation = "from-image";
+                    previewWrap.hidden = false;
+
+                    setStatus(
+                        `Photo check passed — ${result.width} × ${result.height} pixels, ` +
+                        `${formatMegabytes(file.size)} MB.`,
+                        "success"
+                    );
+                } catch (error) {
+                    if (mySequence !== checkSequence) return;
+                    checkedPhoto = null;
+                    setStatus(error.message || "This photo did not pass the pre-check.", "error");
+                    fileInput.value = "";
+                }
             });
 
             destinationInput.addEventListener("change", () => {
@@ -476,6 +620,16 @@
 
                 try {
                     validateFile(file);
+                    if (!checkedPhoto) {
+                        throw new Error(
+                            "Wait for the photo check to finish before submitting."
+                        );
+                    }
+                    if (isKnownLocalDuplicate(checkedPhoto.hash)) {
+                        throw new Error(
+                            "This exact photo has already been submitted from this device."
+                        );
+                    }
                     if (!destination) throw new Error("Choose where the photo belongs.");
                     if (destination === "Family" && !familyMember) {
                         throw new Error("Choose which family member the photo belongs to.");
@@ -495,7 +649,8 @@
                         destination,
                         familyMember,
                         caption,
-                        displayName: familySession.displayName
+                        displayName: familySession.displayName,
+                        photoCheck: checkedPhoto
                     });
 
                     setStatus("Photo submitted successfully for owner review.", "success");
@@ -507,7 +662,9 @@
                     resultText.textContent =
                         `${file.name} was received for ${destinationLabel}. Submission ID: ${fileUuid}`;
                     resultBox.hidden = false;
+                    rememberSuccessfulHash(checkedPhoto.hash);
                     form.reset();
+                    updateFamilyMemberField();
                     clearPreview();
                 } catch (error) {
                     setStatus(error.message || "The photo could not be submitted.", "error");
