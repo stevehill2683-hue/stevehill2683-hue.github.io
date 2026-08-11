@@ -593,14 +593,20 @@
                 } catch (error) {
                     if (mySequence !== checkSequence) return;
                     checkedPhoto = null;
-                    setStatus(error.message || "This photo did not pass the pre-check.", "error");
                     fileInput.value = "";
+                    selectedInfoElement.textContent = "";
+                    revokePreviewUrl();
+                    previewImage.removeAttribute("src");
+                    previewWrap.hidden = true;
+                    setStatus(
+                        error.message || "This photo did not pass the pre-check.",
+                        "error"
+                    );
                 }
             });
 
             destinationInput.addEventListener("change", () => {
                 updateFamilyMemberField();
-                setStatus("");
             });
 
             resetButton.addEventListener("click", resetForm);
