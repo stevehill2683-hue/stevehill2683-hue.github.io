@@ -410,8 +410,7 @@
             .home-info-section {
                 padding: 8px 12px 6px;
             }
-
-            .home-welcome-logo {
+ .home-welcome-logo {
                 width: 75%;
             }
 
@@ -433,6 +432,48 @@
             }
         }
     </style>
+
+        
+    <style>
+    /* HOME PAGE FINAL CLEANUP */
+
+.site-music-player {
+    width: min(100%, 420px);
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #ffffff;
+    border: 2px solid #000000;
+}
+
+           
+.site-music-player p,
+.site-music-player button {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+body.home-page .fixed-bottom-text {
+    bottom: 14px;
+}
+
+@media (max-width: 700px) {
+    .site-music-player {
+        flex-wrap: wrap;
+        width: min(100%, 390px);
+    }
+
+    .site-music-player p {
+        white-space: normal;
+    }
+
+    body.home-page .fixed-bottom-text {
+        bottom: 20px;
+    }
+}
+</style>
+
+        
 </head>
 
 <body class="home-page">
@@ -531,6 +572,7 @@
             <a href="2406.html">2406</a>
             <a href="1040.html">1040</a>
             <a href="special-documents.html">Special Documents</a>
+            <a href="submit-photo.html">Submit Photo</a>
 
             <a
                 class="confidential-menu-link"
