@@ -556,7 +556,48 @@
             background: #9b1717;
             color: #ffffff;
         }
+.owner-summary-grid.owner-photo-summary-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
 
+.owner-photo-summary-grid .owner-summary-card {
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.owner-photo-summary-grid .owner-summary-card strong,
+.owner-photo-summary-grid .owner-summary-card span {
+    display: inline;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.owner-photo-summary-grid .owner-summary-card strong::after {
+    content: ":";
+}
+
+@media (max-width: 1000px) {
+    .owner-summary-grid.owner-photo-summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .owner-summary-grid.owner-photo-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .owner-summary-grid.owner-photo-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
         .owner-photo-submissions-list {
             display: grid;
             gap: 18px;
@@ -1416,7 +1457,7 @@
                 ></p>
 
                 <div
-                    class="owner-summary-grid"
+                    class="owner-summary-grid owner-photo-summary-grid"
                     aria-label="Photo submission summary"
                 >
 
