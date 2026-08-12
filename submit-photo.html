@@ -20,13 +20,21 @@
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
         }
         .photo-submit-note {
-            margin: 0 0 20px;
-            padding: 12px 14px;
-            background: #fff4c7;
-            border: 1px solid #c8a94b;
-            border-radius: 8px;
-            line-height: 1.45;
-        }
+    margin: 0 0 12px;
+    padding: 8px 10px;
+    background: #fff4c7;
+    border: 1px solid #c8a94b;
+    border-radius: 8px;
+    line-height: 1.25;
+    font-size: 0.84rem;
+    white-space: normal;
+}
+
+@media (min-width: 850px) {
+    .photo-submit-note {
+        white-space: nowrap;
+    }
+}
         .photo-submit-member { margin: 0 0 18px; font-weight: 700; }
         .photo-submit-form { display: grid; gap: 18px; }
         .photo-submit-field { display: grid; gap: 7px; }
@@ -185,7 +193,7 @@
         <div class="photo-submit-wrap">
             <section class="photo-submit-card">
                 <p class="photo-submit-note">
-                    Submitted photos do not automatically appear on the website.
+                    Submitted photos don't automatically appear on the website.
                     Each photo is marked pending for owner review.
                 </p>
 
