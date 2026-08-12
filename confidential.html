@@ -383,18 +383,31 @@
             border-collapse: collapse;
             background: #ffffff;
         }
+.owner-members-table {
+    min-width: 880px;
+}
 
-        .owner-members-table {
-            min-width: 880px;
-        }
+.owner-data-table th,
+.owner-data-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #e4dacd;
+    text-align: left;
+    vertical-align: top;
+}
 
-        .owner-data-table th,
-        .owner-data-table td {
-            padding: 11px 12px;
-            border-bottom: 1px solid #e4dacd;
-            text-align: left;
-            vertical-align: top;
-        }
+.owner-members-table th,
+.owner-members-table td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #000000;
+}
+
+.owner-current-members-note {
+    margin: 4px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #000000;
+    font-weight: 700;
+}
 
         .owner-data-table th {
             background: #432611;
@@ -1026,7 +1039,9 @@
                     <h3>
                         Current Members
                     </h3>
-
+<p class="owner-current-members-note">
+    View the current family access list. Select a member when management changes are needed.
+</p>
                     <div
                         id="ownerMembersEmpty"
                         class="owner-empty-state"
