@@ -452,8 +452,7 @@
                 }
             };
 
-            const isKnownLocalDuplicate = (hash) =>
-                getLocalHashHistory().includes(hash);
+            const isKnownLocalDuplicate = () => false;
 
             const rememberSuccessfulHash = (hash) => {
                 if (!hash) return;
