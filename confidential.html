@@ -556,7 +556,37 @@
             background: #9b1717;
             color: #ffffff;
         }
-.owner-summary-grid.owner-photo-summary-grid {
+.owner-summary-grid.owner-member-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.owner-member-summary-grid .owner-summary-card {
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.owner-member-summary-grid .owner-summary-card strong,
+.owner-member-summary-grid .owner-summary-card span {
+    display: inline;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.owner-member-summary-grid .owner-summary-card strong::after {
+    content: ":";
+}
+
+@media (max-width: 700px) {
+    .owner-summary-grid.owner-member-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+        .owner-summary-grid.owner-photo-summary-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 10px;
 }
@@ -847,7 +877,7 @@
             </section>
 
             <section
-                class="owner-summary-grid"
+               class="owner-summary-grid owner-member-summary-grid"
                 aria-label="Member summary"
             >
 
