@@ -822,7 +822,9 @@ body.home-page .fixed-bottom-text {
                             decoding="async"
                         >
                     </div>
-                    <figcaption>Anita &amp; Family</figcaption>
+                    <figcaption id="homeLeftSlideshowCaption">
+                        Anita &amp; Family
+                    </figcaption>
                 </figure>
 
                 <div class="home-welcome-copy">
@@ -857,7 +859,9 @@ body.home-page .fixed-bottom-text {
                             decoding="async"
                         >
                     </div>
-                    <figcaption>Steve &amp; Family</figcaption>
+                    <figcaption id="homeRightSlideshowCaption">
+                        Steve &amp; Family
+                    </figcaption>
                 </figure>
 
             </div>
@@ -1100,56 +1104,108 @@ body.home-page .fixed-bottom-text {
             const rightImage =
                 document.getElementById("homeRightSlideshow");
 
+            const leftCaption =
+                document.getElementById("homeLeftSlideshowCaption");
+
+            const rightCaption =
+                document.getElementById("homeRightSlideshowCaption");
+
             const toggleButton =
                 document.getElementById("homeSlideshowToggle");
 
-            if (!leftImage || !rightImage || !toggleButton) {
+            if (
+                !leftImage ||
+                !rightImage ||
+                !leftCaption ||
+                !rightCaption ||
+                !toggleButton
+            ) {
                 return;
             }
 
             const leftSlides = [
                 {
                     src: "images/family/anita/thumbs/anita-1.webp",
-                    alt: "Portrait of Anita"
+                    alt: "Portrait of Anita",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "Israel Anita1.jpg",
+                    alt: "Anita overlooking Jerusalem in Israel",
+                    caption: "Israel — Anita in Jerusalem"
                 },
                 {
                     src: "images/family/anita/thumbs/anita-3.webp",
-                    alt: "Anita sharing a family moment with friends"
+                    alt: "Anita sharing a family moment with friends",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "Temple Mount 1.jpg",
+                    alt: "Aerial view of the Temple Mount in Jerusalem",
+                    caption: "Israel — Temple Mount"
                 },
                 {
                     src: "images/family/anita/thumbs/anita-4.webp",
-                    alt: "Anita taking part in a family faith celebration"
+                    alt: "Anita taking part in a family faith celebration",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/israel/Baptism River Jordan 1.jpg",
+                    alt: "The River Jordan surrounded by greenery",
+                    caption: "Israel — River Jordan"
                 },
                 {
                     src: "images/family/anita/thumbs/anita-7.webp",
-                    alt: "Steve and Anita with their family on their wedding day"
+                    alt: "Steve and Anita with their family on their wedding day",
+                    caption: "Anita & Family"
                 },
                 {
                     src: "images/family/anita/thumbs/anita-8.webp",
-                    alt: "Portrait of Steve and Anita together"
+                    alt: "Portrait of Steve and Anita together",
+                    caption: "Anita & Family"
                 }
             ];
 
             const rightSlides = [
                 {
                     src: "images/family/steve/Steve-2.jpg",
-                    alt: "Portrait of Steve"
+                    alt: "Portrait of Steve",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "Temple Mount 2.jpg",
+                    alt: "The Dome of the Rock at the Temple Mount",
+                    caption: "Israel — Temple Mount"
                 },
                 {
                     src: "images/family/steve/Steve-3.jpg",
-                    alt: "Steve and Anita together"
+                    alt: "Steve and Anita together",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "Masada 22.jpg",
+                    alt: "View across the desert landscape from Masada",
+                    caption: "Israel — Masada"
                 },
                 {
                     src: "images/family/steve/Steve-5.jpg",
-                    alt: "Steve and Anita with their family on their wedding day"
+                    alt: "Steve and Anita with their family on their wedding day",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/israel/Baptism River Jordan 2.jpg",
+                    alt: "A peaceful view of the River Jordan",
+                    caption: "Israel — River Jordan"
                 },
                 {
                     src: "images/family/steve/Steve-10.jpg",
-                    alt: "Steve holding a young family member"
+                    alt: "Steve holding a young family member",
+                    caption: "Steve & Family"
                 },
                 {
                     src: "images/family/steve/Steve-11.png",
-                    alt: "Steve in his United States Navy uniform"
+                    alt: "Steve in his United States Navy uniform",
+                    caption: "Steve & Family"
                 }
             ];
 
@@ -1169,12 +1225,13 @@ body.home-page .fixed-bottom-text {
                 });
             };
 
-            const showSlide = (image, slides, index) => {
+            const showSlide = (image, caption, slides, index) => {
                 image.classList.add("is-changing");
 
                 window.setTimeout(() => {
                     image.src = slides[index].src;
                     image.alt = slides[index].alt;
+                    caption.textContent = slides[index].caption;
                     image.classList.remove("is-changing");
                 }, 220);
             };
@@ -1183,8 +1240,8 @@ body.home-page .fixed-bottom-text {
                 leftIndex = (leftIndex + 1) % leftSlides.length;
                 rightIndex = (rightIndex + 1) % rightSlides.length;
 
-                showSlide(leftImage, leftSlides, leftIndex);
-                showSlide(rightImage, rightSlides, rightIndex);
+                showSlide(leftImage, leftCaption, leftSlides, leftIndex);
+                showSlide(rightImage, rightCaption, rightSlides, rightIndex);
             };
 
             const stopTimer = () => {
