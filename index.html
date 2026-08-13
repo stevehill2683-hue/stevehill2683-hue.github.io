@@ -12,7 +12,10 @@
         /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
 
         body.home-page {
-            padding-bottom: 70px;
+            padding-bottom: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         body.home-page .site-header,
@@ -93,7 +96,7 @@
 
         body.home-page .page-wrap {
             max-width: 1020px;
-            margin: 18px auto 0;
+            margin: 18px auto;
             padding: 0 16px;
         }
 
@@ -424,7 +427,7 @@
 
         @media (max-width: 700px) {
             body.home-page {
-                padding-bottom: 120px;
+                padding-bottom: 0;
             }
 
             .home-access-music-block {
@@ -497,7 +500,11 @@
 }
 
 body.home-page .fixed-bottom-text {
-    bottom: 14px;
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: auto;
 }
 
 @media (max-width: 700px) {
@@ -512,7 +519,8 @@ body.home-page .fixed-bottom-text {
     }
 
     body.home-page .fixed-bottom-text {
-        bottom: 20px;
+        bottom: auto;
+        margin-top: auto;
     }
 }
 </style>
