@@ -1163,6 +1163,71 @@ body.home-page .fixed-bottom-text {
                     src: "images/family/anita/thumbs/anita-8.webp",
                     alt: "Portrait of Steve and Anita together",
                     caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-2.webp",
+                    alt: "Family photograph from Anita's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-1.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-5.webp",
+                    alt: "Family photograph from Anita's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-2.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-6.webp",
+                    alt: "Family photograph from Anita's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-3.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-9.webp",
+                    alt: "Family photograph from Anita's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-4.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-5.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-6.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-7.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-8.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
+                },
+                {
+                    src: "images/family/becky/thumbs/becky-9.webp",
+                    alt: "Family photograph from Becky's collection",
+                    caption: "Anita & Family"
                 }
             ];
 
@@ -1206,8 +1271,86 @@ body.home-page .fixed-bottom-text {
                     src: "images/family/steve/Steve-11.png",
                     alt: "Steve in his United States Navy uniform",
                     caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-1.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/craig/thumbs/craig-1.webp",
+                    alt: "Family photograph from Craig's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-2.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/craig/thumbs/craig-2.webp",
+                    alt: "Family photograph from Craig's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-3.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/craig/thumbs/craig-3.webp",
+                    alt: "Family photograph from Craig's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-4.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/craig/thumbs/craig-4.webp",
+                    alt: "Family photograph from Craig's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-5.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/craig/thumbs/craig-5.webp",
+                    alt: "Family photograph from Craig's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-6.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-7.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
+                },
+                {
+                    src: "images/family/tony/thumbs/tony-8.webp",
+                    alt: "Family photograph from Tony's collection",
+                    caption: "Steve & Family"
                 }
             ];
+
+            const minimumSlidesBeforeRepeat = 20;
+
+            const hasSafeRepeatGap = (slides) =>
+                new Set(slides.map((slide) => slide.src)).size >
+                minimumSlidesBeforeRepeat;
+
+            if (
+                !hasSafeRepeatGap(leftSlides) ||
+                !hasSafeRepeatGap(rightSlides)
+            ) {
+                return;
+            }
 
             const reducedMotion = window.matchMedia(
                 "(prefers-reduced-motion: reduce)"
