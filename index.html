@@ -523,6 +523,143 @@ body.home-page .fixed-bottom-text {
         margin-top: auto;
     }
 }
+
+/* HOME WELCOME SIDE SLIDESHOWS */
+
+.home-welcome-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(170px, 0.8fr)
+        minmax(280px, 1.35fr)
+        minmax(170px, 0.8fr);
+    gap: 18px;
+    align-items: center;
+    width: 100%;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.home-welcome-copy {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.home-welcome-copy .home-welcome-logo {
+    margin-bottom: 0;
+}
+
+.home-photo-showcase {
+    min-width: 0;
+    margin: 0;
+}
+
+.home-photo-frame {
+    position: relative;
+    width: 100%;
+    max-height: 245px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 4px solid #ffffff;
+    border-radius: 12px;
+    background: #161616;
+    box-sizing: border-box;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.42);
+}
+
+.home-photo-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 220ms ease;
+}
+
+.home-photo-frame img.is-changing {
+    opacity: 0;
+}
+
+.home-photo-showcase figcaption {
+    margin-top: 7px;
+    color: #fffaf1;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.home-slideshow-toggle {
+    min-height: 34px;
+    padding: 6px 13px;
+    border: 1px solid #fffaf1;
+    border-radius: 999px;
+    background: #432611;
+    color: #fffaf1;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.home-slideshow-toggle:hover,
+.home-slideshow-toggle:focus-visible {
+    background: #65401f;
+}
+
+.home-slideshow-toggle:focus-visible {
+    outline: 3px solid #ffeb3b;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-photo-frame img {
+        transition: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .home-welcome-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 620px;
+        gap: 12px;
+    }
+
+    .home-welcome-copy {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .home-photo-frame {
+        max-height: 180px;
+        aspect-ratio: 4 / 3;
+    }
+}
+
+@media (max-width: 700px) {
+    .home-welcome-panel {
+        padding: 16px 12px;
+    }
+
+    .home-welcome-grid {
+        gap: 9px;
+    }
+
+    .home-welcome-copy {
+        gap: 10px;
+    }
+
+    .home-photo-frame {
+        max-height: 140px;
+        aspect-ratio: 1 / 1;
+        border-width: 3px;
+    }
+
+    .home-photo-showcase figcaption {
+        margin-top: 5px;
+        font-size: 0.7rem;
+    }
+}
 </style>
 
         
@@ -674,17 +811,56 @@ body.home-page .fixed-bottom-text {
 
             <h1>Welcome</h1>
 
-            <img
-                src="family-logo3.png"
-                alt="Steve and Anita Hill family logo"
-                class="home-welcome-logo"
-            >
+            <div class="home-welcome-grid">
 
-            <p>
-                This personal family website is a place to preserve faith,
-                family history, military service, photos, memories, and the
-                stories that matter most.
-            </p>
+                <figure class="home-photo-showcase">
+                    <div class="home-photo-frame">
+                        <img
+                            id="homeLeftSlideshow"
+                            src="images/family/anita/thumbs/anita-1.webp"
+                            alt="Portrait of Anita"
+                            decoding="async"
+                        >
+                    </div>
+                    <figcaption>Anita &amp; Family</figcaption>
+                </figure>
+
+                <div class="home-welcome-copy">
+                    <img
+                        src="family-logo3.png"
+                        alt="Steve and Anita Hill family logo"
+                        class="home-welcome-logo"
+                    >
+
+                    <p>
+                        This personal family website is a place to preserve
+                        faith, family history, military service, photos,
+                        memories, and the stories that matter most.
+                    </p>
+
+                    <button
+                        id="homeSlideshowToggle"
+                        class="home-slideshow-toggle"
+                        type="button"
+                        aria-pressed="false"
+                    >
+                        Pause Photos
+                    </button>
+                </div>
+
+                <figure class="home-photo-showcase">
+                    <div class="home-photo-frame">
+                        <img
+                            id="homeRightSlideshow"
+                            src="images/family/steve/Steve-2.jpg"
+                            alt="Portrait of Steve"
+                            decoding="async"
+                        >
+                    </div>
+                    <figcaption>Steve &amp; Family</figcaption>
+                </figure>
+
+            </div>
 
         </section>
 
@@ -913,6 +1089,147 @@ body.home-page .fixed-bottom-text {
     </script>
 
     <script src="family-access.js"></script>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const leftImage =
+                document.getElementById("homeLeftSlideshow");
+
+            const rightImage =
+                document.getElementById("homeRightSlideshow");
+
+            const toggleButton =
+                document.getElementById("homeSlideshowToggle");
+
+            if (!leftImage || !rightImage || !toggleButton) {
+                return;
+            }
+
+            const leftSlides = [
+                {
+                    src: "images/family/anita/thumbs/anita-1.webp",
+                    alt: "Portrait of Anita"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-3.webp",
+                    alt: "Anita sharing a family moment with friends"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-4.webp",
+                    alt: "Anita taking part in a family faith celebration"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-7.webp",
+                    alt: "Steve and Anita with their family on their wedding day"
+                },
+                {
+                    src: "images/family/anita/thumbs/anita-8.webp",
+                    alt: "Portrait of Steve and Anita together"
+                }
+            ];
+
+            const rightSlides = [
+                {
+                    src: "images/family/steve/Steve-2.jpg",
+                    alt: "Portrait of Steve"
+                },
+                {
+                    src: "images/family/steve/Steve-3.jpg",
+                    alt: "Steve and Anita together"
+                },
+                {
+                    src: "images/family/steve/Steve-5.jpg",
+                    alt: "Steve and Anita with their family on their wedding day"
+                },
+                {
+                    src: "images/family/steve/Steve-10.jpg",
+                    alt: "Steve holding a young family member"
+                },
+                {
+                    src: "images/family/steve/Steve-11.png",
+                    alt: "Steve in his United States Navy uniform"
+                }
+            ];
+
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            );
+
+            let leftIndex = 0;
+            let rightIndex = 0;
+            let intervalId = null;
+            let isRunning = !reducedMotion.matches;
+
+            const preloadSlides = (slides) => {
+                slides.slice(1).forEach((slide) => {
+                    const image = new Image();
+                    image.src = slide.src;
+                });
+            };
+
+            const showSlide = (image, slides, index) => {
+                image.classList.add("is-changing");
+
+                window.setTimeout(() => {
+                    image.src = slides[index].src;
+                    image.alt = slides[index].alt;
+                    image.classList.remove("is-changing");
+                }, 220);
+            };
+
+            const advanceSlides = () => {
+                leftIndex = (leftIndex + 1) % leftSlides.length;
+                rightIndex = (rightIndex + 1) % rightSlides.length;
+
+                showSlide(leftImage, leftSlides, leftIndex);
+                showSlide(rightImage, rightSlides, rightIndex);
+            };
+
+            const stopTimer = () => {
+                if (intervalId !== null) {
+                    window.clearInterval(intervalId);
+                    intervalId = null;
+                }
+            };
+
+            const startTimer = () => {
+                stopTimer();
+
+                if (isRunning && !document.hidden) {
+                    intervalId = window.setInterval(
+                        advanceSlides,
+                        6000
+                    );
+                }
+            };
+
+            const updateButton = () => {
+                toggleButton.textContent = isRunning
+                    ? "Pause Photos"
+                    : "Resume Photos";
+
+                toggleButton.setAttribute(
+                    "aria-pressed",
+                    String(!isRunning)
+                );
+            };
+
+            toggleButton.addEventListener("click", () => {
+                isRunning = !isRunning;
+                updateButton();
+                startTimer();
+            });
+
+            document.addEventListener("visibilitychange", startTimer);
+
+            preloadSlides(leftSlides);
+            preloadSlides(rightSlides);
+            updateButton();
+            startTimer();
+        })();
+    </script>
 
     <script>
         (() => {
