@@ -97,15 +97,33 @@
             padding: 0 16px;
         }
 
-        .menu-access-panel {
-            width: min(100%, 470px);
+        .home-access-music-block {
+            width: min(100%, 760px);
             margin: 10px auto 0;
-            padding: 12px 16px;
-            background: #fffaf1;
-            border: 1px solid #ddcfba;
+            padding: 14px 16px;
+            background: #ffffff;
+            border: 2px solid #000000;
             border-radius: 12px;
             color: #303030;
-            box-shadow: 0 6px 14px rgba(44, 37, 30, 0.2);
+            box-sizing: border-box;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-access-panel {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            color: #303030;
+            box-sizing: border-box;
+            box-shadow: none;
+        }
+
+        .menu-access-panel form {
+            max-width: 470px;
+            margin: 0 auto;
         }
 
         body.home-page .menu-access-panel p {
@@ -239,6 +257,22 @@
 
         body.home-page .top-nav.menu-is-opening {
             animation: home-menu-fade-in 1100ms ease-out 250ms both;
+        }
+
+        body.home-page .home-access-music-block .top-nav {
+            margin-top: 0;
+        }
+
+        body.home-page .home-access-music-block .top-nav a {
+            color: #111111;
+            background: #ffffff;
+            border-color: #111111;
+        }
+
+        body.home-page .home-access-music-block .top-nav a:hover,
+        body.home-page .home-access-music-block .top-nav a:focus-visible {
+            color: #111111;
+            background: #f1f1f1;
         }
 
         .home-welcome-panel {
@@ -393,6 +427,10 @@
                 padding-bottom: 120px;
             }
 
+            .home-access-music-block {
+                padding: 12px 10px;
+            }
+
             .menu-access-controls {
                 flex-direction: column;
             }
@@ -437,18 +475,23 @@
     <style>
     /* HOME PAGE FINAL CLEANUP */
 
-.site-music-player {
-    width: min(100%, 420px);
-    max-width: 100%;
+.home-access-music-block .site-music-player {
+    width: 100%;
+    max-width: 470px;
+    margin: 14px auto 0;
+    padding: 12px 16px 0;
     box-sizing: border-box;
     overflow: hidden;
-    background: #ffffff;
-    border: 2px solid #000000;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #000000;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-           
-.site-music-player p,
-.site-music-player button {
+
+.home-access-music-block .site-music-player p,
+.home-access-music-block .site-music-player button {
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -458,12 +501,13 @@ body.home-page .fixed-bottom-text {
 }
 
 @media (max-width: 700px) {
-    .site-music-player {
+    .home-access-music-block .site-music-player {
         flex-wrap: wrap;
-        width: min(100%, 390px);
+        width: 100%;
+        padding: 10px 0 0;
     }
 
-    .site-music-player p {
+    .home-access-music-block .site-music-player p {
         white-space: normal;
     }
 
@@ -492,6 +536,11 @@ body.home-page .fixed-bottom-text {
         <p>
             Faith • Family • Military Service • Memories • 3131 • 2406 • 1040
         </p>
+
+        <section
+            class="home-access-music-block"
+            aria-label="Family menu and website music"
+        >
 
         <section
             id="menuAccessPanel"
@@ -590,6 +639,25 @@ body.home-page .fixed-bottom-text {
             </a>
         </nav>
 
+        <section
+            class="site-music-player"
+            aria-label="Website music player"
+        >
+
+            <p id="musicStatus">Music: Track 1</p>
+
+            <button type="button" id="musicButton">
+                Play Music
+            </button>
+
+            <audio id="siteMusic" preload="metadata">
+                Your browser does not support audio playback.
+            </audio>
+
+        </section>
+
+        </section>
+
     </header>
 
     <main class="page-wrap">
@@ -644,23 +712,6 @@ body.home-page .fixed-bottom-text {
                 </div>
 
             </div>
-
-        </section>
-
-        <section
-            class="site-music-player"
-            aria-label="Website music player"
-        >
-
-            <p id="musicStatus">Music: Track 1</p>
-
-            <button type="button" id="musicButton">
-                Play Music
-            </button>
-
-            <audio id="siteMusic" preload="metadata">
-                Your browser does not support audio playback.
-            </audio>
 
         </section>
 
