@@ -241,6 +241,7 @@
 
         body.home-page .top-nav[hidden],
         .menu-access-panel[hidden],
+        .site-music-player[hidden],
         .menu-access-controls[hidden],
         .menu-access-help[hidden] {
             display: none;
@@ -785,8 +786,10 @@ body.home-page .fixed-bottom-text {
         </nav>
 
         <section
+            id="siteMusicPlayer"
             class="site-music-player"
             aria-label="Website music player"
+            hidden
         >
 
             <p id="musicStatus">Music: Track 1</p>
