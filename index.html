@@ -798,6 +798,10 @@ body.home-page .fixed-bottom-text {
                 Play Music
             </button>
 
+            <button type="button" id="musicNextButton">
+                Next Track
+            </button>
+
             <audio id="siteMusic" preload="metadata">
                 Your browser does not support audio playback.
             </audio>
@@ -1511,6 +1515,9 @@ body.home-page .fixed-bottom-text {
             const musicButton =
                 document.getElementById("musicButton");
 
+            const musicNextButton =
+                document.getElementById("musicNextButton");
+
             const musicStatus =
                 document.getElementById("musicStatus");
 
@@ -1523,6 +1530,13 @@ body.home-page .fixed-bottom-text {
                     `Music: ${tracks[currentTrack].name}`;
 
                 musicPlayer.load();
+            };
+
+            const selectNextTrack = () => {
+                currentTrack =
+                    (currentTrack + 1) % tracks.length;
+
+                loadTrack();
             };
 
             musicButton.addEventListener("click", async () => {
@@ -1540,14 +1554,26 @@ body.home-page .fixed-bottom-text {
                 }
             });
 
-            musicPlayer.addEventListener("ended", async () => {
-                currentTrack += 1;
+            musicNextButton.addEventListener("click", async () => {
+                const continuePlaying = !musicPlayer.paused;
 
-                if (currentTrack >= tracks.length) {
-                    currentTrack = 0;
+                selectNextTrack();
+
+                if (!continuePlaying) {
+                    return;
                 }
 
-                loadTrack();
+                try {
+                    await musicPlayer.play();
+                } catch (error) {
+                    musicButton.textContent = "Play Music";
+                    musicStatus.textContent =
+                        `Music: ${tracks[currentTrack].name} — click Play Music`;
+                }
+            });
+
+            musicPlayer.addEventListener("ended", async () => {
+                selectNextTrack();
 
                 try {
                     await musicPlayer.play();
