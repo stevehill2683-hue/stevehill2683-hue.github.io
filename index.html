@@ -1356,8 +1356,60 @@ body.home-page .fixed-bottom-text {
                 "(prefers-reduced-motion: reduce)"
             );
 
-            let leftIndex = 0;
-            let rightIndex = 0;
+            const createSlideDeck = (slides, initialIndex = 0) => {
+                const repeatBufferSize = Math.min(
+                    minimumSlidesBeforeRepeat,
+                    Math.floor(slides.length / 2)
+                );
+                let recentIndexes = [initialIndex];
+                let remainingIndexes = [];
+
+                const shuffle = (indexes) => {
+                    for (let index = indexes.length - 1; index > 0; index -= 1) {
+                        const randomIndex = Math.floor(
+                            Math.random() * (index + 1)
+                        );
+
+                        [indexes[index], indexes[randomIndex]] =
+                            [indexes[randomIndex], indexes[index]];
+                    }
+
+                    return indexes;
+                };
+
+                const refill = () => {
+                    const recentIndexSet = new Set(recentIndexes);
+                    const indexes = slides.map((slide, index) => index);
+                    const freshIndexes = shuffle(
+                        indexes.filter((index) => !recentIndexSet.has(index))
+                    );
+                    const recentSlides = shuffle(
+                        indexes.filter((index) => recentIndexSet.has(index))
+                    );
+
+                    remainingIndexes = freshIndexes.concat(recentSlides);
+                };
+
+                remainingIndexes = shuffle(
+                    slides
+                        .map((slide, index) => index)
+                        .filter((index) => index !== initialIndex)
+                );
+
+                return () => {
+                    if (remainingIndexes.length === 0) {
+                        refill();
+                    }
+
+                    const nextIndex = remainingIndexes.shift();
+                    recentIndexes.push(nextIndex);
+                    recentIndexes = recentIndexes.slice(-repeatBufferSize);
+                    return nextIndex;
+                };
+            };
+
+            const nextLeftIndex = createSlideDeck(leftSlides);
+            const nextRightIndex = createSlideDeck(rightSlides);
             let intervalId = null;
             let isRunning = !reducedMotion.matches;
 
@@ -1380,8 +1432,8 @@ body.home-page .fixed-bottom-text {
             };
 
             const advanceSlides = () => {
-                leftIndex = (leftIndex + 1) % leftSlides.length;
-                rightIndex = (rightIndex + 1) % rightSlides.length;
+                const leftIndex = nextLeftIndex();
+                const rightIndex = nextRightIndex();
 
                 showSlide(leftImage, leftCaption, leftSlides, leftIndex);
                 showSlide(rightImage, rightCaption, rightSlides, rightIndex);
