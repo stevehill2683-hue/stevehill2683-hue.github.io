@@ -1357,9 +1357,13 @@ body.home-page .fixed-bottom-text {
             );
 
             const createSlideDeck = (slides, initialIndex = 0) => {
+                const picturesShownPerAdvance = 2;
                 const repeatBufferSize = Math.min(
-                    minimumSlidesBeforeRepeat,
-                    Math.floor(slides.length / 2)
+                    Math.ceil(
+                        minimumSlidesBeforeRepeat /
+                        picturesShownPerAdvance
+                    ),
+                    slides.length - 1
                 );
                 let recentIndexes = [initialIndex];
                 let remainingIndexes = [];
