@@ -279,6 +279,40 @@
             background: #f1f1f1;
         }
 
+        body.home-page .home-access-music-block .top-nav
+        a.submit-photo-menu-link {
+            color: #2b1607;
+            background: linear-gradient(
+                180deg,
+                #ffe9a8 0%,
+                #e8b84d 55%,
+                #bd7a1e 100%
+            );
+            border-color: #6f3d0d;
+            box-shadow:
+                0 6px 0 #70400f,
+                0 10px 16px rgba(44, 24, 11, 0.32);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+            transform: translateY(-3px);
+        }
+
+        body.home-page .home-access-music-block .top-nav
+        a.submit-photo-menu-link:hover,
+        body.home-page .home-access-music-block .top-nav
+        a.submit-photo-menu-link:focus-visible {
+            color: #1d0e04;
+            background: linear-gradient(
+                180deg,
+                #fff2c5 0%,
+                #f0c967 55%,
+                #ca8a2b 100%
+            );
+            box-shadow:
+                0 4px 0 #70400f,
+                0 8px 13px rgba(44, 24, 11, 0.3);
+            transform: translateY(-1px);
+        }
+
         .home-welcome-panel {
             text-align: center;
             background: #303030;
@@ -767,7 +801,12 @@ body.home-page .fixed-bottom-text {
             <a href="2406.html">2406</a>
             <a href="1040.html">1040</a>
             <a href="special-documents.html">Special Documents</a>
-            <a href="submit-photo.html">Submit Photo</a>
+            <a
+                class="submit-photo-menu-link"
+                href="submit-photo.html"
+            >
+                Submit Photo
+            </a>
 
             <a
                 class="confidential-menu-link"
@@ -1555,13 +1594,7 @@ body.home-page .fixed-bottom-text {
             });
 
             musicNextButton.addEventListener("click", async () => {
-                const continuePlaying = !musicPlayer.paused;
-
                 selectNextTrack();
-
-                if (!continuePlaying) {
-                    return;
-                }
 
                 try {
                     await musicPlayer.play();
