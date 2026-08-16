@@ -3272,7 +3272,7 @@ if (
         "owner-success-button";
 
     approveButton.textContent =
-        "Approve";
+        "Approve Only";
 
     approveButton.addEventListener(
         "click",
@@ -3284,7 +3284,34 @@ if (
             );
         }
     );
+const publishButton =
+    document.createElement(
+        "button"
+    );
 
+publishButton.type =
+    "button";
+
+publishButton.className =
+    "owner-success-button";
+
+publishButton.textContent =
+    submission.status === "approved"
+        ? "Publish to Website"
+        : "Approve & Publish";
+
+publishButton.addEventListener(
+    "click",
+    () => {
+        void runPhotoAction(
+            submission.submissionId,
+            "publish",
+            submission.caption || "",
+            submission.destination || "Owner Decides",
+            submission.familyMember || ""
+        );
+    }
+);
     const rejectButton =
         document.createElement(
             "button"
@@ -3362,6 +3389,7 @@ if (
 
     actions.append(
         approveButton,
+        publishButton,
         rejectButton,
         editCaptionButton,
         deleteButton
@@ -3398,7 +3426,9 @@ const runPhotoAction =
     async (
         submissionId,
         action,
-        currentCaption = ""
+        currentCaption = "",
+        currentDestination = "Owner Decides",
+        currentFamilyMember = ""
     ) => {
         if (
             !state.token ||
@@ -3422,7 +3452,62 @@ const runPhotoAction =
                 return;
             }
         }
+if (action === "publish") {
+    let destination =
+        currentDestination || "Owner Decides";
 
+    if (destination === "Owner Decides") {
+        const selectedDestination =
+            window.prompt(
+                "Enter the website destination: Faith, Family, Military, Israel, 3131, 2406, 1040, or Special Documents",
+                ""
+            );
+
+        if (selectedDestination === null) {
+            return;
+        }
+
+        destination =
+            selectedDestination.trim();
+    }
+
+    let familyMember =
+        currentFamilyMember || "";
+
+    if (destination === "Family") {
+        const selectedFamilyMember =
+            window.prompt(
+                "Enter the family member: Steve, Anita, Tony, Scott, Becky, Craig, Brian, or Mom & Dad",
+                familyMember
+            );
+
+        if (selectedFamilyMember === null) {
+            return;
+        }
+
+        familyMember =
+            selectedFamilyMember.trim();
+    }
+
+    const confirmed =
+        window.confirm(
+            `Publish this photo to ${destination}${
+                destination === "Family" && familyMember
+                    ? ` / ${familyMember}`
+                    : ""
+            }?`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    body.destination =
+        destination;
+
+    body.familyMember =
+        familyMember;
+}
         if (action === "reject") {
             const confirmed =
                 window.confirm(
