@@ -48,6 +48,9 @@
         mainNavigation:
             byId("mainNavigation"),
 
+        musicPlayer:
+            byId("siteMusicPlayer"),
+
         forgotCodeButton:
             byId("menuForgotCodeButton"),
 
@@ -359,6 +362,20 @@
         }
 
         if (
+            elements.musicPlayer
+        ) {
+            elements.musicPlayer.hidden =
+                true;
+
+            const audioPlayer =
+                byId("siteMusic");
+
+            if (audioPlayer) {
+                audioPlayer.pause();
+            }
+        }
+
+        if (
             elements.accessPanel
         ) {
             elements.accessPanel.hidden =
@@ -407,6 +424,13 @@
         ) {
             elements.accessPanel.hidden =
                 true;
+        }
+
+        if (
+            elements.musicPlayer
+        ) {
+            elements.musicPlayer.hidden =
+                false;
         }
     };
 
