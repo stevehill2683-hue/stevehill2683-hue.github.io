@@ -58,10 +58,6 @@
             document.querySelectorAll(".zoom-photo")
         );
 
-        if (zoomPhotos.length === 0) {
-            return;
-        }
-
         let lightbox = document.getElementById("photoLightbox");
 
         if (!lightbox) {
@@ -116,7 +112,7 @@
                 help.textContent = helpText;
             });
         } else {
-            const firstGallery = zoomPhotos[0].closest(
+            const firstGallery = zoomPhotos[0]?.closest(
                 ".gallery, .photo-grid"
             );
 
@@ -149,7 +145,7 @@
             const gallery = photo.closest(".gallery, .photo-grid");
             const galleryPhotos = gallery
                 ? Array.from(gallery.querySelectorAll(".zoom-photo"))
-                : zoomPhotos;
+                : Array.from(document.querySelectorAll(".zoom-photo"));
 
             const visiblePhotos = galleryPhotos.filter(galleryPhoto => {
                 const card = galleryPhoto.closest(".photo-card");
@@ -280,8 +276,10 @@
             currentPhotoIndex = activePhotos.indexOf(photo);
 
             if (currentPhotoIndex < 0) {
-                activePhotos = zoomPhotos;
-                currentPhotoIndex = zoomPhotos.indexOf(photo);
+                activePhotos = Array.from(
+                    document.querySelectorAll(".zoom-photo")
+                );
+                currentPhotoIndex = activePhotos.indexOf(photo);
             }
 
             previouslyFocusedPhoto = photo;
@@ -312,29 +310,41 @@
             showPhoto(currentPhotoIndex + 1);
         }
 
-        zoomPhotos.forEach(photo => {
-            photo.addEventListener("error", () => {
-                const fallbackSource = photo.dataset.full;
+        document.addEventListener("error", event => {
+            const photo = event.target;
 
-                if (!fallbackSource ||
-                    photo.dataset.fallbackAttempted === "true") {
-                    return;
-                }
+            if (!(photo instanceof HTMLImageElement) ||
+                !photo.classList.contains("zoom-photo")) {
+                return;
+            }
 
-                photo.dataset.fallbackAttempted = "true";
-                photo.src = fallbackSource;
-            });
+            const fallbackSource = photo.dataset.full;
 
-            photo.addEventListener("click", () => {
+            if (!fallbackSource ||
+                photo.dataset.fallbackAttempted === "true") {
+                return;
+            }
+
+            photo.dataset.fallbackAttempted = "true";
+            photo.src = fallbackSource;
+        }, true);
+
+        document.addEventListener("click", event => {
+            const photo = event.target.closest?.(".zoom-photo");
+
+            if (photo) {
                 openLightbox(photo);
-            });
+            }
+        });
 
-            photo.addEventListener("keydown", event => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    openLightbox(photo);
-                }
-            });
+        document.addEventListener("keydown", event => {
+            const photo = event.target.closest?.(".zoom-photo");
+
+            if (photo &&
+                (event.key === "Enter" || event.key === " ")) {
+                event.preventDefault();
+                openLightbox(photo);
+            }
         });
 
         lightboxImg.addEventListener("load", applyZoom);
