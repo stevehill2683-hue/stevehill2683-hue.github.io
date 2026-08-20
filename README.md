@@ -31,3 +31,4 @@ This is a starter static website for GitHub Pages.
 
 Avoid posting private information such as full birth dates, addresses, phone numbers, or anything sensitive about children or grandchildren.
 This is my first GitHub Pages website.
+<!-- republish GitHub Pages -->
