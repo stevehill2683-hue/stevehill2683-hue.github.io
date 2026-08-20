@@ -681,6 +681,75 @@
             margin-top: 10px !important;
         }
 
+        .owner-photo-status {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #e4e8ef;
+            color: #27374e;
+            font-weight: 800;
+        }
+
+        .owner-photo-status.is-published {
+            background: #dff2e3;
+            color: #174c25;
+        }
+
+        .owner-photo-status.is-unpublished {
+            background: #fff0bf;
+            color: #6b4700;
+        }
+
+        .owner-photo-action-dialog {
+            width: min(92vw, 560px);
+            max-height: 88vh;
+            padding: 0;
+            border: 3px solid #173d1e;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #111111;
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
+        }
+
+        .owner-photo-action-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.66);
+        }
+
+        .owner-photo-action-dialog form {
+            display: grid;
+            gap: 16px;
+            padding: 24px;
+        }
+
+        .owner-photo-action-dialog h3,
+        .owner-photo-action-dialog p {
+            margin: 0;
+        }
+
+        .owner-photo-dialog-fields {
+            display: grid;
+            gap: 14px;
+        }
+
+        .owner-photo-dialog-fields label {
+            display: grid;
+            gap: 7px;
+            font-weight: 800;
+        }
+
+        .owner-photo-dialog-fields select {
+            width: 100%;
+            min-height: 44px;
+            padding: 8px 10px;
+            border: 2px solid #5d6b60;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #111111;
+            font: inherit;
+        }
+
         @media (max-width: 700px) {
             .owner-photo-submissions-list
             .owner-summary-card > img {
@@ -1585,6 +1654,93 @@
                     class="owner-photo-submissions-list"
                 ></div>
 
+                <dialog
+                    id="ownerPhotoActionDialog"
+                    class="owner-photo-action-dialog"
+                    aria-labelledby="ownerPhotoActionDialogTitle"
+                >
+                    <form id="ownerPhotoActionDialogForm">
+                        <h3 id="ownerPhotoActionDialogTitle"></h3>
+
+                        <p id="ownerPhotoActionDialogText"></p>
+
+                        <div
+                            id="ownerPhotoDestinationFields"
+                            class="owner-photo-dialog-fields"
+                            hidden
+                        >
+                            <label for="ownerPhotoDestinationSelect">
+                                Page or gallery
+
+                                <select id="ownerPhotoDestinationSelect">
+                                    <option value="">
+                                        Choose a page or gallery
+                                    </option>
+                                    <option value="Faith">Faith</option>
+                                    <option value="Family">Family</option>
+                                    <option value="Military">Military</option>
+                                    <option value="Israel">Israel</option>
+                                    <option value="3131">3131</option>
+                                    <option value="2406">2406</option>
+                                    <option value="1040">1040</option>
+                                    <option value="Special Documents">
+                                        Special Documents
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label
+                                id="ownerPhotoFamilyMemberField"
+                                for="ownerPhotoFamilyMemberSelect"
+                                hidden
+                            >
+                                Family gallery
+
+                                <select id="ownerPhotoFamilyMemberSelect">
+                                    <option value="">
+                                        Choose a family gallery
+                                    </option>
+                                    <option value="Steve">Steve</option>
+                                    <option value="Anita">Anita</option>
+                                    <option value="Tony">Tony</option>
+                                    <option value="Scott">Scott</option>
+                                    <option value="Becky">Becky</option>
+                                    <option value="Craig">Craig</option>
+                                    <option value="Brian">Brian</option>
+                                    <option value="Mom &amp; Dad">
+                                        Mom &amp; Dad
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <p
+                            id="ownerPhotoActionDialogMessage"
+                            class="owner-message"
+                            role="status"
+                            aria-live="polite"
+                        ></p>
+
+                        <div class="owner-editor-actions">
+                            <button
+                                id="ownerPhotoActionDialogCancel"
+                                type="button"
+                                class="owner-secondary-button"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                id="ownerPhotoActionDialogConfirm"
+                                type="button"
+                                class="owner-success-button"
+                            >
+                                Confirm
+                            </button>
+                        </div>
+                    </form>
+                </dialog>
+
             </section>
             <section
                 class="
@@ -1823,7 +1979,37 @@ photoSubmissionsEmpty:
     byId("ownerPhotoSubmissionsEmpty"),
 
 photoSubmissionsList:
-    byId("ownerPhotoSubmissionsList")
+    byId("ownerPhotoSubmissionsList"),
+
+photoActionDialog:
+    byId("ownerPhotoActionDialog"),
+
+photoActionDialogTitle:
+    byId("ownerPhotoActionDialogTitle"),
+
+photoActionDialogText:
+    byId("ownerPhotoActionDialogText"),
+
+photoDestinationFields:
+    byId("ownerPhotoDestinationFields"),
+
+photoDestinationSelect:
+    byId("ownerPhotoDestinationSelect"),
+
+photoFamilyMemberField:
+    byId("ownerPhotoFamilyMemberField"),
+
+photoFamilyMemberSelect:
+    byId("ownerPhotoFamilyMemberSelect"),
+
+photoActionDialogMessage:
+    byId("ownerPhotoActionDialogMessage"),
+
+photoActionDialogCancel:
+    byId("ownerPhotoActionDialogCancel"),
+
+photoActionDialogConfirm:
+    byId("ownerPhotoActionDialogConfirm")
             };
 
             const setMessage = (
@@ -2974,6 +3160,177 @@ const clearPhotoDisplay = () => {
         "0";
 };
 
+const updatePhotoFamilyPicker = () => {
+    const familySelected =
+        elements.photoDestinationSelect.value ===
+        "Family";
+
+    elements.photoFamilyMemberField.hidden =
+        !familySelected;
+
+    if (!familySelected) {
+        elements.photoFamilyMemberSelect.value =
+            "";
+    }
+};
+
+elements.photoDestinationSelect.addEventListener(
+    "change",
+    updatePhotoFamilyPicker
+);
+
+const openPhotoActionDialog = ({
+    title,
+    text,
+    confirmLabel,
+    showDestinationPicker = false
+}) => new Promise((resolve) => {
+    let finished = false;
+
+    elements.photoActionDialogTitle.textContent =
+        title;
+
+    elements.photoActionDialogText.textContent =
+        text;
+
+    elements.photoActionDialogConfirm.textContent =
+        confirmLabel;
+
+    elements.photoDestinationFields.hidden =
+        !showDestinationPicker;
+
+    elements.photoDestinationSelect.value =
+        "";
+
+    elements.photoFamilyMemberSelect.value =
+        "";
+
+    updatePhotoFamilyPicker();
+
+    setMessage(
+        elements.photoActionDialogMessage,
+        ""
+    );
+
+    const finish = (value) => {
+        if (finished) {
+            return;
+        }
+
+        finished = true;
+
+        elements.photoActionDialog.removeEventListener(
+            "cancel",
+            handleCancel
+        );
+
+        if (elements.photoActionDialog.open) {
+            elements.photoActionDialog.close();
+        }
+
+        resolve(value);
+    };
+
+    const handleCancel = (event) => {
+        event.preventDefault();
+        finish(null);
+    };
+
+    elements.photoActionDialogCancel.onclick =
+        () => finish(null);
+
+    elements.photoActionDialogConfirm.onclick =
+        () => {
+            if (!showDestinationPicker) {
+                finish(true);
+                return;
+            }
+
+            const destination =
+                elements
+                    .photoDestinationSelect
+                    .value;
+
+            if (!destination) {
+                setMessage(
+                    elements.photoActionDialogMessage,
+                    "Choose a page or gallery.",
+                    "error"
+                );
+
+                elements.photoDestinationSelect
+                    .focus();
+
+                return;
+            }
+
+            const familyMember =
+                destination === "Family"
+                    ? elements
+                        .photoFamilyMemberSelect
+                        .value
+                    : "";
+
+            if (
+                destination === "Family" &&
+                !familyMember
+            ) {
+                setMessage(
+                    elements.photoActionDialogMessage,
+                    "Choose a family gallery.",
+                    "error"
+                );
+
+                elements.photoFamilyMemberSelect
+                    .focus();
+
+                return;
+            }
+
+            finish({
+                destination,
+                familyMember
+            });
+        };
+
+    elements.photoActionDialog.addEventListener(
+        "cancel",
+        handleCancel
+    );
+
+    elements.photoActionDialog.showModal();
+
+    window.setTimeout(
+        () => {
+            if (showDestinationPicker) {
+                elements.photoDestinationSelect
+                    .focus();
+            } else {
+                elements.photoActionDialogCancel
+                    .focus();
+            }
+        },
+        0
+    );
+});
+
+const confirmPhotoUnpublish = () =>
+    openPhotoActionDialog({
+        title: "Unpublish Photo",
+        text:
+            "Unpublish this photo? The photo will be removed from the website but kept safely for later use.",
+        confirmLabel: "Unpublish"
+    });
+
+const choosePhotoPublishDestination = () =>
+    openPhotoActionDialog({
+        title: "Publish Again",
+        text:
+            "Choose the page or gallery where this photo should be published. Its previous location will not be selected automatically.",
+        confirmLabel: "Publish Photo",
+        showDestinationPicker: true
+    });
+
 const renderPhotoSubmissions = (data) => {
     const submissions =
         Array.isArray(
@@ -3084,14 +3441,44 @@ const renderPhotoSubmissions = (data) => {
                     "p"
                 );
 
-            status.textContent =
-                `Status: ${
-                    submission.status ||
-                    "pending"
-                }`;
+            const isPublished =
+                submission.status === "approved" &&
+                Boolean(submission.publishedPath);
 
-            status.style.fontWeight =
-                "700";
+            const isUnpublished =
+                submission.status === "approved" &&
+                !submission.publishedPath;
+
+            const displayedStatus =
+                isPublished
+                    ? "Published"
+                    : isUnpublished
+                        ? "Unpublished"
+                        : String(
+                            submission.status ||
+                            "pending"
+                        )
+                            .replace(/^./, (letter) =>
+                                letter.toUpperCase()
+                            );
+
+            status.textContent =
+                `Status: ${displayedStatus}`;
+
+            status.className =
+                "owner-photo-status";
+
+            if (isPublished) {
+                status.classList.add(
+                    "is-published"
+                );
+            }
+
+            if (isUnpublished) {
+                status.classList.add(
+                    "is-unpublished"
+                );
+            }
 
             card.appendChild(
                 status
@@ -3126,6 +3513,22 @@ const renderPhotoSubmissions = (data) => {
             card.appendChild(
                 destination
             );
+
+            if (isPublished) {
+                const publishedPage =
+                    document.createElement(
+                        "p"
+                    );
+
+                publishedPage.textContent =
+                    `Published page: ${
+                        submission.publishedPath
+                    }`;
+
+                card.appendChild(
+                    publishedPage
+                );
+            }
 
             if (
                 submission.familyMember
@@ -3284,31 +3687,38 @@ if (
             );
         }
     );
-const publishButton =
+const publicationButton =
     document.createElement(
         "button"
     );
 
-publishButton.type =
+publicationButton.type =
     "button";
 
-publishButton.className =
-    "owner-success-button";
+publicationButton.className =
+    isPublished
+        ? "owner-secondary-button"
+        : "owner-success-button";
 
-publishButton.textContent =
-    submission.status === "approved"
-        ? "Publish to Website"
-        : "Approve & Publish";
+publicationButton.textContent =
+    isPublished
+        ? "Unpublish"
+        : isUnpublished
+            ? "Publish Again"
+            : "Approve & Publish";
 
-publishButton.addEventListener(
+publicationButton.addEventListener(
     "click",
     () => {
         void runPhotoAction(
             submission.submissionId,
-            "publish",
+            isPublished
+                ? "unpublish"
+                : "publish",
             submission.caption || "",
             submission.destination || "Owner Decides",
-            submission.familyMember || ""
+            submission.familyMember || "",
+            isUnpublished
         );
     }
 );
@@ -3389,7 +3799,7 @@ publishButton.addEventListener(
 
     actions.append(
         approveButton,
-        publishButton,
+        publicationButton,
         rejectButton,
         editCaptionButton,
         deleteButton
@@ -3428,7 +3838,8 @@ const runPhotoAction =
         action,
         currentCaption = "",
         currentDestination = "Owner Decides",
-        currentFamilyMember = ""
+        currentFamilyMember = "",
+        isPublishAgain = false
     ) => {
         if (
             !state.token ||
@@ -3452,11 +3863,42 @@ const runPhotoAction =
                 return;
             }
         }
+
+        if (action === "unpublish") {
+            const confirmed =
+                await confirmPhotoUnpublish();
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
 if (action === "publish") {
     let destination =
         currentDestination || "Owner Decides";
 
-    if (destination === "Owner Decides") {
+    let familyMember =
+        currentFamilyMember || "";
+
+    if (isPublishAgain) {
+        const selection =
+            await choosePhotoPublishDestination();
+
+        if (!selection) {
+            return;
+        }
+
+        destination =
+            selection.destination;
+
+        familyMember =
+            selection.familyMember;
+    }
+
+    if (
+        !isPublishAgain &&
+        destination === "Owner Decides"
+    ) {
         const selectedDestination =
             window.prompt(
                 "Enter the website destination: Faith, Family, Military, Israel, 3131, 2406, 1040, or Special Documents",
@@ -3471,10 +3913,10 @@ if (action === "publish") {
             selectedDestination.trim();
     }
 
-    let familyMember =
-        currentFamilyMember || "";
-
-    if (destination === "Family") {
+    if (
+        !isPublishAgain &&
+        destination === "Family"
+    ) {
         const selectedFamilyMember =
             window.prompt(
                 "Enter the family member: Steve, Anita, Tony, Scott, Becky, Craig, Brian, or Mom & Dad",
@@ -3489,17 +3931,19 @@ if (action === "publish") {
             selectedFamilyMember.trim();
     }
 
-    const confirmed =
-        window.confirm(
-            `Publish this photo to ${destination}${
-                destination === "Family" && familyMember
-                    ? ` / ${familyMember}`
-                    : ""
-            }?`
-        );
+    if (!isPublishAgain) {
+        const confirmed =
+            window.confirm(
+                `Publish this photo to ${destination}${
+                    destination === "Family" && familyMember
+                        ? ` / ${familyMember}`
+                        : ""
+                }?`
+            );
 
-    if (!confirmed) {
-        return;
+        if (!confirmed) {
+            return;
+        }
     }
 
     body.destination =
