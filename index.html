@@ -6,8 +6,7 @@
 
     <title>Steve &amp; Anita Family &amp; Home</title>
 
-    <link rel="stylesheet" href="/scott-pilot/style.css">
-
+    <link rel="stylesheet" href="style.css">
     <style>
         /* HOME PAGE ONLY - COMPACT ONE-SCREEN LAYOUT */
 
@@ -713,13 +712,6 @@ body.home-page .fixed-bottom-text {
 
 <div id="sidebar"></div>
 
-        <p class="site-request-note">
-            If there are document(s) or image(s) that you have & you would like to see here,
-            simply message me.
-        </p>
-
-        <p class="confidential-label">***CONFIDENTIAL***</p>
-
         <p>
             Faith • Family • Military Service • Memories • 3131 • 2406 • 1040
         </p>
@@ -856,8 +848,7 @@ body.home-page .fixed-bottom-text {
 
         </section>
 
-    </header>
-
+   
     <main class="page-wrap">
 
         <section class="hero compact home-welcome-panel">
@@ -971,178 +962,7 @@ body.home-page .fixed-bottom-text {
 
     </footer>
 
-    <script type="text/plain">
-        (() => {
-            "use strict";
-
-            const correctCode = "1040";
-            const maximumAttempts = 10;
-            const unlockedKey = "steveAnitaMenuUnlockedV20_0";
-            const attemptsKey = "steveAnitaMenuAttemptsV20_0";
-
-            const accessPanel =
-                document.getElementById("menuAccessPanel");
-
-            const accessForm =
-                document.getElementById("menuAccessForm");
-
-            const accessTitle =
-                document.getElementById("menuAccessTitle");
-
-            const accessControls =
-                document.getElementById("menuAccessControls");
-
-            const codeInput =
-                document.getElementById("menuAccessCode");
-
-            const accessMessage =
-                document.getElementById("menuAccessMessage");
-
-            const forgotCodeButton =
-                document.getElementById("menuForgotCodeButton");
-
-            const forgotCodeHelp =
-                document.getElementById("menuForgotCodeHelp");
-
-            const mainNavigation =
-                document.getElementById("mainNavigation");
-
-            forgotCodeButton.addEventListener("click", () => {
-                const willShowHelp = forgotCodeHelp.hidden;
-
-                forgotCodeHelp.hidden = !willShowHelp;
-
-                forgotCodeButton.setAttribute(
-                    "aria-expanded",
-                    String(willShowHelp)
-                );
-            });
-
-            const readSessionValue = (key) => {
-                try {
-                    return window.sessionStorage.getItem(key);
-                } catch (error) {
-                    return null;
-                }
-            };
-
-            const saveSessionValue = (key, value) => {
-                try {
-                    window.sessionStorage.setItem(key, value);
-                } catch (error) {
-                    /*
-                        The menu still works if browser storage
-                        is unavailable.
-                    */
-                }
-            };
-
-            const storedAttempts = Number.parseInt(
-                readSessionValue(attemptsKey) || "0",
-                10
-            );
-
-            let attemptsUsed = Number.isNaN(storedAttempts)
-                ? 0
-                : Math.min(
-                    Math.max(storedAttempts, 0),
-                    maximumAttempts
-                );
-
-            const openMenu = () => {
-                mainNavigation.classList.remove("menu-is-opening");
-                mainNavigation.hidden = false;
-
-                /*
-                    Force layout so the animation begins after
-                    the menu becomes visible.
-                */
-                void mainNavigation.offsetWidth;
-
-                mainNavigation.classList.add("menu-is-opening");
-                accessPanel.hidden = true;
-
-                saveSessionValue(unlockedKey, "true");
-                saveSessionValue(attemptsKey, "0");
-            };
-
-            const lockMenu = () => {
-                mainNavigation.hidden = true;
-                accessPanel.hidden = false;
-                accessPanel.classList.add("is-locked");
-                accessControls.hidden = true;
-
-                accessTitle.textContent = "Access denied";
-
-                accessMessage.textContent =
-                    "The menu is locked because all 10 attempts were used.";
-
-                accessMessage.classList.add("is-error");
-
-                saveSessionValue(
-                    attemptsKey,
-                    String(maximumAttempts)
-                );
-            };
-
-            if (readSessionValue(unlockedKey) === "true") {
-                openMenu();
-                return;
-            }
-
-            if (attemptsUsed >= maximumAttempts) {
-                lockMenu();
-                return;
-            }
-
-            const initialAttemptsRemaining =
-                maximumAttempts - attemptsUsed;
-
-            accessMessage.textContent =
-                `${initialAttemptsRemaining} ${
-                    initialAttemptsRemaining === 1
-                        ? "attempt"
-                        : "attempts"
-                } remaining.`;
-
-            codeInput.focus();
-
-            accessForm.addEventListener("submit", (event) => {
-                event.preventDefault();
-
-                if (codeInput.value.trim() === correctCode) {
-                    openMenu();
-                    return;
-                }
-
-                attemptsUsed += 1;
-
-                saveSessionValue(
-                    attemptsKey,
-                    String(attemptsUsed)
-                );
-
-                codeInput.value = "";
-
-                const attemptsRemaining =
-                    maximumAttempts - attemptsUsed;
-
-                if (attemptsRemaining <= 0) {
-                    lockMenu();
-                    return;
-                }
-
-                accessMessage.textContent =
-                    `Incorrect code. ${attemptsRemaining} ${
-                        attemptsRemaining === 1
-                            ? "attempt"
-                            : "attempts"
-                    } remaining.`;
-
-                accessMessage.classList.add("is-error");
-                codeInput.focus();
-            });
-        })();
+    
     </script>
 
     <script src="family-access.js"></script>
@@ -1682,8 +1502,6 @@ body.home-page .fixed-bottom-text {
             loadTrack();
         })();
     </script>
-<script type="module" src="/scott-pilot/sidebarData.js"></script>
-<script type="module" src="/scott-pilot/sidebar.js"></script>
-
-</body>
+<script type="module" src="sidebarData.js"></script>
+<script type="module" src="sidebar.js"></script>
 </html>
