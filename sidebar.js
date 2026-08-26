@@ -20,13 +20,27 @@ function buildSidebar() {
             subItem.textContent = sub;
             subItem.href = "#";
 
-            if (category === "Family") {
-                subItem.classList.add("sidebar-item-family");
-            } else if (category === "Israel") {
-                subItem.classList.add("sidebar-item-israel");
-            }
+       if (category === "Family") {
+    subItem.classList.add("sidebar-item-family");
 
-            sidebar.appendChild(subItem);
+    const familyLinks = {
+        "Steve": "steve.html",
+        "Anita": "anita.html",
+        "Scott": "scott.html",
+        "Tony": "tony.html",
+        "Becky": "becky.html",
+        "Craig": "craig.html",
+        "Brian": "brian.html",
+        "Mom & Dad": "mom-dad.html"
+    };
+
+    subItem.href = familyLinks[sub] || "#";
+
+} else if (category === "Israel") {
+    subItem.classList.add("sidebar-item-israel");
+}
+
+sidebar.appendChild(subItem);
         });
     });
 }
