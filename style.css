@@ -1370,6 +1370,7 @@ body::after {
 /* SCOTT PILOT SIDEBAR */
 
 #sidebar {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -1381,6 +1382,10 @@ body::after {
     box-sizing: border-box;
     overflow-y: auto;
     z-index: 1000;
+}
+
+body:has(#mainNavigation:not([hidden])) #sidebar {
+    display: block;
 }
 
 #sidebar a {
@@ -1419,7 +1424,7 @@ body {
     padding-left: 0;
 }
 
-body:has(#mainNavigation:not([hidden]) > #sidebar) {
+body:has(#mainNavigation:not([hidden])) {
     padding-left: 220px;
 }
 
@@ -1431,7 +1436,7 @@ body:has(#mainNavigation:not([hidden]) > #sidebar) {
     }
 
     body,
-    body:has(#mainNavigation:not([hidden]) > #sidebar) {
+    body:has(#mainNavigation:not([hidden])) {
         padding-left: 0;
     }
 }
