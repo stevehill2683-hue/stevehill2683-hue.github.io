@@ -8,7 +8,14 @@ function buildSidebar() {
         // TOP-LEVEL CATEGORY (PURPLE)
         const topItem = document.createElement("a");
         topItem.textContent = category;
-        topItem.href = "#";
+
+        const topLevelLinks = {
+            "3131": "general.html",
+            "2406": "2406.html",
+            "1040": "1040.html"
+        };
+
+        topItem.href = topLevelLinks[category] || "#";
         topItem.classList.add("sidebar-item-top");
         sidebar.appendChild(topItem);
 
