@@ -10,6 +10,8 @@ const sidebarData = {
     "Mom & Dad"
   ],
 
+  Military: [],
+
   Israel: [
     "General",
     "Southern Stairs",
@@ -42,7 +44,6 @@ const sidebarData = {
     "Capernaum"
   ],
 
-  Military: [],
   3131: [],
   2406: [],
   1040: []
