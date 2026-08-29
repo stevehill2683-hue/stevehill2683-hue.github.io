@@ -1422,8 +1422,8 @@ body:has(#mainNavigation:not([hidden])) #sidebar {
 
 #sidebar a.sidebar-item-family,
 #sidebar a.sidebar-item-israel {
-    margin-left: 12px;
-    width: calc(100% - 12px);
+    margin-left: 24px;
+    width: calc(100% - 24px);
 }
 
 body {
