@@ -1420,6 +1420,12 @@ body:has(#mainNavigation:not([hidden])) #sidebar {
     filter: brightness(1.08);
 }
 
+#sidebar a.sidebar-item-family,
+#sidebar a.sidebar-item-israel {
+    margin-left: 12px;
+    width: calc(100% - 12px);
+}
+
 body {
     padding-left: 0;
 }
