@@ -1419,7 +1419,10 @@ body:has(#mainNavigation:not([hidden])) #sidebar {
 #sidebar a:focus-visible {
     filter: brightness(1.08);
 }
-
+#sidebar a.sidebar-item-family,
+#sidebar a.sidebar-item-israel {
+    margin-left: 12px;
+}
 body {
     padding-left: 0;
 }
