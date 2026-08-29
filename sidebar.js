@@ -30,8 +30,6 @@ function buildSidebar() {
 
        if (category === "Family") {
     subItem.classList.add("sidebar-item-family");
-subItem.style.marginLeft = "12px";
-subItem.style.width = "calc(100% - 12px)";
     const familyLinks = {
         "Steve": "steve.html",
         "Anita": "anita.html",
@@ -47,8 +45,6 @@ subItem.style.width = "calc(100% - 12px)";
 
 } else if (category === "Israel") {
     subItem.classList.add("sidebar-item-israel");
-subItem.style.marginLeft = "12px";
-subItem.style.width = "calc(100% - 12px)";
     const israelLinks = {
         "General": "israel.html#title-1",
         "Southern Stairs": "israel.html#title-2",
