@@ -1440,6 +1440,10 @@ body:has(#mainNavigation:not([hidden])) {
         padding-left: 0;
     }
 }
+.sidebar-item-family,
+.sidebar-item-israel {
+    margin-left: 0.125in;
+}
 /* ===============================
    SITE VERSION
    CSS Version V20.5
