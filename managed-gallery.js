@@ -274,7 +274,9 @@
 
         const pagePath = currentPagePath();
         const standardGrid = document.querySelector(
-            "main .photo-grid:not(.published-photo-grid)"
+            pagePath === "craig.html"
+                ? "main .gallery"
+                : "main .photo-grid:not(.published-photo-grid)"
         );
         const israelTargets = pagePath === "israel.html"
             ? Array.from(document.querySelectorAll("main .israel-topic")).map((topic) => {
