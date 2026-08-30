@@ -166,6 +166,12 @@
         return section;
     }
 
+    function normalizePublishedPhotoUrl(url) {
+        return String(url || "")
+            .replace(/%26amp%3B/gi, "%26")
+            .replace(/%26%2339%3B/gi, "%27");
+    }
+
     function createPhotoCard(photo) {
         const card =
             document.createElement(
