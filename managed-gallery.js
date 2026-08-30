@@ -153,6 +153,11 @@
     function createCard(photo, ownerMode, activeCount, context) {
         const card = document.createElement("div");
         card.className = "photo-card managed-photo-card";
+        card.dataset.search = [
+            photo.caption,
+            photo.originalFilename,
+            photo.familyMember
+        ].filter(Boolean).join(" ");
 
         const image = document.createElement("img");
         image.className = "zoom-photo";
@@ -258,16 +263,26 @@
         if (!session) return;
 
         const pagePath = currentPagePath();
-        const grid = document.querySelector(
+        const standardGrid = document.querySelector(
             "main .photo-grid:not(.published-photo-grid)"
         );
-        if (!pagePath || !grid) return;
+        const israelTargets = pagePath === "israel.html"
+            ? Array.from(document.querySelectorAll("main .israel-topic")).map((topic) => {
+                const grid = topic.querySelector(".gallery");
+                const label = topic.querySelector("h2")?.textContent?.trim() || "";
+                return grid && label ? { grid, label } : null;
+            }).filter(Boolean)
+            : [];
+        const statusGrid = standardGrid || israelTargets[0]?.grid;
+        if (!pagePath || !statusGrid) return;
 
         addStyles();
-        const status = createStatus(grid);
+        const status = createStatus(statusGrid);
         const ownerMode = session.isOwner === true;
-        const pageLabel = document.querySelector("main h1")?.textContent?.trim() ||
-            pagePath.replace(/\.html$/i, "");
+        const pageLabel = pagePath === "israel.html"
+            ? "Israel"
+            : document.querySelector("main h1")?.textContent?.trim() ||
+              pagePath.replace(/\.html$/i, "");
 
         const context = {
             pageLabel,
@@ -280,19 +295,55 @@
                 photo.placementStatus === "active"
             ).length;
 
-            grid.replaceChildren();
-            photos.forEach((photo) => {
+            const renderablePhotos = photos.filter((photo) => {
                 if (!ownerMode &&
                     (photo.imageStatus !== undefined ||
                      photo.placementStatus !== undefined)) {
                     if (photo.imageStatus !== "active" ||
-                        photo.placementStatus !== "active") return;
+                        photo.placementStatus !== "active") return false;
                 }
-                grid.appendChild(
+                return true;
+            });
+
+            if (israelTargets.length > 0) {
+                const normalizeLabel = (value) => String(value || "")
+                    .replace(/\u2019/g, "'")
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .toLowerCase();
+                const targetByLabel = new Map(israelTargets.map((target) => [
+                    normalizeLabel(target.label),
+                    target
+                ]));
+                const unmatched = renderablePhotos.filter((photo) =>
+                    !targetByLabel.has(normalizeLabel(photo.familyMember))
+                );
+                if (unmatched.length > 0) {
+                    throw new Error("One or more Israel photos have no matching subsection.");
+                }
+
+                israelTargets.forEach((target) => target.grid.replaceChildren());
+                renderablePhotos.forEach((photo) => {
+                    const target = targetByLabel.get(
+                        normalizeLabel(photo.familyMember)
+                    );
+                    target.grid.appendChild(
+                        createCard(photo, ownerMode, activeCount, context)
+                    );
+                });
+                israelTargets.forEach((target) => {
+                    target.grid.dataset.managedGalleryLoaded = "true";
+                });
+                return;
+            }
+
+            standardGrid.replaceChildren();
+            renderablePhotos.forEach((photo) => {
+                standardGrid.appendChild(
                     createCard(photo, ownerMode, activeCount, context)
                 );
             });
-            grid.dataset.managedGalleryLoaded = "true";
+            standardGrid.dataset.managedGalleryLoaded = "true";
         };
 
         const refresh = async () => {
