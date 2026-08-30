@@ -166,6 +166,12 @@
         return section;
     }
 
+    function normalizePublishedPhotoUrl(url) {
+        return String(url || "")
+            .replace(/%26amp%3B/gi, "%26")
+            .replace(/%26%2339%3B/gi, "%27");
+    }
+
     function createPhotoCard(photo) {
         const card =
             document.createElement(
@@ -186,14 +192,17 @@
         image.className =
             "zoom-photo";
 
-        image.src =
+        image.src = normalizePublishedPhotoUrl(
             photo.thumbnailUrl ||
             photo.imageUrl ||
-            "";
+            ""
+        );
 
         if (photo.imageUrl) {
             image.dataset.full =
-                photo.imageUrl;
+                normalizePublishedPhotoUrl(
+                    photo.imageUrl
+                );
         }
 
         image.alt =
