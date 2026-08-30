@@ -186,14 +186,17 @@
         image.className =
             "zoom-photo";
 
-        image.src =
+        image.src = normalizePublishedPhotoUrl(
             photo.thumbnailUrl ||
             photo.imageUrl ||
-            "";
+            ""
+        );
 
         if (photo.imageUrl) {
             image.dataset.full =
-                photo.imageUrl;
+                normalizePublishedPhotoUrl(
+                    photo.imageUrl
+                );
         }
 
         image.alt =
