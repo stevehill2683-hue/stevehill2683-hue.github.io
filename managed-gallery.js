@@ -150,6 +150,12 @@
         return button;
     }
 
+    function normalizeManagedUrl(url) {
+        return String(url || "")
+            .replace(/%26amp%3B/gi, "%26")
+            .replace(/%26%2339%3B/gi, "%27");
+    }
+
     function createCard(photo, ownerMode, activeCount, context) {
         const card = document.createElement("div");
         card.className = "photo-card managed-photo-card";
@@ -161,8 +167,12 @@
 
         const image = document.createElement("img");
         image.className = "zoom-photo";
-        image.src = photo.thumbnailUrl || photo.imageUrl || "";
-        if (photo.imageUrl) image.dataset.full = photo.imageUrl;
+        image.src = normalizeManagedUrl(
+            photo.thumbnailUrl || photo.imageUrl || ""
+        );
+        if (photo.imageUrl) {
+            image.dataset.full = normalizeManagedUrl(photo.imageUrl);
+        }
         image.alt = photo.caption || photo.originalFilename || "Family photo";
         image.tabIndex = 0;
         image.loading = "lazy";
