@@ -4,6 +4,17 @@
     const API_BASE =
         "https://steve-anita-family-access.stevehill2683.workers.dev";
     const SESSION_STORAGE_KEY = "steve-anita-family-session";
+    let unifiedGalleryActive = false;
+
+    function removeSeparatePublishedSection() {
+        if (!unifiedGalleryActive) return;
+        document.getElementById("publishedPhotoSection")?.remove();
+    }
+
+    window.addEventListener(
+        "published-photos-added",
+        removeSeparatePublishedSection
+    );
 
     function getSession() {
         try {
@@ -375,6 +386,8 @@
                 throw new Error("No managed photos are available for this page.");
             }
             render(photos);
+            unifiedGalleryActive = true;
+            removeSeparatePublishedSection();
             showStatus(
                 status,
                 ownerMode
