@@ -189,9 +189,18 @@
         image.loading = "lazy";
         image.decoding = "async";
 
+        const unavailable = document.createElement("p");
+        unavailable.className = "managed-photo-unavailable";
+        unavailable.textContent = "This deleted image file is no longer available.";
+        unavailable.hidden = true;
+        image.addEventListener("error", () => {
+            image.hidden = true;
+            unavailable.hidden = false;
+        });
+
         const caption = document.createElement("p");
         caption.textContent = photo.caption || "Family photo.";
-        card.append(image, caption);
+        card.append(image, unavailable, caption);
 
         if (!ownerMode) return card;
 

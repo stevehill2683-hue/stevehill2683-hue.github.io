@@ -3815,13 +3815,42 @@ publicationButton.addEventListener(
         );
 
     deletedNote.textContent =
-        "This photo has been deleted. No further actions are available.";
+        "This photo file has been deleted. You can remove its remaining database record.";
 
     deletedNote.style.fontWeight =
         "700";
 
     card.appendChild(
         deletedNote
+    );
+
+    const removeRecordButton =
+        document.createElement(
+            "button"
+        );
+
+    removeRecordButton.type =
+        "button";
+
+    removeRecordButton.className =
+        "owner-danger-button";
+
+    removeRecordButton.textContent =
+        "Remove Deleted Record";
+
+    removeRecordButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "purge",
+                submission.caption || ""
+            );
+        }
+    );
+
+    card.appendChild(
+        removeRecordButton
     );
 }
 
@@ -3992,6 +4021,17 @@ if (action === "publish") {
             const confirmed =
                 window.confirm(
                     "DELETE this photo from Uploadcare storage? This cannot be undone."
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "purge") {
+            const confirmed =
+                window.confirm(
+                    "Remove this deleted photo's remaining database record? This cannot be undone."
                 );
 
             if (!confirmed) {
