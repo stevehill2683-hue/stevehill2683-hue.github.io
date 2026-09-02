@@ -128,6 +128,21 @@
                 cursor: not-allowed;
                 opacity: 0.55;
             }
+            .managed-photo-unavailable {
+                display: grid;
+                min-height: 180px;
+                place-items: center;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 1rem;
+                border: 2px dashed #8b6845;
+                border-radius: 10px;
+                background: #f3eadb;
+                color: #51270f;
+                font-weight: 800;
+                text-align: center;
+            }
+            .managed-photo-unavailable[hidden] { display: none !important; }
         `;
         document.head.appendChild(style);
     }
@@ -176,38 +191,46 @@
             photo.familyMember
         ].filter(Boolean).join(" ");
 
-        const image = document.createElement("img");
-        image.className = "zoom-photo";
-        image.src = normalizeManagedUrl(
-            photo.thumbnailUrl || photo.imageUrl || ""
-        );
-        if (photo.imageUrl) {
-            image.dataset.full = normalizeManagedUrl(photo.imageUrl);
-        }
-        image.alt = photo.caption || photo.originalFilename || "Family photo";
-        image.tabIndex = 0;
-        image.loading = "lazy";
-        image.decoding = "async";
-
         const unavailable = document.createElement("p");
         unavailable.className = "managed-photo-unavailable";
-        unavailable.textContent = "This deleted image file is no longer available.";
-        unavailable.hidden = true;
-        image.addEventListener("error", () => {
-            image.hidden = true;
-            unavailable.hidden = false;
-        });
+        unavailable.textContent = photo.imageStatus === "deleted"
+            ? "Deleted image — open the controls below to restore it or remove it permanently."
+            : "This image file could not be loaded.";
+        unavailable.hidden = photo.imageStatus !== "deleted";
 
         const caption = document.createElement("p");
         caption.textContent = photo.caption || "Family photo.";
-        card.append(image, unavailable, caption);
+
+        if (photo.imageStatus === "deleted") {
+            card.append(unavailable, caption);
+        } else {
+            const image = document.createElement("img");
+            image.className = "zoom-photo";
+            image.src = normalizeManagedUrl(
+                photo.thumbnailUrl || photo.imageUrl || ""
+            );
+            if (photo.imageUrl) {
+                image.dataset.full = normalizeManagedUrl(photo.imageUrl);
+            }
+            image.alt = photo.caption || photo.originalFilename || "Family photo";
+            image.tabIndex = 0;
+            image.loading = "lazy";
+            image.decoding = "async";
+            image.addEventListener("error", () => {
+                image.hidden = true;
+                unavailable.hidden = false;
+            });
+            card.append(image, unavailable, caption);
+        }
 
         if (!ownerMode) return card;
 
         const manageButton = document.createElement("button");
         manageButton.type = "button";
         manageButton.className = "manage-image-button";
-        manageButton.textContent = "Manage Image";
+        manageButton.textContent = photo.imageStatus === "deleted"
+            ? "Manage Deleted Image"
+            : "Manage Image";
 
         const fields = document.createElement("div");
         fields.className = "managed-photo-fields";
@@ -275,13 +298,18 @@
             actions.appendChild(createButton("Restore Image", () => {
                 void context.runAction("restore_image", photo);
             }));
+            actions.appendChild(createButton("Permanently Remove Deleted Image", () => {
+                void context.runAction("purge_image", photo);
+            }));
         }
 
         fields.append(statusRow, captionLabel, orderLabel, actions);
         manageButton.addEventListener("click", () => {
             fields.hidden = !fields.hidden;
             manageButton.textContent = fields.hidden
-                ? "Manage Image"
+                ? photo.imageStatus === "deleted"
+                    ? "Manage Deleted Image"
+                    : "Manage Image"
                 : "Close Image Controls";
         });
         card.append(manageButton, fields);
@@ -410,7 +438,9 @@
                 remove_placement:
                     `Remove this image from ${pageLabel} while keeping it available elsewhere?`,
                 delete_image:
-                    "Delete this image from every managed placement? It can be restored by the owner."
+                    "Delete this image from every managed placement? It can be restored by the owner.",
+                purge_image:
+                    "Permanently remove this deleted image and all of its placements? This cannot be undone."
             };
 
             if (confirmations[action] && !window.confirm(confirmations[action])) {

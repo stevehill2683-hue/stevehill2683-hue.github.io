@@ -3815,13 +3815,38 @@ publicationButton.addEventListener(
         );
 
     deletedNote.textContent =
-        "This photo file has been deleted. You can remove its remaining database record.";
+        "This photo is marked deleted. Restore it if its stored file is available, or remove its record permanently.";
 
     deletedNote.style.fontWeight =
         "700";
 
     card.appendChild(
         deletedNote
+    );
+
+    const restoreDeletedButton =
+        document.createElement(
+            "button"
+        );
+
+    restoreDeletedButton.type =
+        "button";
+
+    restoreDeletedButton.className =
+        "owner-success-button";
+
+    restoreDeletedButton.textContent =
+        "Restore Deleted Photo";
+
+    restoreDeletedButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "restore",
+                submission.caption || ""
+            );
+        }
     );
 
     const removeRecordButton =
@@ -3849,8 +3874,21 @@ publicationButton.addEventListener(
         }
     );
 
-    card.appendChild(
+    const deletedActions =
+        document.createElement(
+            "div"
+        );
+
+    deletedActions.className =
+        "owner-editor-actions";
+
+    deletedActions.append(
+        restoreDeletedButton,
         removeRecordButton
+    );
+
+    card.appendChild(
+        deletedActions
     );
 }
 
@@ -4020,7 +4058,18 @@ if (action === "publish") {
         if (action === "delete") {
             const confirmed =
                 window.confirm(
-                    "DELETE this photo from Uploadcare storage? This cannot be undone."
+                    "Mark this photo as deleted? The stored file will be preserved so it can be restored."
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "restore") {
+            const confirmed =
+                window.confirm(
+                    "Restore this deleted photo and its managed image?"
                 );
 
             if (!confirmed) {
