@@ -355,15 +355,10 @@
                 photo.placementStatus === "active"
             ).length;
 
-            const renderablePhotos = photos.filter((photo) => {
-                if (!ownerMode &&
-                    (photo.imageStatus !== undefined ||
-                     photo.placementStatus !== undefined)) {
-                    if (photo.imageStatus !== "active" ||
-                        photo.placementStatus !== "active") return false;
-                }
-                return true;
-            });
+            const renderablePhotos = photos.filter((photo) =>
+                photo.imageStatus === "active" &&
+                photo.placementStatus === "active"
+            );
 
             if (israelTargets.length > 0) {
                 const normalizeLabel = (value) => String(value || "")
