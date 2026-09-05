@@ -3483,7 +3483,12 @@ const renderPhotoSubmissions = (data) => {
         Array.isArray(
             data.submissions
         )
-            ? data.submissions
+            ? data.submissions.filter(
+                (submission) => !(
+                    submission.status === "approved" &&
+                    submission.publishedPath
+                )
+            )
             : [];
 
     const counts =
@@ -4311,7 +4316,8 @@ const loadPhotoSubmissions =
             setMessage(
                 elements.photoMessage,
 
-                data.returnedSubmissions === 0
+                elements.photoSubmissionsList
+                    .children.length === 0
                     ? "No photo submissions were found for this selection."
                     : "Protected photo submissions loaded.",
 
