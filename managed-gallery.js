@@ -10,7 +10,34 @@
 
     function removeSeparatePublishedSection() {
         if (!unifiedGalleryActive) return;
-        document.getElementById("publishedPhotoSection")?.remove();
+
+        const section = document.getElementById("publishedPhotoSection");
+        if (!section) return;
+
+        if (section.querySelector('[data-managed-gallery-loaded="true"]')) {
+            return;
+        }
+
+        const publishedCards = Array.from(
+            section.querySelectorAll(".photo-card")
+        );
+        const managedCards = Array.from(
+            document.querySelectorAll(".managed-photo-card")
+        );
+
+        if (
+            publishedCards.length === 0 ||
+            managedCards.length === 0 ||
+            !publishedCards.every((publishedCard) =>
+                managedCards.some((managedCard) =>
+                    cardsShowSamePhoto(publishedCard, managedCard)
+                )
+            )
+        ) {
+            return;
+        }
+
+        section.remove();
     }
 
     window.addEventListener(
@@ -184,6 +211,66 @@
             .replace(/%26%2339%3B/gi, "%27");
     }
 
+    function photoKeys(values) {
+        const keys = new Set();
+
+        values.filter(Boolean).forEach((value) => {
+            const normalized = normalizeManagedUrl(value);
+
+            try {
+                const url = new URL(normalized, document.baseURI);
+                url.hash = "";
+                url.search = "";
+                keys.add(`url:${url.href.toLowerCase()}`);
+
+                const filename = decodeURIComponent(
+                    url.pathname.split("/").filter(Boolean).pop() || ""
+                ).toLowerCase();
+                if (filename) keys.add(`file:${filename}`);
+            } catch {
+                const filename = normalized
+                    .split(/[\\/]/)
+                    .filter(Boolean)
+                    .pop()
+                    ?.toLowerCase();
+                if (filename) keys.add(`file:${filename}`);
+            }
+        });
+
+        return keys;
+    }
+
+    function cardPhotoKeys(card) {
+        const image = card.querySelector("img");
+        if (!image) return new Set();
+
+        return photoKeys([
+            image.dataset.full,
+            image.getAttribute("src"),
+            image.src
+        ]);
+    }
+
+    function managedPhotoKeys(photo) {
+        return photoKeys([
+            photo.imageUrl,
+            photo.thumbnailUrl,
+            photo.originalFilename
+        ]);
+    }
+
+    function keySetsOverlap(first, second) {
+        return Array.from(first).some((key) => second.has(key));
+    }
+
+    function cardShowsPhoto(card, photo) {
+        return keySetsOverlap(cardPhotoKeys(card), managedPhotoKeys(photo));
+    }
+
+    function cardsShowSamePhoto(first, second) {
+        return keySetsOverlap(cardPhotoKeys(first), cardPhotoKeys(second));
+    }
+
     function createCard(photo, ownerMode, activeCount, context) {
         const card = document.createElement("div");
         card.className = "photo-card managed-photo-card";
@@ -341,6 +428,16 @@
         const statusGrid = standardGrid || israelTargets[0]?.grid;
         if (!pagePath || !statusGrid) return;
 
+        const originalCardsByGrid = new Map();
+        const rememberOriginalCards = (grid) => {
+            if (!originalCardsByGrid.has(grid)) {
+                originalCardsByGrid.set(grid, Array.from(grid.children));
+            }
+        };
+
+        if (standardGrid) rememberOriginalCards(standardGrid);
+        israelTargets.forEach((target) => rememberOriginalCards(target.grid));
+
         addStyles();
         const status = createStatus(statusGrid);
         const ownerMode = session.isOwner === true;
@@ -365,6 +462,42 @@
                 photo.placementStatus === "active"
             );
 
+            const renderGrid = (grid, managedPhotos) => {
+                const cards = Array.from(
+                    originalCardsByGrid.get(grid) || []
+                );
+
+                managedPhotos.forEach((photo) => {
+                    const matchingIndex = cards.findIndex((card) =>
+                        cardShowsPhoto(card, photo)
+                    );
+                    const isVisible =
+                        photo.imageStatus === "active" &&
+                        photo.placementStatus === "active";
+
+                    if (!isVisible) {
+                        if (matchingIndex >= 0) cards.splice(matchingIndex, 1);
+                        return;
+                    }
+
+                    const managedCard = createCard(
+                        photo,
+                        ownerMode,
+                        activeCount,
+                        context
+                    );
+
+                    if (matchingIndex >= 0) {
+                        cards[matchingIndex] = managedCard;
+                    } else {
+                        cards.push(managedCard);
+                    }
+                });
+
+                grid.replaceChildren(...cards);
+                grid.dataset.managedGalleryLoaded = "true";
+            };
+
             if (israelTargets.length > 0) {
                 const normalizeLabel = (value) => String(value || "")
                     .replace(/\u2019/g, "'")
@@ -382,28 +515,17 @@
                     throw new Error("One or more Israel photos have no matching subsection.");
                 }
 
-                israelTargets.forEach((target) => target.grid.replaceChildren());
-                renderablePhotos.forEach((photo) => {
-                    const target = targetByLabel.get(
-                        normalizeLabel(photo.familyMember)
-                    );
-                    target.grid.appendChild(
-                        createCard(photo, ownerMode, activeCount, context)
-                    );
-                });
                 israelTargets.forEach((target) => {
-                    target.grid.dataset.managedGalleryLoaded = "true";
+                    const targetPhotos = photos.filter((photo) =>
+                        normalizeLabel(photo.familyMember) ===
+                        normalizeLabel(target.label)
+                    );
+                    renderGrid(target.grid, targetPhotos);
                 });
                 return;
             }
 
-            standardGrid.replaceChildren();
-            renderablePhotos.forEach((photo) => {
-                standardGrid.appendChild(
-                    createCard(photo, ownerMode, activeCount, context)
-                );
-            });
-            standardGrid.dataset.managedGalleryLoaded = "true";
+            renderGrid(standardGrid, photos);
         };
 
         const refresh = async () => {
