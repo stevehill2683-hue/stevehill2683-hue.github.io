@@ -377,6 +377,48 @@
             border-radius: 10px;
         }
 
+        .owner-visits-card .owner-table-wrap {
+            max-height: 520px;
+            overflow: auto;
+        }
+
+        .owner-visits-card .owner-data-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: #fffaf1;
+        }
+
+        .owner-visit-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .owner-visit-controls label {
+            display: grid;
+            gap: 5px;
+            min-width: min(100%, 240px);
+            font-weight: 700;
+        }
+
+        .owner-visit-controls select {
+            padding: 9px 10px;
+            border: 1px solid #8f765d;
+            border-radius: 7px;
+            background: #fff;
+            font: inherit;
+        }
+
+        .owner-visit-page-status {
+            align-self: center;
+            min-width: 120px;
+            font-weight: 700;
+            text-align: center;
+        }
+
         .owner-data-table {
             width: 100%;
             min-width: 920px;
@@ -1384,6 +1426,47 @@
 
                 </div>
 
+                <div class="owner-visit-controls">
+                    <label for="ownerVisitMemberFilter">
+                        Visitor name
+                        <select id="ownerVisitMemberFilter">
+                            <option value="">Choose a visitor</option>
+                        </select>
+                    </label>
+
+                    <button
+                        id="purgeVisitorHistoryButton"
+                        class="owner-danger-button"
+                        type="button"
+                        disabled
+                    >
+                        Purge Completed Visits for Name
+                    </button>
+
+                    <button
+                        id="previousVisitsPageButton"
+                        class="owner-secondary-button"
+                        type="button"
+                    >
+                        Previous Visits
+                    </button>
+
+                    <span
+                        id="ownerVisitsPageStatus"
+                        class="owner-visit-page-status"
+                    >
+                        Page 1 of 1
+                    </span>
+
+                    <button
+                        id="nextVisitsPageButton"
+                        class="owner-secondary-button"
+                        type="button"
+                    >
+                        Next Visits
+                    </button>
+                </div>
+
                 <div
                     id="ownerVisitsEmpty"
                     class="owner-empty-state"
@@ -1794,6 +1877,9 @@
                 selectedVisitId: null,
                 selectedMemberId: null,
                 members: [],
+                visitsPage: 1,
+                visitsPageSize: 25,
+                totalVisitPages: 1,
                 requestInProgress: false
             };
 
@@ -1926,6 +2012,21 @@
 
                 visitsTableBody:
                     byId("ownerVisitsTableBody"),
+
+                visitMemberFilter:
+                    byId("ownerVisitMemberFilter"),
+
+                purgeVisitorHistoryButton:
+                    byId("purgeVisitorHistoryButton"),
+
+                previousVisitsPageButton:
+                    byId("previousVisitsPageButton"),
+
+                nextVisitsPageButton:
+                    byId("nextVisitsPageButton"),
+
+                visitsPageStatus:
+                    byId("ownerVisitsPageStatus"),
 
                 detailPanel:
                     byId("ownerVisitDetailPanel"),
@@ -2669,6 +2770,34 @@ photoActionDialogConfirm:
                     });
             };
 
+            const refreshVisitMemberChoices = () => {
+                const selectedValue =
+                    elements.visitMemberFilter.value;
+
+                elements.visitMemberFilter.replaceChildren(
+                    new Option("Choose a visitor", "")
+                );
+
+                state.members.forEach((member) => {
+                    elements.visitMemberFilter.appendChild(
+                        new Option(
+                            member.displayName || "Unknown",
+                            String(member.memberId)
+                        )
+                    );
+                });
+
+                if (
+                    Array.from(elements.visitMemberFilter.options)
+                        .some((option) => option.value === selectedValue)
+                ) {
+                    elements.visitMemberFilter.value = selectedValue;
+                }
+
+                elements.purgeVisitorHistoryButton.disabled =
+                    !elements.visitMemberFilter.value;
+            };
+
             const renderMembers = (data) => {
                 elements.membersTableBody
                     .replaceChildren();
@@ -2681,6 +2810,7 @@ photoActionDialogConfirm:
                         : [];
 
                 state.members = members;
+                refreshVisitMemberChoices();
 
                 const activeCount =
                     members.filter(
@@ -2859,6 +2989,23 @@ photoActionDialogConfirm:
                         formatDateTime(
                             data.generatedAt
                         );
+
+                state.totalVisitPages = Math.max(
+                    1,
+                    Math.ceil(
+                        Number(data.totalVisits || 0) /
+                        state.visitsPageSize
+                    )
+                );
+
+                elements.visitsPageStatus.textContent =
+                    `Page ${state.visitsPage} of ${state.totalVisitPages}`;
+
+                elements.previousVisitsPageButton.disabled =
+                    state.visitsPage <= 1;
+
+                elements.nextVisitsPageButton.disabled =
+                    state.visitsPage >= state.totalVisitPages;
 
                 const visits =
                     Array.isArray(
@@ -3336,7 +3483,12 @@ const renderPhotoSubmissions = (data) => {
         Array.isArray(
             data.submissions
         )
-            ? data.submissions
+            ? data.submissions.filter(
+                (submission) => !(
+                    submission.status === "approved" &&
+                    submission.publishedPath
+                )
+            )
             : [];
 
     const counts =
@@ -3815,13 +3967,80 @@ publicationButton.addEventListener(
         );
 
     deletedNote.textContent =
-        "This photo has been deleted. No further actions are available.";
+        "This photo is marked deleted. Restore it if its stored file is available, or remove its record permanently.";
 
     deletedNote.style.fontWeight =
         "700";
 
     card.appendChild(
         deletedNote
+    );
+
+    const restoreDeletedButton =
+        document.createElement(
+            "button"
+        );
+
+    restoreDeletedButton.type =
+        "button";
+
+    restoreDeletedButton.className =
+        "owner-success-button";
+
+    restoreDeletedButton.textContent =
+        "Restore Deleted Photo";
+
+    restoreDeletedButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "restore",
+                submission.caption || ""
+            );
+        }
+    );
+
+    const removeRecordButton =
+        document.createElement(
+            "button"
+        );
+
+    removeRecordButton.type =
+        "button";
+
+    removeRecordButton.className =
+        "owner-danger-button";
+
+    removeRecordButton.textContent =
+        "Remove Deleted Record";
+
+    removeRecordButton.addEventListener(
+        "click",
+        () => {
+            void runPhotoAction(
+                submission.submissionId,
+                "purge",
+                submission.caption || ""
+            );
+        }
+    );
+
+    const deletedActions =
+        document.createElement(
+            "div"
+        );
+
+    deletedActions.className =
+        "owner-editor-actions";
+
+    deletedActions.append(
+        restoreDeletedButton,
+        removeRecordButton
+    );
+
+    card.appendChild(
+        deletedActions
     );
 }
 
@@ -3991,7 +4210,29 @@ if (action === "publish") {
         if (action === "delete") {
             const confirmed =
                 window.confirm(
-                    "DELETE this photo from Uploadcare storage? This cannot be undone."
+                    "Mark this photo as deleted? The stored file will be preserved so it can be restored."
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "restore") {
+            const confirmed =
+                window.confirm(
+                    "Restore this deleted photo and its managed image?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        if (action === "purge") {
+            const confirmed =
+                window.confirm(
+                    "Remove this deleted photo's remaining database record? This cannot be undone."
                 );
 
             if (!confirmed) {
@@ -4075,7 +4316,8 @@ const loadPhotoSubmissions =
             setMessage(
                 elements.photoMessage,
 
-                data.returnedSubmissions === 0
+                elements.photoSubmissionsList
+                    .children.length === 0
                     ? "No photo submissions were found for this selection."
                     : "Protected photo submissions loaded.",
 
@@ -4158,7 +4400,10 @@ const loadPhotoSubmissions =
                         await apiRequest(
                             "/owner-visits",
                             {
-                                limit: 50
+                                limit: state.visitsPageSize,
+                                offset:
+                                    (state.visitsPage - 1) *
+                                    state.visitsPageSize
                             },
                             state.token
                         );
@@ -4177,6 +4422,66 @@ const loadPhotoSubmissions =
                 } catch (error) {
                     clearVisitDisplay();
 
+                    handleSecureError(
+                        error,
+                        elements.visitsMessage
+                    );
+                } finally {
+                    setBusy(false);
+                }
+            };
+
+            const purgeSelectedVisitorHistory = async () => {
+                const memberId = Number(
+                    elements.visitMemberFilter.value
+                );
+
+                const member = state.members.find(
+                    (item) => Number(item.memberId) === memberId
+                );
+
+                if (!member || !Number.isInteger(memberId)) {
+                    setMessage(
+                        elements.visitsMessage,
+                        "Choose a visitor name first.",
+                        "error"
+                    );
+                    return;
+                }
+
+                const confirmed = window.confirm(
+                    `Permanently purge all completed visit records for ${member.displayName}? ` +
+                    "Any active visit will be kept so the visitor is not signed out."
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                setBusy(true);
+                setMessage(
+                    elements.visitsMessage,
+                    `Purging completed visits for ${member.displayName}...`
+                );
+
+                try {
+                    const result = await apiRequest(
+                        "/owner-visits-purge",
+                        { memberId },
+                        state.token
+                    );
+
+                    state.visitsPage = 1;
+                    setBusy(false);
+                    await loadVisits();
+
+                    setMessage(
+                        elements.visitsMessage,
+                        `${result.purgedVisits || 0} completed visit record(s) purged for ${member.displayName}. ` +
+                        "Active visits were kept.",
+                        "success"
+                    );
+                } catch (error) {
                     handleSecureError(
                         error,
                         elements.visitsMessage
@@ -4974,6 +5279,49 @@ elements.photoStatusFilter
                         }
                     }
                 );
+
+            elements.visitMemberFilter.addEventListener(
+                "change",
+                () => {
+                    elements.purgeVisitorHistoryButton.disabled =
+                        !elements.visitMemberFilter.value;
+                }
+            );
+
+            elements.purgeVisitorHistoryButton.addEventListener(
+                "click",
+                () => {
+                    if (!state.requestInProgress) {
+                        void purgeSelectedVisitorHistory();
+                    }
+                }
+            );
+
+            elements.previousVisitsPageButton.addEventListener(
+                "click",
+                () => {
+                    if (
+                        !state.requestInProgress &&
+                        state.visitsPage > 1
+                    ) {
+                        state.visitsPage -= 1;
+                        void loadVisits();
+                    }
+                }
+            );
+
+            elements.nextVisitsPageButton.addEventListener(
+                "click",
+                () => {
+                    if (
+                        !state.requestInProgress &&
+                        state.visitsPage < state.totalVisitPages
+                    ) {
+                        state.visitsPage += 1;
+                        void loadVisits();
+                    }
+                }
+            );
 
             elements.closeDetailButton
                 .addEventListener(
