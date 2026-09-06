@@ -221,6 +221,7 @@
         .owner-section-heading button,
         .owner-detail-button,
         .owner-member-button,
+        .owner-visit-controls button,
         .owner-add-member-form button,
         .owner-edit-form button,
         .owner-editor-actions button {
@@ -240,6 +241,7 @@
         .owner-section-heading button:hover,
         .owner-detail-button:hover,
         .owner-member-button:hover,
+        .owner-visit-controls button:hover,
         .owner-add-member-form button:hover,
         .owner-edit-form button:hover,
         .owner-editor-actions button:hover,
@@ -248,6 +250,7 @@
         .owner-section-heading button:focus-visible,
         .owner-detail-button:focus-visible,
         .owner-member-button:focus-visible,
+        .owner-visit-controls button:focus-visible,
         .owner-add-member-form button:focus-visible,
         .owner-edit-form button:focus-visible,
         .owner-editor-actions button:focus-visible {
@@ -257,6 +260,14 @@
         button:disabled {
             cursor: not-allowed !important;
             opacity: 0.55;
+        }
+
+        .owner-visit-controls button {
+            color: #ffffff !important;
+        }
+
+        .owner-visit-controls button:disabled {
+            opacity: 1;
         }
 
         .owner-secondary-button {
