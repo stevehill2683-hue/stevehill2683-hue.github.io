@@ -1857,7 +1857,7 @@
         </p>
 
     </footer>
-    <script src="family-access.js"></script>
+    <script src="family-access.js?v=20260906-1"></script>
     
     <script>
         (() => {
@@ -2477,7 +2477,9 @@ photoActionDialogConfirm:
                     .textContent = "0";
             };
 
-            const clearVisitDisplay = () => {
+            const clearVisitDisplay = (
+                summaryStatus = "Unavailable"
+            ) => {
                 elements.visitsTableBody
                     .replaceChildren();
 
@@ -2497,14 +2499,16 @@ photoActionDialogConfirm:
                     true;
 
                 elements.totalVisits
-                    .textContent = "0";
+                    .textContent =
+                        summaryStatus;
 
                 elements.returnedVisits
-                    .textContent = "0";
+                    .textContent =
+                        summaryStatus;
 
                 elements.generatedAt
                     .textContent =
-                        "Unavailable";
+                        summaryStatus;
             };
 
             const signOut = (
@@ -4393,7 +4397,7 @@ const loadPhotoSubmissions =
                     "Loading protected visit records..."
                 );
 
-                clearVisitDisplay();
+                clearVisitDisplay("Loading…");
 
                 try {
                     const data =

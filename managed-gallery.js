@@ -5,6 +5,8 @@
         "https://steve-anita-family-access.stevehill2683.workers.dev";
     const SESSION_STORAGE_KEY = "steve-anita-family-session";
     let unifiedGalleryActive = false;
+    let initializationInProgress = false;
+    let initialized = false;
 
     function removeSeparatePublishedSection() {
         if (!unifiedGalleryActive) return;
@@ -316,9 +318,12 @@
         return card;
     }
 
-    async function initialize() {
-        const session = getSession();
-        if (!session) return;
+    async function initializeGallery(session) {
+        const verifiedSession = await post("/session", {
+            sessionToken: session.sessionToken
+        });
+
+        session.isOwner = verifiedSession.isOwner === true;
 
         const pagePath = currentPagePath();
         const standardGrid = document.querySelector(
@@ -460,6 +465,7 @@
 
         try {
             await refresh();
+            initialized = true;
         } catch (error) {
             status.remove();
             console.warn(
@@ -468,6 +474,30 @@
             );
         }
     }
+
+    async function initialize() {
+        if (initialized || initializationInProgress) return;
+
+        const session = getSession();
+        if (!session) return;
+
+        initializationInProgress = true;
+
+        try {
+            await initializeGallery(session);
+        } catch (error) {
+            console.warn(
+                "Managed gallery could not verify the family session.",
+                error
+            );
+        } finally {
+            initializationInProgress = false;
+        }
+    }
+
+    window.addEventListener("family-session-ready", () => {
+        void initialize();
+    });
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {

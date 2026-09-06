@@ -962,6 +962,19 @@
             Date.now();
 
         saveSession();
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "family-session-ready",
+                {
+                    detail: {
+                        isOwner:
+                            state.isOwner
+                    }
+                }
+            )
+        );
+
         openMenu();
         scheduleIdleWarning();
 
