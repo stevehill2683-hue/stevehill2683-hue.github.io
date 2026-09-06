@@ -271,7 +271,13 @@
         return keySetsOverlap(cardPhotoKeys(first), cardPhotoKeys(second));
     }
 
-    function createCard(photo, ownerMode, activeCount, context) {
+    function createCard(
+        photo,
+        ownerMode,
+        activeCount,
+        context,
+        fallbackCard = null
+    ) {
         const card = document.createElement("div");
         card.className = "photo-card managed-photo-card";
         card.dataset.search = [
@@ -293,6 +299,12 @@
         if (photo.imageStatus === "deleted") {
             card.append(unavailable, caption);
         } else {
+            const fallbackImage = fallbackCard?.querySelector("img") || null;
+            const fallbackSource = fallbackImage?.getAttribute("src") || "";
+            const fallbackFull =
+                fallbackImage?.dataset.full || fallbackSource;
+            let fallbackAttempted = false;
+
             const image = document.createElement("img");
             image.className = "zoom-photo";
             image.src = normalizeManagedUrl(
@@ -306,6 +318,15 @@
             image.loading = "lazy";
             image.decoding = "async";
             image.addEventListener("error", () => {
+                if (!fallbackAttempted && fallbackSource) {
+                    fallbackAttempted = true;
+                    image.hidden = false;
+                    unavailable.hidden = true;
+                    image.src = fallbackSource;
+                    image.dataset.full = fallbackFull;
+                    return;
+                }
+
                 image.hidden = true;
                 unavailable.hidden = false;
             });
@@ -484,7 +505,10 @@
                         photo,
                         ownerMode,
                         activeCount,
-                        context
+                        context,
+                        matchingIndex >= 0
+                            ? cards[matchingIndex]
+                            : null
                     );
 
                     if (matchingIndex >= 0) {
