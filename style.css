@@ -1445,6 +1445,13 @@ body:has(#mainNavigation:not([hidden])) {
         padding-left: 0;
     }
 }
+
+@media (max-width: 700px) {
+    #sidebar,
+    body:has(#mainNavigation:not([hidden])) #sidebar {
+        display: none;
+    }
+}
 /* ===============================
    SITE VERSION
    CSS Version V20.5
