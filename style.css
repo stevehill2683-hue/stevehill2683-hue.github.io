@@ -1091,7 +1091,7 @@ body::after {
     display: block !important;
     position: fixed !important;
     right: 18px;
-    bottom: 86px;
+    bottom: 8px;
     background: var(--paper);
     color: var(--accent-dark);
     border: 2px solid var(--accent);
@@ -1290,7 +1290,7 @@ body::after {
 
     body::after {
         right: 10px;
-        bottom: 82px;
+        bottom: 8px;
         font-size: 0.68rem;
         padding: 4px 8px;
     }
