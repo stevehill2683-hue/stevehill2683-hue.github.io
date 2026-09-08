@@ -484,41 +484,67 @@
             );
 
             const renderGrid = (grid, managedPhotos) => {
-                const cards = Array.from(
+                const originalCards = Array.from(
                     originalCardsByGrid.get(grid) || []
                 );
+                const matchedOriginalCards = new Set();
+                const managedEntries = [];
 
-                managedPhotos.forEach((photo) => {
-                    const matchingIndex = cards.findIndex((card) =>
+                managedPhotos.forEach((photo, index) => {
+                    const fallbackCard = originalCards.find((card) =>
+                        !matchedOriginalCards.has(card) &&
                         cardShowsPhoto(card, photo)
                     );
                     const isVisible =
                         photo.imageStatus === "active" &&
                         photo.placementStatus === "active";
 
-                    if (!isVisible) {
-                        if (matchingIndex >= 0) cards.splice(matchingIndex, 1);
-                        return;
+                    if (fallbackCard) {
+                        matchedOriginalCards.add(fallbackCard);
                     }
 
-                    const managedCard = createCard(
+                    if (!isVisible) return;
+
+                    managedEntries.push({
                         photo,
+                        fallbackCard,
+                        index
+                    });
+                });
+
+                managedEntries.sort((first, second) => {
+                    const firstOrder = Number(first.photo.sortOrder);
+                    const secondOrder = Number(second.photo.sortOrder);
+                    const safeFirstOrder =
+                        Number.isFinite(firstOrder) && firstOrder > 0
+                            ? firstOrder
+                            : Number.MAX_SAFE_INTEGER;
+                    const safeSecondOrder =
+                        Number.isFinite(secondOrder) && secondOrder > 0
+                            ? secondOrder
+                            : Number.MAX_SAFE_INTEGER;
+
+                    return safeFirstOrder - safeSecondOrder ||
+                        first.index - second.index;
+                });
+
+                const managedCards = managedEntries.map((entry) =>
+                    createCard(
+                        entry.photo,
                         ownerMode,
                         activeCount,
                         context,
-                        matchingIndex >= 0
-                            ? cards[matchingIndex]
-                            : null
-                    );
+                        entry.fallbackCard
+                    )
+                );
+                const preservedOriginalCards = originalCards.filter((card) =>
+                    !matchedOriginalCards.has(card)
+                );
 
-                    if (matchingIndex >= 0) {
-                        cards[matchingIndex] = managedCard;
-                    } else {
-                        cards.push(managedCard);
-                    }
-                });
-
-                grid.replaceChildren(...cards);
+                grid.replaceChildren(
+                    ...managedCards,
+                    ...preservedOriginalCards
+                );
                 grid.dataset.managedGalleryLoaded = "true";
             };
 
