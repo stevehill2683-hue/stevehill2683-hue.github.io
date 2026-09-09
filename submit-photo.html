@@ -314,6 +314,42 @@
                         </select>
                     </div>
 
+                    <div id="israelSectionField" class="photo-submit-field" hidden>
+                        <label for="photoIsraelSection">Which Israel section?</label>
+                        <select id="photoIsraelSection" name="photoIsraelSection">
+                            <option value="">Select an Israel section</option>
+                            <option value="title-1">General</option>
+                            <option value="title-2">Southern Stairs</option>
+                            <option value="title-3">Temple Mount</option>
+                            <option value="title-4">Masada</option>
+                            <option value="title-5">Sea Of Gal</option>
+                            <option value="title-6">Temple Institute</option>
+                            <option value="title-7">Ramparts Walk Citadel</option>
+                            <option value="title-8">Wet Tunnel Hezekiah</option>
+                            <option value="title-9">Megiddo</option>
+                            <option value="title-10">Golden Gate</option>
+                            <option value="title-11">David &amp; Goliath</option>
+                            <option value="title-12">Jordan Baptism</option>
+                            <option value="title-13">Caesarea</option>
+                            <option value="title-14">Garden of Gethsemane</option>
+                            <option value="title-15">Jerusalem Shopping</option>
+                            <option value="title-16">Garden Tomb</option>
+                            <option value="title-17">Model City</option>
+                            <option value="title-18">Mount of Beatitudes</option>
+                            <option value="title-19">Western Wall &amp; Rabbi's Tunnel</option>
+                            <option value="title-20">Capharnaum</option>
+                            <option value="title-21">City of David</option>
+                            <option value="title-22">Mount of Olives</option>
+                            <option value="title-23">Burn't House</option>
+                            <option value="title-24">Robinson's Arch</option>
+                            <option value="title-25">Nahariya Mission</option>
+                            <option value="title-26">Bar Mitzvah</option>
+                            <option value="title-28">Rosh HaNikra Grottoes</option>
+                            <option value="title-29">Tel-Aviv</option>
+                            <option value="title-30">Misc Pictures</option>
+                        </select>
+                    </div>
+
                     <div class="photo-submit-field">
                         <label for="photoCaption">Caption or note (optional)</label>
                         <textarea
@@ -370,6 +406,8 @@
             const destinationInput = document.getElementById("photoDestination");
             const familyMemberField = document.getElementById("familyMemberField");
             const familyMemberInput = document.getElementById("photoFamilyMember");
+            const israelSectionField = document.getElementById("israelSectionField");
+            const israelSectionInput = document.getElementById("photoIsraelSection");
             const captionInput = document.getElementById("photoCaption");
             const submitButton = document.getElementById("photoSubmitButton");
             const resetButton = document.getElementById("photoResetButton");
@@ -441,6 +479,7 @@
                 fileInput.disabled = busy;
                 destinationInput.disabled = busy;
                 familyMemberInput.disabled = busy;
+                israelSectionInput.disabled = busy;
                 captionInput.disabled = busy;
                 submitButton.textContent = busy ? "Uploading..." : "Submit Photo";
             };
@@ -460,19 +499,26 @@
                 checkedPhoto = null;
             };
 
-            const updateFamilyMemberField = () => {
+            const updateDestinationFields = () => {
                 const isFamily = destinationInput.value === "Family";
+                const isIsrael = destinationInput.value === "Israel";
                 familyMemberField.hidden = !isFamily;
                 familyMemberInput.required = isFamily;
+                israelSectionField.hidden = !isIsrael;
+                israelSectionInput.required = isIsrael;
 
                 if (!isFamily) {
                     familyMemberInput.value = "";
+                }
+
+                if (!isIsrael) {
+                    israelSectionInput.value = "";
                 }
             };
 
             const resetForm = () => {
                 form.reset();
-                updateFamilyMemberField();
+                updateDestinationFields();
                 clearPreview();
                 setStatus("");
                 resultBox.hidden = true;
@@ -667,6 +713,7 @@
                 fileUuid,
                 destination,
                 familyMember,
+                israelSection,
                 caption,
                 photoCheck
             }) => {
@@ -690,6 +737,10 @@
                             familyMember:
                                 destination === "Family"
                                     ? familyMember
+                                    : "",
+                            israelSection:
+                                destination === "Israel"
+                                    ? israelSection
                                     : "",
                             caption
                         }),
@@ -753,7 +804,7 @@
             };
 
             const uploadToUploadcare = async ({
-                file, signature, expire, destination, familyMember, caption, displayName, photoCheck
+                file, signature, expire, destination, familyMember, israelSection, caption, displayName, photoCheck
             }) => {
                 const uploadData = new FormData();
                 uploadData.append("UPLOADCARE_PUB_KEY", UPLOADCARE_PUBLIC_KEY);
@@ -764,6 +815,9 @@
                 uploadData.append("metadata[destination]", destination);
                 if (familyMember) {
                     uploadData.append("metadata[family_member]", familyMember);
+                }
+                if (israelSection) {
+                    uploadData.append("metadata[israel_section]", israelSection);
                 }
                 uploadData.append("metadata[submitted_by]", displayName);
                 uploadData.append("metadata[submitted_at]", new Date().toISOString());
@@ -868,7 +922,7 @@
             });
 
             destinationInput.addEventListener("change", () => {
-                updateFamilyMemberField();
+                updateDestinationFields();
             });
 
             resetButton.addEventListener("click", resetForm);
@@ -884,6 +938,7 @@
                 const file = fileInput.files && fileInput.files[0];
                 const destination = destinationInput.value.trim();
                 const familyMember = familyMemberInput.value.trim();
+                const israelSection = israelSectionInput.value.trim();
                 const caption = captionInput.value.trim();
 
                 try {
@@ -903,6 +958,9 @@
                     if (!destination) throw new Error("Choose where the photo belongs.");
                     if (destination === "Family" && !familyMember) {
                         throw new Error("Choose which family member the photo belongs to.");
+                    }
+                    if (destination === "Israel" && !israelSection) {
+                        throw new Error("Choose which Israel section the photo belongs to.");
                     }
 
                     setBusy(true);
@@ -925,6 +983,7 @@
                         expire: signatureData.secureExpire,
                         destination,
                         familyMember,
+                        israelSection,
                         caption,
                         displayName: familySession.displayName,
                         photoCheck: checkedPhoto
@@ -942,6 +1001,7 @@
                             fileUuid,
                             destination,
                             familyMember,
+                            israelSection,
                             caption,
                             photoCheck: checkedPhoto
                         });
@@ -953,7 +1013,12 @@
                     const destinationLabel =
                         destination === "Family" && familyMember
                             ? `${destination} — ${familyMember}`
-                            : destination;
+                            : destination === "Israel" && israelSection
+                                ? `${destination} — ${
+                                    israelSectionInput.selectedOptions[0]?.textContent ||
+                                    israelSection
+                                }`
+                                : destination;
 
                     resultText.textContent =
                         `${file.name} was received for ${destinationLabel}. ` +
@@ -961,7 +1026,7 @@
                     resultBox.hidden = false;
                     rememberSuccessfulHash(checkedPhoto.hash);
                     form.reset();
-                    updateFamilyMemberField();
+                    updateDestinationFields();
                     clearPreview();
                 } catch (error) {
                     if (
@@ -981,7 +1046,7 @@
                 }
             });
 
-            updateFamilyMemberField();
+            updateDestinationFields();
             window.addEventListener("beforeunload", revokePreviewUrl);
             waitForValidatedSession();
         })();
