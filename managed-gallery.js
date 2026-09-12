@@ -562,7 +562,9 @@
                     !targetByLabel.has(normalizeLabel(photo.familyMember))
                 );
                 if (unmatched.length > 0) {
-                    throw new Error("One or more Israel photos have no matching subsection.");
+                    console.warn(
+                        "Some Israel photos have no matching subsection; continuing with matched photos."
+                    );
                 }
 
                 israelTargets.forEach((target) => {
