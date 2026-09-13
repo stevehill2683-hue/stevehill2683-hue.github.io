@@ -1,10 +1,26 @@
 import sidebarData from "./sidebarData.js?v=20260913-1";
 
+// The working Table of Contents owns every Israel section destination.
+async function loadIsraelLinks() {
+    const response = await fetch("israel.html", { cache: "no-cache" });
+    if (!response.ok) throw new Error("Could not load the Israel Table of Contents");
+    const page = new DOMParser().parseFromString(await response.text(), "text/html");
+    const links = new Map();
+    page.querySelectorAll("#toc .israel-toc-grid a[href^='#']").forEach(link => {
+        const hash = link.getAttribute("href");
+        if (page.getElementById(hash.slice(1))) {
+            links.set(link.textContent.trim(), "israel.html" + hash);
+        }
+    });
+    if (!links.size) throw new Error("The Israel Table of Contents has no section links");
+    return links;
+}
+
 function buildSidebar() {
     const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
 
-    Object.keys(sidebarData).forEach(category => {
+    Object.keys(sidebarData).forEach(async category => {
         // TOP-LEVEL CATEGORY (PURPLE)
         const topItem = document.createElement("a");
         topItem.textContent = category;
@@ -23,7 +39,20 @@ function buildSidebar() {
         sidebar.appendChild(topItem);
 
         // SUB-CATEGORIES
-        const subs = sidebarData[category];
+        let subs = sidebarData[category];
+        let israelLinks;
+        if (category === "Israel") {
+            try {
+                israelLinks = await loadIsraelLinks();
+                // Retain the sidebar's display order; new TOC entries appear at the end.
+                subs = [...subs.filter(sub => israelLinks.has(sub)),
+                    ...[...israelLinks.keys()].filter(sub => !subs.includes(sub))];
+            } catch (error) {
+                // The Israel heading still opens the working Table of Contents.
+                console.error(error);
+                return;
+            }
+        }
 
         subs.forEach(sub => {
             const subItem = document.createElement("a");
@@ -47,39 +76,7 @@ function buildSidebar() {
 
 } else if (category === "Israel") {
     subItem.classList.add("sidebar-item-israel");
-    const israelLinks = {
-        "General": "israel.html#title-1",
-        "Southern Stairs": "israel.html#title-2",
-        "Temple Mount": "israel.html#title-3",
-        "Masada": "israel.html#title-4",
-        "Sea Of Gal": "israel.html#title-5",
-        "Temple Institute": "israel.html#title-6",
-        "Ramparts Walk Citadel": "israel.html#title-7",
-        "David & Goliath": "israel.html#title-11",
-        "Jordan Baptism": "israel.html#title-12",
-        "Garden Tomb": "israel.html#title-16",
-        "Model City": "israel.html#title-17",
-        "City of David": "israel.html#title-21",
-        "Bar Mitzvah": "israel.html#title-26",
-        "Rosh HaNikra Grottoes": "israel.html#title-28",
-        "Wet Tunnel Hezekiah": "israel.html#title-8",
-        "Megiddo": "israel.html#title-9",
-        "Golden Gate": "israel.html#title-10",
-        "Caesarea": "israel.html#title-13",
-        "Garden of Gethsemane": "israel.html#title-14",
-        "Mount of Beatitudes": "israel.html#title-18",
-        "Mount of Olives": "israel.html#title-22",
-        "Burn't House": "israel.html#title-23",
-        "Robinson's Arch": "israel.html#title-24",
-        "Tel-Aviv": "israel.html#title-29",
-        "Misc Pictures": "israel.html#title-30",
-        "Nahariya Mission": "israel.html#title-25",
-        "Jerusalem Shopping": "israel.html#title-15",
-        "Western Wall & Rabbi's Tunnel": "israel.html#title-19",
-        "Capharnaum": "israel.html#title-20"
-    };
-
-    subItem.href = israelLinks[sub] || "#";
+    subItem.href = israelLinks.get(sub);
 }
 
 sidebar.appendChild(subItem);
