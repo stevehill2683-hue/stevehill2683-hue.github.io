@@ -17,7 +17,7 @@ const sidebarData = {
     "Southern Stairs",
     "Temple Mount",
     "Masada",
-    "Sea Of Galilee",
+    "Sea Of Gal",
     "Temple Institute",
     "Ramparts Walk Citadel",
     "David & Goliath",
@@ -26,22 +26,22 @@ const sidebarData = {
     "Model City",
     "City of David",
     "Bar Mitzvah",
-    "Rosh HaNikira Grottoes",
-    "Temple Mount Hezekiah",
+    "Rosh HaNikra Grottoes",
+    "Wet Tunnel Hezekiah",
     "Megiddo",
     "Golden Gate",
     "Caesarea",
     "Garden of Gethsemane",
     "Mount of Beatitudes",
     "Mount of Olives",
-    "Burnt House",
+    "Burn't House",
     "Robinson's Arch",
-    "Tel‑Aviv",
+    "Tel-Aviv",
     "Misc Pictures",
     "Nahariya Mission",
     "Jerusalem Shopping",
     "Western Wall & Rabbi's Tunnel",
-    "Capernaum"
+    "Capharnaum"
   ],
 
   3131: [],
@@ -50,3 +50,4 @@ const sidebarData = {
 };
 
 export default sidebarData;
+
