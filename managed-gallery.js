@@ -487,6 +487,13 @@
                 const originalCards = Array.from(
                     originalCardsByGrid.get(grid) || []
                 );
+                // Published Israel uploads may arrive after the initial gallery snapshot.
+                // Include them before replacing children so loading order cannot erase them.
+                if (pagePath === "israel.html") {
+                    grid.querySelectorAll(":scope > .published-photo-card").forEach((card) => {
+                        if (!originalCards.includes(card)) originalCards.push(card);
+                    });
+                }
                 const matchedOriginalCards = new Set();
                 const managedEntries = [];
 
